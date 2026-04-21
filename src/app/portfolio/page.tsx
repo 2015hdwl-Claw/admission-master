@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { LEARNING_CODE_LABELS, LEARNING_CODE_COLORS } from '@/data/national-calendar';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
 import type { PortfolioItem, LearningCode, PortfolioSuggestion, OnboardingProfile } from '@/types';
@@ -165,9 +166,28 @@ export default function PortfolioPage() {
             <p className="text-sm text-gray-500">根據你的方向和已有素材，建議下一步該補什麼</p>
           </div>
           {!isPro ? (
-            <a href="/pricing" className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors">
-              Pro 解鎖
-            </a>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setShowSuggestion(true);
+                  setSuggestion({
+                    missingCodes: [],
+                    suggestions: [
+                      '根據你的方向，建議準備至少 1 件書面報告（B），展現你的研究和思考能力。',
+                      '參加一個與你的目標方向相關的活動或社團，累積實際經驗（G）。',
+                      '如果有競賽經驗（J），記得完整記錄過程和收穫。',
+                      '服務學習（I）和自主學習（F）能展現你的主動性和社會關懷。',
+                      '檢定（L）和作品（K）是客觀的能力證明，建議提早準備。',
+                    ],
+                    priority: '先從書面報告（B）和實作作品（C）開始，這兩類素材在申請入學中最受重視。',
+                  });
+                }}
+                className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors"
+              >
+                取得基本建議
+              </button>
+              <a href="/pricing" className="text-xs text-gray-400 hover:text-indigo-600">或升級 Pro</a>
+            </div>
           ) : (
             <button
               onClick={fetchSuggestion}
@@ -245,6 +265,14 @@ export default function PortfolioPage() {
         <div className="text-center py-12 text-gray-400">
           <p>還沒有素材記錄</p>
           <p className="text-sm mt-1">點擊「新增素材」開始累積你的學習歷程</p>
+          <div className="flex justify-center gap-3 mt-4">
+            <Link href="/calendar" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+              從校曆匯入
+            </Link>
+            <Link href="/timeline" className="text-gray-500 hover:text-gray-700 text-sm">
+              查看成就時光軸
+            </Link>
+          </div>
         </div>
       ) : (
         <div className="space-y-3">
@@ -330,6 +358,19 @@ export default function PortfolioPage() {
           </div>
         </div>
       )}
+
+      {/* Navigation hints */}
+      <div className="text-center mt-8 space-x-4">
+        <Link href="/calendar" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+          從校曆匯入素材
+        </Link>
+        <Link href="/timeline" className="text-gray-500 hover:text-gray-700 text-sm">
+          成就時光軸
+        </Link>
+        <Link href="/roadmap" className="text-gray-500 hover:text-gray-700 text-sm">
+          回到路線圖
+        </Link>
+      </div>
     </div>
   );
 }

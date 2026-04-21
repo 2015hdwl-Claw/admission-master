@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
+import { saveToStorage, loadFromStorage } from '@/lib/storage';
 import { ACADEMIC_CATEGORIES } from '@/data/academic-categories';
 import type { AcademicGroup, LearningCode } from '@/types';
 
@@ -93,6 +95,20 @@ export default function ExplorePage() {
             <div className="text-xs text-gray-400">
               相關科系：{cat.exampleDepartments.slice(0, 2).join('、')}
             </div>
+            <button
+              onClick={() => {
+                const profile = loadFromStorage<any>('onboarding-profile', null);
+                if (profile) {
+                  saveToStorage('onboarding-profile', {
+                    ...profile,
+                    selectedDirections: [cat.name],
+                  });
+                }
+              }}
+              className="mt-3 w-full py-2 text-xs font-medium text-indigo-600 border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors"
+            >
+              這是我的方向
+            </button>
           </div>
         ))}
       </div>
@@ -102,6 +118,16 @@ export default function ExplorePage() {
           找不到符合條件的學類，試試其他關鍵字
         </div>
       )}
+
+      {/* Navigation hints */}
+      <div className="text-center mt-8 space-x-4">
+        <Link href="/onboarding/step1" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+          完整導入流程
+        </Link>
+        <Link href="/roadmap" className="text-gray-500 hover:text-gray-700 text-sm">
+          我的路線圖
+        </Link>
+      </div>
     </div>
   );
 }

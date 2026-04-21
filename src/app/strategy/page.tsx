@@ -84,16 +84,87 @@ export default function StrategyPage() {
             <span className="text-2xl">📊</span>
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Pro 專屬功能</h2>
-          <p className="text-gray-500 mb-6">
-            根據你的方向和年級，AI 生成完整的科系策略報告，包含推薦科系列表、錄取門檻、備審重點和時間規劃。
+          <p className="text-gray-500 mb-4">
+            AI 根據你的方向和年級，生成完整的科系策略報告，包含推薦科系列表、錄取門檻、備審重點和時間規劃。
           </p>
-          <a
-            href="/pricing"
-            className="inline-block px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
-          >
-            升級 Pro 解鎖
-          </a>
+          <p className="text-sm text-gray-400 mb-6">
+            免費版可以產生基本策略報告（不含 AI 個人化分析）。
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="/pricing"
+              className="inline-block px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
+            >
+              升級 Pro 解鎖完整報告
+            </a>
+            <button
+              onClick={generateReport}
+              disabled={isLoading || !customDirection.trim()}
+              className={
+                'px-8 py-3 rounded-xl font-bold transition-all ' +
+                (customDirection.trim() && !isLoading
+                  ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-gray-200 text-gray-400 cursor-not-allowed')
+              }
+            >
+              {isLoading ? '生成中...' : '免費基本報告'}
+            </button>
+          </div>
         </div>
+
+        {/* Show basic report for free users */}
+        {report && !isLoading && (
+          <div className="space-y-6 mt-6">
+            {isFallback && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <p className="text-sm text-amber-800">{aiError || '基本報告模式（不含 AI 個人化分析）。升級 Pro 取得完整 AI 報告。'}</p>
+              </div>
+            )}
+            <div className="bg-white rounded-2xl shadow-sm p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-3">整體策略</h2>
+              <p className="text-gray-700 leading-relaxed whitespace-pre-line">{report.overallStrategy}</p>
+            </div>
+            <div className="bg-white rounded-2xl shadow-sm p-6">
+              <h2 className="text-lg font-bold text-gray-900 mb-4">推薦科系 Top 10</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-100">
+                      <th className="text-left py-2 px-2 text-gray-500 font-medium">#</th>
+                      <th className="text-left py-2 px-2 text-gray-500 font-medium">科系</th>
+                      <th className="text-left py-2 px-2 text-gray-500 font-medium">大學</th>
+                      <th className="text-left py-2 px-2 text-gray-500 font-medium">門檻</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {report.departments.map(dept => (
+                      <tr key={dept.rank} className="border-b border-gray-50 hover:bg-gray-50">
+                        <td className="py-3 px-2 font-bold text-indigo-600">{dept.rank}</td>
+                        <td className="py-3 px-2">
+                          <div className="font-medium text-gray-900">{dept.name}</div>
+                          <div className="text-xs text-gray-400">{dept.category}</div>
+                        </td>
+                        <td className="py-3 px-2 text-gray-600">{dept.university}</td>
+                        <td className="py-3 px-2 text-gray-600">{dept.scoreRange}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="text-center space-x-4">
+              <button
+                onClick={() => { setReport(null); setIsFallback(false); setAiError(''); }}
+                className="text-gray-500 hover:text-gray-700 text-sm underline"
+              >
+                重新生成
+              </button>
+              <a href="/pricing" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                升級 Pro 取得 AI 個人化報告
+              </a>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

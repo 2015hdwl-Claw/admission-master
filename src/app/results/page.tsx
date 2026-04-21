@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
 import type { AnonymousResult } from '@/types';
 
@@ -120,6 +121,21 @@ export default function ResultsPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Submit Form Modal */}
+      {!showForm && (
+        <div className="text-center mt-8 space-x-4">
+          <Link href="/analyze" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+            分析我的成績
+          </Link>
+          <Link href="/explore" className="text-gray-500 hover:text-gray-700 text-sm">
+            探索更多科系
+          </Link>
+          <Link href="/onboarding/step1" className="text-gray-500 hover:text-gray-700 text-sm">
+            開始完整導入
+          </Link>
         </div>
       )}
 

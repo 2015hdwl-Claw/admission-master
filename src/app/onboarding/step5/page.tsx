@@ -105,6 +105,12 @@ export default function Step5Page() {
       {/* Confirmation summary */}
       {selected.length > 0 && (
         <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 mb-8">
+          <div className="text-center mb-3">
+            <div className="inline-block w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-2">
+              <span className="text-3xl">&#10003;</span>
+            </div>
+            <h3 className="font-bold text-green-700 text-lg">導入完成！</h3>
+          </div>
           <h3 className="font-bold text-gray-900 mb-3 text-center">你的升學方向</h3>
           <div className="flex flex-wrap gap-2 justify-center mb-4">
             {selected.map(dir => (

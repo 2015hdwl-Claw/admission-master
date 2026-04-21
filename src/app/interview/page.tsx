@@ -236,7 +236,12 @@ export default function InterviewPage() {
         <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
           <p className="text-xs text-amber-700">
             免費版剩餘 {Math.max(0, FREE_ROUNDS - round)} 輪
-            {round >= FREE_ROUNDS && <span className="font-bold ml-1">（已達免費上限）</span>}
+            {round >= FREE_ROUNDS && (
+              <>
+                <span className="font-bold ml-1">（已達免費上限）</span>
+                <a href="/pricing" className="text-indigo-600 font-medium hover:underline ml-1">升級 Pro 繼續</a>
+              </>
+            )}
           </p>
         </div>
       )}
@@ -296,6 +301,13 @@ export default function InterviewPage() {
             <p className="text-sm text-gray-400">/ 100 分</p>
           </div>
           <p className="text-sm text-gray-700 leading-relaxed text-center">{overallFeedback}</p>
+          {!isPro && (
+            <div className="text-center mt-3">
+              <a href="/pricing" className="text-sm text-indigo-600 font-medium hover:underline">
+                升級 Pro 解鎖更多方向的面試模擬
+              </a>
+            </div>
+          )}
           <div className="text-center mt-4">
             <button
               onClick={resetInterview}

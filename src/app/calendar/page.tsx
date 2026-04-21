@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { NATIONAL_CALENDAR_EVENTS, EVENT_TYPE_LABELS, EVENT_TYPE_COLORS, LEARNING_CODE_LABELS, LEARNING_CODE_COLORS } from '@/data/national-calendar';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
+import Link from 'next/link';
 import type { CalendarEvent, CalendarEventType, LearningCode } from '@/types';
 
 const ALL_LEARNING_CODES: LearningCode[] = ['B','C','D','E','F','G','H','I','J','K','L','M'];
@@ -267,14 +268,46 @@ export default function CalendarPage() {
                   )}
                 </div>
                 {!ev.isNational && (
-                  <button onClick={() => handleDeleteEvent(ev.id)} className="text-gray-400 hover:text-red-500 text-sm">
-                    刪除
-                  </button>
+                  <div className="flex items-center gap-2 flex-shrink-0">
+                    {ev.learningCodes.length > 0 && (
+                      <Link
+                        href="/portfolio"
+                        onClick={() => {
+                          const newPortfolioItem = {
+                            id: generateId(),
+                            title: ev.title,
+                            content: `從校曆活動「${ev.title}」轉換`,
+                            code: ev.learningCodes[0],
+                            date: ev.date,
+                            createdAt: new Date().toISOString(),
+                          };
+                          const existing = loadFromStorage('portfolio-items', []);
+                          saveToStorage('portfolio-items', [newPortfolioItem, ...existing]);
+                        }}
+                        className="text-indigo-600 hover:text-indigo-800 text-xs font-medium"
+                      >
+                        轉為素材
+                      </Link>
+                    )}
+                    <button onClick={() => handleDeleteEvent(ev.id)} className="text-gray-400 hover:text-red-500 text-sm">
+                      刪除
+                    </button>
+                  </div>
                 )}
               </div>
             ))}
           </div>
         )}
+      </div>
+
+      {/* Navigation hint */}
+      <div className="text-center mt-8 space-x-4">
+        <Link href="/portfolio" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+          查看我的素材記錄
+        </Link>
+        <Link href="/timeline" className="text-gray-500 hover:text-gray-700 text-sm">
+          成就時光軸
+        </Link>
       </div>
     </div>
   );

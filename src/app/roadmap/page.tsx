@@ -514,25 +514,40 @@ export default function RoadmapPage() {
         <p className="text-gray-800 leading-relaxed text-center">{encouragement}</p>
       </div>
 
-      {/* Stats row */}
+      {/* Stats row with action links */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-2xl shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-indigo-600">{monthsLeft}</div>
-          <div className="text-sm text-gray-500">剩餘月數</div>
-        </div>
-        <div className="bg-white rounded-2xl shadow-sm p-5 text-center">
+        <Link href="/portfolio" className="bg-white rounded-2xl shadow-sm p-5 text-center hover:shadow-md transition-shadow group">
           <div className="text-3xl font-bold text-purple-600">{activePortfolioCount}</div>
-          <div className="text-sm text-gray-500">累積素材</div>
-        </div>
+          <div className="text-sm text-gray-500 group-hover:text-indigo-600">累積素材 → 記錄</div>
+        </Link>
+        <Link href="/calendar" className="bg-white rounded-2xl shadow-sm p-5 text-center hover:shadow-md transition-shadow group">
+          <div className="text-3xl font-bold text-blue-600">{upcomingEvents.length}</div>
+          <div className="text-sm text-gray-500 group-hover:text-indigo-600">近期活動 → 校曆</div>
+        </Link>
         <div className="bg-white rounded-2xl shadow-sm p-5 text-center">
           <div className="text-3xl font-bold text-amber-600">{gaps.length}</div>
           <div className="text-sm text-gray-500">待補缺口</div>
         </div>
         <div className="bg-white rounded-2xl shadow-sm p-5 text-center">
-          <div className="text-3xl font-bold text-green-600">{activeDirections.length}</div>
-          <div className="text-sm text-gray-500">目標方向</div>
+          <div className="text-3xl font-bold text-green-600">{monthsLeft}</div>
+          <div className="text-sm text-gray-500">剩餘月數</div>
         </div>
       </div>
+
+      {/* Quick actions */}
+      {hasOnboarding && (
+        <div className="flex flex-wrap gap-3 justify-center mb-8">
+          <Link href="/portfolio" className="px-5 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-medium hover:bg-indigo-100 transition-colors">
+            + 記錄新素材
+          </Link>
+          <Link href="/calendar" className="px-5 py-2.5 bg-blue-50 text-blue-700 rounded-xl text-sm font-medium hover:bg-blue-100 transition-colors">
+            查看校曆
+          </Link>
+          <Link href="/timeline" className="px-5 py-2.5 bg-green-50 text-green-700 rounded-xl text-sm font-medium hover:bg-green-100 transition-colors">
+            成就時光軸
+          </Link>
+        </div>
+      )}
 
       {/* Gap analysis */}
       {gaps.length > 0 && (
@@ -587,15 +602,37 @@ export default function RoadmapPage() {
                   </li>
                 ))}
               </ul>
-              {/* Phase-level gaps */}
-              {phase.gaps.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-gray-100">
-                  <div className="text-xs text-amber-600 font-medium mb-1">此階段需補齊</div>
-                  {phase.gaps.map((g, j) => (
-                    <div key={j} className="text-xs text-gray-600">{g.category}: {g.description}</div>
-                  ))}
-                </div>
-              )}
+              {/* Phase-level gaps and actions */}
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                {phase.gaps.length > 0 && (
+                  <>
+                    <div className="text-xs text-amber-600 font-medium mb-1">此階段需補齊</div>
+                    {phase.gaps.map((g, j) => (
+                      <div key={j} className="text-xs text-gray-600">{g.category}: {g.description}</div>
+                    ))}
+                  </>
+                )}
+                {phase.isCurrent && (
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <Link href="/portfolio" className="text-xs px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg font-medium hover:bg-indigo-100 transition-colors">
+                      記錄素材
+                    </Link>
+                    <Link href="/calendar" className="text-xs px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition-colors">
+                      查看校曆
+                    </Link>
+                    {phase.name.includes('面試') && (
+                      <Link href="/interview" className="text-xs px-3 py-1.5 bg-purple-50 text-purple-600 rounded-lg font-medium hover:bg-purple-100 transition-colors">
+                        面試練習
+                      </Link>
+                    )}
+                    {phase.name.includes('備審') && (
+                      <Link href="/strategy" className="text-xs px-3 py-1.5 bg-amber-50 text-amber-600 rounded-lg font-medium hover:bg-amber-100 transition-colors">
+                        策略報告
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         ))}
