@@ -1,17 +1,31 @@
 # Admission Master — 升學大師
 
 ## Project Overview
-台灣高中生和家長的升學透明窗口。學生免費使用分數分析工具並分享結果，家長為學習歷程輔導和面試準備付費。
+升學準備的連結器。把學生正在做的事連結到升學目標，讓家長看到孩子的成長軌跡。學生免費使用並病毒式傳播，家長為成長報告和 AI 輔導付費。
+
+## Product Identity: 連結器
+- **Connect** — 校園活動 ↔ 學習歷程代碼 ↔ 升學目標
+- **Capture** — 學生的經歷變成可用素材（15-30 min/項）
+- **Map** — 素材進度 vs 空缺可視化
+- **Suggest** — 基於校曆的行動建議（非系統憑空生成）
+- 任務來源是學校行事曆和學生實際活動，不是 AI 憑空派任務
+- 學生感受：「原來我這週已經做了這麼多跟升學有關的事」
+- 家長感受：「孩子在進步，而且是他自己主動的」
+
+## Three Strategic Layers
+1. **Student** — Self-discovery game (RPG: explore departments, complete tasks, earn XP/badges)
+2. **Parent** — Window into child's real interests (last chance to accompany before college)
+3. **Education Bridge** — Break information asymmetry between parents and higher education (58 departments, 2000+ programs)
 
 ## Core Principle: 雙邊平台
-- **學生** = 免費用戶 + 病毒傳播載體
-- **家長** = 付費用戶 + 收入來源
-- **透明** = 讓學生和家長都能掌握升學資訊
+- **學生** = 免費用戶 + 病毒傳播載體 + 每週成就感 loop
+- **家長** = 付費用戶 + 收入來源 + 看見孩子成長的窗口
+- **高中是最後的陪伴窗口** — 進了大學，父母就真的只能看成績了
 
 ## Tech Stack
 - Frontend: Next.js 14 (App Router) + Tailwind CSS
 - Backend: Supabase (PostgreSQL + Auth + Edge Functions + Storage)
-- AI: GLM API (glm-4.7-flash), fallback to OpenAI/Claude
+- AI: Google Gemini (gemini-2.5-flash) for production, GLM API (glm-4.7-flash) for development only, fallback to OpenAI
 - Deploy: Vercel (frontend) + Supabase Cloud (backend)
 - Email: Resend
 - Image Gen: HTML Canvas / Sharp
@@ -33,16 +47,34 @@
 - Content articles in `content/` (Markdown)
 
 ## AI Usage
-- GLM API for score analysis, portfolio review, interview simulation
-- Always have fallback when GLM is unavailable
+- **Production**: Google Gemini 2.5 Flash (free tier), Flash-Lite (cheap bulk), Pro (complex reasoning)
+- **Development only**: GLM API (glm-4.7-flash) for Claude Code and local testing
+- **Fallback**: OpenAI GPT-4o-mini when Gemini is unavailable
+- All AI API config (base_url, model, api_key) via environment variables — never hardcode
+- OpenAI-compatible format for all providers — switching only requires changing env vars
 - Log every AI call with: user_id, input_hash, model, tokens, latency
 
 ## Free vs Paid Boundary
-- **FREE**: Score analyzer, pathway info, department search, 6 portfolio guides, 10 interview questions, share cards, email newsletter
-- **PAID**: AI portfolio review, mock interviews, department strategy reports, 1-on-1 consulting
+- **FREE**: Score analyzer, share cards, school calendar sync, weekly task suggestions, progress tracking (XP/streak/badges), department exploration (58 categories), basic portfolio recording, parent weekly summary (abbreviated)
+- **PAID**: Full parent growth report, AI portfolio review, mock interviews, department strategy reports, advanced portfolio gap analysis, 1-on-1 consulting
+
+## Gamification System
+- XP: Different tasks award different XP
+- Weekly Streak: Consecutive weeks with at least 1 recorded activity
+- Level system: 升學新手(Lv1) → 升學大師(Lv7)
+- Achievement badges: 初探者, 連續4週, 跨領域探索, 素材達人, etc.
+- Forgiveness: 1 "task defer" card per month (like Duolingo streak freeze)
+- Tasks come from school calendar, NOT AI-generated — this is critical
+
+## Share Card Design (繪馬式)
+- 1280x720 IG Story format
+- Include "我的目標" field (commitment device)
+- Default anonymous (Taiwan students prefer anonymous sharing)
+- Positive framing (emphasize possibilities, not limitations)
+- QR Code linking to parent view
 
 ## Content Strategy
 - Short videos (IG/TikTok) target students for viral spread
 - YouTube long-form + FB content target parents for awareness
-- Email newsletter builds trust over 3-6 weeks before paid conversion
+- Email weekly reports build retention and parent trust
 - SEO long-tail content for sustainable organic traffic
