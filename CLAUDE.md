@@ -58,13 +58,15 @@
 - **FREE**: Score analyzer, share cards, school calendar sync, weekly task suggestions, progress tracking (XP/streak/badges), department exploration (58 categories), basic portfolio recording, parent weekly summary (abbreviated)
 - **PAID**: Full parent growth report, AI portfolio review, mock interviews, department strategy reports, advanced portfolio gap analysis, 1-on-1 consulting
 
-## Gamification System
-- XP: Different tasks award different XP
-- Weekly Streak: Consecutive weeks with at least 1 recorded activity
-- Level system: 升學新手(Lv1) → 升學大師(Lv7)
-- Achievement badges: 初探者, 連續4週, 跨領域探索, 素材達人, etc.
-- Forgiveness: 1 "task defer" card per month (like Duolingo streak freeze)
-- Tasks come from school calendar, NOT AI-generated — this is critical
+## Achievement System (鼓勵型，非壓力型)
+**Design principle: 只慶祝做了什麼，不懲罰沒做什麼。**
+- Monthly timeline review ("你這個月做了什麼") — NOT daily streak
+- Growth summary (AI-generated positive descriptions of what student accomplished)
+- Cumulative milestones ("你的素材累積了 10 件！")
+- Free-form recording ("想記錄就記錄，不記錄也不會消失")
+- Positive tags ("主動學習者", "科系探索家", "實驗記錄者")
+- NO streak, NO leaderboard, NO daily task reminders, NO XP deduction
+- Students already have enough pressure — this app should NOT add more
 
 ## Share Card Design (繪馬式)
 - 1280x720 IG Story format
