@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const AI_API_BASE = process.env.NEXT_PUBLIC_AI_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/';
-const AI_API_KEY = process.env.NEXT_PUBLIC_AI_API_KEY || '';
-const AI_MODEL = process.env.NEXT_PUBLIC_AI_MODEL || 'glm-4.7-flash';
+const AI_API_BASE = process.env.AI_API_BASE_URL || process.env.NEXT_PUBLIC_AI_BASE_URL || 'https://open.bigmodel.cn/api/paas/v4/';
+const AI_API_KEY = process.env.AI_API_KEY || process.env.NEXT_PUBLIC_AI_API_KEY || '';
+const AI_MODEL = process.env.AI_MODEL || process.env.NEXT_PUBLIC_AI_MODEL || 'glm-4.7-flash';
 
 interface PortfolioSuggestRequestBody {
   direction: string;
