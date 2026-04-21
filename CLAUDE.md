@@ -7,10 +7,11 @@
 - **Connect** — 校園活動 ↔ 學習歷程代碼 ↔ 升學目標
 - **Capture** — 學生的經歷變成可用素材（15-30 min/項）
 - **Map** — 素材進度 vs 空缺可視化
-- **Suggest** — 基於校曆的行動建議（非系統憑空生成）
+- **Plan** — 以終為始的個人化路線圖（素材收集→撰寫→備審→口試，基於校曆和學校資源）
 - 任務來源是學校行事曆和學生實際活動，不是 AI 憑空派任務
 - 學生感受：「原來我這週已經做了這麼多跟升學有關的事」
 - 家長感受：「孩子在進步，而且是他自己主動的」
+- **Core feature**: Personalized roadmap (以終為始) — not a streak tracker, a backward planner
 
 ## Three Strategic Layers
 1. **Student** — Self-discovery game (RPG: explore departments, complete tasks, earn XP/badges)
