@@ -50,7 +50,9 @@ export default function StrategyPage() {
 
       const data = await res.json();
       if (data.error) {
-        setError('無法生成報告，請稍後再試。');
+        setError(data.error === 'AI 請求太頻繁，請稍等 1-2 分鐘再試'
+          ? data.error
+          : '無法生成報告，請稍後再試。');
       } else {
         setReport(data);
       }

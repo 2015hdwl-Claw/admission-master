@@ -77,6 +77,9 @@ export async function POST(request: NextRequest) {
     if (!response.ok) {
       const errText = await response.text().catch(() => '');
       console.error('AI API error:', response.status, errText);
+      if (response.status === 429) {
+        return NextResponse.json({ error: 'AI 請求太頻繁，請稍等 1-2 分鐘再試' }, { status: 429 });
+      }
       return NextResponse.json({ error: 'AI service unavailable' }, { status: 503 });
     }
 
