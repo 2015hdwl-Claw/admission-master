@@ -656,22 +656,6 @@ export default function RoadmapPage() {
         </div>
       </div>
 
-      {/* School Resource Map - Pro feature */}
-      {!isPro && hasOnboarding && (
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <h3 className="font-bold text-gray-900">學校資源地圖</h3>
-            <span className="text-xs px-2 py-0.5 bg-indigo-600 text-white rounded-full font-medium">Pro</span>
-          </div>
-          <p className="text-sm text-gray-600 mb-3">
-            根據你的方向和成績，查看目標校系的詳細資訊、錄取分數和備審建議。
-          </p>
-          <a href="/pricing" className="inline-block px-5 py-2 bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-indigo-700 transition-colors">
-            解鎖學校資源地圖
-          </a>
-        </div>
-      )}
-
       {/* CTA */}
       {hasOnboarding && (
         <div className="text-center">

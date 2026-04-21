@@ -592,7 +592,7 @@ CREATE TABLE portfolio_entries (
   13. **個人化升學路線圖（以終為始）**（見附錄 B）
      - 輸入：年級 + 確認的方向 + 目標管道 → 輸出：倒計時路線圖
      - 四階段規劃：素材收集 → 撰寫 → 備審準備 → 口試練習
-     - 缺口分析 + 校曆活動匹配 + 學校資源地圖
+     - 缺口分析 + 校曆活動匹配
   14. **付費牆 + 訂閱系統**
      - 家長完整成長報告（詳細版 + AI 成長亮點摘要）
      - AI 學習歷程審查
@@ -766,7 +766,7 @@ CREATE TABLE portfolio_entries (
   - [ ] 輸入：年級 + 確認的方向 + 目標管道
   - [ ] 四階段規劃：素材收集 → 撰寫 → 備審準備 → 口試練習
   - [ ] 缺口分析 + 校曆活動匹配
-  - [ ] 學校資源地圖
+  - [ ] 學校資源地圖（遠期願景，需要學校資料庫支援）
 - [ ] Week 12-13：付費系統
   - [ ] Supabase Auth + 用戶系統
   - [ ] 付費牆（Stripe / LINE Pay）
@@ -999,19 +999,6 @@ CREATE TABLE roadmap_templates (
   phase TEXT NOT NULL,            -- '素材收集/撰寫/備審/口試'
   target_items INT DEFAULT 0,    -- 該階段目標素材數量
   recommended_months INT DEFAULT 0 -- 建議花幾個月
-);
-
--- 學校資源（每個學校不同）
-CREATE TABLE school_resources (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id),
-  teacher_name TEXT,
-  teacher_subject TEXT,
-  certifiable_codes TEXT[],
-  available_clubs TEXT[],
-  annual_events TEXT[],
-  notes TEXT,
-  created_at TIMESTAMPTZ DEFAULT now()
 );
 ```
 
