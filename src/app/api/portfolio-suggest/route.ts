@@ -41,7 +41,7 @@ ${itemsSummary || '尚無素材'}
 4. 優先級要明確`;
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
 
   try {
     const response = await fetch(`${AI_API_BASE}chat/completions`, {
@@ -72,7 +72,8 @@ ${itemsSummary || '尚無素材'}
       return NextResponse.json({ error: 'No response from AI' }, { status: 500 });
     }
 
-    const parsed = JSON.parse(content);
+    let parsed;
+    try { parsed = JSON.parse(content); } catch { const m = content.match(/\{[\s\S]*\}/); parsed = m ? JSON.parse(m[0]) : {}; }
     return NextResponse.json({
       missingCodes: parsed.missingCodes || [],
       suggestions: parsed.suggestions || [],

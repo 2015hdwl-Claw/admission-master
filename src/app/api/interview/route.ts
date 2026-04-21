@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
 回饋要具體、建設性。如果是最後一輪，nextQuestion 為 null。`;
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
 
     try {
       const response = await fetch(`${AI_API_BASE}chat/completions`, {
@@ -78,7 +78,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'No response from AI' }, { status: 500 });
       }
 
-      const parsed = JSON.parse(content);
+      let parsed;
+      try { parsed = JSON.parse(content); } catch { const m = content.match(/\{[\s\S]*\}/); parsed = m ? JSON.parse(m[0]) : {}; }
       return NextResponse.json({
         feedback: parsed.feedback || '回答得不錯！',
         nextQuestion: parsed.nextQuestion || null,
@@ -99,7 +100,7 @@ export async function POST(request: NextRequest) {
 問題應該是讓學生放鬆的開場問題，例如自我介紹或為什麼選擇這個方向。`;
 
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
 
     try {
       const response = await fetch(`${AI_API_BASE}chat/completions`, {
@@ -137,7 +138,8 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      const parsed = JSON.parse(content);
+      let parsed;
+      try { parsed = JSON.parse(content); } catch { const m = content.match(/\{[\s\S]*\}/); parsed = m ? JSON.parse(m[0]) : {}; }
       return NextResponse.json({
         question: parsed.question || `請簡單自我介紹，並說明你為什麼想讀${direction}。`,
       });

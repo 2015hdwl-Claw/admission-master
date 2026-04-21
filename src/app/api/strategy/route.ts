@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
 6. 考慮${grade}的時間限制給出現實建議`;
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000);
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
 
   try {
     const response = await fetch(`${AI_API_BASE}chat/completions`, {
@@ -75,6 +75,8 @@ export async function POST(request: NextRequest) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
+      const errText = await response.text().catch(() => '');
+      console.error('AI API error:', response.status, errText);
       return NextResponse.json({ error: 'AI service unavailable' }, { status: 503 });
     }
 
@@ -85,7 +87,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No response from AI' }, { status: 500 });
     }
 
-    const parsed = JSON.parse(content);
+    let parsed;
+    try {
+      parsed = JSON.parse(content);
+    } catch {
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        parsed = JSON.parse(jsonMatch[0]);
+      } else {
+        return NextResponse.json({ error: 'Failed to parse AI response' }, { status: 500 });
+      }
+    }
     return NextResponse.json({
       direction,
       directionGroup,
