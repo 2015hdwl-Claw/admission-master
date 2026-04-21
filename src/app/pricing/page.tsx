@@ -1,4 +1,9 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { activatePro } from '@/lib/subscription';
 
 const PLANS = [
   {
@@ -59,6 +64,14 @@ const PLANS = [
 ];
 
 export default function PricingPage() {
+  const router = useRouter();
+  const [activated, setActivated] = useState<string | null>(null);
+
+  function handleUpgrade(plan: 'pro' | 'family') {
+    activatePro(plan);
+    setActivated(plan);
+    setTimeout(() => router.push('/roadmap'), 800);
+  }
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -106,15 +119,27 @@ export default function PricingPage() {
             </ul>
             <button
               disabled={plan.disabled}
+              onClick={() => {
+                if (plan.name === '升學大師 Pro') handleUpgrade('pro');
+                else if (plan.name === '升學大師 Family') handleUpgrade('family');
+              }}
               className={`w-full py-3 rounded-xl font-bold transition-all ${
-                plan.highlighted
-                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md'
-                  : plan.disabled
+                plan.disabled
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : activated === 'pro' && plan.name === '升學大師 Pro'
+                  ? 'bg-green-600 text-white'
+                  : activated === 'family' && plan.name === '升學大師 Family'
+                  ? 'bg-green-600 text-white'
+                  : plan.highlighted
+                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-md'
                   : 'border-2 border-gray-200 text-gray-700 hover:border-gray-300 hover:bg-gray-50'
               }`}
             >
-              {plan.cta}
+              {activated === 'pro' && plan.name === '升學大師 Pro'
+                ? '已啟用 Pro'
+                : activated === 'family' && plan.name === '升學大師 Family'
+                ? '已啟用 Family'
+                : plan.cta}
             </button>
           </div>
         ))}
