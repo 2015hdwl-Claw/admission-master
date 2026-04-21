@@ -10,6 +10,8 @@ export default function StrategyPage() {
   const [report, setReport] = useState<StrategyReport | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isFallback, setIsFallback] = useState(false);
+  const [aiError, setAiError] = useState('');
 
   const [customDirection, setCustomDirection] = useState('');
   const [customGroup, setCustomGroup] = useState('工程');
@@ -27,6 +29,8 @@ export default function StrategyPage() {
     if (!isPro) return;
     setIsLoading(true);
     setError('');
+    setIsFallback(false);
+    setAiError('');
 
     const dir = profile?.selectedDirections[0] || customDirection;
     const grp = customGroup;
@@ -50,14 +54,20 @@ export default function StrategyPage() {
 
       const data = await res.json();
       if (data.error) {
-        setError(data.error === 'AI 請求太頻繁，請稍等 1-2 分鐘再試'
-          ? data.error
-          : '無法生成報告，請稍後再試。');
+        if (res.status === 429 || data.error.includes('頻繁') || data.error.includes('rate')) {
+          setError('AI 請求太頻繁，請稍等 1-2 分鐘再試。系統將會自動改用基本報告模式。');
+        } else {
+          setError(data.error || '無法生成報告，請稍後再試。');
+        }
       } else {
         setReport(data);
+        if (data._fallback) {
+          setIsFallback(true);
+          setAiError(data._aiError || 'AI 服務暫時不可用，顯示的是基本報告。');
+        }
       }
     } catch {
-      setError('網路錯誤，請稍後再試。');
+      setError('網路錯誤，請檢查網路連線後再試。');
     }
     setIsLoading(false);
   }
@@ -151,7 +161,18 @@ export default function StrategyPage() {
             </div>
           </div>
 
-          {error && <p className="text-sm text-red-500 mb-4">{error}</p>}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-4">
+              <p className="text-sm text-red-700 mb-2">{error}</p>
+              <button
+                onClick={generateReport}
+                disabled={isLoading}
+                className="text-sm text-red-600 underline hover:text-red-800 disabled:opacity-50"
+              >
+                重試
+              </button>
+            </div>
+          )}
 
           <div className="text-center">
             <button
@@ -179,6 +200,13 @@ export default function StrategyPage() {
 
       {report && !isLoading && (
         <div className="space-y-6">
+          {/* Fallback notice */}
+          {isFallback && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+              <p className="text-sm text-amber-800">{aiError}</p>
+            </div>
+          )}
+
           {/* Overall Strategy */}
           <div className="bg-white rounded-2xl shadow-sm p-6">
             <h2 className="text-lg font-bold text-gray-900 mb-3">整體策略</h2>
@@ -188,6 +216,11 @@ export default function StrategyPage() {
           {/* Department List */}
           <div className="bg-white rounded-2xl shadow-sm p-6">
             <h2 className="text-lg font-bold text-gray-900 mb-4">推薦科系 Top 10</h2>
+            {isFallback && (
+              <p className="text-xs text-amber-600 mb-3">
+                * 以下科系列表為基本推薦，AI 個人化推薦暫時不可用
+              </p>
+            )}
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
@@ -244,9 +277,9 @@ export default function StrategyPage() {
             <p className="text-gray-700 leading-relaxed whitespace-pre-line">{report.interviewAdvice}</p>
           </div>
 
-          <div className="text-center">
+          <div className="text-center space-x-4">
             <button
-              onClick={() => setReport(null)}
+              onClick={() => { setReport(null); setIsFallback(false); setAiError(''); }}
               className="text-gray-500 hover:text-gray-700 text-sm underline"
             >
               重新生成報告

@@ -352,6 +352,13 @@ const AI_MODEL = typeof process !== 'undefined'
   ? (process.env.NEXT_PUBLIC_AI_MODEL || 'glm-4.7-flash')
   : 'glm-4.7-flash';
 
+/** Models to try in order of preference */
+const AI_MODEL_FALLBACKS = [AI_MODEL, 'glm-4.5-air', 'glm-4-flash'];
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function buildAIPrompt(profile: OnboardingProfile, ruleResults: DirectionResult[]): string {
   const factsText = profile.facts.map(f => `[${f.category}] ${f.label}: ${f.detail}`).join('\n');
 
@@ -444,6 +451,25 @@ export async function deriveDirectionsWithAI(
 
   const prompt = buildAIPrompt(profile, ruleResults);
 
+  // Try each model with retry
+  for (const model of AI_MODEL_FALLBACKS) {
+    const result = await tryAIModel(model, prompt);
+    if (result) return { directions: result, usedAI: true };
+  }
+
+  // All models failed, try retry on original model once
+  await sleep(2000);
+  const retryResult = await tryAIModel(AI_MODEL, prompt);
+  if (retryResult) return { directions: retryResult, usedAI: true };
+
+  // Silent fallback to rule engine
+  return { directions: ruleResults, usedAI: false };
+}
+
+async function tryAIModel(
+  model: string,
+  prompt: string,
+): Promise<DirectionResult[] | null> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10000);
 
@@ -452,10 +478,10 @@ export async function deriveDirectionsWithAI(
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${AI_API_KEY}`,
+        Authorization: `Bearer ${AI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: AI_MODEL,
+        model,
         messages: [{ role: 'user', content: prompt }],
         response_format: { type: 'json_object' },
         temperature: 0.3,
@@ -465,16 +491,12 @@ export async function deriveDirectionsWithAI(
 
     clearTimeout(timeoutId);
 
-    if (!response.ok) {
-      return { directions: ruleResults, usedAI: false };
-    }
+    if (!response.ok) return null;
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content;
 
-    if (!content) {
-      return { directions: ruleResults, usedAI: false };
-    }
+    if (!content) return null;
 
     const parsed: AIDirectionResponse = JSON.parse(content);
     const aiDirections: DirectionResult[] = (parsed.directions || []).map(d => ({
@@ -486,10 +508,9 @@ export async function deriveDirectionsWithAI(
       factCount: 0,
     }));
 
-    const merged = mergeDirectionResults(ruleResults, aiDirections);
-    return { directions: merged, usedAI: true };
+    return aiDirections;
   } catch {
     clearTimeout(timeoutId);
-    return { directions: ruleResults, usedAI: false };
+    return null;
   }
 }
