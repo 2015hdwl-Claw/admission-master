@@ -17,7 +17,10 @@ export default function Step3Page() {
   const [aiUsed, setAiUsed] = useState(false);
 
   const runAIDerivation = useCallback(async (profile: OnboardingProfile, ruleResults: DirectionResult[]) => {
-    if (ruleResults.length === 0 || profile.isInterestMode) return;
+    if (ruleResults.length === 0 || profile.isInterestMode) {
+      setLoaded(true);
+      return;
+    }
 
     const maxConfidence = ruleResults[0]?.confidence ?? 0;
     const shouldUseAI = maxConfidence < 0.6 || profile.facts.length > 5;
@@ -68,6 +71,7 @@ export default function Step3Page() {
       saveToStorage('direction-results', results);
     }
     setDirections(results);
+    setLoaded(true);
 
     runAIDerivation(profile, results);
   }, [router, runAIDerivation]);
