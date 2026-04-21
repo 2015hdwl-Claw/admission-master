@@ -155,12 +155,20 @@ export default function PricingPage() {
         <p className="text-gray-500 text-sm mb-4">
           不確定哪個方案適合你？先從免費版開始。
         </p>
-        <Link
-          href="/onboarding/step1"
-          className="inline-block px-8 py-4 bg-indigo-600 text-white rounded-xl text-lg font-bold hover:bg-indigo-700 shadow-lg transition-all"
-        >
-          免費開始
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            href="/onboarding/step1"
+            className="px-8 py-4 bg-indigo-600 text-white rounded-xl text-lg font-bold hover:bg-indigo-700 shadow-lg transition-all"
+          >
+            免費開始
+          </Link>
+          <Link
+            href="/roadmap"
+            className="px-8 py-4 border-2 border-gray-200 text-gray-700 rounded-xl text-lg font-medium hover:border-gray-300 hover:bg-gray-50 transition-all"
+          >
+            回到我的路線圖
+          </Link>
+        </div>
       </div>
     </div>
   );
