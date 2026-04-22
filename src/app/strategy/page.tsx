@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { loadFromStorage } from '@/lib/storage';
-import type { StrategyReport, OnboardingProfile } from '@/types';
+import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
+import type { StrategyReport, OnboardingProfile, VocationalGroup } from '@/types';
 
 export default function StrategyPage() {
   const [isPro, setIsPro] = useState(false);
@@ -14,9 +15,9 @@ export default function StrategyPage() {
   const [aiError, setAiError] = useState('');
 
   const [customDirection, setCustomDirection] = useState('');
-  const [customGroup, setCustomGroup] = useState('工程');
+  const [customGroup, setCustomGroup] = useState<VocationalGroup>('資訊群');
   const [customGrade, setCustomGrade] = useState('高二');
-  const [customTrack, setCustomTrack] = useState('自然組');
+  const [customTrack, setCustomTrack] = useState('高職');
 
   useEffect(() => {
     const stored = loadFromStorage<OnboardingProfile | null>('onboarding-profile', null);
@@ -76,8 +77,8 @@ export default function StrategyPage() {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12">
         <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">科系策略報告</h1>
-          <p className="text-gray-500">AI 為你生成個人化科系策略報告</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">職群策略報告</h1>
+          <p className="text-gray-500">AI 為你生成個人化職群策略報告</p>
         </div>
         <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
           <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -85,7 +86,7 @@ export default function StrategyPage() {
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Pro 專屬功能</h2>
           <p className="text-gray-500 mb-4">
-            AI 根據你的方向和年級，生成完整的科系策略報告，包含推薦科系列表、錄取門檻、備審重點和時間規劃。
+            AI 根據你的職群和年級，生成完整的策略報告，包含推薦科技大學、統測門檻、備審重點和面試準備。
           </p>
           <p className="text-sm text-gray-400 mb-6">
             免費版可以產生基本策略報告（不含 AI 個人化分析）。
@@ -186,24 +187,20 @@ export default function StrategyPage() {
                 type="text"
                 value={customDirection}
                 onChange={e => setCustomDirection(e.target.value)}
-                placeholder={profile?.selectedDirections[0] || '例如：資訊工程'}
+                placeholder={profile?.selectedDirections[0] || '例如：資訊軟體應用'}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">學群</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">職群</label>
               <select
                 value={customGroup}
-                onChange={e => setCustomGroup(e.target.value)}
+                onChange={e => setCustomGroup(e.target.value as VocationalGroup)}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
               >
-                <option value="工程">工程</option>
-                <option value="醫藥衛">醫藥衛</option>
-                <option value="商管">商管</option>
-                <option value="人文">人文</option>
-                <option value="社會">社會</option>
-                <option value="自然">自然</option>
-                <option value="藝術">藝術</option>
+                {Object.entries(VOCATIONAL_GROUP_LABELS).map(([key, label]) => (
+                  <option key={key} value={key}>{label}</option>
+                ))}
               </select>
             </div>
             <div>
@@ -225,8 +222,7 @@ export default function StrategyPage() {
                 onChange={e => setCustomTrack(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
               >
-                <option value="自然組">自然組</option>
-                <option value="社會組">社會組</option>
+                <option value="高職">高職</option>
                 <option value="未決定">未決定</option>
               </select>
             </div>

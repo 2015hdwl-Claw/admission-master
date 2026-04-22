@@ -111,7 +111,7 @@ export default function Step5Page() {
             </div>
             <h3 className="font-bold text-green-700 text-lg">導入完成！</h3>
           </div>
-          <h3 className="font-bold text-gray-900 mb-3 text-center">你的升學方向</h3>
+          <h3 className="font-bold text-gray-900 mb-3 text-center">你的職群方向</h3>
           <div className="flex flex-wrap gap-2 justify-center mb-4">
             {selected.map(dir => (
               <span key={dir} className="px-4 py-2 bg-white text-indigo-600 rounded-full font-medium shadow-sm border border-indigo-200">
@@ -121,8 +121,8 @@ export default function Step5Page() {
           </div>
           <p className="text-sm text-gray-600 text-center leading-relaxed">
             你選了 <strong>{selected.join('、')}</strong> 方向。
-            接下來我們會根據你的年級和方向，幫你規劃個人化的升學路線圖，
-            包含時間軸、缺口分析和可執行的建議。
+            接下來我們會根據你的年級和職群，幫你規劃個人化的升學路線圖，
+            包含統測準備、技能培養、專題實作和面試練習。
           </p>
         </div>
       )}

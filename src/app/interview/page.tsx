@@ -2,9 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { loadFromStorage, saveToStorage } from '@/lib/storage';
+import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
+import type { VocationalGroup } from '@/types';
 import type { InterviewMessage, OnboardingProfile } from '@/types';
 
 const FREE_ROUNDS = 2;
+
+const VOCATIONAL_GROUPS = Object.keys(VOCATIONAL_GROUP_LABELS) as VocationalGroup[];
 
 export default function InterviewPage() {
   const [isPro, setIsPro] = useState(false);
@@ -16,8 +20,7 @@ export default function InterviewPage() {
   const [isComplete, setIsComplete] = useState(false);
   const [overallScore, setOverallScore] = useState<number | null>(null);
   const [overallFeedback, setOverallFeedback] = useState('');
-  const [direction, setDirection] = useState('資訊工程');
-  const [directionGroup, setDirectionGroup] = useState('工程');
+  const [direction, setDirection] = useState<VocationalGroup>('資訊群');
   const chatEndRef = useRef<HTMLDivElement>(null);
   const maxRounds = 5;
 
@@ -26,7 +29,7 @@ export default function InterviewPage() {
     if (stored) {
       setProfile(stored);
       if (stored.selectedDirections.length > 0) {
-        setDirection(stored.selectedDirections[0]);
+        setDirection(stored.selectedDirections[0] as VocationalGroup);
       }
     }
     const sub = loadFromStorage<{ plan: string; expiresAt: string | null }>('user-subscription', { plan: 'free', expiresAt: null });
@@ -36,6 +39,10 @@ export default function InterviewPage() {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  function getVocationalFallbackQuestion(dir: VocationalGroup): string {
+    return `你好！歡迎來到${dir}的面試模擬。請先簡單自我介紹，告訴我你為什麼選擇${dir}？你在校期間的專題實作、技能檢定或實習經驗有哪些？`;
+  }
 
   async function startInterview() {
     setIsLoading(true);
@@ -47,7 +54,7 @@ export default function InterviewPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           direction,
-          directionGroup,
+          directionGroup: direction,
           round: 1,
           maxRounds,
           userAnswer: null,
@@ -60,11 +67,11 @@ export default function InterviewPage() {
         setMessages([{ role: 'interviewer', content: data.question }]);
         setRound(1);
       } else {
-        setMessages([{ role: 'interviewer', content: `你好！歡迎來到${direction}的面試模擬。請先簡單自我介紹，告訴我你為什麼對${direction}有興趣？` }]);
+        setMessages([{ role: 'interviewer', content: getVocationalFallbackQuestion(direction) }]);
         setRound(1);
       }
     } catch {
-      setMessages([{ role: 'interviewer', content: `你好！歡迎來到${direction}的面試模擬。請先簡單自我介紹，告訴我你為什麼對${direction}有興趣？` }]);
+      setMessages([{ role: 'interviewer', content: getVocationalFallbackQuestion(direction) }]);
       setRound(1);
     }
     setIsLoading(false);
@@ -91,7 +98,7 @@ export default function InterviewPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           direction,
-          directionGroup,
+          directionGroup: direction,
           round,
           maxRounds,
           userAnswer: currentInput.trim(),
@@ -125,10 +132,14 @@ export default function InterviewPage() {
     setIsLoading(false);
   }
 
-  function generateOverallFeedback(score: number, dir: string): string {
-    if (score >= 90) return `你在${dir}面試模擬中表現優異！回答有條理、內容豐富，展現了對該領域的深入了解和真誠的熱情。建議在正式面試中保持這樣的狀態。`;
-    if (score >= 80) return `你在${dir}面試模擬中表現良好！大部分回答都有結構，建議多加入具體例子和數據來增強說服力。`;
-    return `你在${dir}面試模擬中表現尚可。建議多練習 STAR 法則（情境、任務、行動、結果）來結構化你的回答，並多閱讀相關領域的最新動態。`;
+  function generateOverallFeedback(score: number, dir: VocationalGroup): string {
+    if (score >= 90) {
+      return `你在${dir}面試模擬中表現優異！回答有條理，展現了對專題實作和技能學習的深入理解。面試官能感受到你對這個領域的熱情與投入，建議在正式面試中保持這樣的狀態。`;
+    }
+    if (score >= 80) {
+      return `你在${dir}面試模擬中表現良好！大部分回答都有結構，建議多加入具體的專題實作或技能檢定經歷來增強說服力，讓面試官更了解你的實務能力。`;
+    }
+    return `你在${dir}面試模擬中表現尚可。建議多練習 STAR 法則（情境、任務、行動、結果）來結構化你的回答，並準備好專題實作、技能檢定及實習經驗的具體案例。`;
   }
 
   function resetInterview() {
@@ -152,39 +163,15 @@ export default function InterviewPage() {
 
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">面試方向</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">面試方向（職業群科）</label>
             <select
               value={direction}
-              onChange={e => setDirection(e.target.value)}
+              onChange={e => setDirection(e.target.value as VocationalGroup)}
               className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
             >
-              <option value="資訊工程">資訊工程</option>
-              <option value="電機工程">電機工程</option>
-              <option value="機械工程">機械工程</option>
-              <option value="醫學系">醫學系</option>
-              <option value="商管學群">商管學群</option>
-              <option value="法律學類">法律學類</option>
-              <option value="中國文學">中國文學</option>
-              <option value="外國語文">外國語文</option>
-              <option value="經濟學">經濟學</option>
-              <option value="設計學群">設計學群</option>
-            </select>
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">學群</label>
-            <select
-              value={directionGroup}
-              onChange={e => setDirectionGroup(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-            >
-              <option value="工程">工程</option>
-              <option value="醫藥衛">醫藥衛</option>
-              <option value="商管">商管</option>
-              <option value="人文">人文</option>
-              <option value="社會">社會</option>
-              <option value="自然">自然</option>
-              <option value="藝術">藝術</option>
+              {VOCATIONAL_GROUPS.map(group => (
+                <option key={group} value={group}>{VOCATIONAL_GROUP_LABELS[group]}</option>
+              ))}
             </select>
           </div>
 

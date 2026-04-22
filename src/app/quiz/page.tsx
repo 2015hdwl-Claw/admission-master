@@ -7,102 +7,102 @@ import type { QuizQuestion, QuizResult } from '@/types';
 const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: 1,
-    question: '週末早上醒來，你最想做的事是？',
+    question: '實習或實作課中，你最享受哪個環節？',
     options: [
-      { value: 'a', label: '研究昨晚想到的程式 bug 怎麼解' },
-      { value: 'b', label: '去咖啡廳看一本小說' },
-      { value: 'c', label: '跟朋友去打球或運動' },
-      { value: 'd', label: '逛逛美術館或看展覽' },
+      { value: 'a', label: '動手做出成品' },
+      { value: 'b', label: '解決技術問題' },
+      { value: 'c', label: '和顧客互動' },
+      { value: 'd', label: '規劃和設計' },
     ],
   },
   {
     id: 2,
-    question: '班上要辦活動，你會自願負責什麼？',
+    question: '以下哪個工作環境最吸引你？',
     options: [
-      { value: 'a', label: '做一個報名網站或宣傳影片' },
-      { value: 'b', label: '寫活動企劃書和流程表' },
-      { value: 'c', label: '負責聯繫和協調所有人' },
-      { value: 'd', label: '設計海報和視覺布置' },
+      { value: 'a', label: '電腦前面' },
+      { value: 'b', label: '工廠／實驗室' },
+      { value: 'c', label: '餐廳／服務現場' },
+      { value: 'd', label: '戶外／工地' },
     ],
   },
   {
     id: 3,
-    question: '如果只能用一個詞形容理想的未來工作，你會選？',
+    question: '你最想學的一項技能是？',
     options: [
-      { value: 'a', label: '創新' },
-      { value: 'b', label: '深刻' },
-      { value: 'c', label: '影響力' },
-      { value: 'd', label: '自由' },
+      { value: 'a', label: '寫程式' },
+      { value: 'b', label: '操作機器' },
+      { value: 'c', label: '烹飪／服務' },
+      { value: 'd', label: '設計／繪圖' },
     ],
   },
   {
     id: 4,
-    question: '以下哪個 YouTube 頻道最吸引你？',
+    question: '你的專題實作，最想選的主題是？',
     options: [
-      { value: 'a', label: '3Blue1Brown / 兩光公式' },
-      { value: 'b', label: '故事 StoryStudio / 鏡好聽' },
-      { value: 'c', label: '台大啟思 / 灼灼有溫度' },
-      { value: 'd', label: '老高與小茉 / 雞蛋圖書館' },
+      { value: 'a', label: 'AI／自動化' },
+      { value: 'b', label: '精密製造' },
+      { value: 'c', label: '食品／觀光' },
+      { value: 'd', label: '空間／品牌' },
     ],
   },
   {
     id: 5,
-    question: '遇到一個超難的問題，你的第一反應是？',
+    question: '你最崇拜的人是？',
     options: [
-      { value: 'a', label: '拆解成小問題，一步步解' },
-      { value: 'b', label: '先查資料，看別人怎麼想' },
-      { value: 'c', label: '找人討論，集思廣益' },
-      { value: 'd', label: '直覺先試試看，不行再想' },
+      { value: 'a', label: '科技創業家' },
+      { value: 'b', label: '工藝大師' },
+      { value: 'c', label: '知名主廚' },
+      { value: 'd', label: '設計師' },
     ],
   },
   {
     id: 6,
-    question: '選修課你最可能選哪門？',
+    question: '班上要辦活動，你會負責？',
     options: [
-      { value: 'a', label: '程式設計 / AI 基礎' },
-      { value: 'b', label: '哲學與人生 / 文學欣賞' },
-      { value: 'c', label: '心理學 / 社會學' },
-      { value: 'd', label: '美術 / 音樂 / 設計' },
+      { value: 'a', label: '做活動網站' },
+      { value: 'b', label: '搭建舞台燈光' },
+      { value: 'c', label: '規劃流程聯絡' },
+      { value: 'd', label: '設計海報布置' },
     ],
   },
   {
     id: 7,
-    question: '你最不想成為的人是？',
+    question: '你的夢想工作是？',
     options: [
-      { value: 'a', label: '每天做重複工作的人' },
-      { value: 'b', label: '不思考就下判斷的人' },
-      { value: 'c', label: '只在乎自己的人' },
-      { value: 'd', label: '沒有自己風格的人' },
+      { value: 'a', label: '軟體工程師' },
+      { value: 'b', label: '精密製造技師' },
+      { value: 'c', label: '餐飲／觀光業' },
+      { value: 'd', label: '設計師／創作者' },
     ],
   },
   {
     id: 8,
-    question: '如果有時間旅行能力，你最想去？',
+    question: '你覺得自己最強的能力是？',
     options: [
-      { value: 'a', label: '100 年後，看科技發展成什麼' },
-      { value: 'b', label: '唐宋時期，體驗古代文化' },
-      { value: 'c', label: '回到 10 年前，做不同的選擇' },
-      { value: 'd', label: '文藝復興時期，見識大師們' },
+      { value: 'a', label: '邏輯思考' },
+      { value: 'b', label: '動手操作' },
+      { value: 'c', label: '溝通服務' },
+      { value: 'd', label: '美感和創意' },
     ],
   },
   {
     id: 9,
-    question: '朋友心情不好找你，你通常怎麼做？',
+    question: '週末你最可能做什麼？',
     options: [
-      { value: 'a', label: '幫他分析問題，提供解決方案' },
-      { value: 'b', label: '安靜聽他說，給予陪伴' },
-      { value: 'c', label: '帶他出去散心、轉換心情' },
-      { value: 'd', label: '用幽默或故事讓他開心' },
+      { value: 'a', label: '寫程式／研究科技' },
+      { value: 'b', label: '修理東西／做手工' },
+      { value: 'c', label: '和朋友聚餐出遊' },
+      { value: 'd', label: '看展覽／畫畫' },
     ],
   },
   {
     id: 10,
-    question: '以下哪個成就最讓你有成就感？',
+    question: '哪種成就感最讓你滿足？',
     options: [
-      { value: 'a', label: '寫出一個被上千人使用的 App' },
-      { value: 'b', label: '發表一篇被很多人轉發的文章' },
-      { value: 'c', label: '成功策劃一場千人活動' },
-      { value: 'd', label: '完成一件被展出的藝術作品' },
+      { value: 'a', label: '解決一個技術難題' },
+      { value: 'b', label: '做出一件實體作品' },
+      { value: 'c', label: '讓客人開心滿意' },
+      { value: 'd', label: '完成一件設計作品' },
     ],
   },
 ];
@@ -110,35 +110,35 @@ const QUIZ_QUESTIONS: QuizQuestion[] = [
 const QUIZ_RESULTS: Record<string, QuizResult> = {
   type_a: {
     type: 'A',
-    typeName: '邏輯建構者',
+    typeName: '科技實踐者',
     emoji: '🧩',
-    description: '你喜歡拆解問題、建立系統，享受從無到有創造東西的過程。你天生適合需要邏輯思考和技術能力的領域，工程和科技世界等著你發光。',
-    directions: ['資訊工程', '電機工程', '機械工程', '數學系', '統計學'],
+    description: '你熱愛科技與邏輯，享受用程式和技術解決問題的過程。你天生對數位世界充滿好奇，善於分析與系統化思考。資訊、電機、電子等科技領域，能讓你把想法變成實際的作品。',
+    directions: ['資訊群', '電機群', '電子群'],
     color: 'from-blue-500 to-cyan-500',
   },
   type_b: {
     type: 'B',
-    typeName: '深度思考者',
-    emoji: '📖',
-    description: '你喜歡探究事物背後的意義，享受閱讀和思考帶來的滿足。你對文字和思想敏感，人文和社會科學領域能讓你發揮所長。',
-    directions: ['中國文學', '外國語文', '歷史學', '哲學', '法律學'],
-    color: 'from-purple-500 to-pink-500',
+    typeName: '工匠精神者',
+    emoji: '🔧',
+    description: '你喜歡動手操作、精雕細琢，享受從零開始打造實體作品的過程。你有耐心和毅力追求精準與品質，機械、化工、土木、農業等領域能讓你發揮精湛的技術與工匠精神。',
+    directions: ['機械群', '化工群', '土木群', '農業群'],
+    color: 'from-slate-500 to-zinc-500',
   },
   type_c: {
     type: 'C',
-    typeName: '社會連結者',
-    emoji: '🤝',
-    description: '你擅長理解他人、組織團隊，享受與人互動帶來的能量。你有強大的溝通和領導能力，商管和社會科學領域是你的舞台。',
-    directions: ['企業管理', '經濟學', '政治學', '社會學', '傳播學'],
+    typeName: '服務領航者',
+    emoji: '⚓',
+    description: '你擅長與人互動、關心他人需求，享受服務過程中帶來的成就感。你有出色的溝通能力和同理心，餐旅、護理、家政、海事、語文等領域能讓你用專業技能為他人創造美好體驗。',
+    directions: ['餐旅群', '護理群', '家政群', '海事群', '語文群'],
     color: 'from-amber-500 to-orange-500',
   },
   type_d: {
     type: 'D',
     typeName: '創意表現者',
     emoji: '🎨',
-    description: '你對美感和創造力有獨特敏銳度，享受用作品表達自己。你不喜歡被框架限制，設計和藝術領域能讓你自由發揮。',
-    directions: ['設計學群', '建築學', '音樂學', '美術學', '大眾傳播'],
-    color: 'from-rose-500 to-red-500',
+    description: '你對美感與創意有敏銳的直覺，享受將想法轉化為視覺作品的過程。你不喜歡被框架束縛，設計、商管等領域能讓你自由揮灑創意，用作品打動人心。',
+    directions: ['設計群', '商管群', '商業與管理群'],
+    color: 'from-rose-500 to-pink-500',
   },
 };
 
@@ -208,7 +208,7 @@ export default function QuizPage() {
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 60px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('升學大師 科系測驗', 540, 120);
+      ctx.fillText('升學大師 職群測驗', 540, 120);
 
       ctx.font = '180px sans-serif';
       ctx.fillText(result.emoji, 540, 450);
@@ -229,7 +229,7 @@ export default function QuizPage() {
 
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 36px sans-serif';
-      ctx.fillText('推薦學群方向', 540, rectY + 60);
+      ctx.fillText('推薦職群方向', 540, rectY + 60);
 
       ctx.fillStyle = 'rgba(255,255,255,0.95)';
       ctx.font = '34px sans-serif';
@@ -246,7 +246,7 @@ export default function QuizPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `升學大師-科系測驗-${result.typeName}.png`;
+        a.download = `升學大師-職群測驗-${result.typeName}.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -268,12 +268,12 @@ export default function QuizPage() {
         {/* Share Card */}
         <div ref={cardRef} className={`bg-gradient-to-br ${result.color} rounded-2xl p-8 text-white mb-6 shadow-xl`}>
           <div className="text-center mb-6">
-            <p className="text-sm opacity-80 mb-1">你的升學人格</p>
+            <p className="text-sm opacity-80 mb-1">你的技能人格</p>
             <p className="text-4xl font-bold">{result.typeName}</p>
           </div>
           <p className="text-sm leading-relaxed opacity-95 mb-6">{result.description}</p>
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider opacity-70 mb-3">推薦學群方向</p>
+            <p className="text-xs font-bold uppercase tracking-wider opacity-70 mb-3">推薦職群方向</p>
             <div className="flex flex-wrap gap-2">
               {result.directions.map(dir => (
                 <span key={dir} className="px-3 py-1.5 bg-white/20 rounded-full text-sm font-medium backdrop-blur-sm">
@@ -320,8 +320,8 @@ export default function QuizPage() {
   return (
     <div className="max-w-lg mx-auto px-4 py-12">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">科系人格測驗</h1>
-        <p className="text-gray-500">10 題找出你的升學人格，發現適合你的學群方向</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">職群人格測驗</h1>
+        <p className="text-gray-500">10 題找出你的技能人格，發現適合你的職群方向</p>
       </div>
 
       {/* Progress */}

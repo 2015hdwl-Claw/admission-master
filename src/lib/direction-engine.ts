@@ -1,102 +1,124 @@
-import type { UserFact, DirectionResult, InterestAnswer, InterestQuestion, OnboardingProfile } from '@/types';
-import { DIRECTION_RULES } from '@/data/direction-rules';
+import type { VocationalUserFact, VocationalGroup, DirectionResult, InterestAnswer, InterestQuestion, OnboardingProfile } from '@/types';
+import { VOCATIONAL_DIRECTION_RULES, VOCATIONAL_INTEREST_QUESTIONS } from '@/data/vocational-direction-rules';
 
-/**
- * Tag extraction: convert user facts into normalized tags used by rules.
- */
-function extractTags(facts: UserFact[]): Set<string> {
+function extractTags(facts: VocationalUserFact[]): Set<string> {
   const tags = new Set<string>();
+
+  const tagKeywords: Record<string, string[]> = {
+    'programming': ['程式', 'python', 'javascript', 'coding', '寫程式', 'scratch', 'app開發', '軟體', '前端', '後端'],
+    'web-design': ['網頁', 'html', 'css', '網站', 'web', '響應式'],
+    'database': ['資料庫', 'sql', 'mysql', 'mongo', 'firebase'],
+    'networking': ['網路', '路由器', '交換器', 'tcp/ip', 'dns', '防火牆', '伺服器'],
+    'hardware': ['硬體', '電腦組裝', '主機板', 'cpu', '維修'],
+    'game-design': ['遊戲', 'game', 'unity', 'unreal', 'rpg', '遊戲設計'],
+    'animation': ['動畫', 'animation', 'after effects', 'maya', 'blender', '3d動畫'],
+    'circuit': ['電路', 'circuit', '基本電學', '電工', '電子學'],
+    'electrical-wiring': ['配線', '電力', '內線', '外線', '高低壓'],
+    'automation': ['自動化', '控制', '控制系統', '機電整合'],
+    'plc': ['plc', '可程式控制器', '西門子', '三菱'],
+    'soldering': ['焊接', '銲接', 'soldering', '烙鐵', 'smt'],
+    'circuit-design': ['電路設計', 'pcb', '電路板', 'layout', 'altium', 'kicad'],
+    'semiconductor': ['半導體', '晶圓', '封裝', '製程', 'ic'],
+    'ic-design': ['ic設計', 'asic', 'fpga', 'verilog', 'vhdl', '數位電路設計'],
+    'iot': ['物聯網', 'iot', 'mqtt', '嵌入式', 'embedded', 'arduino', 'raspberry', '樹莓派'],
+    'sensor': ['感測器', 'sensor', '溫度', '濕度', '光感'],
+    'cnc': ['cnc', '數值控制', '工具機', '銑床', '車床'],
+    'machining': ['加工', '切削', '研磨', '機械加工'],
+    'welding': ['焊接', '銲接', 'tig', 'mig', '弧焊', '氣焊'],
+    'metalwork': ['金屬', '鈑金', '金工', '金屬加工'],
+    'cad': ['cad', 'autocad', 'solidworks', 'inventor', 'pro-e'],
+    '3d-modeling': ['3d', '建模', '3d列印', '3d建模', '建模', '渲染'],
+    'cooking': ['烹飪', '廚藝', '料理', '炒菜', '中式', '西式', '刀工'],
+    'baking': ['烘焙', '麵包', '蛋糕', '甜點', '糕點', '餅乾'],
+    'service-hospitality': ['服務', '接待', '客服', '櫃檯', '飯店'],
+    'tourism': ['旅遊', '導遊', '領隊', '觀光', '旅行社'],
+    'accounting': ['會計', '記帳', '傳票', '財報', '稅務'],
+    'finance': ['理財', '金融', '銀行', '投資', '保險'],
+    'marketing': ['行銷', '行銷', '社群', '廣告', '品牌'],
+    'ecommerce': ['電商', '網拍', '蝦皮', 'shopify', 'momo'],
+    'leadership': ['社長', '會長', '隊長', '幹部', '班長', '組長'],
+    'event-planning': ['活動企劃', '策展', '活動', '企劃'],
+    'sales': ['銷售', '業務', '推銷', '業績'],
+    'communication': ['溝通', '簡報', '談判', '人際'],
+    'graphic-design': ['平面設計', '海報', '傳單', 'dm', 'illustrator', 'photoshop'],
+    'ui-design': ['ui', 'ux', '使用者介面', '介面設計', 'figma', 'wireframe'],
+    'interior-design': ['室內設計', '裝潢', '空間設計', '室內裝修'],
+    'space-planning': ['空間規劃', '動線', '平面配置'],
+    'drawing': ['繪畫', '畫畫', '素描', '手繪', '水彩'],
+    'illustration': ['插畫', 'illustration', '角色設計', '人物設計'],
+    'photography': ['攝影', '相機', '拍照', '修圖', 'lightroom'],
+    'video-editing': ['影片', '剪輯', 'video', 'premiere', 'final cut', '短影音'],
+    'farming': ['農作', '農業', '耕種', '插秧', '收割'],
+    'plant-cultivation': ['栽培', '園藝', '植物', '育苗', '花卉'],
+    'biotech': ['生物技術', '基因', '組織培養', '生物科技'],
+    'lab-work': ['實驗', 'lab', '實驗室', '研究'],
+    'chemistry': ['化學', '有機', '無機', '分析化學'],
+    'lab-experiment': ['實驗', '化學實驗', '配藥', '滴定'],
+    'construction': ['施工', '建築', '營造', '鋼筋', '模板'],
+    'surveying': ['測量', '水準', '經緯', '全站儀'],
+    'nursing': ['護理', '護士', '看護'],
+    'patient-care': ['病患', '照護', '病房', '醫療'],
+    'health-care': ['健康', '醫療保健', '公共衛生'],
+    'first-aid': ['急救', 'cpr', 'aed', '包紮'],
+    'service-learning': ['服務學習', '志工', '公益', '弱勢'],
+    'sailing': ['航海', '船舶', '航行', '輪機'],
+    'maritime': ['海事', '船員', '船務', '航海'],
+    'food-science': ['食品科學', '食品安全', '食品加工', '微生物'],
+    'nutrition': ['營養', '膳食', '營養師'],
+    'childcare': ['育幼', '幼教', '幼稚園', '托育', '兒童'],
+    'elderly-care': ['長照', '老人', '銀髮', '照護'],
+    'english': ['英文', '英語', 'english', 'toefl', 'ielts', 'gept', '多益'],
+    'translation': ['翻譯', '筆譯', '口譯'],
+    'japanese': ['日文', '日语', '日語', 'japanese', 'jlpt', 'n1', 'n2'],
+    'korean': ['韓文', '韩语', '韓語', 'korean', 'topik'],
+  };
 
   for (const fact of facts) {
     const detail = fact.detail.toLowerCase();
     const label = fact.label.toLowerCase();
+    const combined = `${label} ${detail}`;
 
-    // Academic performance tags
-    if (fact.category === 'academic') {
-      if (label.includes('前10%') || label.includes('top')) tags.add('top-rank');
-      if (label.includes('前20%')) tags.add('top-rank');
-      if (detail.includes('數學') || label.includes('數學')) tags.add('math-strong');
-      if (detail.includes('自然') || detail.includes('物理') || detail.includes('化學') || detail.includes('生物')) tags.add('science-strong');
-      if (detail.includes('社會') || detail.includes('歷史') || detail.includes('地理') || detail.includes('公民')) tags.add('social-science-strong');
-    }
-
-    // Club experience tags
-    if (fact.category === 'club') {
-      if (label.includes('社長') || label.includes('會長') || label.includes('隊長')) tags.add('leadership');
-      if (label.includes('幹部')) tags.add('leadership');
+    for (const [tag, keywords] of Object.entries(tagKeywords)) {
+      for (const kw of keywords) {
+        if (combined.includes(kw.toLowerCase())) {
+          tags.add(tag);
+          break;
+        }
+      }
     }
 
-    // Extracurricular tags
-    if (fact.category === 'extracurricular') {
-      if (detail.includes('比賽') || detail.includes('競賽') || label.includes('比賽')) tags.add('competition');
-      if (detail.includes('全國') || detail.includes('國際')) tags.add('competition');
-      if (detail.includes('辯論') || detail.includes('演講')) tags.add('debate');
-      if (detail.includes('志工') || detail.includes('服務') || label.includes('志工')) tags.add('volunteer-care');
+    if (fact.category === 'certification') {
+      if (combined.includes('丙級') || combined.includes('技術士')) tags.add('certification');
+      if (combined.includes('乙級')) tags.add('certification');
+      if (combined.includes('技能檢定')) tags.add('certification');
     }
 
-    // Self-study tags
-    if (fact.category === 'selfStudy') {
-      if (detail.includes('程式') || detail.includes('python') || detail.includes('javascript') || detail.includes('coding') || detail.includes('寫程式')) tags.add('programming');
-      if (detail.includes('英文') || detail.includes('日文') || detail.includes('韓文') || detail.includes('外語') || detail.includes('英語') || detail.includes('toefl') || detail.includes('ielts') || detail.includes('gept')) tags.add('language');
-      if (detail.includes('繪畫') || detail.includes('畫畫') || detail.includes('素描') || detail.includes('美術')) tags.add('art');
-      if (detail.includes('設計') || detail.includes('ui') || detail.includes('ux') || detail.includes('平面')) tags.add('design');
-      if (detail.includes('音樂') || detail.includes('樂器') || detail.includes('鋼琴') || detail.includes('吉他') || detail.includes('小提琴')) tags.add('music');
-      if (detail.includes('表演') || detail.includes('戲劇') || detail.includes('話劇') || detail.includes('舞台')) tags.add('performance');
+    if (fact.category === 'competition') {
+      if (combined.includes('全國') || combined.includes('國際')) tags.add('competition');
+      if (combined.includes('技能競賽')) tags.add('competition');
     }
 
-    // Other tags
-    if (fact.category === 'other') {
-      if (detail.includes('打工') || detail.includes('創業') || detail.includes('攤位')) tags.add('finance-interest');
+    if (fact.category === 'capstone') {
+      if (combined.includes('專題')) tags.add('capstone');
     }
 
-    // Cross-category: writing detection
-    if (detail.includes('寫作') || detail.includes('作文') || detail.includes('閱讀') || detail.includes('看書') || label.includes('寫作')) {
-      tags.add('writing');
-    }
-    if (detail.includes('閱讀') || detail.includes('看書') || detail.includes('讀書') || label.includes('閱讀')) {
-      tags.add('reading');
-    }
-    if (detail.includes('歷史') || detail.includes('考古') || detail.includes('文明')) {
-      tags.add('history-interest');
-    }
-    if (detail.includes('實驗') || detail.includes('lab')) {
-      tags.add('lab');
-    }
-    if (detail.includes('電子') || detail.includes('電路') || detail.includes('arduino') || detail.includes('電子電路')) {
-      tags.add('electronics');
-    }
-    if (detail.includes('機械') || detail.includes('3d列印') || detail.includes('動手做') || detail.includes('手工')) {
-      tags.add('mechanical');
-      tags.add('making');
-    }
-    if (detail.includes('生物') || detail.includes('生命科學')) {
-      tags.add('biology');
-    }
-    if (detail.includes('化學')) {
-      tags.add('chemistry');
-    }
-    if (detail.includes('地球科學') || detail.includes('地質') || detail.includes('氣象')) {
-      tags.add('earth-science');
-    }
-    if (detail.includes('金融') || detail.includes('投資') || detail.includes('股票') || detail.includes('經濟')) {
-      tags.add('finance-interest');
+    if (fact.category === 'internship') {
+      if (combined.includes('實習') || combined.includes('打工') || combined.includes('產學')) {
+        tags.add('internship');
+      }
     }
   }
 
   return tags;
 }
 
-/**
- * Match direction rules against extracted tags.
- * Returns deduplicated, sorted results (top 5).
- */
-export function deriveDirections(facts: UserFact[]): DirectionResult[] {
+export function deriveDirections(facts: VocationalUserFact[]): DirectionResult[] {
   if (facts.length === 0) return [];
 
   const tags = extractTags(facts);
   const resultMap = new Map<string, DirectionResult>();
 
-  for (const rule of DIRECTION_RULES) {
+  for (const rule of VOCATIONAL_DIRECTION_RULES) {
     const matched = rule.conditions.every(cond => tags.has(cond));
     if (!matched) continue;
 
@@ -126,205 +148,185 @@ export function deriveDirections(facts: UserFact[]): DirectionResult[] {
   return results.slice(0, 5);
 }
 
-/**
- * Interest-based fallback questions for users with no facts.
- */
-export const INTEREST_QUESTIONS: InterestQuestion[] = [
+export { VOCATIONAL_INTEREST_QUESTIONS as INTEREST_QUESTIONS } from '@/data/vocational-direction-rules';
+
+const VOCATIONAL_GROUPS: VocationalGroup[] = [
+  '資訊群', '電機群', '電子群', '機械群', '餐旅群', '商管群',
+  '設計群', '農業群', '化工群', '土木群', '護理群', '海事群',
+  '家政群', '語文群', '商業與管理群',
+];
+
+interface InterestGroupMapping {
+  matchValues: string[];
+  directionGroup: VocationalGroup;
+  direction: string;
+  confidence: number;
+  reason: string;
+  relatedCategoryIds: string[];
+}
+
+const INTEREST_GROUP_RULES: InterestGroupMapping[] = [
   {
-    id: 1,
-    question: '閒暇時間你最常做什麼？',
-    options: [
-      { value: 'read', label: '看書、閱讀文章' },
-      { value: 'code', label: '寫程式、研究科技' },
-      { value: 'create', label: '畫畫、做手工藝、音樂' },
-      { value: 'social', label: '跟朋友聚會、參加活動' },
-      { value: 'sports', label: '運動、戶外活動' },
-    ],
+    matchValues: ['tech-skill', 'tech-topic', 'tech-content', 'logic', 'desk', 'solving', 'building'],
+    directionGroup: '資訊群',
+    direction: '軟體開發',
+    confidence: 0.75,
+    reason: '你對科技和程式設計有興趣，喜歡解決問題的模式，資訊群很適合你。',
+    relatedCategoryIds: ['info-software'],
   },
   {
-    id: 2,
-    question: '哪類新聞最吸引你點進去看？',
-    options: [
-      { value: 'tech', label: '科技、AI、新產品' },
-      { value: 'society', label: '社會議題、政治、國際' },
-      { value: 'business', label: '財經、股市、創業' },
-      { value: 'culture', label: '文化、藝術、娛樂' },
-      { value: 'science', label: '科學發現、醫學新知' },
-    ],
+    matchValues: ['building', 'hands-on', 'practical', 'factory'],
+    directionGroup: '電機群',
+    direction: '電機維修',
+    confidence: 0.70,
+    reason: '你喜歡動手操作和實際製造，電機群能滿足你的實作需求。',
+    relatedCategoryIds: ['elec-maintenance'],
   },
   {
-    id: 3,
-    question: '你比較喜歡哪種工作方式？',
-    options: [
-      { value: 'alone', label: '獨自專注研究或創作' },
-      { value: 'team', label: '跟團隊一起合作解決問題' },
-      { value: 'lead', label: '帶領團隊、做決策' },
-      { value: 'help', label: '幫助他人、服務社會' },
-      { value: 'express', label: '表達想法、創造內容' },
-    ],
+    matchValues: ['solving', 'invent', 'logic', 'tech-topic'],
+    directionGroup: '電子群',
+    direction: '電子技術',
+    confidence: 0.70,
+    reason: '你喜歡發明和解決問題，電子群的物聯網應用方向很適合你。',
+    relatedCategoryIds: ['elec-circuit'],
   },
   {
-    id: 4,
-    question: '以下哪個情境最讓你興奮？',
-    options: [
-      { value: 'invent', label: '發明一個解決問題的新產品' },
-      { value: 'research', label: '發現一個科學新知' },
-      { value: 'write', label: '寫出一篇感動人心的文章' },
-      { value: 'organize', label: '策劃一場大型活動' },
-      { value: 'heal', label: '幫助一個人恢复健康' },
-    ],
+    matchValues: ['hands-on', 'building', 'practical', 'factory', 'outdoor'],
+    directionGroup: '機械群',
+    direction: '精密加工',
+    confidence: 0.70,
+    reason: '你喜歡動手操作，機械群的精密加工是工業4.0的核心技能。',
+    relatedCategoryIds: ['mech-machining'],
   },
   {
-    id: 5,
-    question: '你最不想做什麼？',
-    options: [
-      { value: 'hate-math', label: '算數學、看數據' },
-      { value: 'hate-writing', label: '寫很多文字報告' },
-      { value: 'hate-lab', label: '在實驗室做實驗' },
-      { value: 'hate-speak', label: '上台演講或表演' },
-      { value: 'hate-rote', label: '背誦大量資料' },
-    ],
+    matchValues: ['creating', 'care', 'food-topic', 'life-content', 'people'],
+    directionGroup: '餐旅群',
+    direction: '餐飲管理',
+    confidence: 0.72,
+    reason: '你喜歡創造和照顧他人，餐旅群的服務與創作兼具這些特質。',
+    relatedCategoryIds: ['hospitality-food'],
   },
   {
-    id: 6,
-    question: '高中你一定想選的選修是？',
-    options: [
-      { value: 'math-adv', label: '進階數學' },
-      { value: 'science-adv', label: '進階物理/化學/生物' },
-      { value: 'language-adv', label: '第二外語' },
-      { value: 'art-adv', label: '藝術或音樂' },
-      { value: 'social-adv', label: '社會學探究' },
-    ],
+    matchValues: ['business', 'biz-content', 'connect', 'desk', 'office'],
+    directionGroup: '商管群',
+    direction: '商業管理',
+    confidence: 0.73,
+    reason: '你對商業和溝通有興趣，商管群能發揮你的領導和企劃能力。',
+    relatedCategoryIds: ['biz-admin'],
   },
   {
-    id: 7,
-    question: '你覺得最重要的能力是？',
-    options: [
-      { value: 'logic', label: '邏輯思考能力' },
-      { value: 'creativity', label: '創意和想像力' },
-      { value: 'empathy', label: '同理心和溝通能力' },
-      { value: 'execution', label: '執行力和效率' },
-      { value: 'analysis', label: '分析和批判思考' },
-    ],
+    matchValues: ['creative', 'creative-work', 'art-content', 'design-topic', 'express'],
+    directionGroup: '設計群',
+    direction: '商業設計',
+    confidence: 0.75,
+    reason: '你喜歡創作和設計，設計群能讓你專注發展創意能力。',
+    relatedCategoryIds: ['design-graphic'],
   },
   {
-    id: 8,
-    question: '你未來最想住的城市是？',
-    options: [
-      { value: 'city-tech', label: '台北（科技產業中心）' },
-      { value: 'city-finance', label: '上海/新加坡（金融中心）' },
-      { value: 'city-culture', label: '東京/巴黎（文化藝術）' },
-      { value: 'city-nature', label: '不特別，只要有大自然' },
-      { value: 'city-any', label: '都可以，看工作機會' },
-    ],
+    matchValues: ['nurture', 'life-content', 'outdoor'],
+    directionGroup: '農業群',
+    direction: '農業技術',
+    confidence: 0.65,
+    reason: '你喜歡培養和照顧事物，農業群的生物技術方向很適合你。',
+    relatedCategoryIds: ['agri-tech'],
+  },
+  {
+    matchValues: ['solving', 'logic', 'lab', 'factory'],
+    directionGroup: '化工群',
+    direction: '化工技術',
+    confidence: 0.65,
+    reason: '你喜歡解決問題和實驗，化工群的實作特性符合你的興趣。',
+    relatedCategoryIds: ['chem-process'],
+  },
+  {
+    matchValues: ['building', 'outdoor', 'hands-on', 'practical'],
+    directionGroup: '土木群',
+    direction: '土木技術',
+    confidence: 0.68,
+    reason: '你喜歡動手建造，土木群的施工和測量能滿足你的實作需求。',
+    relatedCategoryIds: ['civil-construction'],
+  },
+  {
+    matchValues: ['helping', 'nurture', 'care', 'service-work', 'people', 'service-topic'],
+    directionGroup: '護理群',
+    direction: '護理照護',
+    confidence: 0.72,
+    reason: '你喜歡幫助和照顧他人，護理群是最能發揮這些特質的方向。',
+    relatedCategoryIds: ['nursing-care'],
+  },
+  {
+    matchValues: ['outdoor', 'building', 'hands-on'],
+    directionGroup: '海事群',
+    direction: '航海技術',
+    confidence: 0.60,
+    reason: '你喜歡戶外和動手操作，海事群提供獨特的航海職涯。',
+    relatedCategoryIds: ['maritime-navigation'],
+  },
+  {
+    matchValues: ['nurture', 'care', 'food-topic', 'life-content', 'service-work'],
+    directionGroup: '家政群',
+    direction: '食品與營養',
+    confidence: 0.70,
+    reason: '你喜歡照顧和生活相關的主題，家政群的食品與營養方向很適合。',
+    relatedCategoryIds: ['home-food'],
+  },
+  {
+    matchValues: ['express', 'connect', 'social', 'artistic'],
+    directionGroup: '語文群',
+    direction: '應用外語',
+    confidence: 0.68,
+    reason: '你喜歡表達和交流，語文群能培養你的外語溝通能力。',
+    relatedCategoryIds: ['lang-applications'],
+  },
+  {
+    matchValues: ['business', 'connect', 'social', 'desk', 'office', 'biz-content'],
+    directionGroup: '商業與管理群',
+    direction: '會計事務',
+    confidence: 0.70,
+    reason: '你對商業和管理有興趣，商業與管理群的會計方向穩定且實用。',
+    relatedCategoryIds: ['biz-accounting'],
   },
 ];
 
-/**
- * Derive directions from interest quiz answers.
- */
 export function deriveFromInterests(answers: InterestAnswer[]): DirectionResult[] {
   const answerValues = answers.map(a => a.answer);
   const directions: DirectionResult[] = [];
+  const matchedGroups = new Set<string>();
 
   const has = (v: string | string[]) => {
     const arr = Array.isArray(v) ? v : [v];
     return arr.some(val => answerValues.includes(val));
   };
 
-  // Engineering / CS signals
-  if (has(['code', 'tech', 'alone', 'invent', 'math-adv', 'logic', 'city-tech'])) {
+  for (const rule of INTEREST_GROUP_RULES) {
+    const matchCount = rule.matchValues.filter(v => answerValues.includes(v)).length;
+    if (matchCount < 2) continue;
+    if (matchedGroups.has(rule.directionGroup)) continue;
+
+    matchedGroups.add(rule.directionGroup);
     directions.push({
-      direction: '資訊工程',
-      directionGroup: '工程',
-      confidence: 0.75,
-      reasons: ['你對科技和程式設計有興趣，且喜歡獨立解決問題的模式。'],
-      relatedCategoryIds: ['computer-science', 'information-management'],
-      factCount: 3,
+      direction: rule.direction,
+      directionGroup: rule.directionGroup,
+      confidence: Math.min(0.9, rule.confidence + matchCount * 0.03),
+      reasons: [rule.reason],
+      relatedCategoryIds: [...rule.relatedCategoryIds],
+      factCount: matchCount,
     });
   }
 
-  if (has(['invent', 'science', 'science-adv', 'hate-writing'])) {
-    directions.push({
-      direction: '工程學群（電機/機械）',
-      directionGroup: '工程',
-      confidence: 0.70,
-      reasons: ['喜歡發明和科學，工程領域可以將創意變成實際產品。'],
-      relatedCategoryIds: ['electrical-engineering', 'mechanical-engineering'],
-      factCount: 2,
-    });
-  }
-
-  // Medical signals
-  if (has(['science', 'heal', 'hate-speak', 'empathy'])) {
-    directions.push({
-      direction: '醫藥衛生',
-      directionGroup: '醫藥衛',
-      confidence: 0.72,
-      reasons: ['你對科學有興趣且關心他人健康，醫藥衛生領域非常適合。'],
-      relatedCategoryIds: ['medicine', 'nursing', 'biology'],
-      factCount: 2,
-    });
-  }
-
-  // Business signals
-  if (has(['business', 'lead', 'organize', 'execution', 'city-finance'])) {
-    directions.push({
-      direction: '商管學群',
-      directionGroup: '商管',
-      confidence: 0.73,
-      reasons: ['你對財經有興趣且喜歡領導和組織，商管領域可以發揮這些特質。'],
-      relatedCategoryIds: ['business-administration', 'finance', 'international-business'],
-      factCount: 2,
-    });
-  }
-
-  // Social science signals
-  if (has(['society', 'social', 'help', 'analysis', 'social-adv'])) {
-    directions.push({
-      direction: '社會科學',
-      directionGroup: '社會',
-      confidence: 0.70,
-      reasons: ['你關心社會議題且喜歡分析問題，社會科學領域能滿足你的好奇心。'],
-      relatedCategoryIds: ['sociology', 'political-science', 'economics', 'law'],
-      factCount: 2,
-    });
-  }
-
-  // Humanities signals
-  if (has(['read', 'write', 'express', 'hate-math', 'hate-lab', 'city-culture'])) {
-    directions.push({
-      direction: '人文學群',
-      directionGroup: '人文',
-      confidence: 0.68,
-      reasons: ['你喜歡閱讀和表達想法，人文學群能讓你深入探索文化和思想。'],
-      relatedCategoryIds: ['chinese-literature', 'foreign-languages', 'history', 'philosophy'],
-      factCount: 2,
-    });
-  }
-
-  // Art signals
-  if (has(['create', 'culture', 'creativity', 'art-adv'])) {
-    directions.push({
-      direction: '藝術學群',
-      directionGroup: '藝術',
-      confidence: 0.72,
-      reasons: ['你喜歡創作和藝術，藝術學群能讓你專注發展創意能力。'],
-      relatedCategoryIds: ['fine-arts', 'design', 'music', 'drama-film'],
-      factCount: 2,
-    });
-  }
-
-  // Natural science signals
-  if (has(['research', 'science', 'science-adv', 'city-nature'])) {
-    directions.push({
-      direction: '自然科學',
-      directionGroup: '自然',
-      confidence: 0.68,
-      reasons: ['你對科學發現有熱情，自然科學領域可以滿足你的探究精神。'],
-      relatedCategoryIds: ['physics', 'chemistry', 'biology', 'earth-science'],
-      factCount: 2,
-    });
+  if (directions.length === 0 && answerValues.length > 0) {
+    const first = answerValues[0];
+    const fallback = INTEREST_GROUP_RULES.find(r => r.matchValues.includes(first));
+    if (fallback) {
+      directions.push({
+        direction: fallback.direction,
+        directionGroup: fallback.directionGroup,
+        confidence: 0.5,
+        reasons: ['根據你的興趣初步推薦，建議填寫更多資料以獲得精準分析。'],
+        relatedCategoryIds: [...fallback.relatedCategoryIds],
+        factCount: 1,
+      });
+    }
   }
 
   directions.sort((a, b) => b.confidence - a.confidence);
@@ -352,7 +354,6 @@ const AI_MODEL = typeof process !== 'undefined'
   ? (process.env.NEXT_PUBLIC_AI_MODEL || 'glm-4.7-flash')
   : 'glm-4.7-flash';
 
-/** Models to try in order of preference */
 const AI_MODEL_FALLBACKS = [AI_MODEL, 'glm-4.5-air', 'glm-4-flash'];
 
 function sleep(ms: number): Promise<void> {
@@ -366,7 +367,9 @@ function buildAIPrompt(profile: OnboardingProfile, ruleResults: DirectionResult[
     ? ruleResults.map(r => `${r.direction} (${r.directionGroup}) - 匹配度 ${(r.confidence * 100).toFixed(0)}%`).join('\n')
     : '無匹配結果';
 
-  return `你是一位台灣高中升學輔導專家。根據以下學生資料，推導最適合的升學方向。
+  const groupsList = VOCATIONAL_GROUPS.join('、');
+
+  return `你是一位台灣高職升學輔導專家。根據以下學生資料，推導最適合的高職群科升學方向。
 
 ## 學生背景
 - 年級：${profile.grade}
@@ -381,8 +384,8 @@ ${ruleSummary}
 {
   "directions": [
     {
-      "direction": "方向名稱（如：資訊工程）",
-      "directionGroup": "學群（人文/社會/自然/工程/商管/醫藥衛/藝術）",
+      "direction": "方向名稱（如：軟體開發、電機維修、餐飲管理）",
+      "directionGroup": "群科名稱",
       "confidence": 0.0-1.0 的匹配度,
       "reasons": ["推薦原因1", "推薦原因2"]
     }
@@ -390,11 +393,11 @@ ${ruleSummary}
 }
 
 規則：
-1. 方向要具體（如「資訊工程」而非「工程」）
-2. directionGroup 必須是以下之一：人文、社會、自然、工程、商管、醫藥衛、藝術
+1. 方向要具體（如「軟體開發」而非「資訊群」）
+2. directionGroup 必須是以下之一：${groupsList}
 3. confidence 為 0-1 之間的浮點數，代表匹配度
 4. 每個方向至少 1 個推薦原因
-5. 根據學生的實際資料分析，不要給泛泛的建議
+5. 根據學生的實際資料分析，參考專題實作、技能檢定、實習經驗等高職特色
 6. 如果規則引擎已有好的結果，AI 結果應與之互補`;
 }
 
@@ -451,18 +454,15 @@ export async function deriveDirectionsWithAI(
 
   const prompt = buildAIPrompt(profile, ruleResults);
 
-  // Try each model with retry
   for (const model of AI_MODEL_FALLBACKS) {
     const result = await tryAIModel(model, prompt);
     if (result) return { directions: result, usedAI: true };
   }
 
-  // All models failed, try retry on original model once
   await sleep(2000);
   const retryResult = await tryAIModel(AI_MODEL, prompt);
   if (retryResult) return { directions: retryResult, usedAI: true };
 
-  // Silent fallback to rule engine
   return { directions: ruleResults, usedAI: false };
 }
 
@@ -501,7 +501,7 @@ async function tryAIModel(
     const parsed: AIDirectionResponse = JSON.parse(content);
     const aiDirections: DirectionResult[] = (parsed.directions || []).map(d => ({
       direction: d.direction,
-      directionGroup: (d.directionGroup || '工程') as DirectionResult['directionGroup'],
+      directionGroup: (d.directionGroup || '資訊群') as DirectionResult['directionGroup'],
       confidence: Math.min(1, Math.max(0, d.confidence || 0.5)),
       reasons: d.reasons || [],
       relatedCategoryIds: [],

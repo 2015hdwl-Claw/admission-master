@@ -4,128 +4,153 @@ import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { loadFromStorage } from '@/lib/storage';
 import { isProUser } from '@/lib/subscription';
-import { ACADEMIC_GROUP_LABELS, ACADEMIC_CATEGORIES } from '@/data/academic-categories';
+import { VOCATIONAL_GROUP_LABELS, VOCATIONAL_GROUP_COLORS, VOCATIONAL_CATEGORIES, getCategoriesByGroup } from '@/data/vocational-categories';
 import { NATIONAL_CALENDAR_EVENTS } from '@/data/national-calendar';
+import { SKILL_CATEGORY_LABELS, SKILL_CATEGORY_ICONS } from '@/types';
 import type {
   OnboardingProfile,
   DirectionResult,
   GradeLevel,
-  TargetPathway,
-  AcademicGroup,
-  RoadmapPhase,
-  PersonalizedRoadmapPhase,
-  RoadmapGap,
-  PortfolioItem,
+  VocationalPathway,
+  VocationalGroup,
+  VocationalRoadmapPhase,
+  SkillGap,
+  SkillItem,
+  SkillCategory,
 } from '@/types';
 
 const GRADES: GradeLevel[] = ['高一', '高二', '高三'];
-const PATHWAYS: TargetPathway[] = ['申請入學', '繁星推薦', '分發入學'];
-const GROUPS: AcademicGroup[] = ['人文', '社會', '自然', '工程', '商管', '醫藥衛', '藝術'];
+const PATHWAYS: VocationalPathway[] = ['四技二專甄選', '聯合登記分發', '技優保送甄保', '科技校院繁星', '各校單獨招生', '二技轉學考'];
 
 function getMonthsUntilDeadline(): number {
-  const deadline = new Date('2027-02-24');
+  const deadline = new Date('2027-05-04');
   const now = new Date();
   return (deadline.getFullYear() - now.getFullYear()) * 12 + (deadline.getMonth() - now.getMonth());
 }
 
 function getMonthsRemaining(grade: GradeLevel): number {
   const base = getMonthsUntilDeadline();
-  const offset: Record<GradeLevel, number> = { '高一': 18, '高二': 6, '高三': 0 };
+  const offset: Record<GradeLevel, number> = { '高一': 24, '高二': 12, '高三': 0 };
   return Math.max(1, base + offset[grade]);
 }
 
 function analyzeGaps(
   directions: DirectionResult[],
-  portfolioItems: PortfolioItem[],
+  skillItems: SkillItem[],
   grade: GradeLevel
-): RoadmapGap[] {
-  const gaps: RoadmapGap[] = [];
-  const codeCounts: Record<string, number> = {};
-  portfolioItems.forEach(item => {
-    codeCounts[item.code] = (codeCounts[item.code] || 0) + 1;
+): SkillGap[] {
+  const gaps: SkillGap[] = [];
+  const categoryCounts: Record<SkillCategory, number> = {
+    capstone: 0,
+    certification: 0,
+    internship: 0,
+    competition: 0,
+    club: 0,
+    license: 0,
+    service: 0,
+  };
+
+  skillItems.forEach(item => {
+    categoryCounts[item.category] = (categoryCounts[item.category] || 0) + 1;
   });
 
-  const totalPortfolio = portfolioItems.length;
-  const idealCount = grade === '高一' ? 20 : grade === '高二' ? 12 : 8;
+  const directionGroup = directions[0]?.directionGroup as VocationalGroup | undefined;
+  const isIndustrialGroup = ['機械群', '電機群', '電子群', '化工群', '土木群'].includes(directionGroup || '');
+  const isServiceGroup = ['餐旅群', '護理群', '家政群'].includes(directionGroup || '');
+  const isInfoGroup = directionGroup === '資訊群';
 
-  if (totalPortfolio < idealCount) {
+  // Capstone (critical for all)
+  const capstoneIdeal = grade === '高一' ? 2 : grade === '高二' ? 2 : 1;
+  if (categoryCounts.capstone < capstoneIdeal) {
     gaps.push({
-      category: '學習歷程素材',
-      current: totalPortfolio,
-      recommended: idealCount,
-      description: `你目前有 ${totalPortfolio} 件素材，建議累積到 ${idealCount} 件。`,
-    });
-  }
-
-  // Check diversity of learning codes
-  const uniqueCodes = Object.keys(codeCounts).length;
-  if (uniqueCodes < 4) {
-    gaps.push({
-      category: '代碼多樣性',
-      current: uniqueCodes,
-      recommended: 6,
-      description: `你目前涵蓋 ${uniqueCodes} 種代碼，建議至少 6 種以展現全面性。`,
+      category: 'capstone',
+      current: categoryCounts.capstone,
+      recommended: capstoneIdeal,
+      description: `你需要至少 ${capstoneIdeal} 件專題實作${grade === '高三' ? '' : '，為甄選備審增加實質內容'}。`,
+      priority: 'critical',
     });
   }
 
-  // Direction-specific gaps
-  const directionGroup = directions[0]?.directionGroup;
-  if (directionGroup === '工程' && !codeCounts['D'] && !codeCounts['C']) {
+  // Certification (critical - need at least 丙級)
+  const hasCertification = skillItems.some(
+    item => item.category === 'certification' && item.certificationLevel
+  );
+  if (!hasCertification) {
     gaps.push({
-      category: '自然探究/實作',
-      current: 0,
-      recommended: 2,
-      description: '工程方向需要自然探究（D）和實作（C）素材。',
+      category: 'certification',
+      current: categoryCounts.certification,
+      recommended: 1,
+      description: '至少需要一張丙級技術士證照，這是四技二專甄選的基本門檻。',
+      priority: 'critical',
     });
-  }
-  if (directionGroup === '人文' && !codeCounts['B'] && !codeCounts['F']) {
-    gaps.push({
-      category: '書面報告/自主學習',
-      current: 0,
-      recommended: 3,
-      description: '人文方向需要書面報告（B）和自主學習（F）素材。',
-    });
-  }
-  if (directionGroup === '商管' && !codeCounts['E'] && !codeCounts['H']) {
-    gaps.push({
-      category: '社會探究/幹部',
-      current: 0,
-      recommended: 2,
-      description: '商管方向看重社會探究（E）和幹部經驗（H）。',
-    });
-  }
-  if (directionGroup === '醫藥衛' && !codeCounts['C'] && !codeCounts['I']) {
-    gaps.push({
-      category: '實作/服務學習',
-      current: 0,
-      recommended: 2,
-      description: '醫藥衛生方向需要實作（C）和服務學習（I）素材。',
-    });
-  }
-  if (directionGroup === '社會' && !codeCounts['E']) {
-    gaps.push({
-      category: '社會探究',
-      current: 0,
-      recommended: 3,
-      description: '社會科學方向需要社會探究（E）素材。',
-    });
-  }
-  if (directionGroup === '藝術' && !codeCounts['K']) {
-    gaps.push({
-      category: '作品集',
-      current: 0,
-      recommended: 3,
-      description: '藝術方向需要作品（K）來展現創作能力。',
-    });
+  } else {
+    const certItem = skillItems.find(
+      item => item.category === 'certification' && item.certificationLevel
+    );
+    if (certItem?.certificationLevel === '丙級' && grade !== '高三') {
+      gaps.push({
+        category: 'certification',
+        current: 1,
+        recommended: 2,
+        description: '已有丙級證照，建議進階考取乙級以增加競爭力。',
+        priority: 'important',
+      });
+    }
   }
 
-  // Competition gap
-  if (!codeCounts['J'] && (directionGroup === '工程' || directionGroup === '自然')) {
+  // Internship (important for service/industrial groups)
+  const internshipNeeded = isServiceGroup || isIndustrialGroup;
+  if (internshipNeeded && categoryCounts.internship === 0) {
     gaps.push({
-      category: '競賽經歷',
+      category: 'internship',
       current: 0,
       recommended: 1,
-      description: '理工方向有競賽經歷（J）會是加分項。',
+      description: `${directionGroup}建議有實習經驗，展現職場實務能力。`,
+      priority: 'important',
+    });
+  }
+
+  // Competition (important for industrial/info groups)
+  if ((isIndustrialGroup || isInfoGroup) && categoryCounts.competition === 0) {
+    gaps.push({
+      category: 'competition',
+      current: 0,
+      recommended: 1,
+      description: `${directionGroup}有競賽經歷會是大幅加分項，建議參加技能競賽或專題競賽。`,
+      priority: 'important',
+    });
+  }
+
+  // Club (suggested)
+  if (categoryCounts.club === 0) {
+    gaps.push({
+      category: 'club',
+      current: 0,
+      recommended: 1,
+      description: '社團參與能展現團隊合作與領導力，建議至少持續參與一個社團。',
+      priority: 'suggested',
+    });
+  }
+
+  // Service (suggested for nursing/service groups)
+  if (isServiceGroup && categoryCounts.service === 0) {
+    gaps.push({
+      category: 'service',
+      current: 0,
+      recommended: 1,
+      description: `${directionGroup}看重服務精神，建議累積服務學習時數。`,
+      priority: 'important',
+    });
+  }
+
+  // License (suggested)
+  if (categoryCounts.license === 0 && grade !== '高三') {
+    gaps.push({
+      category: 'license',
+      current: 0,
+      recommended: 1,
+      description: '專業證照能展現你的學習廣度，建議考取與科系相關的證照。',
+      priority: 'suggested',
     });
   }
 
@@ -134,77 +159,86 @@ function analyzeGaps(
 
 function generatePersonalizedRoadmap(
   grade: GradeLevel,
-  pathway: TargetPathway,
+  pathway: VocationalPathway,
   directions: DirectionResult[],
-  portfolioCount: number,
-  gaps: RoadmapGap[]
-): PersonalizedRoadmapPhase[] {
+  skillCount: number,
+  gaps: SkillGap[]
+): VocationalRoadmapPhase[] {
   const monthsLeft = getMonthsRemaining(grade);
-  const phases: PersonalizedRoadmapPhase[] = [];
+  const phases: VocationalRoadmapPhase[] = [];
   const directionNames = directions.map(d => d.direction).join('、');
+  const directionGroup = directions[0]?.directionGroup as VocationalGroup | undefined;
 
   if (grade === '高三') {
     phases.push(
       {
         id: 'p1',
-        name: '缺口補齊',
-        period: '第 1-2 週',
-        deadline: '2026-05-01',
-        description: `針對${directionNames}方向，快速補齊關鍵素材。`,
-        tasks: gaps.length > 0
-          ? gaps.map(g => `補齊「${g.category}」：${g.description}`).slice(0, 4)
-          : ['檢視現有素材，確認完整性', '針對目標科系補充 1-2 件相關作品', '整理學習歷程自述（P）大綱'],
-        gaps: gaps.slice(0, 3),
+        name: '專題實作收尾 + 統測衝刺',
+        period: '第 1-4 週',
+        deadline: '2027-04-20',
+        description: '完成專題實作的最終修改，同時全力衝刺統測準備。',
+        tasks: [
+          ...gaps.filter(g => g.priority === 'critical').slice(0, 2).map(g => `「${SKILL_CATEGORY_LABELS[g.category]}」：${g.description}`),
+          '完成專題實作報告的最終版本（含摘要、圖表、結論）',
+          '每日統測複習 — 國文、英文、數學為主，專業科目加強弱項',
+          '整理過去模擬考的錯題本，針對性加強',
+        ],
+        skillGaps: gaps.filter(g => g.priority === 'critical').slice(0, 2),
         isCurrent: true,
         isPast: false,
       },
       {
         id: 'p2',
-        name: '備審資料撰寫',
-        period: '第 2-4 週',
-        deadline: '2026-05-15',
-        description: `撰寫針對${directionNames}的備審資料，展現你的連結。`,
+        name: '四技二專甄選準備',
+        period: '第 4-8 週',
+        deadline: '2027-05-10',
+        description: `準備${directionNames}相關的備審資料，展現你的專題實作成果與技能實力。`,
         tasks: [
-          '撰寫學習歷程自述（P）- 1200 字，聚焦你為什麼選這個方向',
-          '整理動機信，具體說明你與目標方向的連結',
-          '準備 2-3 件代表性作品的詳細說明',
-          '請導師或老師幫忙看一遍',
+          '撰寫備審資料 — 聚焦專題實作過程與學習心得（800-1200 字）',
+          '整理技能檢定證照清單，附上成績單影本',
+          '準備專題實作作品的詳細說明（含照片/影片連結）',
+          '撰寫學習動機 — 為什麼選擇${directionNames}方向',
+          '請專題指導老師幫忙審閱備審資料',
         ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p3',
         name: '面試準備',
-        period: '第 4-6 週',
-        deadline: '2026-06-01',
-        description: pathway === '分發入學' ? '分發入學不需要面試，但你仍需準備志願序。' : `準備${directionNames}相關的面試問題。`,
-        tasks: pathway === '分發入學'
-          ? ['研究各校系分發錄取分數', '排好志願序', '了解分發填誌策略']
+        period: '第 8-10 週',
+        deadline: '2027-06-10',
+        description: pathway === '聯合登記分發'
+          ? '聯合分發不需要面試，但需要研究各校系錄取分數和填報策略。'
+          : `準備${directionNames}相關的面試問題，展現你的專業素養。`,
+        tasks: pathway === '聯合登記分發'
+          ? ['研究各校系近年統測錄取分數', '根據統測成績排好志願序', '了解聯合分發填誌策略與落點分析']
           : [
               `準備「為什麼選${directionNames}」的回答`,
-              '用 STAR-S 框架準備 3 個與方向相關的故事',
-              '找同學互相模擬面試',
+              '用 STAR-S 框架準備 3 個專題實作相關的故事',
+              '準備技能檢定過程的分享（考了什麼、怎麼準備、學到什麼）',
+              '找同學互相模擬面試至少 2 次',
               '準備 1 分鐘自我介紹',
             ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p4',
-        name: '最後衝刺',
-        period: '面試前 1 週',
-        deadline: '2027-01-15',
-        description: '放鬆心情，做最後確認。',
+        name: '聯合分發志願填報',
+        period: '放榜後',
+        deadline: '2027-07-15',
+        description: '根據甄選結果與統測成績，完成聯合登記分發志願填報。',
         tasks: [
-          '確認所有文件齊全',
-          '熟悉面試地點與交通',
-          '充足睡眠，保持好狀態',
-          '相信自己，你準備好了！',
+          '確認甄選結果，決定是否放棄遞補',
+          '研究各校系統測錄取分數與名額',
+          '根據自身成績與志願排好志願序',
+          '了解聯合分發機制（志願序、同分比序）',
+          '完成志願填報並確認',
         ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
@@ -213,67 +247,65 @@ function generatePersonalizedRoadmap(
     phases.push(
       {
         id: 'p1',
-        name: '方向深化期',
+        name: '技能深化期',
         period: '現在 ~ 6 個月後',
         deadline: '2026-10-01',
-        description: `深入探索${directionNames}方向，累積相關素材。`,
+        description: `深入發展${directionNames}方向的核心技能，考取證照並開始專題。`,
         tasks: [
-          ...gaps.slice(0, 2).map(g => `「${g.category}」：${g.description}`),
-          `選修或自學與${directionNames}相關的課程`,
-          '每週至少記錄 1 件學習歷程素材',
-          '關注目標校系的招生資訊',
+          ...gaps.filter(g => g.priority === 'critical').slice(0, 2).map(g => `「${SKILL_CATEGORY_LABELS[g.category]}」：${g.description}`),
+          `在${directionNames}領域選定專題實作題目，開始執行`,
+          '報名並準備丙級（或乙級）技術士技能檢定',
+          '每週記錄技能學習進度',
         ],
-        gaps: gaps.slice(0, 3),
+        skillGaps: gaps.filter(g => g.priority === 'critical').slice(0, 3),
         isCurrent: true,
         isPast: false,
       },
       {
         id: 'p2',
-        name: '競賽與深化',
+        name: '競賽與實習',
         period: '6-12 個月後',
-        deadline: '2027-01-01',
-        description: '參加與方向相關的競賽或活動，深化專業能力。',
+        deadline: '2027-04-01',
+        description: '參加技能競賽或校內專題競賽，爭取實習機會累積實務經驗。',
         tasks: [
-          `參加至少 1 項與${directionNames}相關的競賽`,
-          '完成至少 1 件深度探究報告',
-          '開始構思學習歷程自述（P）',
-          '與導師討論升學方向和策略',
+          `參加至少 1 項與${directionNames}相關的技能競賽`,
+          '尋找暑期或週末實習機會',
+          '持續推進專題實作，完成中期報告',
+          '與專題指導老師定期討論進度',
         ],
-        gaps: [],
+        skillGaps: gaps.filter(g => g.priority === 'important').slice(0, 2),
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p3',
-        name: '備審撰寫期',
-        period: '12-16 個月後',
-        deadline: '2027-04-01',
-        description: '正式撰寫備審資料與學習歷程自述。',
+        name: '專題實作完成',
+        period: '12-15 個月後',
+        deadline: '2027-07-01',
+        description: '完成專題實作的最終版本，開始整理備審資料。',
         tasks: [
-          '撰寫學習歷程自述（P）- 1200 字',
-          '準備備審資料（動機信、作品集說明）',
-          '請老師與同學提供回饋',
-          '至少修改 3 次',
+          '完成專題實作報告（含摘要、方法、結果、討論）',
+          '拍攝專題成果照片或影片',
+          '開始構思備審資料大綱',
+          '整理所有技能檢定與競賽成果',
         ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p4',
-        name: '面試準備期',
-        period: '16-18 個月後',
-        deadline: '2027-06-01',
-        description: pathway === '分發入學' ? '最後確認志願序與分發策略。' : '全面準備面試。',
-        tasks: pathway === '分發入學'
-          ? ['研究各校系分發錄取分數', '排好志願序', '了解分發填誌策略']
-          : [
-              `用 STAR-S 準備 5 個與${directionNames}相關的故事`,
-              '模擬面試至少 5 次',
-              '準備 1 分鐘自我介紹',
-              '研究目標校系的面試風格',
-            ],
-        gaps: [],
+        name: '統測準備 + 甄選備審',
+        period: '15-18 個月後',
+        deadline: '2027-10-01',
+        description: '開始統測準備，同時撰寫甄選備審資料。',
+        tasks: [
+          '制定統測讀書計畫（每日定額複習）',
+          '撰寫備審資料初稿',
+          '請老師與同學提供回饋',
+          '至少修改備審資料 3 次',
+        ],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
@@ -283,66 +315,66 @@ function generatePersonalizedRoadmap(
     phases.push(
       {
         id: 'p1',
-        name: '探索與嘗試期',
+        name: '技能基礎期',
         period: '現在 ~ 12 個月後',
         deadline: '2027-04-01',
-        description: `多方嘗試，特別是${directionNames}相關的活動。`,
+        description: '探索各職群技能，找到自己的興趣方向。',
         tasks: [
-          ...gaps.slice(0, 2).map(g => `「${g.category}」：${g.description}`),
-          '嘗試不同類型的活動（社團、競賽、服務學習）',
-          `深入探索${directionNames}相關的學類（用科系探索功能）`,
-          '保持良好的在校成績（繁星推薦需要）',
-          '每週記錄 1 件學習歷程素材',
+          ...gaps.filter(g => g.priority === 'critical').slice(0, 2).map(g => `「${SKILL_CATEGORY_LABELS[g.category]}」：${g.description}`),
+          '嘗試不同技能領域（實作課程、工作坊、體驗活動）',
+          `深入了解${directionNames}相關的職群（用職群探索功能）`,
+          '參加至少 1 個與技能相關的社團',
+          '每週記錄技能學習心得',
         ],
-        gaps: gaps.slice(0, 3),
+        skillGaps: gaps.filter(g => g.priority === 'critical').slice(0, 3),
         isCurrent: true,
         isPast: false,
       },
       {
         id: 'p2',
-        name: '深度投入期',
+        name: '技能深化期',
         period: '12-24 個月後',
         deadline: '2028-04-01',
-        description: `選定${directionNames}方向，深入發展。`,
+        description: `選定${directionNames}方向，考取丙級證照，開始專題構想。`,
         tasks: [
-          `在${directionNames}領域完成至少 2 件深度作品`,
-          '擔任社團幹部或活動負責人',
-          '參加至少 1 次校際競賽',
-          '累積至少 10 件學習歷程素材',
+          '報名並通過丙級技術士技能檢定',
+          `在${directionNames}領域構思專題實作題目`,
+          '參加校內技能競賽累積經驗',
+          '持續參與社團，爭取幹部職位',
         ],
-        gaps: [],
+        skillGaps: gaps.filter(g => g.priority === 'important').slice(0, 2),
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p3',
-        name: '素材整理期',
+        name: '專題與競賽',
         period: '24-30 個月後',
         deadline: '2028-10-01',
-        description: '整理素材，準備撰寫備審資料。',
+        description: '正式開始專題實作，參加對外競賽展現實力。',
         tasks: [
-          '回顧所有素材，選出最精華的 8-10 件',
-          '為每件作品撰寫詳細反思',
-          '開始構思學習歷程自述（P）',
-          '參加校內升學講座',
+          '正式執行專題實作，完成初步成果',
+          '參加全國技能競賽或專題競賽',
+          '尋求實習機會累積實務經驗',
+          '考取更高級別的技能檢定（乙級）',
         ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
       {
         id: 'p4',
-        name: '衝刺準備期',
+        name: '甄選準備期',
         period: '30-36 個月後',
-        deadline: '2029-01-01',
-        description: '全力衝刺學測，同時完成備審資料。',
+        deadline: '2029-04-01',
+        description: '完成專題實作，開始準備備審資料與統測。',
         tasks: [
-          '完成學習歷程自述（P）',
-          '準備備審資料與面試',
-          '學測衝刺（每日複習計畫）',
-          '保持自信，相信自己的準備',
+          '完成專題實作的最終報告',
+          '撰寫備審資料初稿',
+          '制定統測讀書計畫',
+          '研究目標四技二專校系的招生資訊',
         ],
-        gaps: [],
+        skillGaps: [],
         isCurrent: false,
         isPast: false,
       },
@@ -352,20 +384,32 @@ function generatePersonalizedRoadmap(
   return phases;
 }
 
-function getEncouragement(grade: GradeLevel, portfolioCount: number, directions: DirectionResult[]): string {
+function getEncouragement(grade: GradeLevel, skillCount: number, directions: DirectionResult[]): string {
   const dirStr = directions.length > 0 ? directions.map(d => d.direction).join('、') : '你的目標方向';
-  const hasEnough = portfolioCount >= 8;
+  const hasEnough = skillCount >= 5;
 
   if (grade === '高一') {
-    return `你才高一，時間非常充裕！${dirStr}是很好的目標。現在開始累積，高三時你會感謝現在的自己。`;
+    return `你才高一，時間非常充裕！${dirStr}是很好的目標方向。現在開始探索技能、參加社團、累積專題實作經驗，高三時你會感謝現在的自己。`;
   }
   if (grade === '高二') {
-    if (hasEnough) return `高二是黃金時期，你已經累積了不少素材。專注深化${dirStr}方向，你一定可以找到最適合的科系！`;
-    return `高二開始準備完全來得及！從今天開始，每週記錄 1 件與${dirStr}相關的素材，半年後你就會有豐富的學習歷程。`;
+    if (hasEnough) return `高二是黃金時期，你已經累積了不少技能紀錄。專注深化${dirStr}方向，完成專題實作並考取證照，你一定可以進入理想的四技二專！`;
+    return `高二開始準備完全來得及！從今天開始記錄技能學習、報名技能檢定、構思專題實作題目，一年後你就會有豐富的備審素材。`;
   }
-  if (hasEnough) return `高三了但素材已經準備得不錯！專注備審資料的品質，展現你對${dirStr}的熱情，你一定可以！`;
-  return `雖然高三了，但全力衝刺還來得及！集中精力完成與${dirStr}相關的重要素材，質量比數量更重要。`;
+  if (hasEnough) return `高三了但技能準備得不錯！專注備審資料的品質，把專題實作和技能檢定的成果好好呈現，展現你對${dirStr}的熱情，你一定可以！`;
+  return `雖然高三了，但全力衝刺還來得及！集中精力完成專題實作的最終版本，備審資料的質量比數量更重要。`;
 }
+
+const PRIORITY_STYLES: Record<string, string> = {
+  critical: 'bg-red-50 border-red-200 text-red-800',
+  important: 'bg-amber-50 border-amber-200 text-amber-800',
+  suggested: 'bg-blue-50 border-blue-200 text-blue-800',
+};
+
+const PRIORITY_LABELS: Record<string, string> = {
+  critical: '重要',
+  important: '建議',
+  suggested: '參考',
+};
 
 export default function RoadmapPage() {
   const [showSetup, setShowSetup] = useState(false);
@@ -383,8 +427,8 @@ export default function RoadmapPage() {
     [mounted]
   );
 
-  const portfolioItems = useMemo(
-    () => mounted ? loadFromStorage<PortfolioItem[]>('portfolio-items', []) : [],
+  const skillItems = useMemo(
+    () => mounted ? loadFromStorage<SkillItem[]>('skill-items', []) : [],
     [mounted]
   );
 
@@ -392,34 +436,35 @@ export default function RoadmapPage() {
 
   // Manual setup state
   const [grade, setGrade] = useState<GradeLevel>('高二');
-  const [pathway, setPathway] = useState<TargetPathway>('申請入學');
+  const [pathway, setPathway] = useState<VocationalPathway>('四技二專甄選');
 
   const activeGrade = profile?.grade || grade;
-  const activeDirections = directions.length > 0 ? directions : [{ direction: '工程', directionGroup: '工程' as AcademicGroup, confidence: 0.5, reasons: ['預設方向'], relatedCategoryIds: ['computer-science'], factCount: 0 }];
-  const activePortfolioCount = portfolioItems.length;
+  const activeDirections = directions.length > 0 ? directions : [{ direction: '資訊軟體應用', directionGroup: '資訊群' as VocationalGroup, confidence: 0.5, reasons: ['預設方向'], relatedCategoryIds: ['info-software'], factCount: 0 }];
+  const activeSkillCount = skillItems.length;
 
   const gaps = useMemo(
-    () => analyzeGaps(activeDirections, portfolioItems, activeGrade),
-    [activeDirections, portfolioItems, activeGrade]
+    () => analyzeGaps(activeDirections, skillItems, activeGrade),
+    [activeDirections, skillItems, activeGrade]
   );
 
   const roadmap = useMemo(
-    () => generatePersonalizedRoadmap(activeGrade, pathway, activeDirections, activePortfolioCount, gaps),
-    [activeGrade, pathway, activeDirections, activePortfolioCount, gaps]
+    () => generatePersonalizedRoadmap(activeGrade, pathway, activeDirections, activeSkillCount, gaps),
+    [activeGrade, pathway, activeDirections, activeSkillCount, gaps]
   );
 
   const encouragement = useMemo(
-    () => getEncouragement(activeGrade, activePortfolioCount, activeDirections),
-    [activeGrade, activePortfolioCount, activeDirections]
+    () => getEncouragement(activeGrade, activeSkillCount, activeDirections),
+    [activeGrade, activeSkillCount, activeDirections]
   );
 
   const monthsLeft = getMonthsRemaining(activeGrade);
   const isPro = isProUser();
 
-  // Upcoming calendar events
+  // Upcoming calendar events (filter for vocational)
   const upcomingEvents = useMemo(() => {
     const now = new Date().toISOString().slice(0, 10);
-    return NATIONAL_CALENDAR_EVENTS
+    const vocationalEvents = NATIONAL_CALENDAR_EVENTS.filter(e => e.vocational);
+    return vocationalEvents
       .filter(e => e.date >= now)
       .sort((a, b) => a.date.localeCompare(b.date))
       .slice(0, 5);
@@ -432,7 +477,7 @@ export default function RoadmapPage() {
         <p className="text-gray-500">
           {hasOnboarding
             ? `根據你的 ${profile?.grade} 背景和選定方向，為你量身打造`
-            : '以終為始，為你量身打造的升學準備計畫'}
+            : '以終為始，為你量身打造的高職升學準備計畫'}
         </p>
       </div>
 
@@ -441,7 +486,7 @@ export default function RoadmapPage() {
         <div className="bg-indigo-50 border border-indigo-200 rounded-2xl p-6 mb-8 text-center">
           <h2 className="font-bold text-indigo-900 mb-2">還沒完成導入流程？</h2>
           <p className="text-sm text-indigo-700 mb-4">
-            完成 5 步導入，我們能給你更精準的路線圖和缺口分析。
+            完成 5 步導入，我們能給你更精準的路線圖和技能缺口分析。
           </p>
           <div className="flex gap-3 justify-center">
             <Link
@@ -481,12 +526,12 @@ export default function RoadmapPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">目標管道</label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {PATHWAYS.map(p => (
                   <button
                     key={p}
                     onClick={() => setPathway(p)}
-                    className={`flex-1 py-3 rounded-xl text-sm font-medium transition-colors ${pathway === p ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                    className={`py-3 px-2 rounded-xl text-xs font-medium transition-colors text-center ${pathway === p ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                   >
                     {p}
                   </button>
@@ -500,12 +545,19 @@ export default function RoadmapPage() {
       {/* Direction badge */}
       {hasOnboarding && (
         <div className="flex flex-wrap gap-2 justify-center mb-8">
-          {activeDirections.map(d => (
-            <span key={d.direction} className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full font-medium text-sm border border-indigo-200">
-              {d.direction}
-              <span className="ml-1 text-xs text-indigo-400">({Math.round(d.confidence * 100)}%)</span>
-            </span>
-          ))}
+          {activeDirections.map(d => {
+            const groupKey = d.directionGroup as VocationalGroup;
+            const colorClass = VOCATIONAL_GROUP_COLORS[groupKey] || 'bg-gray-500';
+            return (
+              <span
+                key={d.direction}
+                className="px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full font-medium text-sm border border-indigo-200"
+              >
+                {d.direction}
+                <span className="ml-1 text-xs text-indigo-400">({Math.round(d.confidence * 100)}%)</span>
+              </span>
+            );
+          })}
         </div>
       )}
 
@@ -517,8 +569,8 @@ export default function RoadmapPage() {
       {/* Stats row with action links */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <Link href="/portfolio" className="bg-white rounded-2xl shadow-sm p-5 text-center hover:shadow-md transition-shadow group">
-          <div className="text-3xl font-bold text-purple-600">{activePortfolioCount}</div>
-          <div className="text-sm text-gray-500 group-hover:text-indigo-600">累積素材 → 記錄</div>
+          <div className="text-3xl font-bold text-purple-600">{activeSkillCount}</div>
+          <div className="text-sm text-gray-500 group-hover:text-indigo-600">技能紀錄 → 記錄</div>
         </Link>
         <Link href="/calendar" className="bg-white rounded-2xl shadow-sm p-5 text-center hover:shadow-md transition-shadow group">
           <div className="text-3xl font-bold text-blue-600">{upcomingEvents.length}</div>
@@ -538,7 +590,7 @@ export default function RoadmapPage() {
       {hasOnboarding && (
         <div className="flex flex-wrap gap-3 justify-center mb-8">
           <Link href="/portfolio" className="px-5 py-2.5 bg-indigo-50 text-indigo-700 rounded-xl text-sm font-medium hover:bg-indigo-100 transition-colors">
-            + 記錄新素材
+            + 記錄技能
           </Link>
           <Link href="/calendar" className="px-5 py-2.5 bg-blue-50 text-blue-700 rounded-xl text-sm font-medium hover:bg-blue-100 transition-colors">
             查看校曆
@@ -554,17 +606,29 @@ export default function RoadmapPage() {
         <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
           <h2 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
             <span className="text-amber-500">&#9888;</span>
-            缺口分析
+            技能缺口分析
           </h2>
           <div className="space-y-3">
             {gaps.map((gap, i) => (
-              <div key={i} className="flex items-start gap-3 p-3 bg-amber-50 rounded-xl">
-                <div className="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-xs font-bold flex-shrink-0">
-                  {gap.current}/{gap.recommended}
+              <div key={i} className={`flex items-start gap-3 p-3 rounded-xl border ${PRIORITY_STYLES[gap.priority]}`}>
+                <div className="w-10 h-10 rounded-lg bg-white/60 flex items-center justify-center text-lg flex-shrink-0">
+                  {SKILL_CATEGORY_ICONS[gap.category]}
                 </div>
-                <div>
-                  <div className="font-medium text-gray-900 text-sm">{gap.category}</div>
-                  <div className="text-xs text-gray-600">{gap.description}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-sm">{SKILL_CATEGORY_LABELS[gap.category]}</span>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+                      gap.priority === 'critical' ? 'bg-red-200 text-red-800' :
+                      gap.priority === 'important' ? 'bg-amber-200 text-amber-800' :
+                      'bg-blue-200 text-blue-800'
+                    }`}>
+                      {PRIORITY_LABELS[gap.priority]}
+                    </span>
+                  </div>
+                  <div className="text-xs mt-0.5 opacity-80">{gap.description}</div>
+                  <div className="text-xs mt-1 font-medium">
+                    目前 {gap.current} 件 / 建議 {gap.recommended} 件
+                  </div>
                 </div>
               </div>
             ))}
@@ -604,18 +668,20 @@ export default function RoadmapPage() {
               </ul>
               {/* Phase-level gaps and actions */}
               <div className="mt-3 pt-3 border-t border-gray-100">
-                {phase.gaps.length > 0 && (
+                {phase.skillGaps.length > 0 && (
                   <>
                     <div className="text-xs text-amber-600 font-medium mb-1">此階段需補齊</div>
-                    {phase.gaps.map((g, j) => (
-                      <div key={j} className="text-xs text-gray-600">{g.category}: {g.description}</div>
+                    {phase.skillGaps.map((g, j) => (
+                      <div key={j} className="text-xs text-gray-600">
+                        {SKILL_CATEGORY_ICONS[g.category]} {SKILL_CATEGORY_LABELS[g.category]}：{g.description}
+                      </div>
                     ))}
                   </>
                 )}
                 {phase.isCurrent && (
                   <div className="flex flex-wrap gap-2 mt-3">
                     <Link href="/portfolio" className="text-xs px-3 py-1.5 bg-indigo-50 text-indigo-600 rounded-lg font-medium hover:bg-indigo-100 transition-colors">
-                      記錄素材
+                      記錄技能
                     </Link>
                     <Link href="/calendar" className="text-xs px-3 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-medium hover:bg-blue-100 transition-colors">
                       查看校曆
@@ -646,13 +712,24 @@ export default function RoadmapPage() {
             <div key={ev.id} className="flex items-center gap-3">
               <div className="text-sm text-gray-400 w-20 flex-shrink-0">{ev.date}</div>
               <div className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                ev.type === 'exam' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+                ev.type === 'exam' ? 'bg-red-100 text-red-700' :
+                ev.type === 'competition' ? 'bg-amber-100 text-amber-700' :
+                ev.type === 'certification' ? 'bg-emerald-100 text-emerald-700' :
+                ev.type === 'capstone' ? 'bg-purple-100 text-purple-700' :
+                'bg-blue-100 text-blue-700'
               }`}>
-                {ev.type === 'exam' ? '考試' : '活動'}
+                {ev.type === 'exam' ? '考試' :
+                 ev.type === 'competition' ? '競賽' :
+                 ev.type === 'certification' ? '技能檢定' :
+                 ev.type === 'capstone' ? '專題' :
+                 '活動'}
               </div>
               <div className="font-medium text-gray-900 text-sm">{ev.title}</div>
             </div>
           ))}
+          {upcomingEvents.length === 0 && (
+            <p className="text-sm text-gray-400 text-center py-4">目前沒有近期的高職相關活動</p>
+          )}
         </div>
       </div>
 

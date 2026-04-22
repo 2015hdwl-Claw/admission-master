@@ -3,60 +3,17 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
-import type { UserFact, FactCategory, OnboardingProfile, InterestAnswer, InterestQuestion } from '@/types';
+import type { VocationalUserFact, VocationalFactCategory, OnboardingProfile, InterestAnswer, InterestQuestion } from '@/types';
 import { INTEREST_QUESTIONS, deriveFromInterests } from '@/lib/direction-engine';
-
-interface FactTemplate {
-  category: FactCategory;
-  label: string;
-  placeholder: string;
-  needsDetail: boolean;
-}
-
-const FACT_TEMPLATES: FactTemplate[] = [
-  // Academic
-  { category: 'academic', label: '班級排名前 10%', placeholder: '例如：全校第 15 名 / 共 300 人', needsDetail: false },
-  { category: 'academic', label: '班級排名前 20%', placeholder: '例如：全班第 8 名 / 共 40 人', needsDetail: false },
-  { category: 'academic', label: '班級排名前 30%', placeholder: '例如：全班第 12 名 / 共 40 人', needsDetail: false },
-  { category: 'academic', label: '擅長數學', placeholder: '例如：數學成績穩定在前標', needsDetail: true },
-  { category: 'academic', label: '擅長自然科學', placeholder: '例如：物理/化學/生物特別好', needsDetail: true },
-  { category: 'academic', label: '擅長社會科學', placeholder: '例如：歷史/地理/公民特別好', needsDetail: true },
-  // Club
-  { category: 'club', label: '社團普通成員', placeholder: '社團名稱（例如：英文研習社）', needsDetail: true },
-  { category: 'club', label: '社團幹部', placeholder: '社團名稱 + 職位（例如：吉他社副社長）', needsDetail: true },
-  { category: 'club', label: '社長/隊長', placeholder: '社團或團隊名稱', needsDetail: true },
-  // Extracurricular
-  { category: 'extracurricular', label: '校內比賽經驗', placeholder: '比賽名稱 + 成績（例如：校內英文演講比賽第二名）', needsDetail: true },
-  { category: 'extracurricular', label: '全國/國際比賽', placeholder: '比賽名稱 + 成績', needsDetail: true },
-  { category: 'extracurricular', label: '志工服務', placeholder: '服務內容 + 時數（例如：圖書館志工 40 小時）', needsDetail: true },
-  { category: 'extracurricular', label: '專案/計畫參與', placeholder: '專案名稱 + 角色', needsDetail: true },
-  // Self-study
-  { category: 'selfStudy', label: '程式語言經驗', placeholder: '語言 + 程度（例如：Python 2年、JavaScript 1年）', needsDetail: true },
-  { category: 'selfStudy', label: '外語能力', placeholder: '語言 + 程度（例如：英檢中高級、日文 N3）', needsDetail: true },
-  { category: 'selfStudy', label: '藝術技能', placeholder: '技能 + 程度（例如：鋼琴 8 年、水彩 3 年）', needsDetail: true },
-  { category: 'selfStudy', label: '其他自學技能', placeholder: '技能名稱 + 學習方式', needsDetail: true },
-  // Other
-  { category: 'other', label: '打工經驗', placeholder: '工作內容 + 時間', needsDetail: true },
-  { category: 'other', label: '家族事業參與', placeholder: '事業類型 + 你的角色', needsDetail: true },
-  { category: 'other', label: '特殊經歷', placeholder: '簡述這個經歷', needsDetail: true },
-];
-
-const CATEGORY_LABELS: Record<FactCategory, string> = {
-  academic: '學業表現',
-  club: '社團經驗',
-  extracurricular: '課外活動',
-  selfStudy: '自學經驗',
-  other: '其他經歷',
-};
-
-const CATEGORY_ORDER: FactCategory[] = ['academic', 'club', 'extracurricular', 'selfStudy', 'other'];
+import { VOCATIONAL_FACT_TEMPLATES, FACT_CATEGORY_LABELS, FACT_CATEGORY_ORDER } from '@/data/vocational-direction-rules';
+import type { VocationalFactTemplate } from '@/data/vocational-direction-rules';
 
 export default function Step2Page() {
   const router = useRouter();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [details, setDetails] = useState<Record<string, string>>({});
-  const [expandedCategories, setExpandedCategories] = useState<Set<FactCategory>>(
-    new Set(CATEGORY_ORDER)
+  const [expandedCategories, setExpandedCategories] = useState<Set<VocationalFactCategory>>(
+    new Set(FACT_CATEGORY_ORDER)
   );
   const [isInterestMode, setIsInterestMode] = useState(false);
   const [interestAnswers, setInterestAnswers] = useState<InterestAnswer[]>([]);
@@ -77,16 +34,13 @@ export default function Step2Page() {
   function toggleFact(id: string) {
     setSelectedIds(prev => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   }
 
-  function toggleCategory(cat: FactCategory) {
+  function toggleCategory(cat: VocationalFactCategory) {
     setExpandedCategories(prev => {
       const next = new Set(prev);
       if (next.has(cat)) next.delete(cat);
@@ -105,7 +59,6 @@ export default function Step2Page() {
 
   function handleNext() {
     if (isInterestMode) {
-      // Save interest answers and derive directions
       const profile = loadFromStorage<OnboardingProfile | null>('onboarding-profile', null);
       const updated: OnboardingProfile = {
         grade: profile?.grade ?? '高一',
@@ -124,15 +77,14 @@ export default function Step2Page() {
       return;
     }
 
-    // Build facts from selections
-    const facts: UserFact[] = [];
-    for (const template of FACT_TEMPLATES) {
-      if (!selectedIds.has(template.label)) continue;
+    const facts: VocationalUserFact[] = [];
+    for (const template of VOCATIONAL_FACT_TEMPLATES) {
+      if (!selectedIds.has(template.id)) continue;
       facts.push({
-        id: template.label,
+        id: template.id,
         category: template.category,
         label: template.label,
-        detail: template.needsDetail ? (details[template.label] || '') : template.label,
+        detail: details[template.id] || template.label,
       });
     }
 
@@ -140,7 +92,7 @@ export default function Step2Page() {
     const updated: OnboardingProfile = {
       grade: profile?.grade ?? '高一',
       track: profile?.track ?? '未決定',
-      facts,
+      facts: facts as OnboardingProfile['facts'],
       interestAnswers: profile?.interestAnswers ?? [],
       isInterestMode: false,
       selectedDirections: profile?.selectedDirections ?? [],
@@ -149,7 +101,6 @@ export default function Step2Page() {
     saveToStorage('onboarding-profile', updated);
 
     if (facts.length === 0) {
-      // No facts selected -> switch to interest mode
       setIsInterestMode(true);
       return;
     }
@@ -163,7 +114,6 @@ export default function Step2Page() {
 
   const selectedCount = selectedIds.size;
 
-  // Interest mode UI
   if (isInterestMode) {
     const question = INTEREST_QUESTIONS[currentQuestion];
     const isLast = currentQuestion === INTEREST_QUESTIONS.length - 1;
@@ -243,7 +193,6 @@ export default function Step2Page() {
     );
   }
 
-  // Fact inventory UI
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
@@ -259,10 +208,10 @@ export default function Step2Page() {
       </div>
 
       <div className="space-y-4">
-        {CATEGORY_ORDER.map(cat => {
-          const templates = FACT_TEMPLATES.filter(t => t.category === cat);
+        {FACT_CATEGORY_ORDER.map(cat => {
+          const templates = VOCATIONAL_FACT_TEMPLATES.filter(t => t.category === cat);
           const isExpanded = expandedCategories.has(cat);
-          const selectedInCat = templates.filter(t => selectedIds.has(t.label)).length;
+          const selectedInCat = templates.filter(t => selectedIds.has(t.id)).length;
 
           return (
             <div key={cat} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -271,7 +220,7 @@ export default function Step2Page() {
                 className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-3">
-                  <h3 className="font-bold text-gray-900">{CATEGORY_LABELS[cat]}</h3>
+                  <h3 className="font-bold text-gray-900">{FACT_CATEGORY_LABELS[cat]}</h3>
                   {selectedInCat > 0 && (
                     <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-600 rounded-full font-medium">
                       {selectedInCat}
@@ -285,23 +234,23 @@ export default function Step2Page() {
               {isExpanded && (
                 <div className="px-4 pb-4 space-y-2">
                   {templates.map(t => {
-                    const isSelected = selectedIds.has(t.label);
+                    const isSelected = selectedIds.has(t.id);
                     return (
-                      <div key={t.label}>
+                      <div key={t.id}>
                         <label className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors">
                           <input
                             type="checkbox"
                             checked={isSelected}
-                            onChange={() => toggleFact(t.label)}
+                            onChange={() => toggleFact(t.id)}
                             className="mt-0.5 w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                           <div className="flex-1">
                             <span className="font-medium text-gray-900 text-sm">{t.label}</span>
-                            {isSelected && t.needsDetail && (
+                            {isSelected && (
                               <input
                                 type="text"
-                                value={details[t.label] || ''}
-                                onChange={e => setDetails(prev => ({ ...prev, [t.label]: e.target.value }))}
+                                value={details[t.id] || ''}
+                                onChange={e => setDetails(prev => ({ ...prev, [t.id]: e.target.value }))}
                                 placeholder={t.placeholder}
                                 className="mt-2 w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                                 onClick={e => e.stopPropagation()}

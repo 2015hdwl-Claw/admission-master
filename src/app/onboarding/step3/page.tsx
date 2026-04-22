@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { loadFromStorage, saveToStorage } from '@/lib/storage';
 import { deriveDirections, deriveDirectionsWithAI } from '@/lib/direction-engine';
-import { ACADEMIC_CATEGORIES, ACADEMIC_GROUP_COLORS, ACADEMIC_GROUP_LABELS } from '@/data/academic-categories';
+import { VOCATIONAL_CATEGORIES, VOCATIONAL_GROUP_LABELS, VOCATIONAL_GROUP_COLORS } from '@/data/vocational-categories';
 import type { OnboardingProfile, DirectionResult } from '@/types';
 
 export default function Step3Page() {
@@ -65,7 +65,7 @@ export default function Step3Page() {
 
     const results = profile.isInterestMode
       ? loadFromStorage<DirectionResult[]>('direction-results', [])
-      : deriveDirections(profile.facts);
+      : deriveDirections(profile.facts as any);
 
     if (results.length > 0) {
       saveToStorage('direction-results', results);
@@ -134,10 +134,11 @@ export default function Step3Page() {
       ) : (
         <div className="space-y-4">
           {directions.map((dir, index) => {
-            const relatedCategories = ACADEMIC_CATEGORIES.filter(cat =>
+            const relatedCategories = VOCATIONAL_CATEGORIES.filter(cat =>
               dir.relatedCategoryIds.includes(cat.id)
             );
-            const groupColor = ACADEMIC_GROUP_COLORS[dir.directionGroup] || 'bg-gray-100 text-gray-700';
+            const groupColor = VOCATIONAL_GROUP_COLORS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+            const groupLabel = VOCATIONAL_GROUP_LABELS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_LABELS] || dir.directionGroup;
             const confidencePercent = Math.round(dir.confidence * 100);
 
             return (
@@ -153,7 +154,7 @@ export default function Step3Page() {
                     <div>
                       <h3 className="font-bold text-gray-900">{dir.direction}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${groupColor}`}>
-                        {ACADEMIC_GROUP_LABELS[dir.directionGroup] || dir.directionGroup}
+                        {groupLabel}
                       </span>
                     </div>
                   </div>
@@ -184,16 +185,25 @@ export default function Step3Page() {
                   </ul>
                 </div>
 
-                {/* Related departments preview */}
+                {/* Related vocational categories preview */}
                 {relatedCategories.length > 0 && (
                   <div className="pt-3 border-t border-gray-100">
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">相關學類</h4>
-                    <div className="flex flex-wrap gap-1.5">
-                      {relatedCategories.slice(0, 4).map(cat => (
-                        <span key={cat.id} className="text-xs px-2.5 py-1 bg-gray-50 text-gray-600 rounded-lg">
-                          {cat.name}
-                        </span>
-                      ))}
+                    <h4 className="text-xs font-medium text-gray-500 mb-2">相關職群</h4>
+                    <div className="space-y-2">
+                      {relatedCategories.slice(0, 4).map(cat => {
+                        const catGroupColor = VOCATIONAL_GROUP_COLORS[cat.group as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+                        const catGroupLabel = VOCATIONAL_GROUP_LABELS[cat.group as keyof typeof VOCATIONAL_GROUP_LABELS] || cat.group;
+                        return (
+                          <div key={cat.id} className="flex flex-wrap items-center gap-1.5">
+                            <span className="text-xs font-medium text-gray-800 px-2 py-1 bg-gray-50 rounded-lg">
+                              {cat.name}
+                            </span>
+                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${catGroupColor}`}>
+                              {catGroupLabel}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}

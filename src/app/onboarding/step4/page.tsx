@@ -4,9 +4,8 @@ import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { loadFromStorage, saveToStorage } from '@/lib/storage';
 import { deriveDirections } from '@/lib/direction-engine';
-import { ACADEMIC_CATEGORIES, ACADEMIC_GROUP_COLORS, ACADEMIC_GROUP_LABELS } from '@/data/academic-categories';
+import { VOCATIONAL_CATEGORIES, VOCATIONAL_GROUP_LABELS, VOCATIONAL_GROUP_COLORS } from '@/data/vocational-categories';
 import type { OnboardingProfile, DirectionResult } from '@/types';
-
 
 type Feedback = 'like' | 'unsure' | 'dislike';
 
@@ -38,7 +37,7 @@ export default function Step4Page() {
     } else {
       const results = profile.isInterestMode
         ? []
-        : deriveDirections(profile.facts);
+        : deriveDirections(profile.facts as any);
       setDirections(results);
     }
     setLoaded(true);
@@ -49,7 +48,6 @@ export default function Step4Page() {
   }
 
   function handleNext() {
-    // Save feedback to profile
     const profile = loadFromStorage<OnboardingProfile | null>('onboarding-profile', null);
     const liked = Object.entries(feedback)
       .filter(([, v]) => v === 'like')
@@ -83,16 +81,17 @@ export default function Step4Page() {
           探索推薦方向
         </h1>
         <p className="text-gray-500">
-          展開每個方向，看看相關學類和科系。告訴我們你的感受，幫助調整推薦。
+          展開每個方向，看看相關職群和科系。告訴我們你的感受，幫助調整推薦。
         </p>
       </div>
 
       <div className="space-y-4">
         {filteredDirections.map((dir, index) => {
-          const relatedCategories = ACADEMIC_CATEGORIES.filter(cat =>
+          const relatedCategories = VOCATIONAL_CATEGORIES.filter(cat =>
             dir.relatedCategoryIds.includes(cat.id)
           );
-          const groupColor = ACADEMIC_GROUP_COLORS[dir.directionGroup] || 'bg-gray-100 text-gray-700';
+          const groupColor = VOCATIONAL_GROUP_COLORS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+          const groupLabel = VOCATIONAL_GROUP_LABELS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_LABELS] || dir.directionGroup;
           const isExpanded = expandedDir === dir.direction;
           const currentFeedback = feedback[dir.direction];
 
@@ -113,7 +112,7 @@ export default function Step4Page() {
                     <div>
                       <h3 className="font-bold text-gray-900">{dir.direction}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${groupColor}`}>
-                        {ACADEMIC_GROUP_LABELS[dir.directionGroup] || dir.directionGroup}
+                        {groupLabel}
                       </span>
                     </div>
                   </div>
@@ -135,26 +134,39 @@ export default function Step4Page() {
 
                   {/* Related categories */}
                   <div className="mb-4">
-                    <h4 className="text-xs font-medium text-gray-500 mb-3">相關學類</h4>
+                    <h4 className="text-xs font-medium text-gray-500 mb-3">相關職群</h4>
                     <div className="space-y-3">
-                      {relatedCategories.map(cat => (
-                        <div key={cat.id} className="p-3 bg-gray-50 rounded-xl">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-gray-900 text-sm">{cat.name}</span>
-                            <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${ACADEMIC_GROUP_COLORS[cat.group]}`}>
-                              {cat.group}
-                            </span>
-                          </div>
-                          <p className="text-xs text-gray-500 leading-relaxed mb-2">{cat.description}</p>
-                          <div className="flex flex-wrap gap-1">
-                            {cat.exampleDepartments.slice(0, 3).map(dept => (
-                              <span key={dept} className="text-xs px-2 py-0.5 bg-white text-gray-600 rounded border border-gray-200">
-                                {dept}
+                      {relatedCategories.map(cat => {
+                        const catGroupColor = VOCATIONAL_GROUP_COLORS[cat.group as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+                        const catGroupLabel = VOCATIONAL_GROUP_LABELS[cat.group as keyof typeof VOCATIONAL_GROUP_LABELS] || cat.group;
+                        return (
+                          <div key={cat.id} className="p-3 bg-gray-50 rounded-xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-medium text-gray-900 text-sm">{cat.name}</span>
+                              <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${catGroupColor}`}>
+                                {catGroupLabel}
                               </span>
-                            ))}
+                            </div>
+                            <p className="text-xs text-gray-500 leading-relaxed mb-2">{cat.description}</p>
+                            <div className="flex flex-wrap gap-1 mb-2">
+                              {cat.exampleDepartments.slice(0, 3).map(dept => (
+                                <span key={dept} className="text-xs px-2 py-0.5 bg-white text-gray-600 rounded border border-gray-200">
+                                  {dept}
+                                </span>
+                              ))}
+                            </div>
+                            {cat.exampleTechSchools && cat.exampleTechSchools.length > 0 && (
+                              <div className="flex flex-wrap gap-1">
+                                {cat.exampleTechSchools.slice(0, 2).map(school => (
+                                  <span key={school} className="text-xs px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded border border-indigo-200 font-medium">
+                                    目標科大：{school}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
 
@@ -163,9 +175,9 @@ export default function Step4Page() {
                     <h4 className="text-xs font-medium text-gray-500 mb-2">這個方向你覺得？</h4>
                     <div className="flex gap-2">
                       {([
-                        { value: 'like' as Feedback, label: '喜歡', emoji: '', color: 'bg-green-100 text-green-700 border-green-300' },
-                        { value: 'unsure' as Feedback, label: '不確定', emoji: '', color: 'bg-amber-100 text-amber-700 border-amber-300' },
-                        { value: 'dislike' as Feedback, label: '不感興趣', emoji: '', color: 'bg-red-100 text-red-700 border-red-300' },
+                        { value: 'like' as Feedback, label: '喜歡', color: 'bg-green-100 text-green-700 border-green-300' },
+                        { value: 'unsure' as Feedback, label: '不確定', color: 'bg-amber-100 text-amber-700 border-amber-300' },
+                        { value: 'dislike' as Feedback, label: '不感興趣', color: 'bg-red-100 text-red-700 border-red-300' },
                       ]).map(btn => (
                         <button
                           key={btn.value}

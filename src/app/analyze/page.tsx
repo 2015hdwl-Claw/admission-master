@@ -1,55 +1,177 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { analyzeScores } from '@/lib/analysis';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
-import type { ScoreInput as ScoreInputType, ScoreAnalysis, ScoreRecord, PathwayMatch, OnboardingProfile } from '@/types';
+import type { VocationalGroup, UnifiedExamScoreInput, OnboardingProfile } from '@/types';
+import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
+import { UNIFIED_EXAM_SUBJECTS, UNIFIED_EXAM_SCORE_RANGES } from '@/data/admission';
 
-const STORAGE_KEY = 'score-records';
+const STORAGE_KEY = 'unified-exam-records';
 
 const SUBJECT_COLORS: Record<string, string> = {
   chinese: '#6366f1',
   english: '#f59e0b',
   math: '#10b981',
-  science: '#ef4444',
-  social: '#3b82f6',
+  professional1: '#ef4444',
+  professional2: '#3b82f6',
 };
 
-const SUBJECT_LABELS: Record<string, string> = {
-  chinese: '國文',
-  english: '英文',
-  math: '數學',
-  science: '自然',
-  social: '社會',
-};
+interface UnifiedExamPathwayMatch {
+  name: string;
+  slug: string;
+  minScore: number;
+  maxScore: number;
+  status: 'safe' | 'reachable' | 'stretch' | 'unlikely';
+}
 
-const PATHWAY_RANGES: PathwayMatch[] = [
-  { name: '申請入學（頂標科系）', slug: 'apply-top', minScore: 55, maxScore: 75, status: 'safe' },
-  { name: '申請入學（前標科系）', slug: 'apply-high', minScore: 48, maxScore: 60, status: 'safe' },
-  { name: '申請入學（均標科系）', slug: 'apply-mid', minScore: 38, maxScore: 52, status: 'reachable' },
-  { name: '繁星推薦', slug: 'star', minScore: 40, maxScore: 60, status: 'safe' },
-  { name: '分發入學（國立）', slug: 'dist-national', minScore: 35, maxScore: 55, status: 'reachable' },
-  { name: '分發入學（私立名校）', slug: 'dist-private-top', minScore: 25, maxScore: 40, status: 'stretch' },
-  { name: '分發入學（一般私立）', slug: 'dist-private', minScore: 15, maxScore: 30, status: 'unlikely' },
+const VOCATIONAL_PATHWAY_RANGES: UnifiedExamPathwayMatch[] = [
+  { name: '四技二專甄選（頂標科系）', slug: 'selection-top', minScore: 350, maxScore: 400, status: 'safe' },
+  { name: '四技二專甄選（前標科系）', slug: 'selection-high', minScore: 300, maxScore: 350, status: 'safe' },
+  { name: '四技二專甄選（均標科系）', slug: 'selection-mid', minScore: 250, maxScore: 300, status: 'reachable' },
+  { name: '科技校院繁星', slug: 'tech-star', minScore: 280, maxScore: 350, status: 'safe' },
+  { name: '聯合登記分發（國立）', slug: 'dist-national', minScore: 200, maxScore: 300, status: 'reachable' },
+  { name: '聯合登記分發（私立名校）', slug: 'dist-private-top', minScore: 150, maxScore: 250, status: 'stretch' },
+  { name: '聯合登記分發（一般私立）', slug: 'dist-private', minScore: 100, maxScore: 200, status: 'unlikely' },
 ];
 
+interface UnifiedExamRecord {
+  id: string;
+  label: string;
+  date: string;
+  group: VocationalGroup;
+  chinese: number;
+  english: number;
+  math: number;
+  professional1: number;
+  professional2: number;
+}
+
+interface LocalAnalysisResult {
+  scores: UnifiedExamScoreInput;
+  total: number;
+  average: number;
+  percentile: number;
+  recommendedPathways: Array<{ name: string; slug: string; matchScore: number; description: string }>;
+  summary: string;
+}
+
+function getGroupSubjectKeys(group: VocationalGroup): Array<{ key: string; label: string }> {
+  const subjects = UNIFIED_EXAM_SUBJECTS[group];
+  if (!subjects) return [];
+  return [
+    { key: 'chinese', label: subjects.common[0] },
+    { key: 'english', label: subjects.common[1] },
+    { key: 'math', label: subjects.common[2] },
+    { key: 'professional1', label: subjects.professional[0] },
+    { key: 'professional2', label: subjects.professional[1] },
+  ];
+}
+
+function estimatePercentile(total: number, group: VocationalGroup): number {
+  const ranges = UNIFIED_EXAM_SCORE_RANGES[group];
+  if (!ranges) return 50;
+  const maxTotal = 500;
+  if (total >= ranges.top) return 97;
+  if (total >= (ranges.top + ranges.high) / 2) return 93;
+  if (total >= ranges.high) return 85;
+  if (total >= (ranges.high + ranges.mid) / 2) return 72;
+  if (total >= ranges.mid) return 55;
+  if (total >= (ranges.mid + ranges.base) / 2) return 38;
+  if (total >= ranges.base) return 22;
+  return Math.max(5, Math.round((total / maxTotal) * 15));
+}
+
+function analyzeUnifiedExam(input: UnifiedExamScoreInput): LocalAnalysisResult {
+  const { group, chinese, english, math, professional1, professional2 } = input;
+  const total = chinese + english + math + professional1 + professional2;
+  const average = total / 5;
+  const percentile = estimatePercentile(total, group);
+  const ranges = UNIFIED_EXAM_SCORE_RANGES[group];
+  const subjects = UNIFIED_EXAM_SUBJECTS[group];
+
+  // Determine level
+  let level: 'top' | 'high' | 'mid' | 'base' = 'base';
+  if (ranges) {
+    if (total >= ranges.top) level = 'top';
+    else if (total >= ranges.high) level = 'high';
+    else if (total >= ranges.mid) level = 'mid';
+  }
+
+  // Pathway matching
+  const pathwayDescriptions: Record<string, string> = {
+    'selection-top': `頂標科系，${subjects ? subjects.professional[0] : '專業科目'}需 ${ranges ? ranges.top : 350}+`,
+    'selection-high': `前標科系，適合成績優秀的學生`,
+    'selection-mid': `均標科系，多數科技大學都可嘗試`,
+    'tech-star': `由高中推薦，成績需達前標水準`,
+    'dist-national': `國立科大分發，需穩定成績`,
+    'dist-private-top': `私立名校分發，如虎科大、正修科大`,
+    'dist-private': `一般私立科大，錄取機率高`,
+  };
+
+  const recommendedPathways = VOCATIONAL_PATHWAY_RANGES.map(pw => {
+    let matchScore = 20;
+    if (total >= pw.maxScore) matchScore = 95;
+    else if (total >= (pw.minScore + pw.maxScore) / 2) matchScore = 75;
+    else if (total >= pw.minScore) matchScore = 50;
+    else if (total >= pw.minScore - 30) matchScore = 30;
+    return {
+      name: pw.name,
+      slug: pw.slug,
+      matchScore,
+      description: pathwayDescriptions[pw.slug] || '',
+    };
+  }).sort((a, b) => b.matchScore - a.matchScore);
+
+  // Strengths
+  const scoreEntries = [
+    { label: subjects?.common[0] || '國文', score: chinese },
+    { label: subjects?.common[1] || '英文', score: english },
+    { label: subjects?.common[2] || '數學', score: math },
+    { label: subjects?.professional[0] || '專一', score: professional1 },
+    { label: subjects?.professional[1] || '專二', score: professional2 },
+  ];
+  const strengths = scoreEntries.filter(e => e.score >= 85).map(e => e.label);
+  const weaknesses = scoreEntries.filter(e => e.score < 50).map(e => e.label);
+
+  const levelMessages: Record<string, string> = {
+    top: '你的統測成績非常優異！頂尖科技大學的熱門科系都在你的選擇範圍內。',
+    high: '你的成績優秀，國立科技大學大多數科系都很有機會。',
+    mid: '你的成績穩定，一般科技大學的主要科系都有不錯的機會。',
+    base: '你的成績還有進步空間，專注提升弱科會讓你有更多選擇。',
+  };
+
+  const strengthStr = strengths.length > 0
+    ? `你的強項是${strengths.join('、')}。`
+    : '各科表現均衡。';
+  const weaknessStr = weaknesses.length > 0
+    ? `建議加強${weaknesses.join('、')}。`
+    : '';
+
+  const topPathway = recommendedPathways[0];
+  const summary = `${levelMessages[level]} ${strengthStr}${weaknessStr}根據你的分數，最推薦走「${topPathway.name}」管道。繼續加油，升學路上一路順利！`;
+
+  return { scores: input, total, average, percentile, recommendedPathways, summary };
+}
+
 export default function AnalyzePage() {
-  const [analysis, setAnalysis] = useState<ScoreAnalysis | null>(null);
+  const [selectedGroup, setSelectedGroup] = useState<VocationalGroup>('資訊群');
+  const [analysis, setAnalysis] = useState<LocalAnalysisResult | null>(null);
   const [showShareCard, setShowShareCard] = useState(false);
   const [tab, setTab] = useState<'analyze' | 'trends'>('analyze');
 
   // Score trend state
-  const [records, setRecords] = useState<ScoreRecord[]>([]);
+  const [records, setRecords] = useState<UnifiedExamRecord[]>([]);
   const [showRecordForm, setShowRecordForm] = useState(false);
   const [recordLabel, setRecordLabel] = useState('');
   const [recordDate, setRecordDate] = useState('');
-  const [recordScores, setRecordScores] = useState({ chinese: 0, english: 0, math: 0, science: 0, social: 0 });
-  const [recordTrack, setRecordTrack] = useState<'A' | 'B'>('A');
+  const [recordScores, setRecordScores] = useState({
+    chinese: 0, english: 0, math: 0, professional1: 0, professional2: 0,
+  });
   const [isPro, setIsPro] = useState(false);
   const [profile, setProfile] = useState<OnboardingProfile | null>(null);
 
   useEffect(() => {
-    const stored = loadFromStorage<ScoreRecord[]>(STORAGE_KEY, []);
+    const stored = loadFromStorage<UnifiedExamRecord[]>(STORAGE_KEY, []);
     setRecords(stored);
     const sub = loadFromStorage<{ plan: string; expiresAt: string | null }>('user-subscription', { plan: 'free', expiresAt: null });
     setIsPro(sub.plan !== 'free');
@@ -57,26 +179,26 @@ export default function AnalyzePage() {
     setProfile(p);
   }, []);
 
-  function handleSubmit(scores: ScoreInputType) {
-    const result = analyzeScores(scores);
+  function handleSubmit(scores: UnifiedExamScoreInput) {
+    const result = analyzeUnifiedExam(scores);
     setAnalysis(result);
   }
 
   function handleAddRecord() {
     if (!recordLabel.trim() || !recordDate) return;
-    const newRecord: ScoreRecord = {
+    const newRecord: UnifiedExamRecord = {
       id: generateId(),
       label: recordLabel.trim(),
       date: recordDate,
+      group: selectedGroup,
       ...recordScores,
-      mathTrack: recordTrack,
     };
     const updated = [...records, newRecord].sort((a, b) => a.date.localeCompare(b.date));
     setRecords(updated);
     saveToStorage(STORAGE_KEY, updated);
     setRecordLabel('');
     setRecordDate('');
-    setRecordScores({ chinese: 0, english: 0, math: 0, science: 0, social: 0 });
+    setRecordScores({ chinese: 0, english: 0, math: 0, professional1: 0, professional2: 0 });
     setShowRecordForm(false);
   }
 
@@ -95,44 +217,74 @@ export default function AnalyzePage() {
     trend: number;
   }
 
+  const filteredRecords = useMemo(
+    () => records.filter(r => r.group === selectedGroup),
+    [records, selectedGroup],
+  );
+
   const trendData = useMemo((): TrendSubject[] | null => {
-    if (records.length < 2) return null;
-    const subjects = ['chinese', 'english', 'math', 'science', 'social'] as const;
-    return subjects.map(subject => ({
+    if (filteredRecords.length < 2) return null;
+    const subjectKeys = ['chinese', 'english', 'math', 'professional1', 'professional2'] as const;
+    const subjectLabels = getGroupSubjectKeys(selectedGroup);
+    return subjectKeys.map((subject, idx) => ({
       subject,
-      label: SUBJECT_LABELS[subject],
-      color: SUBJECT_COLORS[subject],
-      values: records.map(r => ({ x: r.date, y: r[subject], label: r.label })),
-      avg: Math.round(records.reduce((s, r) => s + r[subject], 0) / records.length),
-      trend: records.length >= 2
-        ? records[records.length - 1][subject] - records[0][subject]
+      label: subjectLabels[idx]?.label || subject,
+      color: SUBJECT_COLORS[subject] || '#6b7280',
+      values: filteredRecords.map(r => ({
+        x: r.date,
+        y: r[subject],
+        label: r.label,
+      })),
+      avg: Math.round(filteredRecords.reduce((s, r) => s + r[subject], 0) / filteredRecords.length),
+      trend: filteredRecords.length >= 2
+        ? filteredRecords[filteredRecords.length - 1][subject] - filteredRecords[0][subject]
         : 0,
     }));
-  }, [records]);
+  }, [filteredRecords, selectedGroup]);
 
   const pathwayMatches = useMemo(() => {
-    if (records.length === 0) return [];
-    const latestRecord = records[records.length - 1];
-    const total = latestRecord.chinese + latestRecord.english + latestRecord.math + latestRecord.science + latestRecord.social;
-    return PATHWAY_RANGES.map(pw => {
-      let status: PathwayMatch['status'] = 'unlikely';
+    if (filteredRecords.length === 0) return [];
+    const latestRecord = filteredRecords[filteredRecords.length - 1];
+    const total = latestRecord.chinese + latestRecord.english + latestRecord.math + latestRecord.professional1 + latestRecord.professional2;
+    return VOCATIONAL_PATHWAY_RANGES.map(pw => {
+      let status: UnifiedExamPathwayMatch['status'] = 'unlikely';
       if (total >= pw.maxScore) status = 'safe';
-      else if (total >= pw.minScore + 5) status = 'reachable';
+      else if (total >= pw.minScore + 30) status = 'reachable';
       else if (total >= pw.minScore) status = 'stretch';
       return { ...pw, status };
     });
-  }, [records]);
+  }, [filteredRecords]);
 
   const directionContext = profile?.selectedDirections.length ? profile.selectedDirections[0] : null;
+
+  const groupOptions = Object.entries(VOCATIONAL_GROUP_LABELS) as [VocationalGroup, string][];
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">學測分數分析</h1>
-        <p className="text-gray-500">輸入你的學測成績，看看最適合你的升學管道和科系</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">統測分數分析</h1>
+        <p className="text-gray-500">輸入你的統測成績，看看最適合你的升學管道和科技大學</p>
         {directionContext && (
           <p className="text-sm text-indigo-600 mt-1">已結合你的方向：{directionContext}</p>
         )}
+      </div>
+
+      {/* Group Selector */}
+      <div className="max-w-2xl mx-auto mb-8">
+        <label className="block text-sm font-medium text-gray-700 mb-2">選擇職群</label>
+        <select
+          value={selectedGroup}
+          onChange={e => {
+            const newGroup = e.target.value as VocationalGroup;
+            setSelectedGroup(newGroup);
+            setAnalysis(null);
+          }}
+          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white text-gray-900"
+        >
+          {groupOptions.map(([key, label]) => (
+            <option key={key} value={key}>{label}</option>
+          ))}
+        </select>
       </div>
 
       {/* Tabs */}
@@ -156,16 +308,29 @@ export default function AnalyzePage() {
       {tab === 'analyze' && (
         <>
           {!analysis ? (
-            <ScoreInputForm onSubmit={handleSubmit} />
+            <ScoreInputForm group={selectedGroup} onSubmit={handleSubmit} />
           ) : (
             <div className="space-y-8">
-              <AnalysisResultDisplay analysis={analysis} onShare={() => setShowShareCard(true)} directionContext={directionContext} />
+              <AnalysisResultDisplay
+                analysis={analysis}
+                group={selectedGroup}
+                onShare={() => setShowShareCard(true)}
+                directionContext={directionContext}
+              />
 
               {/* Pathway Match */}
-              {records.length > 0 && pathwayMatches.length > 0 && (
+              {filteredRecords.length > 0 && pathwayMatches.length > 0 && (
                 <div className="bg-white rounded-2xl shadow-sm p-6">
                   <h3 className="text-lg font-bold text-gray-900 mb-4">模擬管道匹配</h3>
-                  <p className="text-sm text-gray-500 mb-4">根據最近一次成績（總分 {records[records.length - 1].chinese + records[records.length - 1].english + records[records.length - 1].math + records[records.length - 1].science + records[records.length - 1].social}）</p>
+                  <p className="text-sm text-gray-500 mb-4">
+                    根據最近一次成績（總分 {
+                      filteredRecords[filteredRecords.length - 1].chinese
+                      + filteredRecords[filteredRecords.length - 1].english
+                      + filteredRecords[filteredRecords.length - 1].math
+                      + filteredRecords[filteredRecords.length - 1].professional1
+                      + filteredRecords[filteredRecords.length - 1].professional2
+                    }）
+                  </p>
                   <div className="space-y-2">
                     {pathwayMatches.map(pw => (
                       <div key={pw.slug} className="flex items-center justify-between p-3 rounded-xl border border-gray-100">
@@ -200,7 +365,9 @@ export default function AnalyzePage() {
 
       {tab === 'trends' && (
         <TrendTab
-          records={records}
+          group={selectedGroup}
+          records={filteredRecords}
+          allRecords={records}
           trendData={trendData}
           isPro={isPro}
           showRecordForm={showRecordForm}
@@ -211,8 +378,6 @@ export default function AnalyzePage() {
           setRecordDate={setRecordDate}
           recordScores={recordScores}
           setRecordScores={setRecordScores}
-          recordTrack={recordTrack}
-          setRecordTrack={setRecordTrack}
           handleAddRecord={handleAddRecord}
           handleDeleteRecord={handleDeleteRecord}
         />
@@ -223,66 +388,52 @@ export default function AnalyzePage() {
 
 // --- Sub-components ---
 
-function ScoreInputForm({ onSubmit }: { onSubmit: (s: ScoreInputType) => void }) {
-  const [scores, setScores] = useState<ScoreInputType>({ chinese: 0, english: 0, math: 0, science: 0, social: 0, mathTrack: 'A' });
-  const subjects = [
-    { key: 'chinese' as const, label: '國文' },
-    { key: 'english' as const, label: '英文' },
-    { key: 'math' as const, label: '數學' },
-    { key: 'science' as const, label: '自然' },
-    { key: 'social' as const, label: '社會' },
-  ];
+function ScoreInputForm({ group, onSubmit }: { group: VocationalGroup; onSubmit: (s: UnifiedExamScoreInput) => void }) {
+  const [scores, setScores] = useState<UnifiedExamScoreInput>({
+    chinese: 0, english: 0, math: 0, professional1: 0, professional2: 0, group,
+  });
+
+  const subjects = getGroupSubjectKeys(group);
 
   function clamp(v: number) {
-    return Math.max(0, Math.min(15, Math.round(v)));
+    return Math.max(0, Math.min(100, Math.round(v)));
   }
+
+  function updateScore(key: keyof UnifiedExamScoreInput, value: number) {
+    setScores(prev => ({ ...prev, [key]: clamp(value) }));
+  }
+
+  const total = scores.chinese + scores.english + scores.math + scores.professional1 + scores.professional2;
 
   return (
     <div className="bg-white rounded-2xl shadow-sm p-6 max-w-2xl mx-auto">
-      <h2 className="text-lg font-bold text-gray-900 mb-6">輸入學測成績</h2>
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">數學選修</label>
-        <div className="flex gap-3">
-          <button
-            onClick={() => setScores({ ...scores, mathTrack: 'A' })}
-            className={'px-4 py-2 rounded-lg text-sm font-bold transition-colors ' + (scores.mathTrack === 'A' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600')}
-          >
-            數 A
-          </button>
-          <button
-            onClick={() => setScores({ ...scores, mathTrack: 'B' })}
-            className={'px-4 py-2 rounded-lg text-sm font-bold transition-colors ' + (scores.mathTrack === 'B' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600')}
-          >
-            數 B
-          </button>
-        </div>
-      </div>
+      <h2 className="text-lg font-bold text-gray-900 mb-6">輸入統測成績</h2>
       <div className="space-y-4 mb-6">
         {subjects.map(s => (
           <div key={s.key} className="flex items-center gap-4">
-            <label className="w-12 text-sm font-medium text-gray-700">{s.label}</label>
+            <label className="w-28 text-sm font-medium text-gray-700 text-right">{s.label}</label>
             <input
               type="range"
               min={0}
-              max={15}
-              value={scores[s.key]}
-              onChange={e => setScores({ ...scores, [s.key]: clamp(parseInt(e.target.value)) })}
+              max={100}
+              value={scores[s.key as keyof UnifiedExamScoreInput] as number}
+              onChange={e => updateScore(s.key as keyof UnifiedExamScoreInput, parseInt(e.target.value))}
               className="flex-1 h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-indigo-600"
             />
             <input
               type="number"
               min={0}
-              max={15}
-              value={scores[s.key]}
-              onChange={e => setScores({ ...scores, [s.key]: clamp(parseInt(e.target.value) || 0) })}
-              className="w-16 text-center border border-gray-200 rounded-lg py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+              max={100}
+              value={scores[s.key as keyof UnifiedExamScoreInput] as number}
+              onChange={e => updateScore(s.key as keyof UnifiedExamScoreInput, parseInt(e.target.value) || 0)}
+              className="w-20 text-center border border-gray-200 rounded-lg py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
             />
           </div>
         ))}
       </div>
       <div className="text-center">
         <p className="text-sm text-gray-400 mb-4">
-          總分：{scores.chinese + scores.english + scores.math + scores.science + scores.social} / 75
+          總分：{total} / 500
         </p>
         <button
           onClick={() => onSubmit(scores)}
@@ -295,18 +446,35 @@ function ScoreInputForm({ onSubmit }: { onSubmit: (s: ScoreInputType) => void })
   );
 }
 
-function AnalysisResultDisplay({ analysis, onShare, directionContext }: { analysis: ScoreAnalysis; onShare: () => void; directionContext: string | null }) {
+function AnalysisResultDisplay({
+  analysis,
+  group,
+  onShare,
+  directionContext,
+}: {
+  analysis: LocalAnalysisResult;
+  group: VocationalGroup;
+  onShare: () => void;
+  directionContext: string | null;
+}) {
+  const subjects = getGroupSubjectKeys(group);
+  const scoreEntries = subjects.map(s => ({
+    key: s.key,
+    label: s.label,
+    value: analysis.scores[s.key as keyof UnifiedExamScoreInput] as number,
+  }));
+
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-2xl shadow-sm p-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
           <div className="text-center p-4 bg-indigo-50 rounded-xl">
             <p className="text-3xl font-bold text-indigo-600">{analysis.total}</p>
-            <p className="text-sm text-gray-500">總級分</p>
+            <p className="text-sm text-gray-500">總分</p>
           </div>
           <div className="text-center p-4 bg-green-50 rounded-xl">
             <p className="text-3xl font-bold text-green-600">{analysis.average.toFixed(1)}</p>
-            <p className="text-sm text-gray-500">平均級分</p>
+            <p className="text-sm text-gray-500">平均分數</p>
           </div>
           <div className="text-center p-4 bg-amber-50 rounded-xl">
             <p className="text-3xl font-bold text-amber-600">{analysis.percentile.toFixed(1)}%</p>
@@ -319,18 +487,21 @@ function AnalysisResultDisplay({ analysis, onShare, directionContext }: { analys
         </div>
 
         <div className="mb-4">
-          <h3 className="text-sm font-bold text-gray-700 mb-2">各科級分</h3>
+          <h3 className="text-sm font-bold text-gray-700 mb-2">各科成績</h3>
           <div className="space-y-2">
-            {(['chinese', 'english', 'math', 'science', 'social'] as const).map(subject => (
-              <div key={subject} className="flex items-center gap-3">
-                <span className="w-10 text-sm text-gray-500">{SUBJECT_LABELS[subject]}</span>
+            {scoreEntries.map(entry => (
+              <div key={entry.key} className="flex items-center gap-3">
+                <span className="w-28 text-sm text-gray-500 text-right">{entry.label}</span>
                 <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full"
-                    style={{ width: `${(analysis.scores[subject] / 15) * 100}%`, backgroundColor: SUBJECT_COLORS[subject] }}
+                    style={{
+                      width: `${(entry.value / 100) * 100}%`,
+                      backgroundColor: SUBJECT_COLORS[entry.key] || '#6b7280',
+                    }}
                   />
                 </div>
-                <span className="w-8 text-right text-sm font-bold text-gray-700">{analysis.scores[subject]}</span>
+                <span className="w-10 text-right text-sm font-bold text-gray-700">{entry.value}</span>
               </div>
             ))}
           </div>
@@ -351,7 +522,7 @@ function AnalysisResultDisplay({ analysis, onShare, directionContext }: { analys
       <div className="bg-white rounded-2xl shadow-sm p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-4">推薦升學管道</h3>
         <div className="space-y-3">
-          {analysis.recommendedPathways.map(pw => (
+          {analysis.recommendedPathways.slice(0, 5).map(pw => (
             <div key={pw.slug} className="flex items-center justify-between p-3 rounded-xl border border-gray-100">
               <div>
                 <p className="font-medium text-gray-900 text-sm">{pw.name}</p>
@@ -360,23 +531,6 @@ function AnalysisResultDisplay({ analysis, onShare, directionContext }: { analys
               <div className="text-right">
                 <p className="text-lg font-bold text-indigo-600">{pw.matchScore}%</p>
                 <p className="text-xs text-gray-400">匹配度</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">推薦科系</h3>
-        <div className="space-y-3">
-          {analysis.recommendedDepartments.map((dept, i) => (
-            <div key={i} className="p-3 rounded-xl border border-gray-100">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">{dept.university} {dept.department}</p>
-                  <p className="text-xs text-gray-400">{dept.category} - {dept.note}</p>
-                </div>
-                <span className="text-lg font-bold text-indigo-600">{dept.matchScore}%</span>
               </div>
             </div>
           ))}
@@ -396,6 +550,7 @@ function AnalysisResultDisplay({ analysis, onShare, directionContext }: { analys
 }
 
 function TrendTab({
+  group,
   records,
   trendData,
   isPro,
@@ -407,12 +562,12 @@ function TrendTab({
   setRecordDate,
   recordScores,
   setRecordScores,
-  recordTrack,
-  setRecordTrack,
   handleAddRecord,
   handleDeleteRecord,
 }: {
-  records: ScoreRecord[];
+  group: VocationalGroup;
+  records: UnifiedExamRecord[];
+  allRecords: UnifiedExamRecord[];
   trendData: Array<{
     subject: string;
     label: string;
@@ -428,13 +583,13 @@ function TrendTab({
   setRecordLabel: (v: string) => void;
   recordDate: string;
   setRecordDate: (v: string) => void;
-  recordScores: { chinese: number; english: number; math: number; science: number; social: number };
-  setRecordScores: (v: { chinese: number; english: number; math: number; science: number; social: number }) => void;
-  recordTrack: 'A' | 'B';
-  setRecordTrack: (v: 'A' | 'B') => void;
+  recordScores: { chinese: number; english: number; math: number; professional1: number; professional2: number };
+  setRecordScores: (v: { chinese: number; english: number; math: number; professional1: number; professional2: number }) => void;
   handleAddRecord: () => void;
   handleDeleteRecord: (id: string) => void;
 }) {
+  const subjects = getGroupSubjectKeys(group);
+
   if (!isPro) {
     return (
       <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
@@ -456,7 +611,12 @@ function TrendTab({
     <div className="space-y-6">
       {/* Add Record */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">已記錄 {records.length} 次成績</p>
+        <p className="text-sm text-gray-500">
+          已記錄 {records.length} 次成績
+          {records.length === 0 && (
+            <span className="text-gray-400">（目前職群：{VOCATIONAL_GROUP_LABELS[group]}）</span>
+          )}
+        </p>
         <button
           onClick={() => setShowRecordForm(true)}
           className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors"
@@ -473,18 +633,18 @@ function TrendTab({
               <tr className="border-b border-gray-100">
                 <th className="text-left py-2 px-2 text-gray-500 font-medium">名稱</th>
                 <th className="text-left py-2 px-2 text-gray-500 font-medium hidden sm:table-cell">日期</th>
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">國</th>
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">英</th>
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">數</th>
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">自</th>
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">社</th>
+                {subjects.map(s => (
+                  <th key={s.key} className="text-center py-2 px-2 text-gray-500 font-medium">
+                    {s.label.length > 4 ? s.label.slice(0, 4) : s.label}
+                  </th>
+                ))}
                 <th className="text-center py-2 px-2 text-gray-500 font-medium">總分</th>
                 <th className="py-2 px-1"></th>
               </tr>
             </thead>
             <tbody>
               {records.map(r => {
-                const total = r.chinese + r.english + r.math + r.science + r.social;
+                const total = r.chinese + r.english + r.math + r.professional1 + r.professional2;
                 return (
                   <tr key={r.id} className="border-b border-gray-50 hover:bg-gray-50">
                     <td className="py-2.5 px-2 font-medium text-gray-900">{r.label}</td>
@@ -492,8 +652,8 @@ function TrendTab({
                     <td className="py-2.5 px-2 text-center">{r.chinese}</td>
                     <td className="py-2.5 px-2 text-center">{r.english}</td>
                     <td className="py-2.5 px-2 text-center">{r.math}</td>
-                    <td className="py-2.5 px-2 text-center">{r.science}</td>
-                    <td className="py-2.5 px-2 text-center">{r.social}</td>
+                    <td className="py-2.5 px-2 text-center">{r.professional1}</td>
+                    <td className="py-2.5 px-2 text-center">{r.professional2}</td>
                     <td className="py-2.5 px-2 text-center font-bold text-indigo-600">{total}</td>
                     <td className="py-2.5 px-1">
                       <button onClick={() => handleDeleteRecord(r.id)} className="text-gray-300 hover:text-red-500 text-xs">x</button>
@@ -528,7 +688,7 @@ function TrendTab({
                     <div
                       key={i}
                       className="flex-1 rounded-t-sm transition-all"
-                      style={{ height: `${(v.y / 15) * 100}%`, backgroundColor: subject.color, opacity: 0.4 + (i / subject.values.length) * 0.6 }}
+                      style={{ height: `${(v.y / 100) * 100}%`, backgroundColor: subject.color, opacity: 0.4 + (i / subject.values.length) * 0.6 }}
                       title={`${v.label}: ${v.y}`}
                     />
                   ))}
@@ -568,7 +728,7 @@ function TrendTab({
                   type="text"
                   value={recordLabel}
                   onChange={e => setRecordLabel(e.target.value)}
-                  placeholder="例如：高二下段考"
+                  placeholder="例如：第一次模擬考"
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                 />
               </div>
@@ -582,21 +742,22 @@ function TrendTab({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">數學選修</label>
-                <div className="flex gap-3">
-                  <button onClick={() => setRecordTrack('A')} className={'px-4 py-2 rounded-lg text-sm font-bold transition-colors ' + (recordTrack === 'A' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600')}>數 A</button>
-                  <button onClick={() => setRecordTrack('B')} className={'px-4 py-2 rounded-lg text-sm font-bold transition-colors ' + (recordTrack === 'B' ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600')}>數 B</button>
-                </div>
+                <p className="text-xs text-gray-500 mb-2">
+                  職群：{VOCATIONAL_GROUP_LABELS[group]}
+                </p>
               </div>
-              {(['chinese', 'english', 'math', 'science', 'social'] as const).map(s => (
-                <div key={s}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{SUBJECT_LABELS[s]}</label>
+              {subjects.map(s => (
+                <div key={s.key}>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{s.label}</label>
                   <input
                     type="number"
                     min={0}
-                    max={15}
-                    value={recordScores[s]}
-                    onChange={e => setRecordScores({ ...recordScores, [s]: Math.max(0, Math.min(15, parseInt(e.target.value) || 0)) })}
+                    max={100}
+                    value={recordScores[s.key as keyof typeof recordScores] ?? 0}
+                    onChange={e => setRecordScores({
+                      ...recordScores,
+                      [s.key]: Math.max(0, Math.min(100, parseInt(e.target.value) || 0)),
+                    })}
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                   />
                 </div>
