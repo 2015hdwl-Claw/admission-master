@@ -17,7 +17,7 @@ export default function Step3Page() {
   const [aiUsed, setAiUsed] = useState(false);
 
   const runAIDerivation = useCallback(async (profile: OnboardingProfile, ruleResults: DirectionResult[]) => {
-    if (ruleResults.length === 0 || profile.isInterestMode) {
+    if (profile.isInterestMode) {
       setLoaded(true);
       return;
     }
@@ -79,7 +79,7 @@ export default function Step3Page() {
       ? loadFromStorage<DirectionResult[]>('direction-results', [])
       : deriveDirections(profile.facts as any);
 
-    if (results.length > 0) {
+    if (results.length > 0 && (results[0]?.confidence ?? 0) >= 0.5) {
       saveToStorage('direction-results', results);
     }
     setDirections(results);
@@ -126,7 +126,9 @@ export default function Step3Page() {
           <div className="text-4xl mb-4">🤔</div>
           <h2 className="text-lg font-bold text-gray-900 mb-2">資料不足，無法推導</h2>
           <p className="text-gray-500 text-sm mb-6">
-            請回上一步至少填寫 1-2 項事實，或切換到興趣探索模式。
+            {factCount > 0
+              ? `你已填寫 ${factCount} 項事實，但需要更具体的內容。請回到上一步，在每個項目旁的文字框中填寫具体技能名稱、專題主題等細節。`
+              : '請回上一步至少填寫 1-2 項事實，或切換到興趣探索模式。'}
           </p>
           <div className="flex gap-3 justify-center">
             <button

@@ -5,11 +5,11 @@ function extractTags(facts: VocationalUserFact[]): Set<string> {
   const tags = new Set<string>();
 
   const tagKeywords: Record<string, string[]> = {
-    'programming': ['程式', 'python', 'javascript', 'coding', '寫程式', 'scratch', 'app開發', '軟體', '前端', '後端'],
+    'programming': ['程式', 'python', 'javascript', 'coding', '寫程式', 'scratch', 'app開發', '軟體', '前端', '後端', '寫app', '開發', 'c++', 'java'],
     'web-design': ['網頁', 'html', 'css', '網站', 'web', '響應式'],
     'database': ['資料庫', 'sql', 'mysql', 'mongo', 'firebase'],
     'networking': ['網路', '路由器', '交換器', 'tcp/ip', 'dns', '防火牆', '伺服器'],
-    'hardware': ['硬體', '電腦組裝', '主機板', 'cpu', '維修'],
+    'hardware': ['硬體', '電腦組裝', '主機板', 'cpu', '維修', '修電腦', '組裝'],
     'game-design': ['遊戲', 'game', 'unity', 'unreal', 'rpg', '遊戲設計'],
     'animation': ['動畫', 'animation', 'after effects', 'maya', 'blender', '3d動畫'],
     'circuit': ['電路', 'circuit', '基本電學', '電工', '電子學'],
@@ -28,7 +28,7 @@ function extractTags(facts: VocationalUserFact[]): Set<string> {
     'metalwork': ['金屬', '鈑金', '金工', '金屬加工'],
     'cad': ['cad', 'autocad', 'solidworks', 'inventor', 'pro-e'],
     '3d-modeling': ['3d', '建模', '3d列印', '3d建模', '建模', '渲染'],
-    'cooking': ['烹飪', '廚藝', '料理', '炒菜', '中式', '西式', '刀工'],
+    'cooking': ['烹飪', '廚藝', '料理', '炒菜', '中式', '西式', '刀工', '做菜', '廚房', '廚師'],
     'baking': ['烘焙', '麵包', '蛋糕', '甜點', '糕點', '餅乾'],
     'service-hospitality': ['服務', '接待', '客服', '櫃檯', '飯店'],
     'tourism': ['旅遊', '導遊', '領隊', '觀光', '旅行社'],
@@ -47,7 +47,7 @@ function extractTags(facts: VocationalUserFact[]): Set<string> {
     'drawing': ['繪畫', '畫畫', '素描', '手繪', '水彩'],
     'illustration': ['插畫', 'illustration', '角色設計', '人物設計'],
     'photography': ['攝影', '相機', '拍照', '修圖', 'lightroom'],
-    'video-editing': ['影片', '剪輯', 'video', 'premiere', 'final cut', '短影音'],
+    'video-editing': ['影片', '剪輯', 'video', 'premiere', 'final cut', '短影音', '剪片', 'yt'],
     'farming': ['農作', '農業', '耕種', '插秧', '收割'],
     'plant-cultivation': ['栽培', '園藝', '植物', '育苗', '花卉'],
     'biotech': ['生物技術', '基因', '組織培養', '生物科技'],
@@ -88,24 +88,27 @@ function extractTags(facts: VocationalUserFact[]): Set<string> {
     }
 
     if (fact.category === 'certification') {
-      if (combined.includes('丙級') || combined.includes('技術士')) tags.add('certification');
-      if (combined.includes('乙級')) tags.add('certification');
-      if (combined.includes('技能檢定')) tags.add('certification');
+      tags.add('certification');
     }
 
     if (fact.category === 'competition') {
-      if (combined.includes('全國') || combined.includes('國際')) tags.add('competition');
-      if (combined.includes('技能競賽')) tags.add('competition');
+      tags.add('competition');
     }
 
     if (fact.category === 'capstone') {
-      if (combined.includes('專題')) tags.add('capstone');
+      tags.add('capstone');
     }
 
     if (fact.category === 'internship') {
-      if (combined.includes('實習') || combined.includes('打工') || combined.includes('產學')) {
-        tags.add('internship');
-      }
+      tags.add('internship');
+    }
+
+    if (fact.category === 'skill') {
+      tags.add('has-skill');
+    }
+
+    if (fact.category === 'club') {
+      tags.add('has-club');
     }
   }
 
@@ -139,6 +142,46 @@ export function deriveDirections(facts: VocationalUserFact[]): DirectionResult[]
         reasons: [rule.reason],
         relatedCategoryIds: [...rule.relatedCategoryIds],
         factCount: rule.conditions.length,
+      });
+    }
+  }
+
+  // Fallback: when no rules matched but user has facts, generate exploration suggestions
+  if (resultMap.size === 0 && facts.length > 0) {
+    const categories = [...new Set(facts.map(f => f.category))];
+    const hasTech = categories.some(c => ['skill', 'capstone', 'certification', 'competition', 'internship'].includes(c));
+    const hasSoft = categories.some(c => ['club', 'selfStudy', 'other'].includes(c));
+
+    const fallbacks: Array<{ direction: string; group: VocationalGroup; reason: string }> = [];
+    if (hasTech) {
+      fallbacks.push(
+        { direction: '資訊技術探索', group: '資訊群', reason: '你已累積技術相關經歷，資訊群是高職升學最熱門的方向。' },
+        { direction: '機械技術探索', group: '機械群', reason: '機械群涵蓋精密加工、焊接等工業核心技能。' },
+        { direction: '電機技術探索', group: '電機群', reason: '電機群包含電力系統、自動化控制等實用領域。' },
+      );
+    }
+    if (hasSoft) {
+      fallbacks.push(
+        { direction: '商業管理探索', group: '商管群', reason: '你有社團或自學經驗，商管群能發揮你的溝通和管理能力。' },
+        { direction: '餐旅管理探索', group: '餐旅群', reason: '餐旅群重視服務熱忱和實作能力。' },
+      );
+    }
+    if (fallbacks.length === 0) {
+      fallbacks.push(
+        { direction: '職群探索', group: '資訊群', reason: '建議探索各職群特色，找到最適合你的方向。' },
+        { direction: '職群探索', group: '商管群', reason: '商管群就業面廣，是高職第二大群。' },
+        { direction: '職群探索', group: '設計群', reason: '設計群適合喜歡創作和美感的同學。' },
+      );
+    }
+
+    for (const fb of fallbacks) {
+      resultMap.set(fb.direction, {
+        direction: fb.direction,
+        directionGroup: fb.group,
+        confidence: 0.35,
+        reasons: [fb.reason, '回到上一步填寫具體內容（如技能名稱、專題主題），可獲得更精準的推薦。'],
+        relatedCategoryIds: [],
+        factCount: facts.length,
       });
     }
   }
