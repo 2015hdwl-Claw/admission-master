@@ -19,6 +19,17 @@ export default function Step5Page() {
       router.push('/onboarding/step1');
       return;
     }
+
+    // Detect stale academic-era profile — must re-onboard under vocational system
+    if (p.track !== '高職') {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('onboarding-profile');
+        localStorage.removeItem('direction-results');
+      }
+      router.push('/onboarding/step1');
+      return;
+    }
+
     setProfile(p);
 
     const d = loadFromStorage<DirectionResult[]>('direction-results', []);

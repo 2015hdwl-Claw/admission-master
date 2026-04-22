@@ -31,6 +31,16 @@ export default function Step4Page() {
       return;
     }
 
+    // Detect stale academic-era profile — must re-onboard under vocational system
+    if (profile.track !== '高職') {
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('onboarding-profile');
+        localStorage.removeItem('direction-results');
+      }
+      router.push('/onboarding/step1');
+      return;
+    }
+
     const VOCATIONAL_GROUPS = ['餐旅群','機械群','電機群','電子群','資訊群','商管群','設計群','農業群','化工群','土木群','海事群','護理群','家政群','語文群','商業與管理群'];
     const cached = loadFromStorage<DirectionResult[] | null>('direction-results', null);
     const isStale = cached && cached.length > 0 && cached.some(d => !VOCATIONAL_GROUPS.includes(d.directionGroup as string));
