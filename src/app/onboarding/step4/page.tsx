@@ -31,8 +31,10 @@ export default function Step4Page() {
       return;
     }
 
+    const VOCATIONAL_GROUPS = ['餐旅群','機械群','電機群','電子群','資訊群','商管群','設計群','農業群','化工群','土木群','海事群','護理群','家政群','語文群','商業與管理群'];
     const cached = loadFromStorage<DirectionResult[] | null>('direction-results', null);
-    if (cached && cached.length > 0) {
+    const isStale = cached && cached.length > 0 && cached.some(d => !VOCATIONAL_GROUPS.includes(d.directionGroup as string));
+    if (cached && cached.length > 0 && !isStale) {
       setDirections(cached);
     } else {
       const results = profile.isInterestMode
