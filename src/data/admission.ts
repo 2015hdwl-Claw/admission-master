@@ -424,7 +424,7 @@ export const ADMISSION_PATHWAYS: PathwayDetail[] = [
   }
 ];
 
-export const NEXT_EXAM_DATE = new Date('2027-01-22T00:00:00+08:00');
+export const NEXT_EXAM_DATE = new Date('2027-04-24T00:00:00+08:00');
 
 export const NEXT_UNIFIED_EXAM_DATE = new Date('2027-05-04T00:00:00+08:00');
 

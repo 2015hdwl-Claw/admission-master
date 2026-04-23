@@ -5,7 +5,7 @@ import { loadFromStorage } from '@/lib/storage';
 import { isProUser } from '@/lib/subscription';
 import type { SkillItem, CalendarEvent, MonthlyReview } from '@/types';
 import { SKILL_CATEGORY_LABELS } from '@/types';
-import { NATIONAL_CALENDAR_EVENTS } from '@/data/national-calendar';
+import { NATIONAL_CALENDAR_EVENTS, EVENT_TYPE_LABELS, EVENT_TYPE_COLORS } from '@/data/national-calendar';
 
 const MILESTONES = [
   { count: 1, label: '第一步', desc: '記錄了第一件技能！很好的開始。' },
@@ -39,7 +39,8 @@ export default function TimelinePage() {
     });
 
     calendarEvents.forEach(event => {
-      allItems.push({ date: event.date, type: 'calendar', title: event.title, detail: event.isNational ? '全國重要日期' : '校園活動' });
+      const typeLabel = EVENT_TYPE_LABELS[event.type] || '其他';
+      allItems.push({ date: event.date, type: 'calendar', title: event.title, detail: typeLabel });
     });
 
     allItems.sort((a, b) => b.date.localeCompare(a.date));

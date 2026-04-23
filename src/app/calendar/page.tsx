@@ -12,6 +12,8 @@ const EVENT_TYPES: { value: CalendarEventType; label: string }[] = [
   { value: 'exam', label: '考試' },
   { value: 'activity', label: '活動' },
   { value: 'competition', label: '競賽' },
+  { value: 'certification', label: '技能檢定' },
+  { value: 'capstone', label: '專題實作' },
   { value: 'other', label: '其他' },
 ];
 
