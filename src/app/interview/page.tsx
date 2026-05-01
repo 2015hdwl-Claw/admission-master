@@ -1,14 +1,19 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { loadFromStorage, saveToStorage } from '@/lib/storage';
+import { loadFromStorage } from '@/lib/storage';
 import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
 import type { VocationalGroup } from '@/types';
 import type { InterviewMessage, OnboardingProfile } from '@/types';
 
 const FREE_ROUNDS = 2;
-
 const VOCATIONAL_GROUPS = Object.keys(VOCATIONAL_GROUP_LABELS) as VocationalGroup[];
+
+const TIPS = [
+  '注意眼神與虛擬鏡頭的交集',
+  '談論專題實作時多強調細節',
+  '語速可以稍微放慢 10%',
+];
 
 export default function InterviewPage() {
   const [isPro, setIsPro] = useState(false);
@@ -152,195 +157,287 @@ export default function InterviewPage() {
   }
 
   const canContinue = isPro || round < FREE_ROUNDS;
+  const isPreInterview = round === 0 && messages.length === 0;
 
-  if (round === 0 && messages.length === 0) {
-    return (
-      <div className="max-w-3xl mx-auto px-4 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">面試模擬</h1>
-          <p className="text-gray-500">AI 模擬面試官，{maxRounds} 輪問答練習，即時回饋</p>
+  return (
+    <div className="max-w-[1200px] mx-auto px-gutter py-xxl min-h-[calc(100vh-80px)] flex flex-col md:flex-row gap-gutter">
+      {/* ── Left Column: Interviewer Info ── */}
+      <aside className="w-full md:w-1/3 flex flex-col gap-gutter">
+        {/* Interviewer Profile */}
+        <div className="bg-surface-container-low border border-[#E9E5DB] p-xl rounded-lg">
+          <div className="flex flex-col items-center text-center">
+            <div className="w-32 h-32 rounded-full overflow-hidden mb-lg ring-4 ring-primary-fixed ring-offset-4 ring-offset-background">
+              <img
+                alt="面試官頭像"
+                className="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIWnBKgPDpNJecFGR5VKnRFwPJ5p6282fhGCPpse19oEb-nCXO0W6EXL4TxMmXnyAye3JwFKTDB7hKK3MKqfIfasTrEg18XwJtGcX_X5f79YMN3bZP-hjvCgDS5QUJyNpN0kMWhkw_1-nZEyYN-VtrcDksQ4YEiFWZFgbVpwvJsOHGD3RFGR6dINx1mY0RDESiLKRwZmDs8eJHhuqbf5m4PuKNrap7gLPj3nPpc2URlmSvsWyTNoLUdZrstDC3QvLN-_QPagg9rmI7"
+              />
+            </div>
+            <h2 className="font-h2 text-primary mb-xs">林教授</h2>
+            <span className="font-label-caps text-outline uppercase tracking-widest mb-md">
+              {direction} · 資深導師
+            </span>
+            <p className="font-body-md text-on-surface-variant leading-relaxed italic">
+              「深呼吸，專注於你對{direction}的初心。這不只是一場測試，更是一次專業的對話。」
+            </p>
+          </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm p-6 mb-6">
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">面試方向（職業群科）</label>
+        {/* Direction Selection (only before interview starts) */}
+        {isPreInterview && (
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl rounded-lg">
+            <h3 className="font-h3 text-on-background mb-lg text-center">選擇面試方向</h3>
+            <label htmlFor="direction-select" className="font-label-caps text-primary uppercase tracking-widest block mb-sm">職業群科</label>
             <select
+              id="direction-select"
               value={direction}
               onChange={e => setDirection(e.target.value as VocationalGroup)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+              className="w-full px-md py-3 bg-surface-container-lowest border border-[#E9E5DB] focus:border-primary focus:ring-1 focus:ring-primary font-body-md outline-none cursor-pointer mb-lg"
             >
               {VOCATIONAL_GROUPS.map(group => (
                 <option key={group} value={group}>{VOCATIONAL_GROUP_LABELS[group]}</option>
               ))}
             </select>
+            {!isPro && (
+              <div className="bg-primary-fixed/20 border border-primary/20 p-lg mb-lg">
+                <p className="font-body-md text-on-surface-variant">
+                  免費版可體驗前 {FREE_ROUNDS} 輪面試。升級 Pro 解鎖完整 {maxRounds} 輪模擬 + 總體評分。
+                </p>
+                <a href="/pricing" className="font-label-caps text-primary hover:underline mt-sm inline-block">升級 Pro 方案</a>
+              </div>
+            )}
+            <button
+              onClick={startInterview}
+              disabled={isLoading}
+              className="w-full bg-primary text-white px-xl py-4 font-label-caps hover:opacity-90 transition-all cursor-pointer disabled:opacity-50"
+            >
+              {isLoading ? '準備中...' : '開始面試模擬'}
+            </button>
           </div>
+        )}
 
-          {!isPro && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-4">
-              <p className="text-sm text-amber-800">
-                免費版可體驗前 {FREE_ROUNDS} 輪面試。升級 Pro 解鎖完整 {maxRounds} 輪模擬 + 總體評分。
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-sm">
+          <div className="bg-surface-container-high p-lg border border-[#E9E5DB] flex flex-col gap-xs">
+            <span className="font-label-caps text-primary uppercase">面試進度</span>
+            <span className="font-h3">{round}/{maxRounds}</span>
+          </div>
+          <div className="bg-surface-container-high p-lg border border-[#E9E5DB] flex flex-col gap-xs">
+            <span className="font-label-caps text-primary uppercase">目標職群</span>
+            <span className="font-h3">{direction}</span>
+          </div>
+        </div>
+
+        {/* Free round warning */}
+        {!isPro && !isComplete && !isPreInterview && (
+          <div className="bg-primary-fixed/20 p-lg border border-primary/20">
+            <p className="text-sm text-on-surface-variant">
+              免費版剩餘 <span className="font-bold text-primary">{Math.max(0, FREE_ROUNDS - round)}</span> 輪
+              {round >= FREE_ROUNDS && (
+                <>
+                  <span className="font-bold ml-1">（已達免費上限）</span>
+                  <a href="/pricing" className="text-primary font-medium hover:underline ml-1">升級 Pro 繼續</a>
+                </>
+              )}
+            </p>
+          </div>
+        )}
+
+        {/* Tips */}
+        <div className="bg-primary-container/10 p-lg border border-primary/20 rounded-lg">
+          <h4 className="font-label-caps text-primary mb-md flex items-center gap-2">
+            <span className="material-symbols-outlined text-[18px]">lightbulb</span>
+            當前建議
+          </h4>
+          <ul className="text-sm text-on-surface-variant flex flex-col gap-3">
+            {TIPS.map((tip, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="text-primary font-bold">{String(i + 1).padStart(2, '0')}.</span> {tip}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </aside>
+
+      {/* ── Right Column: Chat Interface ── */}
+      <section className="flex-1 flex flex-col h-[700px] bg-white border border-[#E9E5DB] rounded-lg shadow-[0_4px_30px_rgba(125,139,126,0.05)] overflow-hidden">
+        {/* Chat Stream */}
+        <div className="flex-1 overflow-y-auto p-xl space-y-xl chat-container">
+          {isPreInterview && (
+            <div className="flex flex-col items-center justify-center h-full text-center px-xl">
+              <div className="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-lg">
+                <span className="material-symbols-outlined text-primary text-3xl">psychology</span>
+              </div>
+              <h3 className="font-h3 text-on-surface mb-md">準備開始面試模擬</h3>
+              <p className="font-body-md text-on-surface-variant max-w-[28rem]">
+                在左側選擇你的目標職群方向，然後點擊「開始面試模擬」。AI 面試官將根據你選擇的方向提出專業問題，並在每輪回答後給予即時回饋。
               </p>
-              <a href="/pricing" className="text-sm text-indigo-600 font-medium hover:underline mt-1 inline-block">
-                升級 Pro 方案
-              </a>
+              <div className="flex items-center gap-md mt-xl">
+                <div className="flex items-center gap-2 text-sm text-on-surface-variant">
+                  <span className="material-symbols-outlined text-primary text-[18px]">auto_awesome</span>
+                  AI 即時回饋
+                </div>
+                <div className="flex items-center gap-2 text-sm text-on-surface-variant">
+                  <span className="material-symbols-outlined text-primary text-[18px]">speed</span>
+                  {maxRounds} 輪問答
+                </div>
+                <div className="flex items-center gap-2 text-sm text-on-surface-variant">
+                  <span className="material-symbols-outlined text-primary text-[18px]">analytics</span>
+                  總體評分
+                </div>
+              </div>
             </div>
           )}
-        </div>
 
-        <div className="text-center">
-          <button
-            onClick={startInterview}
-            className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg text-lg"
-          >
-            開始面試模擬
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">面試模擬</h1>
-          <p className="text-sm text-gray-500">{direction} - 第 {round}/{maxRounds} 輪</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="flex gap-1">
-            {Array.from({ length: maxRounds }, (_, i) => (
-              <div
-                key={i}
-                className={'w-3 h-3 rounded-full transition-colors ' + (i < round ? 'bg-indigo-500' : 'bg-gray-200')}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Progress bar for free rounds */}
-      {!isPro && !isComplete && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4">
-          <p className="text-xs text-amber-700">
-            免費版剩餘 {Math.max(0, FREE_ROUNDS - round)} 輪
-            {round >= FREE_ROUNDS && (
-              <>
-                <span className="font-bold ml-1">（已達免費上限）</span>
-                <a href="/pricing" className="text-indigo-600 font-medium hover:underline ml-1">升級 Pro 繼續</a>
-              </>
-            )}
-          </p>
-        </div>
-      )}
-
-      {/* Chat Messages */}
-      <div className="bg-white rounded-2xl shadow-sm p-4 mb-4 min-h-[300px] max-h-[500px] overflow-y-auto">
-        {messages.map((msg, i) => (
-          <div key={i} className={'mb-4 ' + (msg.role === 'user' ? 'text-right' : 'text-left')}>
-            {msg.role === 'interviewer' && (
-              <div className="inline-flex items-start gap-2">
-                <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                  <span className="text-sm">🎓</span>
+          {messages.map((msg, i) => (
+            <div key={i}>
+              {msg.role === 'interviewer' && (
+                <div className="flex items-start gap-md max-w-[85%]">
+                  <div className="w-10 h-10 rounded-full bg-surface-container shrink-0 flex items-center justify-center border border-[#E9E5DB]">
+                    <span className="material-symbols-outlined text-primary">school</span>
+                  </div>
+                  <div className="space-y-sm">
+                    <div className="bg-surface-container-low p-lg border border-[#E9E5DB] rounded-xl rounded-tl-none">
+                      <p className="font-body-md text-on-surface leading-relaxed">{msg.content}</p>
+                    </div>
+                    <span className="text-[10px] text-outline font-label-caps">AI 面試官</span>
+                  </div>
                 </div>
-                <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[80%]">
-                  <p className="text-sm text-gray-900 leading-relaxed">{msg.content}</p>
+              )}
+
+              {msg.role === 'user' && (
+                <div className="flex items-start gap-md max-w-[85%] flex-row-reverse ml-auto">
+                  <div className="w-10 h-10 rounded-full bg-primary shrink-0 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-white">person</span>
+                  </div>
+                  <div className="space-y-sm text-right">
+                    <div className="bg-primary text-white p-lg rounded-xl rounded-tr-none text-left">
+                      <p className="font-body-md leading-relaxed">{msg.content}</p>
+                    </div>
+                    <span className="text-[10px] text-outline font-label-caps">已傳送</span>
+                  </div>
+                </div>
+              )}
+
+              {msg.role === 'feedback' && (
+                <div className="max-w-[85%] ml-14">
+                  <div className="bg-primary-fixed/30 border border-primary/20 p-lg rounded-xl">
+                    <p className="font-label-caps text-primary mb-sm">面試官回饋</p>
+                    <p className="font-body-md text-on-surface leading-relaxed">{msg.content}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+
+          {isLoading && (
+            <div className="flex items-start gap-md max-w-[85%]">
+              <div className="w-10 h-10 rounded-full bg-surface-container shrink-0 flex items-center justify-center border border-[#E9E5DB]">
+                <span className="material-symbols-outlined text-primary">school</span>
+              </div>
+              <div className="bg-surface-container-low p-lg border border-[#E9E5DB] rounded-xl rounded-tl-none">
+                <div className="flex gap-1.5 items-center h-6">
+                  <div className="w-1.5 h-1.5 bg-primary/30 rounded-full animate-pulse" />
+                  <div className="w-1.5 h-1.5 bg-primary/30 rounded-full animate-pulse" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1.5 h-1.5 bg-primary/30 rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
-            )}
-            {msg.role === 'user' && (
-              <div className="inline-block bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 max-w-[80%]">
-                <p className="text-sm leading-relaxed">{msg.content}</p>
+            </div>
+          )}
+
+          {isComplete && overallScore !== null && (
+            <div className="max-w-[85%] ml-14 bg-surface-container-low border border-[#E9E5DB] p-xl rounded-xl">
+              <div className="text-center mb-lg">
+                <p className="font-label-caps text-primary mb-sm">面試總評</p>
+                <p className="font-h1 text-primary">{overallScore}</p>
+                <p className="text-sm text-outline font-label-caps">/ 100 分</p>
               </div>
-            )}
-            {msg.role === 'feedback' && (
-              <div className="inline-block bg-green-50 border border-green-200 rounded-2xl px-4 py-3 max-w-[85%]">
-                <p className="text-xs font-medium text-green-700 mb-1">面試官回饋</p>
-                <p className="text-sm text-green-800 leading-relaxed">{msg.content}</p>
+              <p className="font-body-md text-on-surface-variant leading-relaxed text-center mb-lg">
+                {overallFeedback}
+              </p>
+              {!isPro && (
+                <div className="text-center mb-lg">
+                  <a href="/pricing" className="font-label-caps text-primary hover:underline">
+                    升級 Pro 解鎖更多方向的面試模擬
+                  </a>
+                </div>
+              )}
+              <div className="text-center">
+                <button
+                  onClick={resetInterview}
+                  className="bg-primary text-white px-xl py-3 font-label-caps hover:opacity-90 transition-all cursor-pointer"
+                >
+                  再練習一次
+                </button>
               </div>
-            )}
-          </div>
-        ))}
-        {isLoading && (
-          <div className="text-left">
-            <div className="inline-flex items-start gap-2">
-              <div className="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-sm">🎓</span>
+            </div>
+          )}
+
+          <div ref={chatEndRef} />
+        </div>
+
+        {/* Input Controls */}
+        {!isComplete && !isPreInterview && (
+          <div className="p-lg bg-[#fbf9f7] border-t border-[#E9E5DB]">
+            <div className="flex flex-col gap-md">
+              <div className="relative">
+                <textarea
+                  value={currentInput}
+                  onChange={e => setCurrentInput(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      if (canContinue) submitAnswer();
+                    }
+                  }}
+                  placeholder={
+                    round >= FREE_ROUNDS && !isPro
+                      ? '已達免費上限，升級 Pro 繼續練習'
+                      : '點擊錄音或在此輸入回答內容...'
+                  }
+                  disabled={isLoading || !canContinue}
+                  rows={2}
+                  className="w-full bg-surface-container-lowest border-0 border-b border-[#E9E5DB] focus:border-primary focus:ring-0 font-body-md py-lg px-0 resize-none placeholder:text-outline/50 disabled:opacity-50 outline-none"
+                />
+                <div className="absolute right-0 bottom-4 flex items-center gap-md">
+                  <button className="w-12 h-12 rounded-full border border-primary text-primary hover:bg-primary-fixed transition-colors flex items-center justify-center cursor-pointer" aria-label="錄音">
+                    <span className="material-symbols-outlined">mic</span>
+                  </button>
+                  <button
+                    onClick={canContinue ? submitAnswer : () => {}}
+                    disabled={isLoading || !currentInput.trim() || !canContinue}
+                    className={
+                      'bg-primary text-white font-label-caps px-xl py-3 flex items-center gap-2 transition-all cursor-pointer ' +
+                      (canContinue && currentInput.trim() && !isLoading
+                        ? 'hover:opacity-90'
+                        : 'opacity-50 cursor-not-allowed')
+                    }
+                  >
+                    送出回答
+                    <span className="material-symbols-outlined text-[18px]">send</span>
+                  </button>
+                </div>
               </div>
-              <div className="bg-gray-50 rounded-2xl rounded-tl-sm px-4 py-3">
-                <div className="flex gap-1">
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 bg-gray-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              <div className="flex justify-between items-center px-2">
+                <div className="flex gap-4">
+                  <button className="text-stone-400 hover:text-primary transition-colors flex items-center gap-1 text-xs cursor-pointer">
+                    <span className="material-symbols-outlined text-[16px]">attach_file</span>
+                    附件參考
+                  </button>
+                  <button className="text-stone-400 hover:text-primary transition-colors flex items-center gap-1 text-xs cursor-pointer">
+                    <span className="material-symbols-outlined text-[16px]">auto_awesome</span>
+                    提示靈感
+                  </button>
+                </div>
+                <div className="text-[10px] text-outline font-label-caps flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  AI 就緒
                 </div>
               </div>
             </div>
           </div>
         )}
-        <div ref={chatEndRef} />
-      </div>
-
-      {/* Overall Score */}
-      {isComplete && overallScore !== null && (
-        <div className="bg-white rounded-2xl shadow-sm p-6 mb-4">
-          <div className="text-center mb-4">
-            <p className="text-sm text-gray-500 mb-1">面試總評</p>
-            <p className="text-5xl font-bold text-indigo-600">{overallScore}</p>
-            <p className="text-sm text-gray-400">/ 100 分</p>
-          </div>
-          <p className="text-sm text-gray-700 leading-relaxed text-center">{overallFeedback}</p>
-          {!isPro && (
-            <div className="text-center mt-3">
-              <a href="/pricing" className="text-sm text-indigo-600 font-medium hover:underline">
-                升級 Pro 解鎖更多方向的面試模擬
-              </a>
-            </div>
-          )}
-          <div className="text-center mt-4">
-            <button
-              onClick={resetInterview}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
-            >
-              再練習一次
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Input Area */}
-      {!isComplete && (
-        <div className="flex gap-2">
-          <textarea
-            value={currentInput}
-            onChange={e => setCurrentInput(e.target.value)}
-            onKeyDown={e => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                if (canContinue) submitAnswer();
-              }
-            }}
-            placeholder={
-              round >= FREE_ROUNDS && !isPro
-                ? '已達免費上限，升級 Pro 繼續練習'
-                : '輸入你的回答...'
-            }
-            disabled={isLoading || !canContinue}
-            rows={2}
-            className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none disabled:bg-gray-50 disabled:text-gray-400"
-          />
-          <button
-            onClick={canContinue ? submitAnswer : () => {}}
-            disabled={isLoading || !currentInput.trim() || !canContinue}
-            className={
-              'px-6 py-3 rounded-xl font-bold transition-all self-end ' +
-              (canContinue && currentInput.trim() && !isLoading
-                ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed')
-            }
-          >
-            送出
-          </button>
-        </div>
-      )}
+      </section>
     </div>
   );
 }

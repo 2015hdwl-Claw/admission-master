@@ -58,20 +58,27 @@ export default function ResultsPage() {
     persist(updated);
   }
 
+  const isFormValid = formDepartment.trim() && formPathway.trim() && formAdvice.trim();
   const sorted = [...results].sort((a, b) => b.likes - a.likes);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">匿名結果牆</h1>
-        <p className="text-gray-500">分享你的升學結果和經驗，幫助更多學生</p>
-      </div>
+    <div className="page-container max-w-[48rem]">
+      {/* Header */}
+      <section className="mb-xl">
+        <div className="border-l-4 border-primary pl-lg py-sm">
+          <span className="font-label-caps text-primary uppercase tracking-widest block mb-xs">RESULT BOARD</span>
+          <h1 className="font-h1 text-h1 text-on-surface">匿名結果牆</h1>
+        </div>
+        <p className="font-body-lg text-on-surface-variant mt-sm max-w-[42rem]">
+          分享你的升學結果和經驗，幫助更多學生。
+        </p>
+      </section>
 
       {/* Add Button */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-xxl">
         <button
           onClick={() => setShowForm(true)}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg"
+          className="bg-primary text-white px-xl py-sm font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer"
         >
           + 分享我的升學結果
         </button>
@@ -79,102 +86,103 @@ export default function ResultsPage() {
 
       {/* Results Grid */}
       {sorted.length === 0 ? (
-        <div className="text-center py-16">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl">📋</span>
+        <div className="text-center py-xxl">
+          <div className="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mx-auto mb-lg">
+            <span className="material-symbols-outlined text-on-surface-variant">edit_note</span>
           </div>
-          <p className="text-gray-400 mb-1">還沒有人分享結果</p>
-          <p className="text-sm text-gray-400">成為第一個分享的人吧！</p>
+          <p className="font-h3 text-h3 text-on-surface-variant mb-sm">還沒有人分享結果</p>
+          <p className="font-body-md text-on-surface-variant">成為第一個分享的人吧！</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {sorted.map(result => (
-            <div key={result.id} className="bg-white rounded-2xl shadow-sm p-5 border border-gray-50">
-              <div className="flex items-start justify-between mb-3">
-                <div>
-                  <h3 className="font-bold text-gray-900 text-sm">{result.department}</h3>
-                  {result.university && (
-                    <p className="text-xs text-gray-400">{result.university}</p>
-                  )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+          {sorted.map(result => {
+            const isLiked = result.likedBy.includes('current-user');
+            return (
+              <div key={result.id} className="bg-surface-container-low border border-[#E9E5DB] p-xl hover:border-primary/30 transition-colors group">
+                <div className="flex items-start justify-between mb-md">
+                  <div className="min-w-0 flex-1 mr-3">
+                    <h3 className="font-body-lg font-semibold text-on-surface truncate">{result.department}</h3>
+                    {result.university && (
+                      <p className="text-on-surface-variant text-sm mt-xs">{result.university}</p>
+                    )}
+                  </div>
+                  <span className="bg-primary-fixed text-primary px-2.5 py-1 text-xs font-medium shrink-0">
+                    {result.pathway}
+                  </span>
                 </div>
-                <span className="px-2 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-medium">
-                  {result.pathway}
-                </span>
+                <p className="font-body-md text-on-surface-variant leading-relaxed mb-lg">&ldquo;{result.advice}&rdquo;</p>
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={() => handleLike(result.id)}
+                    className={
+                      'flex items-center gap-1 transition-colors cursor-pointer ' +
+                      (isLiked ? 'text-error' : 'text-on-surface-variant hover:text-red-400')
+                    }
+                  >
+                    <span className="material-symbols-outlined text-[20px]">{isLiked ? 'favorite' : 'favorite_border'}</span>
+                    <span className="text-sm">{result.likes}</span>
+                  </button>
+                  <span className="text-xs text-on-surface-variant">
+                    {new Date(result.createdAt).toLocaleDateString('zh-TW')}
+                  </span>
+                </div>
               </div>
-              <p className="text-sm text-gray-600 leading-relaxed mb-4">&ldquo;{result.advice}&rdquo;</p>
-              <div className="flex items-center justify-between">
-                <button
-                  onClick={() => handleLike(result.id)}
-                  className={
-                    'flex items-center gap-1 text-sm transition-colors ' +
-                    (result.likedBy.includes('current-user')
-                      ? 'text-red-500'
-                      : 'text-gray-400 hover:text-red-400')
-                  }
-                >
-                  <span>{result.likedBy.includes('current-user') ? '❤️' : '🤍'}</span>
-                  <span>{result.likes}</span>
-                </button>
-                <span className="text-xs text-gray-300">
-                  {new Date(result.createdAt).toLocaleDateString('zh-TW')}
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
-      {/* Submit Form Modal */}
+      {/* Bottom Links */}
       {!showForm && (
-        <div className="text-center mt-8 space-x-4">
-          <Link href="/analyze" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">
-            分析我的成績
-          </Link>
-          <Link href="/explore" className="text-gray-500 hover:text-gray-700 text-sm">
-            探索更多科系
-          </Link>
-          <Link href="/onboarding/step1" className="text-gray-500 hover:text-gray-700 text-sm">
-            開始完整導入
-          </Link>
+        <div className="text-center mt-xxl space-x-4">
+          <Link href="/analyze" className="text-primary text-sm font-medium cursor-pointer">分析我的成績</Link>
+          <Link href="/explore" className="text-on-surface-variant hover:text-on-surface text-sm cursor-pointer">探索更多科系</Link>
+          <Link href="/onboarding/step1" className="text-on-surface-variant hover:text-on-surface text-sm cursor-pointer">開始完整導入</Link>
         </div>
       )}
 
       {/* Submit Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-gray-900">分享升學結果</h2>
-              <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-md w-full">
+            <div className="flex items-center justify-between mb-lg">
+              <h2 className="font-h3 text-h3 text-on-surface">分享升學結果</h2>
+              <button
+                onClick={() => setShowForm(false)}
+                className="text-on-surface-variant hover:text-on-surface text-2xl cursor-pointer"
+                aria-label="關閉"
+              >
+                &times;
+              </button>
             </div>
-            <p className="text-sm text-gray-500 mb-4">匿名分享，幫助學弟妹了解真實的升學經驗</p>
+            <p className="font-body-md text-on-surface-variant mb-lg">匿名分享，幫助學弟妹了解真實的升學經驗</p>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">錄取科系 *</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">錄取科系 *</label>
                 <input
                   type="text"
                   value={formDepartment}
                   onChange={e => setFormDepartment(e.target.value)}
                   placeholder="例如：台大資工系"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">學校</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">學校</label>
                 <input
                   type="text"
                   value={formUniversity}
                   onChange={e => setFormUniversity(e.target.value)}
                   placeholder="例如：國立台灣大學"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">升學管道 *</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">升學管道 *</label>
                 <select
                   value={formPathway}
                   onChange={e => setFormPathway(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm cursor-pointer"
                 >
                   <option value="">選擇管道</option>
                   <option value="申請入學">申請入學</option>
@@ -185,23 +193,21 @@ export default function ResultsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">準備過程一句話 *</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">準備過程一句話 *</label>
                 <textarea
                   value={formAdvice}
                   onChange={e => setFormAdvice(e.target.value)}
                   placeholder="用一句話分享你的準備經驗或建議..."
                   rows={3}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none"
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm resize-none"
                 />
               </div>
               <button
                 onClick={handleSubmit}
-                disabled={!formDepartment.trim() || !formPathway.trim() || !formAdvice.trim()}
+                disabled={!isFormValid}
                 className={
-                  'w-full py-3 rounded-xl font-bold transition-all ' +
-                  (formDepartment.trim() && formPathway.trim() && formAdvice.trim()
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed')
+                  'w-full py-3 font-label-caps text-label-caps tracking-widest transition-all cursor-pointer ' +
+                  (isFormValid ? 'bg-primary text-white hover:opacity-90' : 'bg-surface-container-high text-on-surface-variant cursor-not-allowed')
                 }
               >
                 匿名分享

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>家長週報 | 沐禾綠教育</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#bccabc",
+                    "surface": "#fbf9f7",
+                    "background": "#fbf9f7",
+                    "secondary-fixed-dim": "#dcc2ab",
+                    "secondary-fixed": "#f9dec6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-dim": "#dcdad7",
+                    "on-primary-fixed-variant": "#3d4a3f",
+                    "surface-bright": "#fbf9f7",
+                    "on-error": "#ffffff",
+                    "tertiary": "#6d5659",
+                    "outline-variant": "#c4c8c1",
+                    "on-surface-variant": "#434843",
+                    "surface-tint": "#546256",
+                    "surface-container": "#f0edeb",
+                    "surface-container-low": "#f5f3f1",
+                    "on-tertiary": "#ffffff",
+                    "on-background": "#1b1c1b",
+                    "error": "#ba1a1a",
+                    "outline": "#747873",
+                    "surface-container-high": "#eae8e6",
+                    "on-secondary-fixed-variant": "#554332",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#f6fff4",
+                    "primary-fixed-dim": "#bccabc",
+                    "on-primary-fixed": "#121e15",
+                    "on-tertiary-container": "#fffbff",
+                    "on-secondary-fixed": "#26190a",
+                    "inverse-on-surface": "#f3f0ee",
+                    "surface-container-highest": "#e4e2e0",
+                    "surface-variant": "#e4e2e0",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#574144",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#ddbfc2",
+                    "tertiary-container": "#876e71",
+                    "primary-fixed": "#d8e6d7",
+                    "tertiary-fixed": "#fadbde",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1b1c1b",
+                    "primary": "#525f54",
+                    "secondary-container": "#f9dec6",
+                    "inverse-surface": "#30302f",
+                    "secondary": "#6e5b48",
+                    "primary-container": "#6a786c",
+                    "on-tertiary-fixed": "#28171a",
+                    "on-secondary-container": "#75614e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "xxl": "80px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "container-max": "1200px",
+                    "xl": "48px",
+                    "sm": "8px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "h2": ["Noto Serif TC"],
+                    "body-md": ["Manrope"],
+                    "h3": ["Noto Serif TC"],
+                    "body-lg": ["Manrope"],
+                    "h1": ["Noto Serif TC"],
+                    "label-caps": ["Manrope"],
+                    "display-italic": ["Noto Serif TC"]
+            },
+            "fontSize": {
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "display-italic": ["inherit", {"fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #fbf9f7; }
+        .bento-card { background-color: #F4F1EA; border: 1px solid #E9E5DB; }
+        .bg-sage { background-color: #7D8B7E; }
+        .text-sage { color: #7D8B7E; }
+        .border-sage { border-color: #7D8B7E; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- TopAppBar from JSON -->
+<header class="bg-[#fbf9f7] dark:bg-stone-950 flex justify-between items-center w-full px-6 py-4 fixed top-0 z-50 border-b border-[#E9E5DB] dark:border-stone-800">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-[#E9E5DB]">
+<img alt="家長頭像" class="w-full h-full object-cover" data-alt="close-up portrait of a professional woman with a warm and gentle expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHs9AvVBKfy3_fglAv-v9pzk_ES0IkPGk_MndIp4t6GU7T6fcJFICi8a8A0eTZN_VhyTnGz5qa12yB_tkmYS9xT6S_X5kQbpqRdGWTaQmno0PwePY82hrr33_Kpv-RJ8_oa-HxcrkQE91BI9zg8TMlcl6omaL0JfIlvhMPoNHJ7pAfPV-_ZrD-bBwjnGV3cLJcoA_iC3N5aRwy10HPn7iQWORx5WFhBvuyd5Sk8_MSIDsoYZT0heKXtQOCbFH5_n-uhfhElQqMKXNn"/>
+</div>
+<h1 class="font-serif font-bold text-[#7D8B7E] dark:text-stone-200 text-lg tracking-tight">家長週報</h1>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#7D8B7E] dark:text-stone-400 p-2 hover:bg-[#F4F1EA] transition-colors rounded-full">notifications</button>
+<button class="material-symbols-outlined text-[#7D8B7E] dark:text-stone-400 p-2 hover:bg-[#F4F1EA] transition-colors rounded-full" onclick="document.getElementById('drawer').style.transform='translateX(0)'">menu</button>
+</div>
+</header>
+<!-- NavigationDrawer from JSON -->
+<div class="fixed right-0 top-0 h-full w-80 z-[60] flex flex-col p-8 bg-[#F4F1EA] dark:bg-stone-900 shadow-2xl transition-transform duration-300 translate-x-full border-l border-[#E9E5DB] dark:border-stone-800" id="drawer">
+<div class="flex justify-between items-center mb-10">
+<span class="font-serif text-xl text-[#7D8B7E]">進階功能</span>
+<button class="material-symbols-outlined text-stone-400" onclick="document.getElementById('drawer').style.transform='translateX(100%)'">close</button>
+</div>
+<nav class="flex flex-col divide-y divide-[#E9E5DB] dark:divide-stone-800">
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">psychology</span>職群測驗
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">analytics</span>統測分析
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>面試模擬
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">description</span>策略報告
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">payments</span>定價
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">handshake</span>學校合作
+            </a>
+<a class="flex items-center gap-4 py-4 px-2 hover:bg-[#E9E5DB] transition-all font-serif text-base tracking-wide text-stone-600" href="#">
+<span class="material-symbols-outlined">school</span>教師端
+            </a>
+</nav>
+</div>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-32 px-6 max-w-container-max mx-auto space-y-xxl">
+<!-- Hero Section: Weekly Summary -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+<div class="md:col-span-7 space-y-md">
+<span class="font-label-caps text-sage uppercase">Weekly Digest • 2023 OCT WK4</span>
+<h2 class="font-h1 text-on-background">本週學習亮點</h2>
+<div class="border-l-4 border-sage pl-6 py-2">
+<p class="font-h3 italic text-primary leading-relaxed">
+                        「孩子在本週的專題討論中展現了卓越的領導力，不僅主動協調組員分工，更在資料彙整中發現了創新的視角。這是一場關於自信與邏輯的優雅綻放。」
+                    </p>
+</div>
+</div>
+<div class="md:col-span-5 h-[400px] overflow-hidden rounded-lg shadow-lg">
+<img alt="孩子學習" class="w-full h-full object-cover" data-alt="candid shot of a focused student working in a bright modern library with large windows and wooden desks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFT7O92qspJTIUS1S_j26Mk-jDCxwcwWH4m4gYe2WjNeUYoYw3JVezr9E9MAJFwKeZtrpt97yHCPGVTzr5ey4Y7EcONHbuNyktm73eVSf6JQ9saujmbqntjNLw2lZq-hvJ93z2Tk_9XC0p6LdJYwu1f41RQjqg1jOoYvrwN8xNHjbN1ttlRWvGy2BplBq-W-y9WlM2WYUea1vyZE5bfhCe8IPLljsKuACl-nfqVhJNukTgCfk76WHLQZ_Fa0UH2dO7XG1g91q-GS1s"/>
+</div>
+</section>
+<!-- Bento Grid: Analytics -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Key Stats -->
+<div class="md:col-span-4 bento-card p-xl flex flex-col justify-between">
+<div>
+<h3 class="font-h3 text-sage mb-4">投入時間</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-6xl font-serif text-on-background">32</span>
+<span class="text-body-lg text-primary">小時 / 週</span>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant">
+<div class="flex justify-between items-center text-label-caps">
+<span>較上週增加</span>
+<span class="text-sage">+12%</span>
+</div>
+<div class="w-full bg-outline-variant h-1 mt-2">
+<div class="bg-sage h-1 w-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Task Completion -->
+<div class="md:col-span-4 bento-card p-xl">
+<h3 class="font-h3 text-sage mb-8">任務達成率</h3>
+<div class="relative w-40 h-40 mx-auto flex items-center justify-center">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-outline-variant opacity-20" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-sage" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="44" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-serif">90%</span>
+<span class="text-xs text-label-caps text-primary">COMPLETED</span>
+</div>
+</div>
+<div class="mt-8 text-center text-body-md text-primary">
+                    完成 18 / 20 項學習任務
+                </div>
+</div>
+<!-- Radar / Skill Distro -->
+<div class="md:col-span-4 bento-card p-xl">
+<h3 class="font-h3 text-sage mb-6">領域成長分布</h3>
+<div class="space-y-4">
+<div class="space-y-1">
+<div class="flex justify-between text-body-md">
+<span>專題研究</span>
+<span>85%</span>
+</div>
+<div class="h-2 bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-sage w-[85%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body-md">
+<span>學科檢定</span>
+<span>70%</span>
+</div>
+<div class="h-2 bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-sage w-[70%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body-md">
+<span>社團領導</span>
+<span>95%</span>
+</div>
+<div class="h-2 bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-sage w-[95%]"></div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-body-md">
+<span>自我探索</span>
+<span>60%</span>
+</div>
+<div class="h-2 bg-surface-container-highest overflow-hidden">
+<div class="h-full bg-sage w-[60%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mentor Quote -->
+<section class="bg-surface-container-low p-xl border border-outline-variant flex flex-col md:flex-row gap-8 items-center">
+<div class="w-24 h-24 rounded-full overflow-hidden shrink-0">
+<img alt="導師" class="w-full h-full object-cover" data-alt="headshot of a middle-aged academic mentor with glasses and a kind smile in a soft focus office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ_fcj9NflPbbUwAQKhYIZORaP82a4JzHk1RmsBVtZFsfBf3dnfrY9eaSbdcJNdqs8Nan_lXftKRi2NBhktppd0S8IC-Vu-DDBv-9y6VZFCRswmtRGcd7cLTYciKlUqdBZQrE9jd1rKCyRqkUh6lLFHsGwe23kbQxsFa0bEKvCkT5afLTJqbtIWQ47cFxO8wA-15e9SfkPywv2thFnKmnV5Sdfin9gQutG9r0fDtSKwA1gB0jjLe1KkLeCwsE2zLtcEV9rLnWfJSZ-"/>
+</div>
+<div class="space-y-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sage" style="font-variation-settings: 'FILL' 1;">format_quote</span>
+<span class="font-h3 text-on-surface">導師的話</span>
+</div>
+<p class="font-body-lg text-primary leading-relaxed">
+                    孩子目前正處於能量爆發的階段，他在社團活動中展現出的共情能力讓我印象深刻。下週的統測模擬是個檢視基礎的好機會，建議家長多給予情感支持，而非僅關注分數。
+                </p>
+<p class="text-label-caps text-sage">— 導師 林沐辰</p>
+</div>
+</section>
+<!-- Next Week Preview -->
+<section class="space-y-lg">
+<h3 class="font-h2 text-on-background flex items-center gap-3">
+<span class="material-symbols-outlined text-sage">event_upcoming</span>下週預告
+            </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex gap-6 p-lg bg-white border border-[#E9E5DB]">
+<div class="text-center shrink-0 border-r border-[#E9E5DB] pr-6">
+<span class="block text-label-caps text-primary">MON</span>
+<span class="text-3xl font-serif text-sage">30</span>
+</div>
+<div>
+<h4 class="font-h3 text-on-surface text-lg">統測模擬考第一階段</h4>
+<p class="text-body-md text-primary mt-1">地點：大禮堂｜準備事項：文具組</p>
+</div>
+</div>
+<div class="flex gap-6 p-lg bg-white border border-[#E9E5DB]">
+<div class="text-center shrink-0 border-r border-[#E9E5DB] pr-6">
+<span class="block text-label-caps text-primary">THU</span>
+<span class="text-3xl font-serif text-sage">02</span>
+</div>
+<div>
+<h4 class="font-h3 text-on-surface text-lg">自主專題截稿日</h4>
+<p class="text-body-md text-primary mt-1">系統上傳截止時間：23:59</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar from JSON -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center py-3 px-4 bg-[#fbf9f7] dark:bg-stone-950 z-50 border-t border-[#E9E5DB] dark:border-stone-800 shadow-[0_-4px_20px_rgba(125,139,126,0.05)]">
+<a class="flex flex-col items-center justify-center text-[#7D8B7E] dark:text-[#7D8B7E] font-bold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">首頁</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-[#7D8B7E] transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">我的路線圖</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-[#7D8B7E] transition-all" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">時光軸</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 hover:text-[#7D8B7E] transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">個人</span>
+</a>
+</nav>
+</body></html>

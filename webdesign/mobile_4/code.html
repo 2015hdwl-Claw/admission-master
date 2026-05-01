@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0edeb",
+                        "primary-fixed": "#d8e6d7",
+                        "on-secondary-container": "#75614e",
+                        "outline": "#747873",
+                        "surface-container-high": "#eae8e6",
+                        "secondary-container": "#f9dec6",
+                        "on-primary-fixed": "#121e15",
+                        "on-error": "#ffffff",
+                        "tertiary": "#6d5659",
+                        "secondary-fixed-dim": "#dcc2ab",
+                        "secondary": "#6e5b48",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#30302f",
+                        "on-primary-container": "#f6fff4",
+                        "outline-variant": "#c4c8c1",
+                        "tertiary-container": "#876e71",
+                        "surface-tint": "#546256",
+                        "surface-bright": "#fbf9f7",
+                        "inverse-primary": "#bccabc",
+                        "surface-dim": "#dcdad7",
+                        "secondary-fixed": "#f9dec6",
+                        "on-secondary-fixed-variant": "#554332",
+                        "on-primary-fixed-variant": "#3d4a3f",
+                        "background": "#fbf9f7",
+                        "tertiary-fixed": "#fadbde",
+                        "surface-container-low": "#f5f3f1",
+                        "on-surface": "#1b1c1b",
+                        "on-surface-variant": "#434843",
+                        "primary": "#525f54",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1b",
+                        "surface-variant": "#e4e2e0",
+                        "tertiary-fixed-dim": "#ddbfc2",
+                        "primary-fixed-dim": "#bccabc",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ee",
+                        "surface-container-highest": "#e4e2e0",
+                        "surface": "#fbf9f7",
+                        "on-secondary-fixed": "#26190a",
+                        "primary-container": "#6a786c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574144",
+                        "on-tertiary-fixed": "#28171a",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xxl": "80px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif TC"],
+                        "display-italic": ["Noto Serif TC"],
+                        "h3": ["Noto Serif TC"],
+                        "body-md": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h2": ["Noto Serif TC"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f7;
+            color: #1b1c1b;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md">
+<!-- TopAppBar -->
+<header class="bg-[#fbf9f7] dark:bg-stone-950 text-[#7D8B7E] font-serif tracking-tight border-b border-[#E9E5DB] dark:border-stone-800 flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+<h1 class="text-xl font-serif font-bold text-[#7D8B7E]">升學大師</h1>
+</div>
+<div class="hidden md:flex gap-8 items-center h-full">
+<nav class="flex h-full items-center gap-6">
+<a class="text-stone-500 hover:text-[#7D8B7E] transition-colors duration-300 h-full flex items-center px-2" href="#">我的路線</a>
+<a class="text-stone-500 hover:text-[#7D8B7E] transition-colors duration-300 h-full flex items-center px-2" href="#">學習歷程</a>
+<a class="text-stone-500 hover:text-[#7D8B7E] transition-colors duration-300 h-full flex items-center px-2" href="#">統計分析</a>
+<a class="text-[#7D8B7E] border-b-2 border-[#7D8B7E] h-full flex items-center px-2" href="#">策略報告</a>
+<a class="text-stone-500 hover:text-[#7D8B7E] transition-colors duration-300 h-full flex items-center px-2" href="#">職群測驗</a>
+</nav>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="用戶頭像" class="w-full h-full object-cover" data-alt="professional portrait of a young male student in a minimal library setting, soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDO2HB17zg4egoBZgUzZPUp1d6gN1yfsL3INh873XD81DScnpViJRdTZGlcDF6Yya-Shx1LmiURVVOK-V1zNCF-MhRpGDq0jK7x-L_-Mn5iDDFzunD9JAyupkN16ui4D9w2nf6kjqTXzVjYGJkP0MA-znganiP8rl56n07RSqAdCL_Y3d-PmA6g7j22d7xVepbtkzelnjfCXlw--nnPSKptD183kpSuOYKdH3lLDsJEY9kmvG6IMU6iDiDDFfGy3AIjcoyls49AhKo"/>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-gutter py-xxl">
+<!-- Report Header Section -->
+<section class="mb-xxl text-center md:text-left">
+<div class="inline-block px-3 py-1 bg-primary-fixed text-on-primary-fixed text-label-caps mb-md">CONFIDENTIAL STRATEGY REPORT 2024</div>
+<h1 class="font-h1 text-h1 text-on-background mb-sm">個人升學戰略分析報告</h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl">專為 <span class="font-bold text-primary">林嘉誠</span> 同學量身打造。基於近三年的學習歷程、模考數據與職業適性測驗，規劃之建築與設計學系錄取策略。</p>
+</section>
+<!-- Executive Summary Bento Grid -->
+<div class="bento-grid mb-xxl">
+<!-- Priority Schools -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-low p-xl border border-outline-variant relative overflow-hidden">
+<div class="absolute top-0 right-0 p-lg opacity-10 font-h1 text-8xl pointer-events-none select-none">01</div>
+<h3 class="font-h3 text-h3 text-primary mb-lg">首選目標校系</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-end border-b border-outline-variant pb-xs">
+<div>
+<p class="text-label-caps text-on-surface-variant">第一志願</p>
+<p class="font-h3 text-xl">國立成功大學 建築學系</p>
+</div>
+<p class="text-primary font-semibold">錄取機率：72%</p>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant pb-xs">
+<div>
+<p class="text-label-caps text-on-surface-variant">第二志願</p>
+<p class="font-h3 text-xl">東海大學 建築學系</p>
+</div>
+<p class="text-primary font-semibold">錄取機率：88%</p>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant pb-xs">
+<div>
+<p class="text-label-caps text-on-surface-variant">挑戰志願</p>
+<p class="font-h3 text-xl">國立陽明交通大學 建築研究所 (學士班)</p>
+</div>
+<p class="text-secondary font-semibold">錄取機率：45%</p>
+</div>
+</div>
+</div>
+<!-- Profile Summary Card -->
+<div class="col-span-12 md:col-span-4 bg-primary text-on-primary p-xl flex flex-col justify-between">
+<div>
+<h3 class="font-h3 text-h3 mb-md">人才畫像</h3>
+<p class="opacity-90 leading-relaxed">具備卓越的空間感知能力與人文關懷，在數學邏輯與美學表現間取得高度平衡，屬於「思辨型設計者」。</p>
+</div>
+<div class="mt-xl">
+<div class="text-sm opacity-70 mb-xs">主要優勢標籤</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-white/10 px-2 py-1 text-xs">空間邏輯 A+</span>
+<span class="bg-white/10 px-2 py-1 text-xs">手繪表現 A</span>
+<span class="bg-white/10 px-2 py-1 text-xs">數位工具 B+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SWOT Analysis -->
+<section class="mb-xxl">
+<div class="flex items-center gap-gutter mb-xl">
+<h2 class="font-h2 text-h2 text-on-background shrink-0">競爭優劣勢分析</h2>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Strength -->
+<div class="border-l-4 border-primary bg-surface-container-lowest p-lg shadow-[0_4px_30px_rgba(125,139,126,0.05)]">
+<div class="flex items-center gap-sm mb-md text-primary">
+<span class="material-symbols-outlined" data-weight="fill">trending_up</span>
+<span class="font-label-caps">核心優勢 (Strengths)</span>
+</div>
+<ul class="space-y-md text-on-surface-variant">
+<li class="flex gap-sm">
+<span class="text-primary font-bold">01</span>
+<p>數學與物理成績長期穩定在頂標前 5%，在建築結構學習上具備極佳基礎。</p>
+</li>
+<li class="flex gap-sm">
+<span class="text-primary font-bold">02</span>
+<p>跨學科選修「都市觀察」，作品曾獲校級競賽優選，展現強大自主探究能力。</p>
+</li>
+</ul>
+</div>
+<!-- Weakness -->
+<div class="border-l-4 border-tertiary-container bg-surface-container-lowest p-lg shadow-[0_4px_30px_rgba(125,139,126,0.05)]">
+<div class="flex items-center gap-sm mb-md text-tertiary-container">
+<span class="material-symbols-outlined" data-weight="fill">trending_down</span>
+<span class="font-label-caps">潛在弱點 (Weaknesses)</span>
+</div>
+<ul class="space-y-md text-on-surface-variant">
+<li class="flex gap-sm">
+<span class="text-tertiary-container font-bold">01</span>
+<p>英語檢定分數 (TOEIC 720) 與頂尖校系相比尚有提升空間，可能影響二階面試優勢。</p>
+</li>
+<li class="flex gap-sm">
+<span class="text-tertiary-container font-bold">02</span>
+<p>學習歷程檔案目前缺乏全國性競賽經歷，建議在下半年強化作品集廣度。</p>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Quote Block -->
+<section class="mb-xxl p-xl bg-[#F4F1EA] border-l-4 border-[#7D8B7E]">
+<div class="flex gap-md">
+<span class="material-symbols-outlined text-primary text-4xl">format_quote</span>
+<p class="font-h3 text-h2 italic leading-relaxed text-primary">
+                    建築不只是空間的構築，更是思維的具象化。你的優勢在於理性的邏輯與感性的筆觸，這正是成大建築所青睞的人格特質。
+                </p>
+</div>
+<div class="mt-lg flex items-center justify-end gap-md">
+<div class="text-right">
+<p class="font-bold text-on-surface">張慕白 顧問</p>
+<p class="text-sm text-on-surface-variant italic">前任哈佛建築研究所客座導師</p>
+</div>
+<div class="w-12 h-12 rounded-full overflow-hidden bg-stone-300">
+<img alt="導師頭像" class="w-full h-full object-cover" data-alt="close-up portrait of a senior professional architect with glasses, intellectual and calm expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFviAHDlpSYJsMLFMhRwxjlr3tkfTaAxDafh472oStPU8GVF4FOq1CS8JBrjweoPRmd25JBobNfx0oLXhmA5tbtorwQBGvK6YjEnXp-cXbdzCwEiUWA61xD0VR2lDS2TVDKZTfUOMRwlfdjdNBeOw6DJjHhjxywy0NyFXdmxhkMZS966_FaOAJjIgDWpinCkkGewubFcv0PvtWwEHN3HZqsgbruNdGa8Qv-uTrPD4M05H-KxtFBhcO3LJdgzroY6exk4RWbWyYwwY5"/>
+</div>
+</div>
+</section>
+<!-- Action Plan Section -->
+<section class="mb-xxl">
+<h2 class="font-h2 text-h2 text-on-background mb-xl text-center">關鍵行動藍圖</h2>
+<div class="space-y-gutter">
+<!-- Step 1 -->
+<div class="flex flex-col md:flex-row items-center gap-xl bg-white p-lg border border-outline-variant">
+<div class="w-full md:w-1/3 aspect-video overflow-hidden">
+<img alt="學習階段一" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="architectural drafting table with sketches, scale model, and measuring tools under warm desk lamp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgp52NXDX46RyykBXB_nV78H5kvfEx30kVU4qWl8DogSq18Uei3YgfcsaN-JGJk0KKHCoPkA7nkCSX38NldpBBknqHj2Q2jr3LRNqwE6SkK1uYvh2dXpcNyhGSjjSozQuRBSXjF9FHCFwo2DtRG00wQH_2UeM14taEBzb5YHzp-LjMdvMngvWzAeEwtCxgl64MmzRzvPlnAcs3FFe8x5_VotriyNukIYGygpLM3Iupl4_59M5AT3LbjorNnxJhbQuXEpCjfreIPtc8"/>
+</div>
+<div class="flex-1">
+<div class="text-primary font-h3 mb-sm">01. 作品集深化階段 (現在 - 11月)</div>
+<p class="text-on-surface-variant mb-md">整合高二至今的設計草圖，將重點放在「問題解決的過程」而非僅是最終成果。建議加入 1-2 件關於永續建築的探究專題。</p>
+<button class="text-label-caps text-primary border-b border-primary pb-1 hover:text-on-primary-fixed-variant transition-colors">下載作品集檢核清單</button>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col md:flex-row-reverse items-center gap-xl bg-white p-lg border border-outline-variant">
+<div class="w-full md:w-1/3 aspect-video overflow-hidden">
+<img alt="學習階段二" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" data-alt="student sitting in a minimal modern library taking notes on a clean wooden table, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqeOiRWexTC_8sl1Nq6O5z-jFRy0Vwr7nEaUbbJhlhqONbDr_wvta4Q_gNBWxEVLL_vx3S2rnaOswcEdWLfrtVRPDIbaoZPLz5bCRwhS3_f-tSfax4hhw5gAKn1zncyxH5aobERCEG_5rzT0hhIlQglkAwtJyVyERv_7ChS9bm5sepxTtes2BSd8O03SG8wvUSMc69nMhQKXE6AYjDjPpKRfBqkbZZ6j-SSBoDK2OWykxS7ZSNyqc4TjmZ_ar-1zX-b2Rs7IPja3yo"/>
+</div>
+<div class="flex-1">
+<div class="text-primary font-h3 mb-sm">02. 英文門檻突破 (12月 - 1月)</div>
+<p class="text-on-surface-variant mb-md">密集訓練多益聽力與閱讀，目標鎖定 850 分。這將在成大建築的面試中提供顯著的加分項，並增加挑戰國外名校的底氣。</p>
+<button class="text-label-caps text-primary border-b border-primary pb-1 hover:text-on-primary-fixed-variant transition-colors">預約英文診斷測試</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Call to Action -->
+<section class="bg-surface-container p-xl text-center">
+<h3 class="font-h3 text-h2 mb-md">準備好執行你的藍圖了嗎？</h3>
+<p class="text-on-surface-variant mb-lg max-w-xl mx-auto">我們的顧問團隊將伴隨你完成每一個節點。若對報告內容有任何疑問，請隨時安排諮詢會議。</p>
+<div class="flex flex-wrap justify-center gap-md">
+<button class="bg-[#7D8B7E] text-white px-lg py-md font-label-caps hover:bg-primary transition-colors">預約深度諮詢</button>
+<button class="border border-[#7D8B7E] text-[#7D8B7E] px-lg py-md font-label-caps hover:bg-surface-container-high transition-colors">列印完整報告 (PDF)</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#fbf9f7]/90 dark:bg-stone-950/90 backdrop-blur-md border-t border-[#E9E5DB] dark:border-stone-800 shadow-[0_-4px_30px_rgba(125,139,126,0.05)]">
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out hover:text-[#7D8B7E]">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest">我的路線</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out hover:text-[#7D8B7E]">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-serif text-[10px] uppercase tracking-widest">學習歷程</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out hover:text-[#7D8B7E]">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-serif text-[10px] uppercase tracking-widest">統計分析</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#7D8B7E] dark:text-[#94a395] font-bold scale-110 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="Description" data-weight="fill">description</span>
+<span class="font-serif text-[10px] uppercase tracking-widest">策略報告</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out hover:text-[#7D8B7E]">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-serif text-[10px] uppercase tracking-widest">職群測驗</span>
+</div>
+</nav>
+<!-- NavigationDrawer (Sidebar/Menu Placeholder - Hidden by default) -->
+<div class="fixed inset-0 z-[60] bg-black/20 hidden" id="drawer">
+<div class="h-full w-80 bg-[#F4F1EA] dark:bg-stone-900 shadow-2xl flex flex-col p-8 divide-y divide-[#E9E5DB] dark:divide-stone-800">
+<div class="pb-8">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-16 h-16 rounded-full overflow-hidden bg-stone-300">
+<img alt="學生個人頭像" class="w-full h-full object-cover" data-alt="portrait of a student" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmI9NwugEcvv1M1f69jrROOatQ0i-d7McL_pjWV23b64q3M7D3z-24g6nWqDURft7WDbU8dN-42Vwchojz2LPG4OebsRKnigd3UqJw9cao7C2V6eH5AxG04HcfZ0xc-LmrMpRqYnGb4iiSzITt3cmHaUwLg8YHB4R-WAK9hz3P8tj_O_CEOWp92_9liSll-ta9k050Jh7u_Ca_YzIwwfxn-9BGG-qlPdGeIihi9j1-BqwQGDwjLtFc-FF5daAB30pLd8m84YWEam48"/>
+</div>
+<div>
+<div class="text-lg font-bold text-[#7D8B7E]">學術導航</div>
+<div class="text-xs text-stone-500">追求卓越的建築師</div>
+</div>
+</div>
+</div>
+<nav class="py-8 space-y-4">
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-serif">校曆</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-serif">時光軸</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-serif">面試模擬</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-serif">學校合作</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="font-serif">教師端</span>
+</a>
+<a class="flex items-center gap-4 p-3 rounded-lg text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-serif">定價方案</span>
+</a>
+</nav>
+</div>
+</div>
+</body></html>

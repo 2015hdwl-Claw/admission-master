@@ -1,0 +1,140 @@
+{
+  "title": "升學大師 v3 — 完整商業策略計畫書",
+  "date": "2026-04-26",
+  "status": "壓力測試通過，待驗證",
+  "version": "3.0",
+  "positioning": {
+    "target_user": "台灣高職生 15-18 歲，只做高職不做一般高中",
+    "identity": "陪伴型升學平台（不是工具）",
+    "logic_difference": "工具：記錄→分析→模擬 / 夥伴：記錄→被看見→被鼓勵",
+    "tagline": "讓隱形人被看見",
+    "why_vocational": "高職生在升學體系裡是隱形的。專題實作、技能檢定、職場實習在所有現有平台上找不到對應追蹤工具。ColleGo! 有靜態高職資料但零互動。不是被做爛的市場，是被忽略的市場。"
+  },
+  "business_model": {
+    "name": "免費旅程 + 付費裝備",
+    "analogy": "像遊戲：整段旅程免費探索，打 Boss 需要好裝備",
+    "why_not_subscription": "高職生沒錢沒信用卡。訂閱制的付費者是家長，但學生會覺得被強迫。按次付費對齊升學節點，有天然需求高峰。",
+    "free_features": [
+      "技能記錄（專題/檢定/實習/競賽/社團/證照/服務學習）",
+      "時間軸、校曆、職群探索",
+      "夥伴配對（匿名）",
+      "情感支持系統（系統自動鼓勵）"
+    ],
+    "paid_equipment": [
+      {"id": 1, "name": "專題深度指導", "price_range": "500-1000", "trigger": "專題卡住時", "payer": "家長"},
+      {"id": 2, "name": "備審資料 AI 精修", "price_range": "500-1000", "trigger": "甄選前準備備審", "payer": "家長"},
+      {"id": 3, "name": "統測策略分析", "price_range": "500-1000", "trigger": "統測前", "payer": "家長"},
+      {"id": 4, "name": "甄選面試特訓", "price_range": "1000-2000", "trigger": "甄選前密集練習", "payer": "家長"},
+      {"id": 5, "name": "志願填選策略", "price_range": "500-1000", "trigger": "放榜後", "payer": "家長"}
+    ],
+    "ltv_estimates": {
+      "ideal": "10,000-20,000 NTD per student over 3 years",
+      "realistic_arpu": "400-800 NTD",
+      "calculation_note": "100用戶 × 25%轉換率 × 5次付費 × 平均800 = ARPU 400"
+    }
+  },
+  "core_challenge": {
+    "name": "三個意志的衝突",
+    "insight": "付費者（家長）和使用者（學生）不是同一個人，而且學生有自己的想法。這跟一般消費市場根本不同。",
+    "student": {"wants": "弄清自己的路、被認可、不被壓力追著跑", "fears": "被監視、被催促、被當升學機器"},
+    "parent": {"wants": "孩子上好學校、不要落後、知道孩子在幹嘛", "fears": "拿錢打水漂、孩子不聽話、失控感"},
+    "platform": {"wants": "有人付錢、有人用、有人留下", "fears": "做出來沒人用"},
+    "tension": "同時對兩個人說兩套不同的話，而且不能互相矛盾",
+    "solution": "學生是入口，家長是出口（方向1）"
+  },
+  "direction_1_student_entry_parent_exit": {
+    "concept": "學生因為自己的理由來（同學傳的、好奇、無聊）。平台對學生的溝通完全不提升學、不提分數、不提未來。等學生累積了記錄，系統問：要不要讓爸媽看看你做了什麼？",
+    "key_mechanism": "是學生主動邀請家長，不是家長強制加入",
+    "parent_experience": "看到的是孩子主動分享的成長，不是被監控的數據",
+    "payment_trigger": "情感（孩子願意讓我參與他的世界），不是功能（這個報告有5頁）",
+    "why_this_works": "這是其他競品沒有的東西 — 104不會讓學生邀請家長，Yory不會",
+    "biggest_risk": "學生可能永遠不分享，付費轉化為零。這是整個模型最需要驗證的假設。",
+    "parent_control": "學生有開關控制哪些內容分享給家長。打開開關的家長收到稱讚通知，稱讚傳回給學生。學生因為想要家長認可而打開開關。"
+  },
+  "revenue_paths": [
+    {"phase": "短期", "code": "A", "name": "家長付費", "revenue": "$8K/月起步", "timing": "現在", "trigger": "學生累積3個月記錄後，家長看到進度報告+付費預覽", "conversion": "10%家長付費 × $800/月"},
+    {"phase": "中期", "code": "B", "name": "學校 B2B2C", "revenue": "$50K/校/年", "timing": "3-6個月後", "trigger": "拿路線A成功案例談學校（20個學生用、5個付費、2個考上）", "advantage": "一個學校=100用戶、獲客成本趨近零、學校推薦=信任轉移"},
+    {"phase": "長期", "code": "C", "name": "科大 B2B 招生", "revenue": "規模最大", "timing": "1-2年後", "trigger": "500+活躍用戶、手握台灣最精準的高職升學意向數據", "advantage": "少子化下科大招生預算持續增加、B2B付款流程比家長簡單"}
+  ],
+  "partner_system": {
+    "matching": "同職群、高年級配低年級、匿名配對",
+    "value_proposition": "夥伴提供具體建議（免費）、系統提供情感支持（免費）、專業服務提供深度幫助（付費）",
+    "cold_start_solution": "AI夥伴過渡 — 有名字、有個性、學生以為是真人。等用戶密度夠了再引入真人。",
+    "alumni_loop": "畢業生回來當夥伴 = 免費行銷 + 降低獲客成本 + UGC（真實見證分享）",
+    "incentives_for_helpers": ["被需要的感覺", "回憶自己的成長", "累積聲望（密度夠了才有意義）", "校友網絡（長期價值）", "平台認可"],
+    "safety": "雙方同意才公開身分、審核機制、年齡管控"
+  },
+  "emotional_support_system": {
+    "philosophy": "系統的角色是鼓勵者不是教練。夥伴解決不知道怎麼做，系統解決不知道自己有沒有進步。",
+    "signals_and_responses": [
+      {"signal": "第一天註冊", "response": "很高興認識你。告訴我關於你的事。"},
+      {"signal": "第一次記錄", "response": "你的第一件作品。不用完美，先記下來就好。"},
+      {"signal": "連續3天記錄", "response": "你已經養成習慣了。"},
+      {"signal": "一週沒登入", "response": "想你了，要不要記錄一件小事？"},
+      {"signal": "反覆編輯同一條", "response": "不用完美，先記下來就好。"},
+      {"signal": "刪除一條記錄", "response": "刪掉沒關係，重要的是你做過。"},
+      {"signal": "完成里程碑", "response": "你已經記錄了10件作品。"},
+      {"signal": "考前30天", "response": "你已經準備了X件作品，比大多數人都準備得多。"}
+    ],
+    "cost": "接近零，但創造最大的停留動力"
+  },
+  "user_journey": {
+    "day1": "註冊、onboarding、方向建議 → 不提升學不提分數，只說你的興趣有價值",
+    "week1": "記錄第一件事 → 慶祝開始",
+    "month1": "累積3件記錄 → 系統說你已經有面試素材了",
+    "month2_3": "遇到障礙 → 偵測信號（停一週/反覆編輯）→ 溫和提醒/推薦AI面試",
+    "month7_9": "統測焦慮 → 付費服務（AI深度分析、策略報告、密集面試）",
+    "month10_12": "甄選衝刺 → 全套付費（備審精修、面試特訓、志願策略）",
+    "after_exam": "考上→慶祝 / 沒考上→支持+聯合分發選項",
+    "post_graduation": "回來當夥伴 → 免費行銷 + 降低獲客成本"
+  },
+  "pressure_test_findings": [
+    {"id": 1, "vulnerability": "夥伴系統冷啟動", "detail": "新產品沒有高年級學生可以配對", "mitigation": "AI夥伴過渡"},
+    {"id": 2, "vulnerability": "付費決策者≠使用者", "detail": "學生沒錢沒卡、家長有錢但需要被觸發", "mitigation": "學生主動邀請家長"},
+    {"id": 3, "vulnerability": "顧問費定義模糊", "detail": "顧問是AI還是真人？交付模式未定義", "mitigation": "需要明確"},
+    {"id": 4, "vulnerability": "LTV過度樂觀", "detail": "10-20K是理想，現實ARPU可能400-800", "mitigation": "用現實數字規劃"},
+    {"id": 5, "vulnerability": "零競品≠有需求", "detail": "可能是沒需求不是沒人發現", "mitigation": "必須用戶驗證"},
+    {"id": 6, "vulnerability": "匿名社群風險", "detail": "15歲匿名聊天、不當內容、錯誤建議", "mitigation": "審核+年齡管控"}
+  ],
+  "existing_resources": {
+    "data": "15職群完整資料、7技能類別追蹤、高職方向規則、專題範本、高職校曆",
+    "features": "AI面試模擬（15職群fallback）、AI素材審查（規則引擎+AI）",
+    "pages": "17個頁面、5個API",
+    "design": "Mùhé Academic — Sage & Stone 色調"
+  },
+  "technical_debt": [
+    "localStorage假後端（換瀏覽器資料消失）",
+    "認證假的（in-memory Map，deploy重置）",
+    "策略API和素材建議API還在用一般高中資料（學測級分、B-M代碼）",
+    "首頁假內容（DR. ELARA VANCE、98%、Global Partners）"
+  ],
+  "not_doing": [
+    {"item": "自助付款API", "reason": "顧問費線下收"},
+    {"item": "管理後台UI", "reason": "用Supabase dashboard"},
+    {"item": "手機App", "reason": "先Web，未來PWA"},
+    {"item": "即時通訊", "reason": "不急"},
+    {"item": "社群功能", "reason": "沒用戶量不做"},
+    {"item": "B2B科系展示", "reason": "沒用戶量沒談判力"},
+    {"item": "多語言", "reason": "只做繁體中文"},
+    {"item": "前端大改", "reason": "先修底層，再改外表"}
+  ],
+  "validation_plan": {
+    "priority": "第一優先（在建設之前）",
+    "principle": "一切的起點是驗證，不是建設",
+    "steps": [
+      {"step": 1, "action": "找5-10個真實高職學生（孩子同學、親戚小孩、PTT/Dcard招募）"},
+      {"step": 2, "action": "用現有localStorage版本讓他們用"},
+      {"step": 3, "action": "每週跟一個學生通話15分鐘，聽真實感受"},
+      {"step": 4, "action": "核心假設驗證：學生願不願意把平台內容分享給家長？"},
+      {"step": 5, "action": "如果有人願意付費（哪怕是紅包）→ 需求被驗證"},
+      {"step": 6, "action": "驗證通過 → 建Supabase、修API、接金流"},
+      {"step": 7, "action": "驗證失敗 → 修正假設或停止"}
+    ],
+    "exit_criteria": "如果6個月後100個學生用了、沒有人付過一塊錢，整個模型需要重新思考"
+  },
+  "competitive_landscape": {
+    "vocational_market": "零直接競品。ColleGo!有靜態高職資料但零互動。",
+    "general_market": "紅海（104、Yory、TKBGO、ColleGo!）但不做。",
+    "why_zero_competition_matters": "不是因為沒有人發現，是因為高職市場被系統性忽略。但這也可能是因為沒需求 — 必須驗證。"
+  }
+}

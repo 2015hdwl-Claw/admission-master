@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>學校合作 | 升學大師</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0edeb",
+                        "primary-fixed": "#d8e6d7",
+                        "on-secondary-container": "#75614e",
+                        "outline": "#747873",
+                        "surface-container-high": "#eae8e6",
+                        "secondary-container": "#f9dec6",
+                        "on-primary-fixed": "#121e15",
+                        "on-error": "#ffffff",
+                        "tertiary": "#6d5659",
+                        "secondary-fixed-dim": "#dcc2ab",
+                        "secondary": "#6e5b48",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#30302f",
+                        "on-primary-container": "#f6fff4",
+                        "outline-variant": "#c4c8c1",
+                        "tertiary-container": "#876e71",
+                        "surface-tint": "#546256",
+                        "surface-bright": "#fbf9f7",
+                        "inverse-primary": "#bccabc",
+                        "surface-dim": "#dcdad7",
+                        "secondary-fixed": "#f9dec6",
+                        "on-secondary-fixed-variant": "#554332",
+                        "on-primary-fixed-variant": "#3d4a3f",
+                        "background": "#fbf9f7",
+                        "tertiary-fixed": "#fadbde",
+                        "surface-container-low": "#f5f3f1",
+                        "on-surface": "#1b1c1b",
+                        "on-surface-variant": "#434843",
+                        "primary": "#525f54",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1b",
+                        "surface-variant": "#e4e2e0",
+                        "tertiary-fixed-dim": "#ddbfc2",
+                        "primary-fixed-dim": "#bccabc",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ee",
+                        "surface-container-highest": "#e4e2e0",
+                        "surface": "#fbf9f7",
+                        "on-secondary-fixed": "#26190a",
+                        "primary-container": "#6a786c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574144",
+                        "on-tertiary-fixed": "#28171a",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xxl": "80px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif TC"],
+                        "display-italic": ["Noto Serif TC"],
+                        "h3": ["Noto Serif TC"],
+                        "body-md": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h2": ["Noto Serif TC"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "display-italic": ["inherit", {"fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f7;
+            color: #1b1c1b;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#fbf9f7] dark:bg-stone-950 border-b border-[#E9E5DB] dark:border-stone-800 flex justify-between items-center w-full px-6 h-16 sticky top-0 z-[60]">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#7D8B7E] dark:text-[#94a395] hover:bg-[#F4F1EA] p-2 transition-colors">menu</button>
+<span class="text-xl font-serif font-bold text-[#7D8B7E] dark:text-[#94a395] tracking-tight">升學大師</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8 h-full">
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:text-[#7D8B7E] transition-colors h-full flex items-center px-1" href="#">我的路線</a>
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:text-[#7D8B7E] transition-colors h-full flex items-center px-1" href="#">學習歷程</a>
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:text-[#7D8B7E] transition-colors h-full flex items-center px-1" href="#">策略報告</a>
+<a class="font-serif text-[#7D8B7E] dark:text-[#94a395] border-b-2 border-[#7D8B7E] h-full flex items-center px-1" href="#">學校合作</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-[#E9E5DB]">
+<img alt="用戶頭像" class="w-full h-full object-cover" data-alt="professional headshot of a mature educator in a subtle grey suit with a friendly and authoritative expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRdoGEjs-FFosQ-TjFUtOLK9nr6cSdIDRASzAD4ROTjlWftYRqkvdHUX43GyPUI9sJQo8JvqA_IWIh8CSOBc8yB2qnBvn6fX8wzMSZBpI3-SkTocNqFehPLe0pgip99NIeDqKAGgzmO3_4lLCEXVDgU3U-fXTi2t3mf5bM1xwOFqgJAopKc2IOXyW7sZS1PuOx4Pny0-KekoOEK0Nsg4aqzIjCwgMHGXJgJnRIgW57q_OeKWj7hHo1CQg7MnXJ2mvH7Mp9QCTnHgiD"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-gutter py-xxl">
+<!-- Hero Section -->
+<section class="relative mb-xxl">
+<div class="grid grid-cols-12 gap-gutter items-center">
+<div class="col-span-12 lg:col-span-5 z-10">
+<span class="font-label-caps text-primary mb-md block">EDUCATIONAL COLLABORATION</span>
+<h1 class="font-h1 text-h1 mb-lg leading-tight">學術精準，<br/><span class="italic">引領校園</span>新格局。</h1>
+<p class="font-body-lg text-on-surface-variant mb-xl max-w-md">升學大師致力於為頂尖學府提供結構化的升學導航方案，結合數據科學與建築思維，打造卓越的學術生態系。</p>
+<div class="flex gap-4">
+<button class="bg-[#7D8B7E] text-white px-8 py-3 font-label-caps tracking-widest hover:bg-primary transition-colors">預約演示</button>
+<button class="border border-[#7D8B7E] text-[#7D8B7E] px-8 py-3 font-label-caps tracking-widest hover:bg-[#F4F1EA] transition-colors">下載簡介</button>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-7 relative">
+<div class="aspect-[4/3] overflow-hidden">
+<img alt="校園景觀" class="w-full h-full object-cover grayscale-[0.3] hover:grayscale-0 transition-all duration-700" data-alt="modern brutalist university architecture with clean concrete lines, lush green lawns, and soft morning sunlight casting long shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAdG17R8xUp7NKiV9X_wl97a6s7TLFdZAgEs3ChZLIVsfm8vj6NoBq8u98upNQFjd-ON2Ofh-GKEM0MkR-_krI8EMBsmfLziRBlCbSlJdccTbhXK1_G4joZpdOqkZqe2RfdXCDfWf2KFSCk0QjRcEQupkHwltS1jyCrPgslOIMt1mJF3DtqvsPRd_c8w0yuvKFBm8yvMHOGGPHEKT86IhI_uExKVvdQg0eO8FKM1gMOCxBI8ou69Ksh_pbPd6shawP_vqiCD1fiuHJ"/>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-surface-container p-xl hidden lg:block border border-[#E9E5DB]">
+<p class="font-h3 text-h3 text-primary mb-2">30+</p>
+<p class="font-label-caps text-on-surface-variant">合作重點中學</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section (Bento Grid) -->
+<section class="mb-xxl">
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 md:col-span-4 bg-surface-container-low p-xl border border-[#E9E5DB] flex flex-col justify-between">
+<span class="font-h3 text-primary">01</span>
+<div>
+<h3 class="font-h2 text-h2 mb-4">92%</h3>
+<p class="text-on-surface-variant">學生在升學大師系統輔助下，成功進入其第一志願校系。</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-8 bg-[#E9E5DB] p-xl flex flex-col justify-between relative overflow-hidden">
+<div class="z-10">
+<span class="font-h3 text-primary">02</span>
+<h3 class="font-h2 text-h2 mt-lg mb-4">數位化校務管理</h3>
+<p class="text-on-surface-variant max-w-md">專為校方行政團隊設計的後台系統，即時追蹤全校學生的學習歷程進度與潛在升學風險。</p>
+</div>
+<div class="absolute right-0 bottom-0 w-1/2 opacity-20 transform translate-x-1/4 translate-y-1/4">
+<span class="material-symbols-outlined text-[300px]">analytics</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-7 bg-surface-container-high p-xl border border-[#E9E5DB]">
+<span class="font-h3 text-primary">03</span>
+<h3 class="font-h2 text-h2 mt-lg mb-4">學術精準對接</h3>
+<p class="text-on-surface-variant">精確的數據分析，幫助校方在特色課程開發上與大學校系達成完美對接，提升學校品牌權威感。</p>
+</div>
+<div class="col-span-12 md:col-span-5 bg-white p-xl border border-[#E9E5DB] flex flex-col items-center justify-center text-center">
+<div class="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mb-md">
+<span class="material-symbols-outlined text-primary text-3xl">handshake</span>
+</div>
+<p class="font-h3 text-h3 mb-2">深度戰略夥伴</p>
+<p class="text-on-surface-variant">與校方共同規劃未來三年的升學發展藍圖。</p>
+</div>
+</div>
+</section>
+<!-- Testimonial Section -->
+<section class="mb-xxl py-xl bg-[#F4F1EA] relative overflow-hidden">
+<div class="max-w-[800px] mx-auto px-gutter text-center relative z-10">
+<span class="material-symbols-outlined text-primary text-5xl mb-lg opacity-30">format_quote</span>
+<blockquote class="font-h2 text-h2 italic text-on-surface mb-xl leading-relaxed">
+                    「升學大師不僅是一個工具，它更像是一位充滿智慧的導師。它將雜亂的升學資訊建築化，讓我們的學生能夠在清晰的框架下，穩健地邁向未來。」
+                </blockquote>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 rounded-full overflow-hidden mb-md border-2 border-primary">
+<img alt="校長推薦" class="w-full h-full object-cover" data-alt="close up portrait of a distinguished elderly asian male educator in a traditional library setting, soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaFu6x01KyA64Kfbl_0CkY8uWEr8tdYdHnRfDOgORXPHuc9WLbLXXW3xzO877Pf3kn1WyhAeKt1HaOJlb1NKKI_bqAqA6N4C-CDNHztGG7mIhzuZWPvcVBPoV5wsYZ_9gp6ZhefbzvPGmsX-LPQwHLmNn09JJytWcEEx_ExoFWdSTKT0oji8tx4Ff2JLKhrO8E-C3KdZ6DRsAt_4UwGqFi7zMYZ_KaFAv5S_nG5EtrjZGdVznwONPvbg7sTgpmzahgNcv0cmfYSvNo"/>
+</div>
+<p class="font-label-caps text-primary tracking-widest">陳崇德</p>
+<p class="text-stone-500">國立師範大學附屬中學 校長</p>
+</div>
+</div>
+<div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+<div class="grid grid-cols-6 h-full gap-4">
+<div class="border-r border-primary h-full"></div>
+<div class="border-r border-primary h-full"></div>
+<div class="border-r border-primary h-full"></div>
+<div class="border-r border-primary h-full"></div>
+<div class="border-r border-primary h-full"></div>
+<div></div>
+</div>
+</div>
+</section>
+<!-- Case Study List -->
+<section class="mb-xxl">
+<h2 class="font-h2 text-h2 mb-xl border-l-4 border-primary pl-md">經典合作案例</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Case 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-square overflow-hidden mb-md">
+<img alt="合作案例 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="wide shot of a prestigious university library facade with ivy-covered walls and grand archways" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxUcG3zDhW_yqr8nNoca7PKAy83BXtkCS0w4o5yCY39QdtdQqaW3KeXMfcAUDJ1WDArZ6Bddz9SOKQ_ne5om0ntV2C0Uj3vwpML-cpXPdnwkmHKkNEscAKcPpoj3GuYdnS6uVop8gY_9ts7gXZmIHpprMFSjm442knlpHCdwRp19GK4k6SIZWOr4dkHlNah0W4_tQhA0-pTh1E4GXYGQm_NAWkZaVC-0xLKmw_Qlj9dITtKW0buFZbLsSkWSH0CfuH0gWvbeydmRkW"/>
+</div>
+<p class="font-label-caps text-primary mb-2">台北市立第一女子高級中學</p>
+<h3 class="font-h3 text-h3 mb-md">跨校資源共享平台建置</h3>
+<p class="text-on-surface-variant text-sm">導入數位檔案評量系統，有效縮短教師審閱學習歷程時間達 40%。</p>
+</div>
+<!-- Case 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-square overflow-hidden mb-md">
+<img alt="合作案例 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="contemporary educational building with expansive glass windows reflecting the sky, clean minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY9o62iKl6jcsaSgSISLc0tkDYG3I6TjY6hUcrf6P00lLPrRs1_tua6L3wPATpPHAdO1o6ZR5P7_A99SqFUX0tVgz0RIRqrYPboW-2S6-AsPiyCM2nhcEkV53vHxqsA2cAPTKazFhf0PMI4slptjO3BwJDYXSRnJhTYDbez-EZf2AHoUjZ7hiJJFuQU3buMz5lR88Te0gIA0Bl_as-jnuVfMYX5r3Phh6kyQzZKRN9cACS8Z2PqVqCu2dgv-S0RImfBDDb0qTYGgvi"/>
+</div>
+<p class="font-label-caps text-primary mb-2">國立台中第一高級中等學校</p>
+<h3 class="font-h3 text-h3 mb-md">AI 升學決策支援系統</h3>
+<p class="text-on-surface-variant text-sm">利用大數據分析，為數理資優班學生提供更精確的海外升學諮詢方案。</p>
+</div>
+<!-- Case 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-square overflow-hidden mb-md">
+<img alt="合作案例 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="historical colonial style campus clock tower standing tall against a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAREz8oFxso2mra7OLteOHPxakeRG3mktwpB-z_iyoj8xfGFnzOJ0AoBXPVK_jH_YbWrW3HR7QzU8Dd5wAAtgedRfEI8brbkVe9ZBYW9oGJOz2qal00r7nQlaJgNkBwxxwolpWOpQogzV72ztUr9q3UhJYFvRR2ex3hh4X_8rifERCV88PYvraTOCfQmdF0BF3YLnFAUazWLHoYkLVpYP6IzenoXBgYxWrfbZx2fi9KDpPnfVdKusnK8xjb4UszfmX0X04jWesbLQ8j"/>
+</div>
+<p class="font-label-caps text-primary mb-2">高雄市立高雄高級中學</p>
+<h3 class="font-h3 text-h3 mb-md">職涯性向深度對接計劃</h3>
+<p class="text-on-surface-variant text-sm">結合心理測驗與實際職群訪談，協助高一新生建立清晰的生涯藍圖。</p>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="bg-[#7D8B7E] p-xl md:p-xxl text-white text-center">
+<h2 class="font-h1 text-h1 mb-lg">開啟校園卓越新篇章</h2>
+<p class="font-body-lg mb-xl opacity-90 max-w-2xl mx-auto">誠摯邀請您的學校團隊參與我們的合作演示，體驗「升學大師」如何協助貴校學生掌握未來競爭力。</p>
+<button class="bg-white text-primary px-12 py-4 font-label-caps tracking-widest hover:bg-[#F4F1EA] transition-colors">聯繫我們</button>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#fbf9f7]/90 backdrop-blur-md border-t border-[#E9E5DB] shadow-[0_-4px_30px_rgba(125,139,126,0.05)]">
+<a class="flex flex-col items-center justify-center text-stone-400 opacity-80 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">我的路線</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 opacity-80 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">學習歷程</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 opacity-80 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">統計分析</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#7D8B7E] font-bold scale-110 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">school</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">學校合作</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 opacity-80 transition-all duration-300" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">職群測驗</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="bg-[#F4F1EA] py-xl mt-xxl border-t border-[#E9E5DB]">
+<div class="max-w-[1200px] mx-auto px-gutter grid grid-cols-12 gap-gutter">
+<div class="col-span-12 md:col-span-4 mb-xl md:mb-0">
+<span class="text-2xl font-serif font-bold text-[#7D8B7E] mb-md block">升學大師</span>
+<p class="text-stone-500 text-sm max-w-xs">以建築之美重構教育未來，為每一位追求卓越的學生與家長提供最精準的導航。</p>
+</div>
+<div class="col-span-6 md:col-span-2">
+<h4 class="font-label-caps text-primary mb-md">關於我們</h4>
+<ul class="space-y-2 text-stone-600 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">品牌理念</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">專業團隊</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">媒體報導</a></li>
+</ul>
+</div>
+<div class="col-span-6 md:col-span-2">
+<h4 class="font-label-caps text-primary mb-md">核心服務</h4>
+<ul class="space-y-2 text-stone-600 text-sm">
+<li><a class="hover:text-primary transition-colors" href="#">個人化路線</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">學習歷程優化</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">策略評估報告</a></li>
+</ul>
+</div>
+<div class="col-span-12 md:col-span-4 flex md:justify-end items-end">
+<p class="text-stone-400 text-xs tracking-widest font-label-caps">© 2024 MASTER OF EDUCATION. ALL RIGHTS RESERVED.</p>
+</div>
+</div>
+</footer>
+</body></html>

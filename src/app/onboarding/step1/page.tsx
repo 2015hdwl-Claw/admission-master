@@ -69,40 +69,40 @@ export default function Step1Page() {
   return (
     <div className="max-w-lg mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
           你現在在哪？
         </h1>
-        <p className="text-gray-500">先讓我們了解你的基本背景</p>
+        <p className="text-on-surface-variant">先讓我們了解你的基本背景</p>
       </div>
 
       <div className="space-y-8">
         {/* Grade selection */}
         <div>
-          <h2 className="text-sm font-medium text-gray-700 mb-3">你的年級</h2>
+          <h2 className="font-serif text-sm font-medium text-on-background mb-3">你的年級</h2>
           <div className="grid gap-3">
             {GRADES.map(g => (
               <button
                 key={g.value}
                 onClick={() => setGrade(g.value)}
-                className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                className={`p-4 rounded-sm border-2 text-left transition-all ${
                   grade === g.value
-                    ? 'border-indigo-600 bg-indigo-50 shadow-md'
-                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
+                    ? 'border-primary bg-primary-fixed '
+                    : 'border-[#E9E5DB] bg-white hover:border-outline hover:'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm ${
+                    className={`w-10 h-10 rounded-md flex items-center justify-center font-bold text-sm ${
                       grade === g.value
-                        ? 'bg-indigo-600 text-white'
-                        : 'bg-gray-100 text-gray-500'
+                        ? 'bg-primary text-white'
+                        : 'bg-surface-container text-on-surface-variant'
                     }`}
                   >
                     {g.value}
                   </div>
                   <div>
-                    <div className="font-bold text-gray-900">{g.label}</div>
-                    <div className="text-xs text-gray-500">{g.desc}</div>
+                    <div className="font-bold text-on-background">{g.label}</div>
+                    <div className="text-xs text-on-surface-variant">{g.desc}</div>
                   </div>
                 </div>
               </button>
@@ -112,14 +112,14 @@ export default function Step1Page() {
 
         {/* Vocational group selection */}
         <div>
-          <h2 className="text-sm font-medium text-gray-700 mb-3">你的科群</h2>
+          <h2 className="font-serif text-sm font-medium text-on-background mb-3">你的科群</h2>
           <div className="space-y-5">
             {SUPER_CATEGORIES.map(cat => {
               const groups = groupsByCategory.get(cat);
               if (!groups || groups.length === 0) return null;
               return (
                 <div key={cat}>
-                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                  <h3 className="font-serif text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-2">
                     {SUPER_CATEGORY_LABELS[cat]}
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
@@ -130,15 +130,15 @@ export default function Step1Page() {
                         <button
                           key={group}
                           onClick={() => setSelectedGroup(group)}
-                          className={`p-3 rounded-xl border-2 text-left transition-all ${
+                          className={`p-3 rounded-md border-2 text-left transition-all ${
                             isSelected
-                              ? 'border-indigo-600 bg-indigo-50 shadow-sm'
-                              : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
+                              ? 'border-primary bg-primary-fixed '
+                              : 'border-[#E9E5DB] bg-white hover:border-outline hover:'
                           }`}
                         >
                           <div className="flex items-center gap-2">
                             <span className={`w-3 h-3 rounded-full shrink-0 ${colorClass}`} />
-                            <span className={`text-sm font-medium ${isSelected ? 'text-indigo-700' : 'text-gray-900'}`}>
+                            <span className={`text-sm font-medium ${isSelected ? 'text-primary' : 'text-on-background'}`}>
                               {VOCATIONAL_GROUP_LABELS[group]}
                             </span>
                           </div>
@@ -156,10 +156,10 @@ export default function Step1Page() {
         <button
           onClick={handleNext}
           disabled={!canProceed}
-          className={`w-full py-4 rounded-2xl text-lg font-bold transition-all ${
+          className={`w-full py-4 rounded-sm text-lg font-bold transition-all ${
             canProceed
-              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg'
-              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+              ? 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
+              : 'bg-surface-container-high text-outline cursor-not-allowed'
           }`}
         >
           下一步

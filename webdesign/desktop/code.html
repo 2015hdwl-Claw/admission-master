@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&amp;family=Manrope:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#d8e6d7",
+                    "on-secondary-container": "#75614e",
+                    "surface-container": "#f0edeb",
+                    "outline": "#747873",
+                    "on-primary-fixed": "#121e15",
+                    "surface-container-high": "#eae8e6",
+                    "secondary-container": "#f9dec6",
+                    "tertiary": "#6d5659",
+                    "secondary-fixed-dim": "#dcc2ab",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary": "#6e5b48",
+                    "on-primary-container": "#f6fff4",
+                    "inverse-surface": "#30302f",
+                    "tertiary-container": "#876e71",
+                    "surface-bright": "#fbf9f7",
+                    "surface-tint": "#546256",
+                    "inverse-primary": "#bccabc",
+                    "outline-variant": "#c4c8c1",
+                    "on-primary-fixed-variant": "#3d4a3f",
+                    "on-secondary-fixed-variant": "#554332",
+                    "secondary-fixed": "#f9dec6",
+                    "surface-dim": "#dcdad7",
+                    "primary": "#525f54",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#434843",
+                    "surface-container-low": "#f5f3f1",
+                    "on-surface": "#1b1c1b",
+                    "tertiary-fixed": "#fadbde",
+                    "background": "#fbf9f7",
+                    "on-background": "#1b1c1b",
+                    "on-tertiary-container": "#fffbff",
+                    "primary-fixed-dim": "#bccabc",
+                    "tertiary-fixed-dim": "#ddbfc2",
+                    "surface-variant": "#e4e2e0",
+                    "surface-container-highest": "#e4e2e0",
+                    "surface": "#fbf9f7",
+                    "inverse-on-surface": "#f3f0ee",
+                    "on-primary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#6a786c",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed": "#26190a",
+                    "on-tertiary-fixed-variant": "#574144",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#28171a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xl": "48px",
+                    "container-max": "1200px",
+                    "md": "16px",
+                    "gutter": "24px",
+                    "xxl": "80px",
+                    "lg": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Manrope"],
+                    "h2": ["Noto Serif TC"],
+                    "label-caps": ["Manrope"],
+                    "h3": ["Noto Serif TC"],
+                    "body-md": ["Manrope"],
+                    "h1": ["Noto Serif TC"],
+                    "display-italic": ["Noto Serif TC"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                    "display-italic": ["inherit", {"fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body { background-color: #fbf9f7; }
+        .tonal-shadow { box-shadow: 0 20px 40px rgba(125, 139, 126, 0.08); }
+        .nav-link { 
+            @apply text-stone-500 dark:text-stone-400 font-normal font-serif text-base tracking-tight hover:text-[#7D8B7E] transition-colors duration-300 whitespace-nowrap;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f7]/95 backdrop-blur-sm dark:bg-stone-950 border-b border-[#E9E5DB] dark:border-stone-800">
+<div class="flex justify-between items-center max-w-[1400px] mx-auto px-6 h-20">
+<div class="text-xl font-serif tracking-widest uppercase text-[#7D8B7E] dark:text-stone-200 shrink-0 mr-8">
+            Admission Master
+        </div>
+<div class="hidden lg:flex items-center space-x-6 overflow-x-auto">
+<a class="nav-link text-[#7D8B7E] border-b-2 border-[#7D8B7E] pb-1" href="#">我的路線圖</a>
+<a class="nav-link" href="#">我學會的事</a>
+<a class="nav-link" href="#">校曆</a>
+<a class="nav-link" href="#">時光軸</a>
+<a class="nav-link" href="#">職群測驗</a>
+<a class="nav-link" href="#">統測分析</a>
+<a class="nav-link" href="#">面試模擬</a>
+<a class="nav-link" href="#">策略報告</a>
+<a class="nav-link" href="#">定價</a>
+<a class="nav-link" href="#">學校合作</a>
+<a class="nav-link" href="#">教師端</a>
+</div>
+<button class="bg-[#7D8B7E] text-white px-6 py-2.5 font-label-caps text-[11px] uppercase tracking-[0.2em] transition-all hover:bg-[#525f54] shrink-0 ml-6">立即諮詢</button>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[921px] flex items-center overflow-hidden">
+<div class="absolute inset-0 z-0">
+<img alt="Modern Architecture" class="w-full h-full object-cover grayscale-[20%] opacity-90" data-alt="Stunning minimalist modern architectural interior with clean lines, concrete textures, and soft natural sunlight streaming through large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgjrKFZfqOv0z3VF0Mp2HkRX9T1plLxc0isu1KqL3NWHHU03a2TbPkSvhIoHyNAqMAhrIr2eH0SzxUiD5dNKH5_9Y-VS1aWDfLLeNgrkLJRfzl9N5lxKqMJoAfUdxEQCirRBzHz52C5a_vr1iOf_Q7YZyLqZH88skI7x2V12n2AxidZ15YaBXDGHMMFb0v8cWU90Z5nEiWx0lJ10iiCyDvFz918a-OA8Ks9B_GkP4fw8zoVM8u9DGys57qU4rJz4uCcv4bbwooOydM"/>
+<div class="absolute inset-0 bg-gradient-to-r from-[#fbf9f7]/60 to-transparent"></div>
+</div>
+<div class="relative z-10 max-w-[1200px] mx-auto px-8 w-full">
+<div class="max-w-2xl">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.3em] uppercase block mb-6">Elevating Excellence</span>
+<h1 class="font-h1 text-h1 text-on-surface mb-8 leading-[1.1]">建築理想的學術未來，<br/><span class="italic font-display-italic">以優雅的姿態</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-lg">
+                        我們不只是協助申請，更是為每一位具備潛力的學子，量身打造通往頂尖殿堂的思維建築。
+                    </p>
+<div class="flex gap-gutter">
+<button class="bg-primary text-on-primary px-10 py-4 font-label-caps text-label-caps uppercase tracking-[0.2em] hover:bg-primary-container transition-all">
+                            開始諮詢
+                        </button>
+<button class="border border-primary text-primary px-10 py-4 font-label-caps text-label-caps uppercase tracking-[0.2em] hover:bg-surface-container-low transition-all">
+                            探索哲學
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Philosophy Section -->
+<section class="py-xxl bg-surface">
+<div class="max-w-[1200px] mx-auto px-8 grid grid-cols-12 gap-xxl items-center">
+<div class="col-span-12 md:col-span-5 relative">
+<div class="tonal-shadow overflow-hidden">
+<img alt="Organic nature" class="w-full h-[600px] object-cover" data-alt="Elegant close-up of delicate green leaves with soft morning shadows on a light textured wall background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtWk-dfD9Q3tlnTUhshqiOYFRDCrLUyb6G4J1mksUSQDl2-2cJVdwSy7dodjy8jOEtADDhXGbTCSVXBchymCdv38PERUh54srL2BBzEy9EsCS96HYXPkbu3jirnPF9MgYg5rALhznNBPBf-eRusXs0pEqvv-QWPRZRb4KfsFDLwRZweSmPcnt-K3XD6C-YCFvqeC4eXJ-KhSzReWYeW4UE9DPnf_8Zp7jxX8fYPN6LSgv8w51M5SSWBqZaukH4JdaikZgrV8ftg2sD"/>
+</div>
+</div>
+<div class="col-span-12 md:col-span-7">
+<span class="text-primary font-h3 text-h3 mb-4 block italic">01 / Philosophy</span>
+<h2 class="font-h2 text-h2 mb-8">不只是申請，更是<br/>自我發現的旅程</h2>
+<div class="space-y-6 text-on-surface-variant font-body-lg text-body-lg max-w-xl">
+<p>在 Admission Master，我們深信教育不僅是獲取學位，更是一場深層的自我探索。每一份申請書都是一次對過往生命歷程的梳理，與對未來願景的投射。</p>
+<p>我們採用「建築導師制」，如同建築師精心雕琢每一寸空間，我們也陪同學生挖掘靈魂深處的獨特性，將其轉化為最具說服力的學術敘事。</p>
+</div>
+<div class="mt-12">
+<a class="inline-flex items-center text-primary font-label-caps text-label-caps tracking-widest group" href="#">
+                            了解我們的輔導模式
+                            <span class="material-symbols-outlined ml-2 group-hover:translate-x-2 transition-transform">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Quote Section -->
+<section class="py-xxl bg-surface-container-low">
+<div class="max-w-[1200px] mx-auto px-8">
+<div class="max-w-4xl mx-auto border-l-4 border-primary pl-12 py-8">
+<span class="material-symbols-outlined text-primary text-5xl mb-6 opacity-40" data-weight="fill">format_quote</span>
+<p class="font-h2 text-h2 italic text-on-surface leading-relaxed mb-8">
+                        "真正的卓越並非追求完美的標籤，而是在充滿雜訊的世界中，清晰地定義出屬於自己的聲音。我們的工作，就是讓這份聲音被世界聽見。"
+                    </p>
+<div class="flex items-center gap-4">
+<div class="w-12 h-px bg-primary"></div>
+<p class="font-label-caps text-label-caps tracking-widest text-primary">DR. ELARA VANCE, FOUNDER</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-xxl bg-surface">
+<div class="max-w-[1200px] mx-auto px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-gutter text-center">
+<div class="p-lg">
+<p class="font-h1 text-h1 text-primary mb-2">98%</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">SUCCESS RATE</p>
+</div>
+<div class="p-lg">
+<p class="font-h1 text-h1 text-primary mb-2">500+</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">MENTORED STUDENTS</p>
+</div>
+<div class="p-lg">
+<p class="font-h1 text-h1 text-primary mb-2">45+</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">GLOBAL PARTNERS</p>
+</div>
+<div class="p-lg">
+<p class="font-h1 text-h1 text-primary mb-2">12k</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant tracking-widest">HOURS OF COACHING</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Section -->
+<section class="py-xxl bg-surface-container">
+<div class="max-w-[1200px] mx-auto px-8 text-center mb-xxl">
+<span class="font-label-caps text-label-caps text-primary tracking-[0.3em] block mb-4 uppercase">The Process</span>
+<h2 class="font-h2 text-h2">三階段精心雕琢</h2>
+</div>
+<div class="max-w-[1200px] mx-auto px-8 grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Step 01 -->
+<div class="group">
+<div class="mb-8 border-b border-outline-variant pb-8">
+<span class="font-h1 text-h1 text-primary opacity-20 group-hover:opacity-100 transition-opacity">01</span>
+<h3 class="font-h3 text-h3 mt-4 mb-4">核心挖掘</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            透過深度的訪談與測評，釐清學術熱情與個人價值，確立獨一無二的申請定位。
+                        </p>
+</div>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined mr-2">search_insights</span>
+<span class="font-label-caps text-[10px] tracking-widest">DISCOVERY PHASE</span>
+</div>
+</div>
+<!-- Step 02 -->
+<div class="group">
+<div class="mb-8 border-b border-outline-variant pb-8">
+<span class="font-h1 text-h1 text-primary opacity-20 group-hover:opacity-100 transition-opacity">02</span>
+<h3 class="font-h3 text-h3 mt-4 mb-4">敘事構建</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            將個人經歷與學術目標結合，編織出具備情感厚度與邏輯嚴密的申請文書。
+                        </p>
+</div>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined mr-2">edit_note</span>
+<span class="font-label-caps text-[10px] tracking-widest">CRAFTING PHASE</span>
+</div>
+</div>
+<!-- Step 03 -->
+<div class="group">
+<div class="mb-8 border-b border-outline-variant pb-8">
+<span class="font-h1 text-h1 text-primary opacity-20 group-hover:opacity-100 transition-opacity">03</span>
+<h3 class="font-h3 text-h3 mt-4 mb-4">戰略投遞</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                            精確的時間管理與面試模擬，確保在最關鍵的時刻展現出最完美的狀態。
+                        </p>
+</div>
+<div class="flex items-center text-primary">
+<span class="material-symbols-outlined mr-2">send</span>
+<span class="font-label-caps text-[10px] tracking-widest">EXECUTION PHASE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section -->
+<section class="py-xxl bg-white">
+<div class="max-w-[1200px] mx-auto px-8 text-center">
+<div class="max-w-3xl mx-auto border border-[#E9E5DB] p-20 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-primary"></div>
+<h2 class="font-h2 text-h2 mb-6">準備好開啟你的學術新章節了嗎？</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12">
+                        加入我們的限定導師計畫，讓您的申請成為一件藝術品。
+                    </p>
+<div class="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+<input class="flex-1 bg-surface-container-low border-none focus:ring-1 focus:ring-primary font-body-md px-6 py-4" placeholder="您的電子郵件" type="email"/>
+<button class="bg-primary text-white px-10 py-4 font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary-container transition-colors">
+                            預約初步面談
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 bg-[#E9E5DB] dark:bg-stone-900 border-t border-outline-variant/30">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 max-w-[1400px] mx-auto px-8">
+<div class="col-span-1 md:col-span-2">
+<div class="text-2xl font-serif text-[#7D8B7E] dark:text-stone-200 mb-6 uppercase tracking-widest">Admission Master</div>
+<p class="text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide leading-relaxed max-w-sm mb-8">
+                © 2024 升學大師 Admission Master。我們致力於為每一位追求卓越的學子，構建清晰的學術藍圖與生涯路徑。
+            </p>
+<div class="flex gap-6">
+<a class="text-primary hover:opacity-70 transition-opacity" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-primary hover:opacity-70 transition-opacity" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="text-primary hover:opacity-70 transition-opacity" href="#"><span class="material-symbols-outlined">description</span></a>
+</div>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-6 tracking-widest">生涯規劃</h4>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">我的路線圖</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">我學會的事</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">校曆行程</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">學習時光軸</a>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-6 tracking-widest">專業分析</h4>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">職群測驗</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">統測數據分析</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">面試模擬實戰</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">錄取策略報告</a>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-caps text-label-caps text-primary mb-6 tracking-widest">商務合作</h4>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">服務定價</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">學校合作方案</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">教師專屬後台</a>
+<a class="block text-stone-600 dark:text-stone-500 font-serif text-sm tracking-wide hover:text-primary transition-colors" href="#">隱私權政策</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -5,6 +5,7 @@ import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
 import type { VocationalGroup, UnifiedExamScoreInput, OnboardingProfile } from '@/types';
 import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
 import { UNIFIED_EXAM_SUBJECTS, UNIFIED_EXAM_SCORE_RANGES } from '@/data/admission';
+import Link from 'next/link';
 
 const STORAGE_KEY = 'unified-exam-records';
 
@@ -55,6 +56,8 @@ interface LocalAnalysisResult {
   summary: string;
 }
 
+const STRATEGY_IMAGE = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ2KRYxeOaors6M-0Dl8KU4Z5_HDds8nqy2ODg4qwCWLUnrKsw1ZY6O47WA8gdllBElYOvD8vWiY6jKEljahUZbKFgw4A68ete49pnMqkDQTqEnAHNmcxqQ2r9j1D79kfo7JVJEi3Qx1Nmrl5h_4MGwXBSDl79Ll71vpV12bQWy5UW2bYA3jZSfO6X0nc26rx7btURWti9avAGlacp-tc0KdG5Dxu65njfXL8n9zmOWb7GDo5n8Zm3OXWFk-sNZP9KEPEAOPW-MRSV';
+
 function getGroupSubjectKeys(group: VocationalGroup): Array<{ key: string; label: string }> {
   const subjects = UNIFIED_EXAM_SUBJECTS[group];
   if (!subjects) return [];
@@ -89,7 +92,6 @@ function analyzeUnifiedExam(input: UnifiedExamScoreInput): LocalAnalysisResult {
   const ranges = UNIFIED_EXAM_SCORE_RANGES[group];
   const subjects = UNIFIED_EXAM_SUBJECTS[group];
 
-  // Determine level
   let level: 'top' | 'high' | 'mid' | 'base' = 'base';
   if (ranges) {
     if (total >= ranges.top) level = 'top';
@@ -97,7 +99,6 @@ function analyzeUnifiedExam(input: UnifiedExamScoreInput): LocalAnalysisResult {
     else if (total >= ranges.mid) level = 'mid';
   }
 
-  // Pathway matching
   const pathwayDescriptions: Record<string, string> = {
     'selection-top': `頂標科系，${subjects ? subjects.professional[0] : '專業科目'}需 ${ranges ? ranges.top : 350}+`,
     'selection-high': `前標科系，適合成績優秀的學生`,
@@ -122,7 +123,6 @@ function analyzeUnifiedExam(input: UnifiedExamScoreInput): LocalAnalysisResult {
     };
   }).sort((a, b) => b.matchScore - a.matchScore);
 
-  // Strengths
   const scoreEntries = [
     { label: subjects?.common[0] || '國文', score: chinese },
     { label: subjects?.common[1] || '英文', score: english },
@@ -154,12 +154,9 @@ function analyzeUnifiedExam(input: UnifiedExamScoreInput): LocalAnalysisResult {
 }
 
 export default function AnalyzePage() {
+  const [mode, setMode] = useState<'demo' | 'input' | 'result'>('demo');
   const [selectedGroup, setSelectedGroup] = useState<VocationalGroup>('資訊群');
   const [analysis, setAnalysis] = useState<LocalAnalysisResult | null>(null);
-  const [showShareCard, setShowShareCard] = useState(false);
-  const [tab, setTab] = useState<'analyze' | 'trends'>('analyze');
-
-  // Score trend state
   const [records, setRecords] = useState<UnifiedExamRecord[]>([]);
   const [showRecordForm, setShowRecordForm] = useState(false);
   const [recordLabel, setRecordLabel] = useState('');
@@ -182,6 +179,7 @@ export default function AnalyzePage() {
   function handleSubmit(scores: UnifiedExamScoreInput) {
     const result = analyzeUnifiedExam(scores);
     setAnalysis(result);
+    setMode('result');
   }
 
   function handleAddRecord() {
@@ -208,70 +206,176 @@ export default function AnalyzePage() {
     saveToStorage(STORAGE_KEY, updated);
   }
 
-  interface TrendSubject {
-    subject: string;
-    label: string;
-    color: string;
-    values: Array<{ x: string; y: number; label: string }>;
-    avg: number;
-    trend: number;
-  }
-
   const filteredRecords = useMemo(
     () => records.filter(r => r.group === selectedGroup),
     [records, selectedGroup],
   );
 
-  const trendData = useMemo((): TrendSubject[] | null => {
-    if (filteredRecords.length < 2) return null;
-    const subjectKeys = ['chinese', 'english', 'math', 'professional1', 'professional2'] as const;
-    const subjectLabels = getGroupSubjectKeys(selectedGroup);
-    return subjectKeys.map((subject, idx) => ({
-      subject,
-      label: subjectLabels[idx]?.label || subject,
-      color: SUBJECT_COLORS[subject] || '#6b7280',
-      values: filteredRecords.map(r => ({
-        x: r.date,
-        y: r[subject],
-        label: r.label,
-      })),
-      avg: Math.round(filteredRecords.reduce((s, r) => s + r[subject], 0) / filteredRecords.length),
-      trend: filteredRecords.length >= 2
-        ? filteredRecords[filteredRecords.length - 1][subject] - filteredRecords[0][subject]
-        : 0,
-    }));
-  }, [filteredRecords, selectedGroup]);
-
-  const pathwayMatches = useMemo(() => {
-    if (filteredRecords.length === 0) return [];
-    const latestRecord = filteredRecords[filteredRecords.length - 1];
-    const total = latestRecord.chinese + latestRecord.english + latestRecord.math + latestRecord.professional1 + latestRecord.professional2;
-    return VOCATIONAL_PATHWAY_RANGES.map(pw => {
-      let status: UnifiedExamPathwayMatch['status'] = 'unlikely';
-      if (total >= pw.maxScore) status = 'safe';
-      else if (total >= pw.minScore + 30) status = 'reachable';
-      else if (total >= pw.minScore) status = 'stretch';
-      return { ...pw, status };
-    });
-  }, [filteredRecords]);
-
-  const directionContext = profile?.selectedDirections.length ? profile.selectedDirections[0] : null;
-
   const groupOptions = Object.entries(VOCATIONAL_GROUP_LABELS) as [VocationalGroup, string][];
 
+  if (mode === 'demo') {
+    return (
+      <div className="page-container">
+        {/* Demo Banner */}
+        <div className="bg-primary-fixed border border-primary/20 px-lg py-sm mb-xl flex items-center justify-between">
+          <p className="text-sm text-on-primary-fixed-variant">此為範例分析。點擊「開始分析」輸入你的統測成績，獲取專屬報告。</p>
+          <div className="flex gap-3">
+            <button onClick={() => setMode('input')} className="bg-primary text-white px-6 py-2 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer">
+              開始分析
+            </button>
+          </div>
+        </div>
+
+        {/* Header Section */}
+        <header className="mb-xl">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-h3 text-h3 text-primary">03</span>
+            <div className="h-[1px] w-12 bg-outline-variant" />
+          </div>
+          <h1 className="font-h1 text-h1 text-on-surface mb-4">統測分析</h1>
+          <p className="font-body-lg text-on-surface-variant max-w-[42rem]">
+            基於學術表現的精密建模，我們為您梳理出核心優勢與關鍵突破點，以建築學般的精確度建構您的升學藍圖。
+          </p>
+        </header>
+
+        {/* Bento Grid Analysis Sections */}
+        <section className="grid grid-cols-12 gap-gutter mb-xxl">
+          {/* Summary Card (8 cols) */}
+          <div className="col-span-12 lg:col-span-8 bg-surface-container-low border border-[#E9E5DB] p-xl flex flex-col justify-between relative overflow-hidden">
+            <div className="relative z-10">
+              <h3 className="font-h3 text-h3 text-primary mb-md">學科綜合趨勢</h3>
+              <div className="h-64 flex items-end justify-between gap-4 mt-8">
+                <div className="flex-1 h-full relative border-l border-b border-outline-variant/30">
+                  <div className="absolute inset-0 flex items-center justify-around opacity-20">
+                    <div className="w-[1px] h-full bg-outline" />
+                    <div className="w-[1px] h-full bg-outline" />
+                    <div className="w-[1px] h-full bg-outline" />
+                  </div>
+                  <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 200">
+                    <path d="M0,180 Q100,160 200,80 T400,20" fill="none" stroke="#7D8B7E" strokeWidth="2" />
+                    <circle cx="0" cy="180" fill="#7D8B7E" r="4" />
+                    <circle cx="200" cy="80" fill="#7D8B7E" r="4" />
+                    <circle cx="400" cy="20" fill="#7D8B7E" r="4" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex justify-between mt-gutter text-label-caps font-label-caps text-on-surface-variant">
+                <span>基礎測驗</span>
+                <span>期中評量</span>
+                <span>目前狀態</span>
+              </div>
+            </div>
+            <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-primary-fixed rounded-full blur-[80px] opacity-20" />
+          </div>
+
+          {/* Subject Breakdown (4 cols) */}
+          <div className="col-span-12 lg:col-span-4 bg-surface-container border border-[#E9E5DB] p-xl flex flex-col">
+            <h3 className="font-h3 text-h3 text-primary mb-md">學群權重</h3>
+            <div className="space-y-6 flex-grow">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="font-label-caps text-label-caps text-on-surface">專業科目 (一)</span>
+                  <span className="font-label-caps text-label-caps text-primary">88%</span>
+                </div>
+                <div className="h-1 bg-surface-container-high w-full overflow-hidden">
+                  <div className="h-full bg-primary w-[88%]" />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="font-label-caps text-label-caps text-on-surface">專業科目 (二)</span>
+                  <span className="font-label-caps text-label-caps text-primary">92%</span>
+                </div>
+                <div className="h-1 bg-surface-container-high w-full overflow-hidden">
+                  <div className="h-full bg-primary w-[92%]" />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="font-label-caps text-label-caps text-on-surface">共同科目</span>
+                  <span className="font-label-caps text-label-caps text-primary">74%</span>
+                </div>
+                <div className="h-1 bg-surface-container-high w-full overflow-hidden">
+                  <div className="h-full bg-primary w-[74%]" />
+                </div>
+              </div>
+            </div>
+            <div className="mt-xl pt-md border-t border-outline-variant/30">
+              <p className="text-label-caps font-label-caps text-on-secondary-container">強項建議：建築設計原理</p>
+            </div>
+          </div>
+
+          {/* Detailed Insight (5 cols) */}
+          <div className="col-span-12 lg:col-span-5 bg-tertiary-container/5 border border-tertiary-container/10 p-xl relative overflow-hidden">
+            <h3 className="font-h3 text-h3 text-tertiary mb-md">弱點結構</h3>
+            <p className="font-body-md text-on-surface-variant mb-xl leading-relaxed">
+              在工程力學與微積分交集領域呈現細微波動。這些波動顯示了在複雜模型推演時的邏輯連貫性需要更多結構化的練習。
+            </p>
+            <div className="flex items-center gap-4 p-md bg-white/50 border border-white">
+              <span className="material-symbols-outlined text-tertiary">error</span>
+              <div>
+                <span className="block font-label-caps text-label-caps font-bold text-tertiary">關鍵弱點</span>
+                <span className="text-label-caps font-label-caps text-on-surface">結構靜力學穩定性分析</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Strategy Report Preview (7 cols) */}
+          <div className="col-span-12 lg:col-span-7 border border-[#E9E5DB] p-0 flex overflow-hidden group">
+            <div className="w-1/2 p-xl flex flex-col justify-center">
+              <h3 className="font-h3 text-h3 text-primary mb-md">策略指導</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+                  <span className="font-body-md text-on-surface-variant">每日 20 分鐘專注於弱項題庫之基礎概念複習。</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+                  <span className="font-body-md text-on-surface-variant">導入「空間思考」筆記法，將力學公式圖像化。</span>
+                </li>
+              </ul>
+              <Link href="/strategy" className="mt-xl self-start px-8 py-3 bg-primary text-white font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all duration-300">
+                下載完整策略報告
+              </Link>
+            </div>
+            <div className="w-1/2 h-full relative overflow-hidden hidden sm:block">
+              <img
+                alt="建築製圖板"
+                className="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700"
+                src={STRATEGY_IMAGE}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Academic Mentorship Quote */}
+        <section className="mt-xxl border-l-4 border-primary pl-xl max-w-[48rem]">
+          <blockquote className="italic font-display-italic text-h2 text-primary-container leading-snug">
+            &ldquo;真正的建築不僅是堆砌磚石，而是理解每一份重量的去向。學習亦然，分析是為了更好的結構。&rdquo;
+          </blockquote>
+          <cite className="block mt-md font-label-caps text-label-caps text-on-surface-variant">&mdash; 學術導師 艾德華．林</cite>
+        </section>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="page-container">
       <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">統測分數分析</h1>
-        <p className="text-gray-500">輸入你的統測成績，看看最適合你的升學管道和科技大學</p>
-        {directionContext && (
-          <p className="text-sm text-indigo-600 mt-1">已結合你的方向：{directionContext}</p>
-        )}
+        <h1 className="font-h1 text-h1 text-on-surface mb-2">統測分數分析</h1>
+        <p className="font-body-lg text-on-surface-variant">輸入你的統測成績，看看最適合你的升學管道和科技大學</p>
       </div>
 
+      <button
+        onClick={() => setMode('demo')}
+        className="mb-8 text-primary hover:underline font-label-caps text-label-caps cursor-pointer"
+      >
+        &larr; 返回範例分析
+      </button>
+
       {/* Group Selector */}
-      <div className="max-w-2xl mx-auto mb-8">
-        <label className="block text-sm font-medium text-gray-700 mb-2">選擇職群</label>
+      <div className="max-w-[42rem] mx-auto mb-8">
+        <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">選擇職群</label>
         <select
           value={selectedGroup}
           onChange={e => {
@@ -279,7 +383,7 @@ export default function AnalyzePage() {
             setSelectedGroup(newGroup);
             setAnalysis(null);
           }}
-          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white text-gray-900"
+          className="w-full px-4 py-3 bg-surface-container-low border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors"
         >
           {groupOptions.map(([key, label]) => (
             <option key={key} value={key}>{label}</option>
@@ -287,99 +391,75 @@ export default function AnalyzePage() {
         </select>
       </div>
 
-      {/* Tabs */}
-      <div className="flex justify-center mb-8">
-        <div className="inline-flex bg-gray-100 rounded-xl p-1">
-          <button
-            onClick={() => setTab('analyze')}
-            className={'px-6 py-2 rounded-lg text-sm font-bold transition-colors ' + (tab === 'analyze' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700')}
-          >
-            分數分析
-          </button>
-          <button
-            onClick={() => setTab('trends')}
-            className={'px-6 py-2 rounded-lg text-sm font-bold transition-colors ' + (tab === 'trends' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700')}
-          >
-            趨勢追蹤{isPro ? '' : ' (Pro)'}
-          </button>
-        </div>
-      </div>
+      {!analysis ? (
+        <ScoreInputForm group={selectedGroup} onSubmit={handleSubmit} />
+      ) : (
+        <div className="space-y-8">
+          <AnalysisResultDisplay
+            analysis={analysis}
+            group={selectedGroup}
+          />
 
-      {tab === 'analyze' && (
-        <>
-          {!analysis ? (
-            <ScoreInputForm group={selectedGroup} onSubmit={handleSubmit} />
-          ) : (
-            <div className="space-y-8">
-              <AnalysisResultDisplay
-                analysis={analysis}
-                group={selectedGroup}
-                onShare={() => setShowShareCard(true)}
-                directionContext={directionContext}
-              />
-
-              {/* Pathway Match */}
-              {filteredRecords.length > 0 && pathwayMatches.length > 0 && (
-                <div className="bg-white rounded-2xl shadow-sm p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4">模擬管道匹配</h3>
-                  <p className="text-sm text-gray-500 mb-4">
-                    根據最近一次成績（總分 {
-                      filteredRecords[filteredRecords.length - 1].chinese
-                      + filteredRecords[filteredRecords.length - 1].english
-                      + filteredRecords[filteredRecords.length - 1].math
-                      + filteredRecords[filteredRecords.length - 1].professional1
-                      + filteredRecords[filteredRecords.length - 1].professional2
-                    }）
-                  </p>
-                  <div className="space-y-2">
-                    {pathwayMatches.map(pw => (
-                      <div key={pw.slug} className="flex items-center justify-between p-3 rounded-xl border border-gray-100">
-                        <span className="text-sm font-medium text-gray-700">{pw.name}</span>
-                        <span className={
-                          'px-3 py-1 rounded-full text-xs font-bold ' +
-                          (pw.status === 'safe' ? 'bg-green-100 text-green-700' :
-                           pw.status === 'reachable' ? 'bg-blue-100 text-blue-700' :
-                           pw.status === 'stretch' ? 'bg-amber-100 text-amber-700' :
-                           'bg-gray-100 text-gray-500')
-                        }>
-                          {pw.status === 'safe' ? '可衝刺' : pw.status === 'reachable' ? '有機會' : pw.status === 'stretch' ? '需要努力' : '較困難'}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="text-center">
-                <button
-                  onClick={() => setAnalysis(null)}
-                  className="text-gray-500 hover:text-gray-700 text-sm underline"
-                >
-                  重新輸入成績
-                </button>
-              </div>
-            </div>
+          {/* Pathway Match */}
+          {filteredRecords.length > 0 && (
+            <PathwayMatchSection filteredRecords={filteredRecords} selectedGroup={selectedGroup} />
           )}
-        </>
+
+          <div className="text-center">
+            <button
+              onClick={() => setAnalysis(null)}
+              className="text-on-surface-variant hover:text-on-background text-sm underline cursor-pointer"
+            >
+              重新輸入成績
+            </button>
+          </div>
+        </div>
       )}
 
-      {tab === 'trends' && (
-        <TrendTab
+      {/* Trend Section */}
+      {isPro && filteredRecords.length > 0 && (
+        <div className="mt-xxl">
+          <h2 className="font-h2 text-h2 text-on-surface mb-lg">成績趨勢追蹤</h2>
+          <TrendDisplay group={selectedGroup} records={filteredRecords} />
+          <div className="flex items-center justify-between mt-lg">
+            <p className="text-sm text-on-surface-variant">已記錄 {filteredRecords.length} 次成績</p>
+            <button
+              onClick={() => setShowRecordForm(true)}
+              className="bg-primary text-white px-6 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer"
+            >
+              新增成績
+            </button>
+          </div>
+        </div>
+      )}
+
+      {!isPro && (
+        <div className="mt-xxl bg-surface-container-low border border-[#E9E5DB] p-xl text-center">
+          <div className="w-16 h-16 bg-primary-fixed rounded-full flex items-center justify-center mx-auto mb-4">
+            <span className="material-symbols-outlined text-primary text-3xl">trending_up</span>
+          </div>
+          <h3 className="font-h3 text-h3 text-on-surface mb-2">Pro 專屬功能</h3>
+          <p className="text-on-surface-variant mb-6 font-body-md">
+            追蹤你的成績趨勢，看見進步軌跡。輸入多次考試成績，視覺化你的成長曲線。
+          </p>
+          <Link href="/pricing" className="bg-primary text-white px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer inline-block">
+            升級 Pro 解鎖
+          </Link>
+        </div>
+      )}
+
+      {/* Add Record Modal */}
+      {showRecordForm && (
+        <AddRecordModal
           group={selectedGroup}
-          records={filteredRecords}
-          allRecords={records}
-          trendData={trendData}
-          isPro={isPro}
-          showRecordForm={showRecordForm}
-          setShowRecordForm={setShowRecordForm}
           recordLabel={recordLabel}
           setRecordLabel={setRecordLabel}
           recordDate={recordDate}
           setRecordDate={setRecordDate}
           recordScores={recordScores}
           setRecordScores={setRecordScores}
-          handleAddRecord={handleAddRecord}
-          handleDeleteRecord={handleDeleteRecord}
+          onAdd={handleAddRecord}
+          onClose={() => setShowRecordForm(false)}
         />
       )}
     </div>
@@ -406,19 +486,19 @@ function ScoreInputForm({ group, onSubmit }: { group: VocationalGroup; onSubmit:
   const total = scores.chinese + scores.english + scores.math + scores.professional1 + scores.professional2;
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 max-w-2xl mx-auto">
-      <h2 className="text-lg font-bold text-gray-900 mb-6">輸入統測成績</h2>
-      <div className="space-y-4 mb-6">
+    <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-[42rem] mx-auto">
+      <h2 className="font-h3 text-h3 text-on-surface mb-lg">輸入統測成績</h2>
+      <div className="space-y-4 mb-lg">
         {subjects.map(s => (
           <div key={s.key} className="flex items-center gap-4">
-            <label className="w-28 text-sm font-medium text-gray-700 text-right">{s.label}</label>
+            <label className="w-28 text-sm font-medium text-on-background text-right">{s.label}</label>
             <input
               type="range"
               min={0}
               max={100}
               value={scores[s.key as keyof UnifiedExamScoreInput] as number}
               onChange={e => updateScore(s.key as keyof UnifiedExamScoreInput, parseInt(e.target.value))}
-              className="flex-1 h-2 bg-gray-200 rounded-full appearance-none cursor-pointer accent-indigo-600"
+              className="flex-1 h-2 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-[#7D8B7E]"
             />
             <input
               type="number"
@@ -426,18 +506,16 @@ function ScoreInputForm({ group, onSubmit }: { group: VocationalGroup; onSubmit:
               max={100}
               value={scores[s.key as keyof UnifiedExamScoreInput] as number}
               onChange={e => updateScore(s.key as keyof UnifiedExamScoreInput, parseInt(e.target.value) || 0)}
-              className="w-20 text-center border border-gray-200 rounded-lg py-2 text-sm font-bold focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+              className="w-20 text-center border border-[#E9E5DB] rounded-md py-2 text-sm font-bold bg-white text-on-surface outline-none focus:border-primary"
             />
           </div>
         ))}
       </div>
       <div className="text-center">
-        <p className="text-sm text-gray-400 mb-4">
-          總分：{total} / 500
-        </p>
+        <p className="text-sm text-on-surface-variant mb-4">總分：{total} / 500</p>
         <button
           onClick={() => onSubmit(scores)}
-          className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg"
+          className="bg-primary text-white px-8 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer"
         >
           開始分析
         </button>
@@ -449,13 +527,9 @@ function ScoreInputForm({ group, onSubmit }: { group: VocationalGroup; onSubmit:
 function AnalysisResultDisplay({
   analysis,
   group,
-  onShare,
-  directionContext,
 }: {
   analysis: LocalAnalysisResult;
   group: VocationalGroup;
-  onShare: () => void;
-  directionContext: string | null;
 }) {
   const subjects = getGroupSubjectKeys(group);
   const scoreEntries = subjects.map(s => ({
@@ -465,314 +539,250 @@ function AnalysisResultDisplay({
   }));
 
   return (
-    <div className="space-y-6">
-      <div className="bg-white rounded-2xl shadow-sm p-6">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-          <div className="text-center p-4 bg-indigo-50 rounded-xl">
-            <p className="text-3xl font-bold text-indigo-600">{analysis.total}</p>
-            <p className="text-sm text-gray-500">總分</p>
+    <div className="space-y-lg">
+      <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-lg">
+          <div className="text-center p-4 bg-primary-fixed rounded-md">
+            <p className="font-h3 text-h3 text-primary">{analysis.total}</p>
+            <p className="text-sm text-on-surface-variant">總分</p>
           </div>
-          <div className="text-center p-4 bg-green-50 rounded-xl">
-            <p className="text-3xl font-bold text-green-600">{analysis.average.toFixed(1)}</p>
-            <p className="text-sm text-gray-500">平均分數</p>
+          <div className="text-center p-4 bg-success-container rounded-md">
+            <p className="font-h3 text-h3 text-success">{analysis.average.toFixed(1)}</p>
+            <p className="text-sm text-on-surface-variant">平均分數</p>
           </div>
-          <div className="text-center p-4 bg-amber-50 rounded-xl">
-            <p className="text-3xl font-bold text-amber-600">{analysis.percentile.toFixed(1)}%</p>
-            <p className="text-sm text-gray-500">百分位</p>
+          <div className="text-center p-4 bg-warning-container rounded-md">
+            <p className="font-h3 text-h3 text-warning">{analysis.percentile.toFixed(1)}%</p>
+            <p className="text-sm text-on-surface-variant">百分位</p>
           </div>
-          <div className="text-center p-4 bg-purple-50 rounded-xl">
-            <p className="text-lg font-bold text-purple-600">{analysis.recommendedPathways[0]?.name}</p>
-            <p className="text-sm text-gray-500">最推薦管道</p>
+          <div className="text-center p-4 bg-tertiary-fixed rounded-md">
+            <p className="text-lg font-bold text-tertiary">{analysis.recommendedPathways[0]?.name}</p>
+            <p className="text-sm text-on-surface-variant">最推薦管道</p>
           </div>
         </div>
 
-        <div className="mb-4">
-          <h3 className="text-sm font-bold text-gray-700 mb-2">各科成績</h3>
-          <div className="space-y-2">
+        <div className="mb-lg">
+          <h3 className="font-h3 text-h3 text-on-surface mb-md">各科成績</h3>
+          <div className="space-y-4">
             {scoreEntries.map(entry => (
-              <div key={entry.key} className="flex items-center gap-3">
-                <span className="w-28 text-sm text-gray-500 text-right">{entry.label}</span>
-                <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div key={entry.key} className="flex items-center gap-4">
+                <span className="w-28 text-sm text-on-surface-variant text-right font-body-md">{entry.label}</span>
+                <div className="flex-1 h-1 bg-surface-container-high w-full overflow-hidden">
                   <div
-                    className="h-full rounded-full"
-                    style={{
-                      width: `${(entry.value / 100) * 100}%`,
-                      backgroundColor: SUBJECT_COLORS[entry.key] || '#6b7280',
-                    }}
+                    className="h-full bg-primary"
+                    style={{ width: `${(entry.value / 100) * 100}%` }}
                   />
                 </div>
-                <span className="w-10 text-right text-sm font-bold text-gray-700">{entry.value}</span>
+                <span className="w-10 text-right text-sm font-bold text-on-surface">{entry.value}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <p className="text-sm text-gray-600 leading-relaxed">{analysis.summary}</p>
-
-        {directionContext && (
-          <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-            <p className="text-sm text-indigo-700">
-              <span className="font-bold">方向建議：</span>
-              根據你選擇的「{directionContext}」方向，建議優先關注相關科系的申請門檻和備審要求。可以在「素材記錄」中針對性補充相關學習歷程。
-            </p>
-          </div>
-        )}
+        <p className="font-body-md text-on-surface-variant leading-relaxed">{analysis.summary}</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm p-6">
-        <h3 className="text-lg font-bold text-gray-900 mb-4">推薦升學管道</h3>
-        <div className="space-y-3">
+      <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
+        <h3 className="font-h3 text-h3 text-on-surface mb-lg">推薦升學管道</h3>
+        <div className="space-y-md">
           {analysis.recommendedPathways.slice(0, 5).map(pw => (
-            <div key={pw.slug} className="flex items-center justify-between p-3 rounded-xl border border-gray-100">
+            <div key={pw.slug} className="flex items-center justify-between p-md rounded-md border border-[#E9E5DB]">
               <div>
-                <p className="font-medium text-gray-900 text-sm">{pw.name}</p>
-                <p className="text-xs text-gray-500">{pw.description}</p>
+                <p className="font-medium text-on-surface text-sm">{pw.name}</p>
+                <p className="text-xs text-on-surface-variant">{pw.description}</p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-indigo-600">{pw.matchScore}%</p>
-                <p className="text-xs text-gray-400">匹配度</p>
+                <p className="text-lg font-bold text-primary">{pw.matchScore}%</p>
+                <p className="text-xs text-on-surface-variant">匹配度</p>
               </div>
             </div>
           ))}
         </div>
       </div>
+    </div>
+  );
+}
 
-      <div className="text-center">
-        <button
-          onClick={onShare}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
-        >
-          分享分析結果
-        </button>
+function PathwayMatchSection({ filteredRecords, selectedGroup }: { filteredRecords: UnifiedExamRecord[]; selectedGroup: VocationalGroup }) {
+  const latestRecord = filteredRecords[filteredRecords.length - 1];
+  const total = latestRecord.chinese + latestRecord.english + latestRecord.math + latestRecord.professional1 + latestRecord.professional2;
+
+  const pathwayMatches = VOCATIONAL_PATHWAY_RANGES.map(pw => {
+    let status: UnifiedExamPathwayMatch['status'] = 'unlikely';
+    if (total >= pw.maxScore) status = 'safe';
+    else if (total >= pw.minScore + 30) status = 'reachable';
+    else if (total >= pw.minScore) status = 'stretch';
+    return { ...pw, status };
+  });
+
+  return (
+    <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
+      <h3 className="font-h3 text-h3 text-on-surface mb-lg">模擬管道匹配</h3>
+      <p className="text-sm text-on-surface-variant mb-lg">根據最近一次成績（總分 {total}）</p>
+      <div className="space-y-md">
+        {pathwayMatches.map(pw => (
+          <div key={pw.slug} className="flex items-center justify-between p-md rounded-md border border-[#E9E5DB]">
+            <span className="text-sm font-medium text-on-surface">{pw.name}</span>
+            <span className={
+              'px-3 py-1 rounded-full text-xs font-bold ' +
+              (pw.status === 'safe' ? 'bg-success-container text-success' :
+               pw.status === 'reachable' ? 'bg-primary-fixed text-primary' :
+               pw.status === 'stretch' ? 'bg-warning-container text-warning' :
+               'bg-surface-container text-on-surface-variant')
+            }>
+              {pw.status === 'safe' ? '可衝刺' : pw.status === 'reachable' ? '有機會' : pw.status === 'stretch' ? '需要努力' : '較困難'}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
-function TrendTab({
+interface TrendSubject {
+  subject: string;
+  label: string;
+  color: string;
+  values: Array<{ x: string; y: number; label: string }>;
+  avg: number;
+  trend: number;
+}
+
+function TrendDisplay({ group, records }: { group: VocationalGroup; records: UnifiedExamRecord[] }) {
+  const subjectKeys = ['chinese', 'english', 'math', 'professional1', 'professional2'] as const;
+  const subjectLabels = getGroupSubjectKeys(group);
+
+  const trendData: TrendSubject[] = subjectKeys.map((subject, idx) => ({
+    subject,
+    label: subjectLabels[idx]?.label || subject,
+    color: SUBJECT_COLORS[subject] || '#6b7280',
+    values: records.map(r => ({
+      x: r.date,
+      y: r[subject],
+      label: r.label,
+    })),
+    avg: Math.round(records.reduce((s, r) => s + r[subject], 0) / records.length),
+    trend: records.length >= 2
+      ? records[records.length - 1][subject] - records[0][subject]
+      : 0,
+  }));
+
+  return (
+    <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
+      <h3 className="font-h3 text-h3 text-on-surface mb-lg">成績趨勢</h3>
+      <div className="space-y-lg">
+        {trendData.map(subject => (
+          <div key={subject.subject}>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm font-medium text-on-surface">{subject.label}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-on-surface-variant">均 {subject.avg}</span>
+                <span className={'text-xs font-bold px-2 py-0.5 rounded-full ' + (subject.trend > 0 ? 'bg-success-container text-success' : subject.trend < 0 ? 'bg-error-container text-error' : 'bg-surface-container text-on-surface-variant')}>
+                  {subject.trend > 0 ? '+' : ''}{subject.trend}
+                </span>
+              </div>
+            </div>
+            <div className="flex items-end gap-1 h-8">
+              {subject.values.map((v, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-t-sm transition-all"
+                  style={{ height: `${(v.y / 100) * 100}%`, backgroundColor: subject.color, opacity: 0.4 + (i / subject.values.length) * 0.6 }}
+                  title={`${v.label}: ${v.y}`}
+                />
+              ))}
+            </div>
+            <div className="flex gap-1 mt-0.5">
+              {subject.values.map((v, i) => (
+                <span key={i} className="flex-1 text-center text-[10px] text-on-surface-variant truncate">
+                  {i === 0 || i === subject.values.length - 1 ? v.label : ''}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AddRecordModal({
   group,
-  records,
-  trendData,
-  isPro,
-  showRecordForm,
-  setShowRecordForm,
   recordLabel,
   setRecordLabel,
   recordDate,
   setRecordDate,
   recordScores,
   setRecordScores,
-  handleAddRecord,
-  handleDeleteRecord,
+  onAdd,
+  onClose,
 }: {
   group: VocationalGroup;
-  records: UnifiedExamRecord[];
-  allRecords: UnifiedExamRecord[];
-  trendData: Array<{
-    subject: string;
-    label: string;
-    color: string;
-    values: Array<{ x: string; y: number; label: string }>;
-    avg: number;
-    trend: number;
-  }> | null;
-  isPro: boolean;
-  showRecordForm: boolean;
-  setShowRecordForm: (v: boolean) => void;
   recordLabel: string;
   setRecordLabel: (v: string) => void;
   recordDate: string;
   setRecordDate: (v: string) => void;
   recordScores: { chinese: number; english: number; math: number; professional1: number; professional2: number };
   setRecordScores: (v: { chinese: number; english: number; math: number; professional1: number; professional2: number }) => void;
-  handleAddRecord: () => void;
-  handleDeleteRecord: (id: string) => void;
+  onAdd: () => void;
+  onClose: () => void;
 }) {
   const subjects = getGroupSubjectKeys(group);
 
-  if (!isPro) {
-    return (
-      <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
-        <div className="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span className="text-2xl">📈</span>
-        </div>
-        <h2 className="text-xl font-bold text-gray-900 mb-2">Pro 專屬功能</h2>
-        <p className="text-gray-500 mb-6">
-          追蹤你的成績趨勢，看見進步軌跡。輸入多次考試成績，視覺化你的成長曲線。
-        </p>
-        <a href="/pricing" className="inline-block px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors">
-          升級 Pro 解鎖
-        </a>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-6">
-      {/* Add Record */}
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">
-          已記錄 {records.length} 次成績
-          {records.length === 0 && (
-            <span className="text-gray-400">（目前職群：{VOCATIONAL_GROUP_LABELS[group]}）</span>
-          )}
-        </p>
-        <button
-          onClick={() => setShowRecordForm(true)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors"
-        >
-          + 新增成績
-        </button>
+    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+      <div className="bg-surface-container-low border border-[#E9E5DB] max-w-md w-full p-xl">
+        <div className="flex items-center justify-between mb-lg">
+          <h2 className="font-h3 text-h3 text-on-surface">新增成績</h2>
+          <button onClick={onClose} className="text-outline hover:text-on-surface-variant text-2xl cursor-pointer" aria-label="關閉">&times;</button>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">考試名稱</label>
+            <input
+              type="text"
+              value={recordLabel}
+              onChange={e => setRecordLabel(e.target.value)}
+              placeholder="例如：第一次模擬考"
+              className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors"
+            />
+          </div>
+          <div>
+            <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">日期</label>
+            <input
+              type="date"
+              value={recordDate}
+              onChange={e => setRecordDate(e.target.value)}
+              className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors"
+            />
+          </div>
+          <div>
+            <p className="text-xs text-on-surface-variant mb-2">職群：{VOCATIONAL_GROUP_LABELS[group]}</p>
+          </div>
+          {subjects.map(s => (
+            <div key={s.key}>
+              <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">{s.label}</label>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={recordScores[s.key as keyof typeof recordScores] ?? 0}
+                onChange={e => setRecordScores({
+                  ...recordScores,
+                  [s.key]: Math.max(0, Math.min(100, parseInt(e.target.value) || 0)),
+                })}
+                className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors"
+              />
+            </div>
+          ))}
+          <button
+            onClick={onAdd}
+            disabled={!recordLabel.trim() || !recordDate}
+            className={'w-full py-3 rounded-md font-label-caps text-label-caps tracking-widest transition-all cursor-pointer ' + (recordLabel.trim() && recordDate ? 'bg-primary text-white hover:opacity-90' : 'bg-surface-container-high text-outline cursor-not-allowed')}
+          >
+            新增成績
+          </button>
+        </div>
       </div>
-
-      {/* Records Table */}
-      {records.length > 0 && (
-        <div className="bg-white rounded-2xl shadow-sm p-6 overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-gray-100">
-                <th className="text-left py-2 px-2 text-gray-500 font-medium">名稱</th>
-                <th className="text-left py-2 px-2 text-gray-500 font-medium hidden sm:table-cell">日期</th>
-                {subjects.map(s => (
-                  <th key={s.key} className="text-center py-2 px-2 text-gray-500 font-medium">
-                    {s.label.length > 4 ? s.label.slice(0, 4) : s.label}
-                  </th>
-                ))}
-                <th className="text-center py-2 px-2 text-gray-500 font-medium">總分</th>
-                <th className="py-2 px-1"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {records.map(r => {
-                const total = r.chinese + r.english + r.math + r.professional1 + r.professional2;
-                return (
-                  <tr key={r.id} className="border-b border-gray-50 hover:bg-gray-50">
-                    <td className="py-2.5 px-2 font-medium text-gray-900">{r.label}</td>
-                    <td className="py-2.5 px-2 text-gray-400 hidden sm:table-cell">{r.date}</td>
-                    <td className="py-2.5 px-2 text-center">{r.chinese}</td>
-                    <td className="py-2.5 px-2 text-center">{r.english}</td>
-                    <td className="py-2.5 px-2 text-center">{r.math}</td>
-                    <td className="py-2.5 px-2 text-center">{r.professional1}</td>
-                    <td className="py-2.5 px-2 text-center">{r.professional2}</td>
-                    <td className="py-2.5 px-2 text-center font-bold text-indigo-600">{total}</td>
-                    <td className="py-2.5 px-1">
-                      <button onClick={() => handleDeleteRecord(r.id)} className="text-gray-300 hover:text-red-500 text-xs">x</button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
-
-      {/* Trend Visualization */}
-      {trendData && (
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-          <h3 className="text-lg font-bold text-gray-900 mb-4">成績趨勢</h3>
-          <div className="space-y-4">
-            {trendData.map(subject => (
-              <div key={subject.subject}>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-sm font-medium text-gray-700">{subject.label}</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-500">均 {subject.avg}</span>
-                    <span className={'text-xs font-bold px-2 py-0.5 rounded-full ' + (subject.trend > 0 ? 'bg-green-100 text-green-700' : subject.trend < 0 ? 'bg-red-100 text-red-700' : 'bg-gray-100 text-gray-500')}>
-                      {subject.trend > 0 ? '+' : ''}{subject.trend}
-                    </span>
-                  </div>
-                </div>
-                {/* Simple bar chart */}
-                <div className="flex items-end gap-1 h-8">
-                  {subject.values.map((v, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 rounded-t-sm transition-all"
-                      style={{ height: `${(v.y / 100) * 100}%`, backgroundColor: subject.color, opacity: 0.4 + (i / subject.values.length) * 0.6 }}
-                      title={`${v.label}: ${v.y}`}
-                    />
-                  ))}
-                </div>
-                <div className="flex gap-1 mt-0.5">
-                  {subject.values.map((v, i) => (
-                    <span key={i} className="flex-1 text-center text-[10px] text-gray-400 truncate">
-                      {i === 0 || i === subject.values.length - 1 ? v.label : ''}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {records.length === 0 && (
-        <div className="text-center py-12 text-gray-400">
-          <p>還沒有成績記錄</p>
-          <p className="text-sm mt-1">點擊「新增成績」開始追蹤你的進步</p>
-        </div>
-      )}
-
-      {/* Add Record Modal */}
-      {showRecordForm && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-gray-900">新增成績</h2>
-              <button onClick={() => setShowRecordForm(false)} className="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">考試名稱</label>
-                <input
-                  type="text"
-                  value={recordLabel}
-                  onChange={e => setRecordLabel(e.target.value)}
-                  placeholder="例如：第一次模擬考"
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">日期</label>
-                <input
-                  type="date"
-                  value={recordDate}
-                  onChange={e => setRecordDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 mb-2">
-                  職群：{VOCATIONAL_GROUP_LABELS[group]}
-                </p>
-              </div>
-              {subjects.map(s => (
-                <div key={s.key}>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{s.label}</label>
-                  <input
-                    type="number"
-                    min={0}
-                    max={100}
-                    value={recordScores[s.key as keyof typeof recordScores] ?? 0}
-                    onChange={e => setRecordScores({
-                      ...recordScores,
-                      [s.key]: Math.max(0, Math.min(100, parseInt(e.target.value) || 0)),
-                    })}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
-                  />
-                </div>
-              ))}
-              <button
-                onClick={handleAddRecord}
-                disabled={!recordLabel.trim() || !recordDate}
-                className={'w-full py-3 rounded-xl font-bold transition-all ' + (recordLabel.trim() && recordDate ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed')}
-              >
-                新增成績
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

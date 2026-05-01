@@ -64,8 +64,8 @@ export default function Step5Page() {
   if (!loaded) {
     return (
       <div className="text-center py-16">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4" />
-        <p className="text-gray-500">載入中...</p>
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
+        <p className="text-on-surface-variant">載入中...</p>
       </div>
     );
   }
@@ -73,10 +73,10 @@ export default function Step5Page() {
   return (
     <div className="max-w-lg mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
           確認你的方向
         </h1>
-        <p className="text-gray-500">選擇 1-2 個你最感興趣的方向</p>
+        <p className="text-on-surface-variant">選擇 1-2 個你最感興趣的方向</p>
       </div>
 
       {/* Direction selection */}
@@ -87,23 +87,23 @@ export default function Step5Page() {
             <button
               key={dir.direction}
               onClick={() => toggleDirection(dir.direction)}
-              className={`w-full p-4 rounded-2xl border-2 text-left transition-all ${
+              className={`w-full p-4 rounded-sm border-2 text-left transition-all ${
                 isSelected
-                  ? 'border-indigo-600 bg-indigo-50 shadow-md'
-                  : 'border-gray-200 bg-white hover:border-gray-300'
+                  ? 'border-primary bg-primary-fixed '
+                  : 'border-[#E9E5DB] bg-white hover:border-outline'
               }`}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm ${
-                    isSelected ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-400'
+                    isSelected ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant'
                   }`}
                 >
-                  {isSelected ? '✓' : ''}
+                  {isSelected ? <span className="material-symbols-outlined text-[16px]">check_circle</span> : ''}
                 </div>
                 <div>
-                  <div className="font-bold text-gray-900">{dir.direction}</div>
-                  <div className="text-xs text-gray-500">
+                  <div className="font-bold text-on-background">{dir.direction}</div>
+                  <div className="text-xs text-on-surface-variant">
                     匹配度 {Math.round(dir.confidence * 100)}%
                   </div>
                 </div>
@@ -115,22 +115,22 @@ export default function Step5Page() {
 
       {/* Confirmation summary */}
       {selected.length > 0 && (
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100 mb-8">
+        <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-sm p-6 border border-primary-100 mb-8">
           <div className="text-center mb-3">
-            <div className="inline-block w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-2">
-              <span className="text-3xl">&#10003;</span>
+            <div className="inline-block w-14 h-14 bg-success-container rounded-full flex items-center justify-center mb-2">
+              <span className="material-symbols-outlined text-[24px]">check_circle</span>
             </div>
-            <h3 className="font-bold text-green-700 text-lg">導入完成！</h3>
+            <h3 className="font-serif font-bold text-success text-lg">導入完成！</h3>
           </div>
-          <h3 className="font-bold text-gray-900 mb-3 text-center">你的職群方向</h3>
+          <h3 className="font-serif font-bold text-on-background mb-3 text-center">你的職群方向</h3>
           <div className="flex flex-wrap gap-2 justify-center mb-4">
             {selected.map(dir => (
-              <span key={dir} className="px-4 py-2 bg-white text-indigo-600 rounded-full font-medium shadow-sm border border-indigo-200">
+              <span key={dir} className="px-4 py-2 bg-white text-primary rounded-full font-medium  border border-primary/30">
                 {dir}
               </span>
             ))}
           </div>
-          <p className="text-sm text-gray-600 text-center leading-relaxed">
+          <p className="text-sm text-on-surface-variant text-center leading-relaxed">
             你選了 <strong>{selected.join('、')}</strong> 方向。
             接下來我們會根據你的年級和職群，幫你規劃個人化的升學路線圖，
             包含統測準備、技能培養、專題實作和面試練習。
@@ -143,13 +143,13 @@ export default function Step5Page() {
         <Link
           href="/roadmap"
           onClick={handleConfirm}
-          className="block w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-bold hover:from-indigo-700 hover:to-purple-700 shadow-lg transition-all text-center"
+          className="block w-full py-4 rounded-sm bg-gradient-to-r from-primary to-tertiary text-white text-lg font-bold hover:from-indigo-700 hover:to-purple-700  transition-all text-center"
         >
           進入我的路線圖
         </Link>
         <button
           onClick={() => router.push('/onboarding/step4')}
-          className="w-full py-3 text-gray-500 text-sm hover:text-gray-700 transition-colors"
+          className="w-full py-3 text-on-surface-variant text-sm hover:text-on-background transition-colors"
         >
           回上一步調整
         </button>
@@ -157,11 +157,11 @@ export default function Step5Page() {
 
       {/* Done message */}
       <div className="mt-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 rounded-full text-sm text-green-700 font-medium">
-          <span>&#10003;</span>
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-success-container rounded-full text-sm text-success font-medium">
+          <span className="material-symbols-outlined text-[20px]">check_circle</span>
           Onboarding 完成
         </div>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-on-surface-variant mt-2">
           之後可以在路線圖頁面隨時重新設定
         </p>
       </div>

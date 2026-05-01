@@ -248,7 +248,7 @@ export default function ShareCard({ analysis, onClose }: Props) {
 
             <button
               onClick={downloadCard}
-              className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
+              className="w-full py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors"
             >
               下載圖卡
             </button>

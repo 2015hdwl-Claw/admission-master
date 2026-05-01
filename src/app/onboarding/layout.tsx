@@ -25,9 +25,9 @@ export default function OnboardingLayout({
   const currentIndex = getStepIndex(pathname);
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-b from-indigo-50 to-white">
+    <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-b from-primary-fixed to-white">
       {/* Progress bar */}
-      <div className="bg-white border-b border-gray-100 sticky top-14 z-30">
+      <div className="bg-white border-b border-[#E9E5DB] sticky top-14 z-30">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center gap-2">
             {STEPS.map((step, i) => {
@@ -39,19 +39,19 @@ export default function OnboardingLayout({
                     href={step.path}
                     className={`flex items-center gap-1.5 text-xs font-medium transition-colors min-w-0 ${
                       isCompleted
-                        ? 'text-indigo-600'
+                        ? 'text-primary'
                         : isCurrent
-                        ? 'text-indigo-600'
-                        : 'text-gray-400'
+                        ? 'text-primary'
+                        : 'text-outline'
                     }`}
                   >
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                         isCompleted
-                          ? 'bg-indigo-600 text-white'
+                          ? 'bg-primary text-white'
                           : isCurrent
-                          ? 'bg-indigo-100 text-indigo-600 ring-2 ring-indigo-600'
-                          : 'bg-gray-100 text-gray-400'
+                          ? 'bg-primary-100 text-primary ring-2 ring-primary-600'
+                          : 'bg-surface-container text-outline'
                       }`}
                     >
                       {isCompleted ? '✓' : i + 1}
@@ -61,7 +61,7 @@ export default function OnboardingLayout({
                   {i < STEPS.length - 1 && (
                     <div
                       className={`flex-1 h-0.5 mx-2 rounded-full ${
-                        i < currentIndex ? 'bg-indigo-600' : 'bg-gray-200'
+                        i < currentIndex ? 'bg-primary' : 'bg-surface-container-high'
                       }`}
                     />
                   )}

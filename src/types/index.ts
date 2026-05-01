@@ -312,7 +312,7 @@ export interface StrategyReport {
 export interface QuizQuestion {
   id: number;
   question: string;
-  options: { value: string; label: string }[];
+  options: { value: string; label: string; description?: string }[];
 }
 
 export interface QuizResult {

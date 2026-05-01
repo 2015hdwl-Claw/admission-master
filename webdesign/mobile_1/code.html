@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "surface-container": "#f0edeb",
+                "primary-fixed": "#d8e6d7",
+                "on-secondary-container": "#75614e",
+                "outline": "#747873",
+                "surface-container-high": "#eae8e6",
+                "secondary-container": "#f9dec6",
+                "on-primary-fixed": "#121e15",
+                "on-error": "#ffffff",
+                "tertiary": "#6d5659",
+                "secondary-fixed-dim": "#dcc2ab",
+                "secondary": "#6e5b48",
+                "error": "#ba1a1a",
+                "inverse-surface": "#30302f",
+                "on-primary-container": "#f6fff4",
+                "outline-variant": "#c4c8c1",
+                "tertiary-container": "#876e71",
+                "surface-tint": "#546256",
+                "surface-bright": "#fbf9f7",
+                "inverse-primary": "#bccabc",
+                "surface-dim": "#dcdad7",
+                "secondary-fixed": "#f9dec6",
+                "on-secondary-fixed-variant": "#554332",
+                "on-primary-fixed-variant": "#3d4a3f",
+                "background": "#fbf9f7",
+                "tertiary-fixed": "#fadbde",
+                "surface-container-low": "#f5f3f1",
+                "on-surface": "#1b1c1b",
+                "on-surface-variant": "#434843",
+                "primary": "#525f54",
+                "on-tertiary": "#ffffff",
+                "on-background": "#1b1c1b",
+                "surface-variant": "#e4e2e0",
+                "tertiary-fixed-dim": "#ddbfc2",
+                "primary-fixed-dim": "#bccabc",
+                "on-tertiary-container": "#fffbff",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#f3f0ee",
+                "surface-container-highest": "#e4e2e0",
+                "surface": "#fbf9f7",
+                "on-secondary-fixed": "#26190a",
+                "primary-container": "#6a786c",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-fixed-variant": "#574144",
+                "on-tertiary-fixed": "#28171a",
+                "on-error-container": "#93000a"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "spacing": {
+                "md": "16px",
+                "gutter": "24px",
+                "xxl": "80px",
+                "xs": "4px",
+                "lg": "24px",
+                "xl": "48px",
+                "sm": "8px",
+                "container-max": "1200px"
+            },
+            "fontFamily": {
+                "h1": ["Noto Serif TC"],
+                "display-italic": ["Noto Serif TC"],
+                "h3": ["Noto Serif TC"],
+                "body-md": ["Manrope"],
+                "label-caps": ["Manrope"],
+                "h2": ["Noto Serif TC"],
+                "body-lg": ["Manrope"]
+            },
+            "fontSize": {
+                "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                "display-italic": ["inherit", {"fontWeight": "400"}],
+                "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f7;
+            color: #1b1c1b;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md bg-background min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-[#fbf9f7] dark:bg-stone-950 border-b border-[#E9E5DB] dark:border-stone-800 flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50 transition-colors duration-300">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#7D8B7E] dark:text-[#94a395] cursor-pointer">menu</span>
+<h1 class="text-xl font-serif font-bold text-[#7D8B7E] dark:text-[#94a395] font-serif tracking-tight">升學大師</h1>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:bg-[#F4F1EA] px-3 py-1 transition-colors" href="#">我的路線</a>
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:bg-[#F4F1EA] px-3 py-1 transition-colors" href="#">學習歷程</a>
+<a class="font-serif text-stone-500 dark:text-stone-400 hover:bg-[#F4F1EA] px-3 py-1 transition-colors" href="#">策略報告</a>
+<a class="font-serif text-[#7D8B7E] dark:text-[#94a395] border-b-2 border-[#7D8B7E] px-3 py-1 transition-colors" href="#">定價方案</a>
+</nav>
+<div class="flex items-center">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a student with a thoughtful expression in a minimalist studio setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb-jH9jcP5rBc1sILFlJ_qqN0O8KNxKwWkGOcDT3oLAnAJeF1a7FPece0rsD0qsuYONGkCRTHt0-xb6BGkIRS4geazkyJvA43aL9RwkYBVYz_tw20OAAN9FF8oKIxZuvRCMkZoPyu49FpMOLIQlg_xLqteU8HokMMdzbJQ7QeeogES1yx_-Vk4QAGgZckRV0MqefAHD6EoXTVxGf2W0kWhBgreGoijflnfCPVvfqJYAc_hHi_2Ifd1asoz6tYTpiBweGtGYyG4123z"/>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-gutter py-xxl">
+<!-- Hero Section -->
+<section class="text-center mb-xl">
+<span class="font-label-caps text-primary tracking-[0.2em] mb-4 block uppercase">Investment in Excellence</span>
+<h2 class="font-h1 text-on-background mb-6">為您的卓越學術旅程選擇合適方案</h2>
+<p class="font-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                我們結合建築學的嚴謹與教育的溫度，為每一位追求卓越的學子量身打造專屬的升學路徑。
+            </p>
+</section>
+<!-- Pricing Cards Vertical Layout -->
+<div class="flex flex-col gap-lg max-w-4xl mx-auto">
+<!-- Basic Plan -->
+<div class="group relative bg-surface-container-low border border-[#E9E5DB] p-xl flex flex-col md:flex-row gap-xl items-center transition-all duration-300 hover:bg-surface-container">
+<div class="flex-1 w-full">
+<span class="font-label-caps text-secondary mb-2 block">ESSENTIAL</span>
+<h3 class="font-h2 text-on-background mb-4">基礎探索方案</h3>
+<p class="font-body-md text-on-surface-variant mb-6">適合剛開始規劃升學路線，需要核心指導與工具的學生。</p>
+<div class="flex flex-wrap gap-x-8 gap-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">年度學習歷程診斷 (1次)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">全台校系數據庫存取權</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">數位策略報告生成</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 text-center md:text-right">
+<div class="mb-4">
+<span class="font-serif text-h3 text-on-background">NT$ 1,980</span>
+<span class="text-outline-variant">/ 年</span>
+</div>
+<button class="w-full md:w-auto px-lg py-sm bg-transparent border border-primary text-primary font-label-caps hover:bg-primary hover:text-on-primary transition-all">
+                        立即開始
+                    </button>
+</div>
+</div>
+<!-- Pro Plan (Most Popular) -->
+<div class="group relative bg-white border-2 border-primary p-xl flex flex-col md:flex-row gap-xl items-center shadow-[0_30px_60px_rgba(125,139,126,0.1)] z-10 scale-[1.02]">
+<!-- Popular Badge -->
+<div class="absolute top-0 right-12 transform -translate-y-1/2 bg-primary px-4 py-1">
+<span class="font-label-caps text-on-primary tracking-widest">最受歡迎選擇</span>
+</div>
+<div class="flex-1 w-full">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-label-caps text-primary block">PROFESSIONAL</span>
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<h3 class="font-h2 text-on-background mb-4">菁英導航方案</h3>
+<p class="font-body-md text-on-surface-variant mb-6">為目標明確的學生提供深度的一對一顧問指導與全程追蹤。</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">每季度顧問深度對談</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">專屬面試模擬工作坊</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">24/7 學術指導線上客服</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">多維度職群測驗分析</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 text-center md:text-right">
+<div class="mb-4 text-primary">
+<span class="font-serif text-h3 font-bold">NT$ 5,800</span>
+<span class="text-outline-variant">/ 年</span>
+</div>
+<button class="w-full md:w-auto px-xl py-sm bg-primary text-on-primary font-label-caps hover:bg-primary-container transition-all">
+                        選擇方案
+                    </button>
+</div>
+</div>
+<!-- Ultimate Plan -->
+<div class="group relative bg-surface-container-low border border-[#E9E5DB] p-xl flex flex-col md:flex-row gap-xl items-center transition-all duration-300 hover:bg-surface-container">
+<div class="flex-1 w-full">
+<span class="font-label-caps text-secondary mb-2 block">ULTIMATE</span>
+<h3 class="font-h2 text-on-background mb-4">大師建築方案</h3>
+<p class="font-body-md text-on-surface-variant mb-6">最高級別的客製化服務，專門針對頂尖頂尖校系申請與國際視野拓展。</p>
+<div class="flex flex-wrap gap-x-8 gap-y-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">首席導師親自指導</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">跨校合作計畫優先權</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">check_circle</span>
+<span class="font-body-md">全程法律與合約諮詢</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-48 text-center md:text-right">
+<div class="mb-4">
+<span class="font-serif text-h3 text-on-background">洽詢顧問</span>
+</div>
+<button class="w-full md:w-auto px-lg py-sm bg-transparent border border-primary text-primary font-label-caps hover:bg-primary hover:text-on-primary transition-all">
+                        聯繫我們
+                    </button>
+</div>
+</div>
+</div>
+<!-- Quote Section -->
+<div class="mt-xxl pt-xl border-t border-[#E9E5DB]">
+<div class="flex flex-col md:flex-row gap-xl items-center">
+<div class="w-full md:w-1/3">
+<div class="aspect-[4/5] bg-surface-variant overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
+<img class="w-full h-full object-cover" data-alt="minimalist architectural library with soft natural light streaming through high windows and shadows on stone walls" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfjYe_71WXVfIOPJwSGO3qY72-Qw_DgKKnSQYiDUB_vxutfPCOKS6YFGicGL6Lcy8vtScK36cc7dAIOxVjWtmSUcihTfIB19coKF9DkB3eY3RpJLHO2tdJbcQw7AofwgtM9GcA7dz4mKyUshGkoJo9w6l14kUQ-I4UwmOJUXex9a1umJ50LkAHhgATXcE2xvbPSs_JpyWGQtV7Tuu1sv36UZiL8mOvZAiAJzXT4lRm6hfWKOQX-oQQvh3AlKzIlXkZQ8PhdAg2iFpP"/>
+</div>
+</div>
+<div class="w-full md:w-2/3 pl-0 md:pl-xl relative">
+<span class="material-symbols-outlined text-primary-fixed text-6xl absolute -top-8 -left-4 opacity-30">format_quote</span>
+<blockquote class="font-serif text-h2 italic text-on-surface-variant leading-relaxed mb-8 border-l-4 border-primary pl-8">
+                        教育不是注滿一桶水，而是點燃一火種。我們的定價方案旨在為每一位有抱負的靈魂提供最穩固的基石。
+                    </blockquote>
+<p class="font-label-caps text-primary">— 升學大師 首席學術顧問</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Navigation Drawer (SideNav Logic) -->
+<div class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[100] hidden" id="drawer">
+<div class="bg-[#F4F1EA] dark:bg-stone-900 h-full w-80 shadow-2xl flex flex-col p-8 slide-in duration-400">
+<div class="flex items-center gap-4 mb-xl">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-surface-variant">
+<img class="w-full h-full object-cover" data-alt="student profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ9r96e0XFSUhG4tjLhZhcDpeJujeuW0BzewkptAbQzNZTS2uO6NbIzwcR1poOkwQY4XPrtTuYvit2De1PKMtxwWYIBLQrJ3mCb6Hz6qleDfvZdOsRp-PUv5WwKxJxEGzo1J8jn3gywhQnwiXEwrOLuenumrBOSfmBGd3WYMRqzne9bJ0bA5WcYj7qvd-FktmK1xatVEXRco047RtpnpZNPRkpltZvJXeGjSTWuEGW0oer-VZ6A3k4rGHLmr6-yTqMk-WtyFZEGCAt"/>
+</div>
+<div>
+<h4 class="font-serif text-lg font-bold text-[#7D8B7E]">學術導航</h4>
+<p class="font-body-md text-xs text-stone-600">追求卓越的建築師</p>
+</div>
+</div>
+<nav class="flex flex-col divide-y divide-[#E9E5DB] dark:divide-stone-800">
+<a class="py-4 flex items-center gap-4 text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-serif">校曆</span>
+</a>
+<a class="py-4 flex items-center gap-4 text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-serif">時光軸</span>
+</a>
+<a class="py-4 flex items-center gap-4 text-stone-600 dark:text-stone-400 hover:bg-[#E9E5DB] transition-colors" href="#">
+<span class="material-symbols-outlined">forum</span>
+<span class="font-serif">面試模擬</span>
+</a>
+<a class="py-4 flex items-center gap-4 bg-[#E9E5DB] dark:bg-stone-800 text-[#7D8B7E] font-semibold" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-serif">定價方案</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#fbf9f7]/90 dark:bg-stone-950/90 backdrop-blur-md border-t border-[#E9E5DB] dark:border-stone-800 shadow-[0_-4px_30px_rgba(125,139,126,0.05)]">
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">我的路線</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">學習歷程</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">統計分析</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#7D8B7E] dark:text-[#94a395] font-bold scale-110 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">方案</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">職群測驗</span>
+</a>
+</nav>
+<footer class="bg-surface-container py-xl text-center border-t border-[#E9E5DB] mb-24 md:mb-0">
+<div class="max-w-container-max mx-auto px-gutter">
+<h1 class="text-xl font-serif font-bold text-[#7D8B7E] mb-4">升學大師</h1>
+<p class="font-label-caps text-outline mb-6">Architectural Excellence in Academic Mentorship</p>
+<div class="flex justify-center gap-lg text-sm text-on-surface-variant font-serif">
+<a class="hover:text-primary transition-colors" href="#">隱私政策</a>
+<a class="hover:text-primary transition-colors" href="#">服務條款</a>
+<a class="hover:text-primary transition-colors" href="#">聯繫我們</a>
+</div>
+<p class="mt-lg text-xs text-outline-variant">© 2024 升學大師. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

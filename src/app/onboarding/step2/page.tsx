@@ -122,41 +122,41 @@ export default function Step2Page() {
     return (
       <div className="max-w-lg mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
             興趣探索
           </h1>
-          <p className="text-gray-500">
+          <p className="text-on-surface-variant">
             還沒有太多經歷沒關係，回答幾個問題幫你找到方向
           </p>
         </div>
 
         <div className="mb-4">
-          <div className="flex justify-between text-xs text-gray-400 mb-2">
+          <div className="flex justify-between text-xs text-on-surface-variant mb-2">
             <span>問題 {currentQuestion + 1} / {INTEREST_QUESTIONS.length}</span>
             <span>{Math.round(((currentQuestion + 1) / INTEREST_QUESTIONS.length) * 100)}%</span>
           </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-surface-container-high rounded-full overflow-hidden">
             <div
-              className="h-full bg-indigo-600 rounded-full transition-all duration-300"
+              className="h-full bg-primary rounded-full transition-all duration-300"
               style={{ width: `${((currentQuestion + 1) / INTEREST_QUESTIONS.length) * 100}%` }}
             />
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm p-6 md:p-8">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">{question.question}</h2>
+        <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
+          <h2 className="font-serif text-lg font-bold text-on-background mb-6">{question.question}</h2>
           <div className="space-y-3">
             {question.options.map(opt => (
               <button
                 key={opt.value}
                 onClick={() => handleInterestAnswer(question.id, opt.value)}
-                className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
+                className={`w-full p-4 rounded-md border-2 text-left transition-all ${
                   answered?.answer === opt.value
-                    ? 'border-indigo-600 bg-indigo-50'
-                    : 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                    ? 'border-primary bg-primary-fixed'
+                    : 'border-[#E9E5DB] hover:border-outline hover:bg-surface-container-low'
                 }`}
               >
-                <span className="font-medium text-gray-900">{opt.label}</span>
+                <span className="font-medium text-on-background">{opt.label}</span>
               </button>
             ))}
           </div>
@@ -166,7 +166,7 @@ export default function Step2Page() {
           {currentQuestion > 0 && (
             <button
               onClick={() => setCurrentQuestion(prev => prev - 1)}
-              className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-600 font-medium hover:bg-gray-50 transition-colors"
+              className="flex-1 py-3 rounded-md border border-[#E9E5DB] text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors cursor-pointer"
             >
               上一題
             </button>
@@ -180,10 +180,10 @@ export default function Step2Page() {
               }
             }}
             disabled={!answered}
-            className={`flex-1 py-3 rounded-xl font-bold transition-all ${
+            className={`flex-1 py-3 rounded-md font-bold transition-all ${
               answered
-                ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                ? 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
+                : 'bg-surface-container-high text-outline cursor-not-allowed'
             }`}
           >
             {isLast ? '查看結果' : '下一題'}
@@ -196,12 +196,12 @@ export default function Step2Page() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
           你已經做了什麼？
         </h1>
-        <p className="text-gray-500">勾選你已經完成的項目，填越多建議越準</p>
+        <p className="text-on-surface-variant">勾選你已經完成的項目，填越多建議越準</p>
         {selectedCount > 0 && (
-          <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full text-sm text-indigo-600 font-medium">
+          <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-primary-fixed rounded-full text-sm text-primary font-medium">
             已選 {selectedCount} 項
           </div>
         )}
@@ -214,20 +214,20 @@ export default function Step2Page() {
           const selectedInCat = templates.filter(t => selectedIds.has(t.id)).length;
 
           return (
-            <div key={cat} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div key={cat} className="bg-white rounded-sm border border-[#E9E5DB]  overflow-hidden">
               <button
                 onClick={() => toggleCategory(cat)}
-                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <h3 className="font-bold text-gray-900">{FACT_CATEGORY_LABELS[cat]}</h3>
+                  <h3 className="font-serif font-bold text-on-background">{FACT_CATEGORY_LABELS[cat]}</h3>
                   {selectedInCat > 0 && (
-                    <span className="text-xs px-2 py-0.5 bg-indigo-100 text-indigo-600 rounded-full font-medium">
+                    <span className="text-xs px-2 py-0.5 bg-primary-100 text-primary rounded-full font-medium">
                       {selectedInCat}
                     </span>
                   )}
                 </div>
-                <span className={`text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
+                <span className={`text-outline transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
                   &#9660;
                 </span>
               </button>
@@ -237,22 +237,22 @@ export default function Step2Page() {
                     const isSelected = selectedIds.has(t.id);
                     return (
                       <div key={t.id}>
-                        <label className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 cursor-pointer transition-colors">
+                        <label className="flex items-start gap-3 p-3 rounded-md hover:bg-surface-container-low cursor-pointer transition-colors">
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleFact(t.id)}
-                            className="mt-0.5 w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            className="mt-0.5 w-5 h-5 rounded border-outline text-primary focus:ring-primary"
                           />
                           <div className="flex-1">
-                            <span className="font-medium text-gray-900 text-sm">{t.label}</span>
+                            <span className="font-medium text-on-background text-sm">{t.label}</span>
                             {isSelected && (
                               <input
                                 type="text"
                                 value={details[t.id] || ''}
                                 onChange={e => setDetails(prev => ({ ...prev, [t.id]: e.target.value }))}
                                 placeholder={t.placeholder}
-                                className="mt-2 w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                                className="mt-2 input text-sm"
                                 onClick={e => e.stopPropagation()}
                               />
                             )}
@@ -271,10 +271,10 @@ export default function Step2Page() {
       <div className="mt-8 space-y-3">
         <button
           onClick={handleNext}
-          className={`w-full py-4 rounded-2xl text-lg font-bold transition-all ${
+          className={`w-full py-4 rounded-sm text-lg font-bold transition-all ${
             selectedCount > 0
-              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg'
-              : 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:from-indigo-700 hover:to-purple-700 shadow-lg'
+              ? 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
+              : 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
           }`}
         >
           {selectedCount > 0 ? `下一步（${selectedCount} 項事實）` : '跳過，直接看結果'}
@@ -282,7 +282,7 @@ export default function Step2Page() {
         {selectedCount === 0 && (
           <button
             onClick={skipToInterest}
-            className="w-full py-3 text-indigo-600 text-sm font-medium hover:underline"
+            className="w-full py-3 text-primary text-sm font-medium hover:underline cursor-pointer"
           >
             沒什麼經歷？改用興趣探索模式
           </button>

@@ -6,39 +6,43 @@ import type { CalendarEvent } from '@/types';
 
 export const NATIONAL_CALENDAR_EVENTS: CalendarEvent[] = [
   // ═══════════════════════════════════════════════
-  // 2026 年上半年 — 114 學年度事件（已過）
+  // 115 學年度（2025-2026）— 進行中
   // ═══════════════════════════════════════════════
 
-  // 統測（114 學年度）
-  { id: 'voc-a1', title: '114 統測報名截止', date: '2026-02-27', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a2', title: '114 統一入學測驗（統測）第一天', date: '2026-04-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a3', title: '114 統一入學測驗（統測）第二天', date: '2026-04-26', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a4', title: '114 統測成績公布', date: '2026-05-20', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  // 統測（115 學年度）— 已確認
+  { id: 'voc-a1', title: '115 統測報名截止', date: '2025-12-17', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a2', title: '115 統測報名結果查詢', date: '2026-01-02', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a3', title: '115 寄發准考證', date: '2026-03-18', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a4', title: '115 公布考試地點', date: '2026-04-15', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a5', title: '115 統一入學測驗（統測）第一天', date: '2026-04-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a6', title: '115 統一入學測驗（統測）第二天', date: '2026-04-26', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a7', title: '115 統測成績查詢', date: '2026-05-14', type: 'exam', isNational: true, learningCodes: [], vocational: true },
 
-  // 四技二專甄選（114 學年度）
-  { id: 'voc-a5', title: '114 四技二專甄選報名截止', date: '2026-06-10', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a6', title: '114 四技二專甄選第一階段篩選', date: '2026-06-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a7', title: '114 四技二專甄選第二階段（備審/面試）', date: '2026-07-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a8', title: '114 四技二專甄選放榜', date: '2026-07-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 四技二專甄選（115 學年度）
+  { id: 'voc-a8', title: '115 四技二專甄選報名截止', date: '2026-06-10', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a9', title: '115 四技二專甄選第一階段篩選', date: '2026-06-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a10', title: '115 四技二專甄選第二階段（備審/面試）', date: '2026-07-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a11', title: '115 四技二專甄選放榜', date: '2026-07-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 聯合登記分發（114 學年度）
-  { id: 'voc-a9', title: '114 聯合登記分發志願填報', date: '2026-07-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a10', title: '114 聯合登記分發放榜', date: '2026-08-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 聯合登記分發（115 學年度）
+  { id: 'voc-a12', title: '115 聯合登記分發志願填報', date: '2026-07-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a13', title: '115 聯合登記分發放榜', date: '2026-08-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 技優保送/甄保（114 學年度）
-  { id: 'voc-a11', title: '114 技優保送/甄保報名截止', date: '2026-03-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a12', title: '114 技優保送/甄保放榜', date: '2026-05-15', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 技優保送/甄保（115 學年度）
+  { id: 'voc-a14', title: '115 技優保送/甄保報名截止', date: '2026-03-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a15', title: '115 技優保送/甄保放榜', date: '2026-05-15', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 科技校院繁星（114 學年度）
-  { id: 'voc-a13', title: '114 科技校院繁星計畫報名', date: '2026-03-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a14', title: '114 科技校院繁星計畫放榜', date: '2026-04-10', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 科技校院繁星（115 學年度）
+  { id: 'voc-a16', title: '115 科技校院繁星計畫報名', date: '2026-03-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a17', title: '115 科技校院繁星計畫放榜', date: '2026-04-10', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 全國技能競賽（114 學年度）
-  { id: 'voc-a15', title: '全國技能競賽區賽（各縣市）', date: '2026-02-15', type: 'competition', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-a16', title: '全國技能競賽決賽', date: '2026-04-20', type: 'competition', isNational: true, learningCodes: [], vocational: true },
+  // 全國技能競賽（115 學年度）
+  { id: 'voc-a18', title: '全國技能競賽區賽（各縣市）', date: '2026-02-15', type: 'competition', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-a19', title: '全國技能競賽決賽', date: '2026-04-20', type: 'competition', isNational: true, learningCodes: [], vocational: true },
 
   // ═══════════════════════════════════════════════
-  // 2026 年下半年 — 115 學年度準備期
+  // 2026 年下半年 — 116 學年度準備期
+  // 日期為合理推估，正式日期以技專校院招生委員會公告為準
   // ═══════════════════════════════════════════════
 
   // 技能檢定（丙級）
@@ -55,45 +59,45 @@ export const NATIONAL_CALENDAR_EVENTS: CalendarEvent[] = [
   { id: 'voc-b7', title: '全國專題實作競賽報名', date: '2026-12-01', type: 'capstone', isNational: true, learningCodes: [], vocational: true },
 
   // ═══════════════════════════════════════════════
-  // 2027 年上半年 — 115 學年度升學關鍵期
+  // 2027 年上半年 — 116 學年度升學關鍵期
   // 日期為合理推估，正式日期以技專校院招生委員會公告為準
   // ═══════════════════════════════════════════════
 
-  // 科技校院繁星（115 學年度）
-  { id: 'voc-c1', title: '115 科技校院繁星計畫報名（推估）', date: '2027-02-15', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c2', title: '115 科技校院繁星計畫放榜（推估）', date: '2027-03-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 科技校院繁星（116 學年度）
+  { id: 'voc-c1', title: '116 科技校院繁星計畫報名（推估）', date: '2027-02-15', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c2', title: '116 科技校院繁星計畫放榜（推估）', date: '2027-03-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 技優保送/甄保（115 學年度）
-  { id: 'voc-c3', title: '115 技優保送/甄保報名（推估）', date: '2027-02-28', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c4', title: '115 技優保送/甄保放榜（推估）', date: '2027-04-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 技優保送/甄保（116 學年度）
+  { id: 'voc-c3', title: '116 技優保送/甄保報名（推估）', date: '2027-02-28', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c4', title: '116 技優保送/甄保放榜（推估）', date: '2027-04-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
   // 技能檢定（上半年）
   { id: 'voc-c5', title: '丙級技術士技能檢定（第四梯次）', date: '2027-01-10', type: 'certification', isNational: true, learningCodes: [], vocational: true },
   { id: 'voc-c6', title: '乙級技術士技能檢定（第三梯次）', date: '2027-02-15', type: 'certification', isNational: true, learningCodes: [], vocational: true },
   { id: 'voc-c7', title: '甲級技術士技能檢定', date: '2027-03-20', type: 'certification', isNational: true, learningCodes: [], vocational: true },
 
-  // 全國技能競賽（115 學年度）
-  { id: 'voc-c8', title: '115 全國技能競賽區賽（各縣市）', date: '2027-03-01', type: 'competition', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c9', title: '115 全國技能競賽決賽（推估）', date: '2027-05-10', type: 'competition', isNational: true, learningCodes: [], vocational: true },
+  // 全國技能競賽（116 學年度）
+  { id: 'voc-c8', title: '116 全國技能競賽區賽（各縣市）', date: '2027-03-01', type: 'competition', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c9', title: '116 全國技能競賽決賽（推估）', date: '2027-05-10', type: 'competition', isNational: true, learningCodes: [], vocational: true },
 
-  // 統測（115 學年度）— 最重要
-  { id: 'voc-c10', title: '115 統測試務說明公告（推估）', date: '2027-02-01', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c11', title: '115 統測報名截止（推估）', date: '2027-03-01', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c12', title: '115 統一入學測驗（統測）第一天（推估）', date: '2027-04-24', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c13', title: '115 統一入學測驗（統測）第二天（推估）', date: '2027-04-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c14', title: '115 統測成績公布（推估）', date: '2027-05-20', type: 'exam', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c15', title: '115 統測成績複查申請截止（推估）', date: '2027-05-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  // 統測（116 學年度）— 最重要
+  { id: 'voc-c10', title: '116 統測試務說明公告（推估）', date: '2027-02-01', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c11', title: '116 統測報名截止（推估）', date: '2027-03-01', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c12', title: '116 統一入學測驗（統測）第一天（推估）', date: '2027-04-24', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c13', title: '116 統一入學測驗（統測）第二天（推估）', date: '2027-04-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c14', title: '116 統測成績公布（推估）', date: '2027-05-20', type: 'exam', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c15', title: '116 統測成績複查申請截止（推估）', date: '2027-05-25', type: 'exam', isNational: true, learningCodes: [], vocational: true },
 
-  // 四技二專甄選（115 學年度）
-  { id: 'voc-c16', title: '115 四技二專甄選報名截止（推估）', date: '2027-06-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c17', title: '115 四技二專甄選第一階段篩選（推估）', date: '2027-06-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c18', title: '115 四技二專甄選第二階段備審資料繳交（推估）', date: '2027-06-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c19', title: '115 四技二專甄選面試開始（推估）', date: '2027-07-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c20', title: '115 四技二專甄選放榜（推估）', date: '2027-07-18', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 四技二專甄選（116 學年度）
+  { id: 'voc-c16', title: '116 四技二專甄選報名截止（推估）', date: '2027-06-05', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c17', title: '116 四技二專甄選第一階段篩選（推估）', date: '2027-06-20', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c18', title: '116 四技二專甄選第二階段備審資料繳交（推估）', date: '2027-06-25', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c19', title: '116 四技二專甄選面試開始（推估）', date: '2027-07-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c20', title: '116 四技二專甄選放榜（推估）', date: '2027-07-18', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 
-  // 聯合登記分發（115 學年度）
-  { id: 'voc-c21', title: '115 聯合登記分發志願填報（推估）', date: '2027-07-22', type: 'activity', isNational: true, learningCodes: [], vocational: true },
-  { id: 'voc-c22', title: '115 聯合登記分發放榜（推估）', date: '2027-08-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  // 聯合登記分發（116 學年度）
+  { id: 'voc-c21', title: '116 聯合登記分發志願填報（推估）', date: '2027-07-22', type: 'activity', isNational: true, learningCodes: [], vocational: true },
+  { id: 'voc-c22', title: '116 聯合登記分發放榜（推估）', date: '2027-08-01', type: 'activity', isNational: true, learningCodes: [], vocational: true },
 ];
 
 export const EVENT_TYPE_LABELS: Record<string, string> = {

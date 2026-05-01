@@ -91,14 +91,14 @@ export default function Step3Page() {
   if (!loaded || aiLoading) {
     return (
       <div className="text-center py-16">
-        <div className="animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4" />
-        <p className="text-gray-500">
+        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
+        <p className="text-on-surface-variant">
           {aiLoading ? 'AI 正在分析你的資料，為你找到更精準的方向...' : '分析中...'}
         </p>
         {aiLoading && (
           <div className="mt-4 flex justify-center">
-            <div className="w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full animate-pulse" style={{ width: '60%' }} />
+            <div className="w-48 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+              <div className="h-full bg-gradient-to-r from-primary-fixed0 to-tertiary rounded-full animate-pulse" style={{ width: '60%' }} />
             </div>
           </div>
         )}
@@ -109,10 +109,10 @@ export default function Step3Page() {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="text-center mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
           你的方向推導結果
         </h1>
-        <p className="text-gray-500">
+        <p className="text-on-surface-variant">
           {isInterestMode
             ? '根據你的興趣分析，以下方向可能適合你'
             : factCount < 3
@@ -122,10 +122,10 @@ export default function Step3Page() {
       </div>
 
       {directions.length === 0 ? (
-        <div className="bg-white rounded-2xl p-8 text-center border border-gray-100 shadow-sm">
-          <div className="text-4xl mb-4">🤔</div>
-          <h2 className="text-lg font-bold text-gray-900 mb-2">資料不足，無法推導</h2>
-          <p className="text-gray-500 text-sm mb-6">
+        <div className="bg-surface-container-low border border-[#E9E5DB] p-xl text-center">
+          <div className="mb-4"><span className="material-symbols-outlined text-[32px]">help</span></div>
+          <h2 className="font-serif text-lg font-bold text-on-background mb-2">資料不足，無法推導</h2>
+          <p className="text-on-surface-variant text-sm mb-6">
             {factCount > 0
               ? `你已填寫 ${factCount} 項事實，但需要更具体的內容。請回到上一步，在每個項目旁的文字框中填寫具体技能名稱、專題主題等細節。`
               : '請回上一步至少填寫 1-2 項事實，或切換到興趣探索模式。'}
@@ -133,13 +133,13 @@ export default function Step3Page() {
           <div className="flex gap-3 justify-center">
             <button
               onClick={() => router.push('/onboarding/step2')}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
+              className="px-6 py-3 bg-primary text-white font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer"
             >
               回上一步補填
             </button>
             <button
               onClick={() => router.push('/onboarding/step2')}
-              className="px-6 py-3 border border-gray-200 text-gray-600 rounded-xl font-medium hover:bg-gray-50 transition-colors"
+              className="px-6 py-3 border border-[#E9E5DB] text-on-surface-variant rounded-md font-medium hover:bg-surface-container-low transition-colors"
             >
               興趣探索模式
             </button>
@@ -151,48 +151,48 @@ export default function Step3Page() {
             const relatedCategories = VOCATIONAL_CATEGORIES.filter(cat =>
               dir.relatedCategoryIds.includes(cat.id)
             );
-            const groupColor = VOCATIONAL_GROUP_COLORS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+            const groupColor = VOCATIONAL_GROUP_COLORS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-surface-container text-on-background';
             const groupLabel = VOCATIONAL_GROUP_LABELS[dir.directionGroup as keyof typeof VOCATIONAL_GROUP_LABELS] || dir.directionGroup;
             const confidencePercent = Math.round(dir.confidence * 100);
 
             return (
               <div
                 key={dir.direction}
-                className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 hover:shadow-md transition-shadow"
+                className="bg-surface-container-low border border-[#E9E5DB] p-xl hover:border-primary/30 transition-colors"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-sm">
+                    <div className="w-10 h-10 rounded-md bg-primary-100 text-primary flex items-center justify-center font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
-                      <h3 className="font-bold text-gray-900">{dir.direction}</h3>
+                      <h3 className="font-serif font-bold text-on-background">{dir.direction}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${groupColor}`}>
                         {groupLabel}
                       </span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold text-indigo-600">{confidencePercent}%</div>
-                    <div className="text-xs text-gray-400">匹配度</div>
+                    <div className="text-lg font-bold text-primary">{confidencePercent}%</div>
+                    <div className="text-xs text-on-surface-variant">匹配度</div>
                   </div>
                 </div>
 
                 {/* Confidence bar */}
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden mb-3">
+                <div className="h-2 bg-surface-container rounded-full overflow-hidden mb-3">
                   <div
-                    className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-500"
+                    className="h-full bg-gradient-to-r from-primary-fixed0 to-tertiary rounded-full transition-all duration-500"
                     style={{ width: `${confidencePercent}%` }}
                   />
                 </div>
 
                 {/* Reasons */}
                 <div className="mb-3">
-                  <h4 className="text-xs font-medium text-gray-500 mb-1">推薦原因</h4>
+                  <h4 className="font-serif text-xs font-medium text-on-surface-variant mb-1">推薦原因</h4>
                   <ul className="space-y-1">
                     {dir.reasons.map((reason, i) => (
-                      <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
-                        <span className="text-indigo-400 mt-0.5 flex-shrink-0">&#9679;</span>
+                      <li key={i} className="text-sm text-on-background flex items-start gap-2">
+                        <span className="text-primary mt-0.5 flex-shrink-0">&#9679;</span>
                         {reason}
                       </li>
                     ))}
@@ -201,15 +201,15 @@ export default function Step3Page() {
 
                 {/* Related vocational categories preview */}
                 {relatedCategories.length > 0 && (
-                  <div className="pt-3 border-t border-gray-100">
-                    <h4 className="text-xs font-medium text-gray-500 mb-2">相關職群</h4>
+                  <div className="pt-3 border-t border-[#E9E5DB]">
+                    <h4 className="font-serif text-xs font-medium text-on-surface-variant mb-2">相關職群</h4>
                     <div className="space-y-2">
                       {relatedCategories.slice(0, 4).map(cat => {
-                        const catGroupColor = VOCATIONAL_GROUP_COLORS[cat.group as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-gray-100 text-gray-700';
+                        const catGroupColor = VOCATIONAL_GROUP_COLORS[cat.group as keyof typeof VOCATIONAL_GROUP_COLORS] || 'bg-surface-container text-on-background';
                         const catGroupLabel = VOCATIONAL_GROUP_LABELS[cat.group as keyof typeof VOCATIONAL_GROUP_LABELS] || cat.group;
                         return (
                           <div key={cat.id} className="flex flex-wrap items-center gap-1.5">
-                            <span className="text-xs font-medium text-gray-800 px-2 py-1 bg-gray-50 rounded-lg">
+                            <span className="text-xs font-medium text-on-background px-2 py-1 bg-surface-container-low rounded-lg">
                               {cat.name}
                             </span>
                             <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${catGroupColor}`}>
@@ -226,16 +226,16 @@ export default function Step3Page() {
           })}
 
           {aiUsed && (
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4 text-center">
-              <p className="text-sm text-blue-700">
+            <div className="bg-primary-fixed border border-primary/20 rounded-sm p-4 text-center">
+              <p className="text-sm text-primary">
                 結合規則引擎與 AI 分析，為你提供更精準的方向推薦。
               </p>
             </div>
           )}
 
           {factCount < 3 && !isInterestMode && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-center">
-              <p className="text-sm text-amber-700">
+            <div className="bg-warning-container border border-warning-container rounded-sm p-4 text-center">
+              <p className="text-sm text-warning">
                 填寫更多事實可以讓推薦更準確。
                 <button
                   onClick={() => router.push('/onboarding/step2')}
@@ -249,7 +249,7 @@ export default function Step3Page() {
 
           <button
             onClick={() => router.push('/onboarding/step4')}
-            className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-bold hover:from-indigo-700 hover:to-purple-700 shadow-lg transition-all"
+            className="w-full py-4 rounded-sm bg-gradient-to-r from-primary to-tertiary text-white text-lg font-bold hover:from-indigo-700 hover:to-purple-700  transition-all"
           >
             深入探索這些方向
           </button>

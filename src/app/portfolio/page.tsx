@@ -7,6 +7,8 @@ import {
   CERTIFICATION_LEVEL_ORDER, QUALITY_GRADE_LABELS,
 } from '@/types';
 import { VOCATIONAL_GROUP_LABELS } from '@/data/vocational-categories';
+import { CAPSTONE_TEMPLATES } from '@/data/capstone-templates';
+import type { CapstoneTemplate } from '@/data/capstone-templates';
 import { loadFromStorage, saveToStorage, generateId } from '@/lib/storage';
 import type {
   SkillItem, SkillCategory, CertificationLevel,
@@ -22,25 +24,18 @@ const ALL_CATEGORIES: SkillCategory[] = [
   'club', 'license', 'service',
 ];
 
-const CAT_BG: Record<SkillCategory, string> = {
-  capstone: 'bg-rose-50 border-rose-200', certification: 'bg-amber-50 border-amber-200',
-  internship: 'bg-blue-50 border-blue-200', competition: 'bg-purple-50 border-purple-200',
-  club: 'bg-emerald-50 border-emerald-200', license: 'bg-cyan-50 border-cyan-200',
-  service: 'bg-pink-50 border-pink-200',
-};
-
-const CAT_ACTIVE: Record<SkillCategory, string> = {
-  capstone: 'border-rose-400 bg-rose-100', certification: 'border-amber-400 bg-amber-100',
-  internship: 'border-blue-400 bg-blue-100', competition: 'border-purple-400 bg-purple-100',
-  club: 'border-emerald-400 bg-emerald-100', license: 'border-cyan-400 bg-cyan-100',
-  service: 'border-pink-400 bg-pink-100',
-};
-
 const STATUS_LABELS: Record<CapstoneStatus, string> = { planning: '籌備中', 'in-progress': '進行中', completed: '已完成', awarded: '獲獎' };
-const STATUS_COLORS: Record<CapstoneStatus, string> = { planning: 'bg-gray-100 text-gray-600', 'in-progress': 'bg-blue-100 text-blue-700', completed: 'bg-green-100 text-green-700', awarded: 'bg-yellow-100 text-yellow-700' };
-const COMP_COLORS: Record<CompetitionLevel, string> = { '校內': 'bg-gray-100 text-gray-600', '區賽': 'bg-blue-100 text-blue-700', '全國': 'bg-purple-100 text-purple-700', '國際': 'bg-amber-100 text-amber-700' };
-const GRADE_COLORS: Record<QualityGrade, string> = { A: 'bg-green-100 text-green-700', B: 'bg-blue-100 text-blue-700', C: 'bg-yellow-100 text-yellow-700', D: 'bg-red-100 text-red-700' };
-const CERT_COLORS: Record<CertificationLevel, string> = { '丙級': 'bg-green-100 text-green-700', '乙級': 'bg-blue-100 text-blue-700', '甲級': 'bg-purple-100 text-purple-700', '單一級': 'bg-amber-100 text-amber-700' };
+const STATUS_COLORS: Record<CapstoneStatus, string> = { planning: 'bg-surface-container text-on-surface-variant', 'in-progress': 'bg-primary-fixed text-primary', completed: 'bg-success-container text-success', awarded: 'bg-warning-container text-warning' };
+const COMP_COLORS: Record<CompetitionLevel, string> = { '校內': 'bg-surface-container text-on-surface-variant', '區賽': 'bg-primary-fixed text-primary', '全國': 'bg-tertiary-fixed text-tertiary', '國際': 'bg-warning-container text-warning' };
+const GRADE_COLORS: Record<QualityGrade, string> = { A: 'bg-success-container text-success', B: 'bg-primary-fixed text-primary', C: 'bg-warning-container text-warning', D: 'bg-error-container text-error' };
+const CERT_COLORS: Record<CertificationLevel, string> = { '丙級': 'bg-success-container text-success', '乙級': 'bg-primary-fixed text-primary', '甲級': 'bg-tertiary-fixed text-tertiary', '單一級': 'bg-warning-container text-warning' };
+
+// ── Demo Data ────────────────────────────────────────────────────────────────
+
+const DEMO_PORTFOLIO = {
+  featuredImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB3BN6aV75K_Rb0vgoCm6wOOleYbv8PMNCFS4Rvv8YZ7WD4AljHJe9ppXNbvL0VwWM4ZJ_blmROYR_jY5ZgI1urRxuax-vAipAwCom6Uh2CH8Od8yjKU6cI-bMxcqZWkL8W4W8Bn5mLbXA24bwawoTitVN8x8z3dRLShWdY81RfRKOPSOhsi56ZnrlcsHoRld7Lj8H7TP56HSehCWpfAyZ1IqtLXD1YIULCuzJJpbJ1PCB24LAGDQfu26HugFOR1bwWe4IOsFcWwnQj',
+  workspaceImage: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB0jm5ri4psK3XFU8n870Iq_JpwarI8YeTSUdxfLRnGZIcf5tTE8cMZ1UvWDcxITBxiGcExr9Ccez7HiLJLMef-iPc52gQ21y5Hz1wNnS0w0tqRvdxyVP7gD9jEm26Y4EqcdEBW0HiouhbmNmJY6FiCOT35_AVwD9gIK74xX5QUZqGN3o9o_NzrCQsSC5CH6KAxwJOb-8i3EHoKwMj5_USysASCKxb5rofSHPvX1-GvxbFo-ePj5Ybce31334UCi504PA2JV-CMUwec',
+};
 
 // ── Data-driven badge definitions for CategoryDetail ────────────────────────
 
@@ -49,40 +44,40 @@ type BadgeDef = { key: keyof SkillItem; colorCls?: string; fallback?: string; fo
 const CATEGORY_BADGES: Record<SkillCategory, BadgeDef[]> = {
   capstone: [
     { key: 'capstoneTopic' },
-    { key: 'capstoneRole', colorCls: 'bg-gray-100 text-gray-500' },
+    { key: 'capstoneRole', colorCls: 'bg-surface-container text-on-surface-variant' },
     { key: 'capstoneStatus', colorCls: '', format: (v) => STATUS_LABELS[v as CapstoneStatus] },
   ],
   certification: [
     { key: 'certificationName' },
     { key: 'certificationLevel', colorCls: '', format: (v) => v as string },
-    { key: 'certificationScore', colorCls: 'bg-gray-100 text-gray-500', format: (v) => `${v} 分` },
+    { key: 'certificationScore', colorCls: 'bg-surface-container text-on-surface-variant', format: (v) => `${v} 分` },
   ],
   competition: [
     { key: 'competitionName' },
     { key: 'competitionLevel', colorCls: '', format: (v) => v as string },
-    { key: 'competitionResult', colorCls: 'bg-green-50 text-green-700' },
+    { key: 'competitionResult', colorCls: 'bg-success-container text-success' },
   ],
   internship: [
     { key: 'internshipCompany' },
-    { key: 'internshipDuration', colorCls: 'bg-gray-100 text-gray-500' },
-    { key: 'internshipRole', colorCls: 'bg-blue-50 text-blue-600' },
+    { key: 'internshipDuration', colorCls: 'bg-surface-container text-on-surface-variant' },
+    { key: 'internshipRole', colorCls: 'bg-primary-fixed text-primary' },
   ],
-  club: [{ key: 'clubRole', colorCls: 'bg-emerald-50 text-emerald-600' }],
+  club: [{ key: 'clubRole', colorCls: 'bg-success-container text-success' }],
   license: [
     { key: 'licenseName' },
-    { key: 'licenseIssuer', colorCls: 'bg-cyan-50 text-cyan-600' },
+    { key: 'licenseIssuer', colorCls: 'bg-primary-fixed text-primary' },
   ],
   service: [
-    { key: 'serviceHours', colorCls: 'bg-pink-50 text-pink-600', format: (v) => `${v} 小時` },
-    { key: 'serviceOrganization', colorCls: 'bg-gray-100 text-gray-500' },
+    { key: 'serviceHours', colorCls: 'bg-secondary-container text-secondary', format: (v) => `${v} 小時` },
+    { key: 'serviceOrganization', colorCls: 'bg-surface-container text-on-surface-variant' },
   ],
 };
 
 function getBadgeColor(key: keyof SkillItem, value: unknown): string {
-  if (key === 'capstoneStatus') return STATUS_COLORS[value as CapstoneStatus] || 'bg-gray-100 text-gray-600';
-  if (key === 'certificationLevel') return CERT_COLORS[value as CertificationLevel] || 'bg-gray-100 text-gray-600';
-  if (key === 'competitionLevel') return COMP_COLORS[value as CompetitionLevel] || 'bg-gray-100 text-gray-600';
-  return 'bg-gray-100 text-gray-600';
+  if (key === 'capstoneStatus') return STATUS_COLORS[value as CapstoneStatus] || 'bg-surface-container text-on-surface-variant';
+  if (key === 'certificationLevel') return CERT_COLORS[value as CertificationLevel] || 'bg-surface-container text-on-surface-variant';
+  if (key === 'competitionLevel') return COMP_COLORS[value as CompetitionLevel] || 'bg-surface-container text-on-surface-variant';
+  return 'bg-surface-container text-on-surface-variant';
 }
 
 // ── Data-driven form field definitions ───────────────────────────────────────
@@ -188,8 +183,6 @@ function generateDraft(item: SkillItem, profile: OnboardingProfile | null): stri
 
 // ── Shared UI helpers ────────────────────────────────────────────────────────
 
-const INPUT_CLS = 'w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none text-sm';
-const LABEL_CLS = 'block text-sm font-medium text-gray-700 mb-1';
 const BADGE_CLS = 'text-xs px-2 py-0.5 rounded-md';
 
 function BadgeList({ item }: { item: SkillItem }) {
@@ -215,12 +208,12 @@ function FormFields({ category, form, update }: { category: SkillCategory; form:
     <>
       {fields.map(f => (
         <div key={f.key}>
-          <label className={LABEL_CLS}>{f.label}</label>
+          <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">{f.label}</label>
           {f.type === 'select' ? (
             <select
               value={(form[f.key] as string) || (f.options?.[0]?.value ?? '')}
               onChange={e => update({ [f.key]: e.target.value })}
-              className={INPUT_CLS}
+              className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm"
             >
               {f.options?.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
             </select>
@@ -230,7 +223,7 @@ function FormFields({ category, form, update }: { category: SkillCategory; form:
               value={f.type === 'number' ? (form[f.key] as number | undefined ?? '') : (form[f.key] as string) || ''}
               onChange={e => update({ [f.key]: f.type === 'number' ? (e.target.value ? Number(e.target.value) : undefined) : e.target.value })}
               placeholder={f.placeholder}
-              className={INPUT_CLS}
+              className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm"
             />
           )}
         </div>
@@ -242,12 +235,12 @@ function FormFields({ category, form, update }: { category: SkillCategory; form:
 function DraftDisplay({ draft }: { draft: string }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="mt-3 border-t border-gray-100 pt-3">
-      <button onClick={() => setOpen(v => !v)} className="text-xs text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+    <div className="mt-3 border-t border-[#E9E5DB] pt-3">
+      <button onClick={() => setOpen(v => !v)} className="text-xs text-primary hover:text-primary font-medium flex items-center gap-1 cursor-pointer">
         {open ? '收起備審素材' : '展開備審素材'}
         <span className={`transition-transform ${open ? 'rotate-180' : ''}`}>▾</span>
       </button>
-      {open && <pre className="mt-2 text-xs text-gray-700 bg-gray-50 rounded-lg p-3 whitespace-pre-wrap leading-relaxed">{draft}</pre>}
+      {open && <pre className="mt-2 text-xs text-on-surface bg-surface-container-low p-3 whitespace-pre-wrap leading-relaxed rounded-sm">{draft}</pre>}
     </div>
   );
 }
@@ -255,6 +248,7 @@ function DraftDisplay({ draft }: { draft: string }) {
 // ── Main Page ───────────────────────────────────────────────────────────────
 
 export default function SkillJourneyPage() {
+  const [mode, setMode] = useState<'demo' | 'live'>('demo');
   const [items, setItems] = useState<SkillItem[]>([]);
   const [filterCat, setFilterCat] = useState<SkillCategory | 'ALL'>('ALL');
   const [showForm, setShowForm] = useState(false);
@@ -267,6 +261,21 @@ export default function SkillJourneyPage() {
   const [suggestion, setSuggestion] = useState<{ missingCategories: SkillCategory[]; suggestions: string[]; priority: string } | null>(null);
   const [loadingSuggestion, setLoadingSuggestion] = useState(false);
   const [showSuggestion, setShowSuggestion] = useState(false);
+
+  // E1: AI Review state
+  const [reviewItem, setReviewItem] = useState<SkillItem | null>(null);
+  const [reviewResult, setReviewResult] = useState<{
+    overallScore: number;
+    dimensions: { name: string; score: number; feedback: string; suggestions: string[] }[];
+    summary: string;
+    improved: string;
+    usedAI: boolean;
+  } | null>(null);
+  const [reviewLoading, setReviewLoading] = useState(false);
+
+  // E2: Template library state
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [selectedTemplate, setSelectedTemplate] = useState<CapstoneTemplate | null>(null);
 
   useEffect(() => {
     setItems(loadFromStorage<SkillItem[]>(STORAGE_KEY, []));
@@ -309,6 +318,51 @@ export default function SkillJourneyPage() {
     setShowSuggestion(true);
   }
 
+  async function handleReview(item: SkillItem) {
+    setReviewItem(item);
+    setReviewResult(null);
+    setReviewLoading(true);
+    const dir = profile?.selectedDirections[0] || '';
+    try {
+      const res = await fetch('/api/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          content: item.description || item.title,
+          category: item.category,
+          directionGroup: dir,
+          useAI: isPro,
+        }),
+      });
+      const data = await res.json();
+      setReviewResult(data.error ? null : data);
+    } catch {
+      setReviewResult(null);
+    }
+    setReviewLoading(false);
+  }
+
+  function handleUseTemplate(tpl: CapstoneTemplate) {
+    const draft = [
+      `【情境】${tpl.situation}`,
+      `【任務】${tpl.task}`,
+      `【行動】${tpl.action.map(a => a).join('\n')}`,
+      `【結果】${tpl.result}`,
+    ].join('\n');
+    setForm({
+      ...createEmptyItem('capstone'),
+      title: tpl.title,
+      description: draft,
+      category: 'capstone',
+      capstoneTopic: tpl.title,
+      capstoneStatus: 'planning',
+    });
+    setFormCat('capstone');
+    setShowTemplates(false);
+    setSelectedTemplate(null);
+    setShowForm(true);
+  }
+
   const filtered = useMemo(() => {
     const sorted = [...items].sort((a, b) => b.date.localeCompare(a.date));
     return filterCat === 'ALL' ? sorted : sorted.filter(i => i.category === filterCat);
@@ -324,31 +378,171 @@ export default function SkillJourneyPage() {
   const covered = ALL_CATEGORIES.filter(c => catCounts[c] > 0).length;
   const pct = Math.round((covered / ALL_CATEGORIES.length) * 100);
 
+  // ── Demo View ────────────────────────────────────────────────────────────
+
+  if (mode === 'demo') {
+    return (
+      <div className="page-container">
+        {/* Demo Banner */}
+        <div className="bg-primary-fixed border border-primary/20 px-lg py-sm mb-xl flex items-center justify-between">
+          <p className="text-sm text-on-primary-fixed-variant">此為範例作品集。完成 onboarding 並記錄技能後，將顯示你的個人學習歷程。</p>
+          <button onClick={() => setMode('live')} className="bg-primary text-white px-6 py-2 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer shrink-0">
+            查看我的作品集
+          </button>
+        </div>
+
+        {/* Hero Title Section */}
+        <section className="mb-xxl text-center md:text-left">
+          <div className="inline-block border-l-4 border-primary pl-lg mb-md">
+            <span className="font-label-caps text-primary tracking-[0.2em] uppercase block">Portfolio 2024</span>
+          </div>
+          <h2 className="font-h1 text-h1 text-on-surface mb-md serif-tracking">我學會的事</h2>
+          <p className="font-body-lg text-on-surface-variant max-w-[42rem]">
+            這是一段關於建築、邏輯與美學的探索旅程。透過每一項專題實作與技能檢定，我不僅磨練了技術，更建立了對未來空間設計的深刻見解。
+          </p>
+        </section>
+
+        {/* Bento Grid Portfolio */}
+        <div className="grid grid-cols-12 gap-gutter">
+          {/* Featured Project: Asymmetric Large Card */}
+          <div className="col-span-12 md:col-span-8 bg-surface-container-low border border-[#E9E5DB] relative group overflow-hidden">
+            <div className="flex flex-col h-full">
+              <div className="w-full aspect-[16/9] overflow-hidden">
+                <img
+                  alt="專題實作"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  src={DEMO_PORTFOLIO.featuredImage}
+                />
+              </div>
+              <div className="p-xl">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="font-h3 text-primary">01</span>
+                  <span className="h-px w-12 bg-outline-variant" />
+                  <span className="font-label-caps text-on-surface-variant">專題實作</span>
+                </div>
+                <h3 className="font-h2 text-h2 mb-4">幾何共生：永續社區模型研究</h3>
+                <p className="font-body-md text-on-surface-variant mb-6">
+                  探討垂直綠化與都市高密度住宅的平衡點。運用 Rhino 建模與 3D 列印技術，完成比例 1:100 的模組化住宅原型，並獲得校內優等獎。
+                </p>
+                <button className="bg-primary text-white font-label-caps px-6 py-3 tracking-widest hover:opacity-90 transition-opacity cursor-pointer">
+                  查看完整專題
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Side Card: Skills */}
+          <div className="col-span-12 md:col-span-4 flex flex-col gap-gutter">
+            <div className="bg-primary-fixed p-xl flex-1 border border-[#E9E5DB]">
+              <span className="font-label-caps text-on-primary-fixed-variant mb-gutter block">技能檢定</span>
+              <h3 className="font-h3 text-h3 text-on-primary-fixed mb-4">AutoCAD 室內設計乙級</h3>
+              <p className="font-body-md text-on-primary-fixed-variant mb-gutter">
+                精通二維製圖與空間佈局，具備精確標註與圖層管理專業能力。
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-white/50 text-primary text-xs font-bold rounded-sm">2023 取得</span>
+                <span className="px-3 py-1 bg-white/50 text-primary text-xs font-bold rounded-sm">高分合格</span>
+              </div>
+            </div>
+            <div className="bg-surface-container-highest p-xl flex-1 border border-[#E9E5DB]">
+              <span className="font-label-caps text-secondary mb-gutter block">學術成就</span>
+              <h3 className="font-h3 text-h3 text-on-surface mb-4">建築史專題論文</h3>
+              <p className="font-body-md text-on-surface-variant">
+                論現代主義在東亞建築中的轉譯：從材料到精神空間的轉變。
+              </p>
+            </div>
+          </div>
+
+          {/* Bento Bottom Row */}
+          <div className="col-span-12 md:col-span-5 bg-surface-container border border-[#E9E5DB] p-xl">
+            <div className="flex items-start gap-4 mb-gutter">
+              <span className="material-symbols-outlined text-primary text-3xl">psychology</span>
+              <div>
+                <h4 className="font-h3 text-h3 mb-2">職群測驗分析</h4>
+                <p className="font-body-md text-on-surface-variant">
+                  測驗結果顯示於「藝術」與「研究」型人格具有高度適配性，並能同時兼顧美感與工程邏輯。
+                </p>
+              </div>
+            </div>
+            <div className="mt-8 pt-8 border-t border-[#E9E5DB]">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-label-caps text-on-surface">空間設計能力</span>
+                <span className="font-body-md text-primary">95%</span>
+              </div>
+              <div className="w-full h-1 bg-surface-container-highest">
+                <div className="h-full bg-primary" style={{ width: '95%' }} />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-span-12 md:col-span-7 relative overflow-hidden aspect-[16/10] md:aspect-auto min-h-[300px]">
+            <img
+              alt="學習歷程記錄"
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              src={DEMO_PORTFOLIO.workspaceImage}
+            />
+            <div className="absolute bottom-0 right-0 bg-[#fbf9f7] p-md border-t-l border-l border-[#E9E5DB]">
+              <p className="font-display-italic italic text-primary">&ldquo;建築是凝固的音樂，而我是譜曲的人。&rdquo;</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Quote Section */}
+        <section className="py-xxl mt-xxl border-t border-[#E9E5DB]">
+          <div className="max-w-[48rem]">
+            <div className="flex gap-4 mb-4">
+              <span className="material-symbols-outlined text-primary text-4xl opacity-30">format_quote</span>
+            </div>
+            <blockquote className="font-h2 text-h2 italic text-on-surface leading-relaxed mb-gutter">
+              在沐禾的學習時光，讓我學會的不只是工具的使用，而是如何透過建築的眼光，去觀察這個世界的細微變化與結構。
+            </blockquote>
+            <div className="flex items-center gap-4">
+              <span className="w-12 h-0.5 bg-primary" />
+              <cite className="font-label-caps not-italic text-on-surface-variant uppercase tracking-widest">追求卓越的建築師 · 李慕白</cite>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
+
+  // ── Live View ────────────────────────────────────────────────────────────
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12">
+    <div className="page-container">
       {toast && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-sm px-5 py-2.5 rounded-xl shadow-lg animate-pulse">
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white text-sm px-5 py-2.5 rounded-md animate-pulse">
           {toast}
         </div>
       )}
 
+      {/* Back to demo */}
+      <button
+        onClick={() => setMode('demo')}
+        className="mb-lg text-primary hover:underline font-label-caps text-label-caps cursor-pointer"
+      >
+        &larr; 返回範例作品集
+      </button>
+
       {/* Header */}
-      <div className="text-center mb-10">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">技能旅程</h1>
-        <p className="text-gray-500">追蹤你的專題實作、技能檢定、實習和競賽</p>
-      </div>
+      <section className="mb-xl">
+        <div className="border-l-4 border-primary pl-lg py-sm">
+          <span className="font-label-caps text-primary uppercase tracking-widest block mb-xs">PORTFOLIO</span>
+          <h1 className="font-h1 text-h1 text-on-surface">我學會的事</h1>
+        </div>
+      </section>
 
       {/* Coverage Overview */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-bold text-gray-900">技能覆蓋率</h3>
+      <div className="bg-surface-container-low border border-[#E9E5DB] p-xl mb-xxl">
+        <div className="flex items-center justify-between mb-lg">
+          <h3 className="font-h3 text-h3 text-on-surface">你已經累積的技能</h3>
           <div className="text-right">
-            <span className="text-2xl font-bold text-indigo-600">{pct}%</span>
-            <span className="text-sm text-gray-400 ml-1">({covered}/{ALL_CATEGORIES.length})</span>
+            <span className="font-h2 text-h2 text-primary">{pct}%</span>
+            <span className="text-sm text-on-surface-variant ml-1">({covered}/{ALL_CATEGORIES.length})</span>
           </div>
         </div>
-        <div className="h-3 bg-gray-100 rounded-full overflow-hidden mb-4">
-          <div className="h-full bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-full transition-all" style={{ width: pct + '%' }} />
+        <div className="h-3 bg-surface-container rounded-full overflow-hidden mb-lg">
+          <div className="h-full bg-primary rounded-full transition-all" style={{ width: pct + '%' }} />
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3">
           {ALL_CATEGORIES.map(cat => {
@@ -357,12 +551,12 @@ export default function SkillJourneyPage() {
             const has = count > 0;
             return (
               <button key={cat} onClick={() => setFilterCat(active ? 'ALL' : cat)}
-                className={'p-3 rounded-xl border text-left transition-colors ' + (active ? CAT_ACTIVE[cat] : has ? CAT_BG[cat] : 'border-gray-100 hover:border-gray-200')}>
+                className={'p-3 rounded-sm border text-left transition-colors cursor-pointer ' + (active ? 'border-primary bg-primary-fixed text-primary' : has ? 'border-[#E9E5DB] bg-surface-container hover:border-primary/30' : 'border-[#E9E5DB] hover:border-[#E9E5DB]')}>
                 <div className="text-lg mb-1">{SKILL_CATEGORY_ICONS[cat]}</div>
-                <div className="text-xs font-medium text-gray-700 mb-1.5">{SKILL_CATEGORY_LABELS[cat]}</div>
+                <div className="text-xs font-medium text-on-surface mb-1.5">{SKILL_CATEGORY_LABELS[cat]}</div>
                 <div className="flex items-center justify-between">
-                  <span className={'text-xs font-bold ' + (has ? 'text-green-600' : 'text-gray-300')}>{count}</span>
-                  {has && <span className="text-green-500 text-xs">✓</span>}
+                  <span className={'text-xs font-bold ' + (has ? 'text-primary' : 'text-outline')}>{count}</span>
+                  {has && <span className="text-primary text-xs">✓</span>}
                 </div>
               </button>
             );
@@ -371,11 +565,11 @@ export default function SkillJourneyPage() {
       </div>
 
       {/* AI Suggestion */}
-      <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+      <div className="bg-surface-container-low border border-[#E9E5DB] p-xl mb-xxl">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-bold text-gray-900">AI 技能建議</h3>
-            <p className="text-sm text-gray-500">根據你的科別和已有技能，建議下一步該補什麼</p>
+            <h3 className="font-h3 text-h3 text-on-surface">AI 建議下一步</h3>
+            <p className="text-sm text-on-surface-variant">看看你還缺什麼，下一步可以做什麼</p>
           </div>
           {!isPro ? (
             <div className="flex items-center gap-2">
@@ -394,14 +588,14 @@ export default function SkillJourneyPage() {
                   ],
                   priority: '先從專題實作和技能檢定開始，這兩類技能在四技二專甄選中最受重視。',
                 });
-              }} className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors">
+              }} className="bg-primary text-white px-6 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer">
                 取得基本建議
               </button>
-              <Link href="/pricing" className="text-xs text-gray-400 hover:text-indigo-600">或升級 Pro</Link>
+              <Link href="/pricing" className="text-xs text-on-surface-variant hover:text-primary">或升級 Pro</Link>
             </div>
           ) : (
             <button onClick={fetchSuggestion} disabled={loadingSuggestion}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg text-sm font-bold hover:bg-indigo-700 transition-colors disabled:opacity-50">
+              className="bg-primary text-white px-6 py-3 font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer disabled:opacity-50">
               {loadingSuggestion ? '分析中...' : '取得建議'}
             </button>
           )}
@@ -411,10 +605,10 @@ export default function SkillJourneyPage() {
           <div className="mt-4 space-y-3">
             {suggestion.missingCategories.length > 0 && (
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">尚未涵蓋的技能類別：</p>
+                <p className="text-sm font-medium text-on-surface mb-2">尚未涵蓋的技能類別：</p>
                 <div className="flex flex-wrap gap-2">
                   {suggestion.missingCategories.map(c => (
-                    <span key={c} className="px-2.5 py-1 bg-amber-100 text-amber-700 rounded-lg text-xs font-medium">
+                    <span key={c} className="px-2.5 py-1 bg-warning-container text-warning rounded-sm text-xs font-medium">
                       {SKILL_CATEGORY_ICONS[c]} {SKILL_CATEGORY_LABELS[c]}
                     </span>
                   ))}
@@ -422,18 +616,18 @@ export default function SkillJourneyPage() {
               </div>
             )}
             {suggestion.priority && (
-              <div className="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
-                <p className="text-sm font-bold text-indigo-700 mb-1">最優先補充</p>
-                <p className="text-sm text-indigo-800">{suggestion.priority}</p>
+              <div className="bg-primary-fixed border border-primary/30 p-4">
+                <p className="text-sm font-bold text-primary mb-1">最優先補充</p>
+                <p className="text-sm text-primary">{suggestion.priority}</p>
               </div>
             )}
             {suggestion.suggestions.length > 0 && (
               <div>
-                <p className="text-sm font-medium text-gray-700 mb-2">具體建議：</p>
+                <p className="text-sm font-medium text-on-surface mb-2">具體建議：</p>
                 <ul className="space-y-1.5">
                   {suggestion.suggestions.map((s, i) => (
-                    <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
-                      <span className="text-indigo-400 mt-1">•</span>{s}
+                    <li key={i} className="text-sm text-on-surface-variant flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>{s}
                     </li>
                   ))}
                 </ul>
@@ -442,58 +636,66 @@ export default function SkillJourneyPage() {
           </div>
         )}
         {showSuggestion && !suggestion && !loadingSuggestion && (
-          <p className="text-sm text-gray-400 mt-4">無法取得建議，請確認已設定科別方向。</p>
+          <p className="text-sm text-outline mt-4">無法取得建議，請確認已設定科別方向。</p>
         )}
       </div>
 
       {/* Add Button + Filter */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-lg">
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-on-surface-variant">
             {filterCat === 'ALL' ? '全部' : SKILL_CATEGORY_LABELS[filterCat]} ({filtered.length})
           </span>
           {filterCat !== 'ALL' && (
-            <button onClick={() => setFilterCat('ALL')} className="text-xs text-indigo-600 hover:underline">顯示全部</button>
+            <button onClick={() => setFilterCat('ALL')} className="text-xs text-primary hover:underline cursor-pointer">顯示全部</button>
           )}
         </div>
         <button onClick={() => { setForm(createEmptyItem(formCat)); setShowForm(true); }}
-          className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors shadow-lg">
-          + 新增技能紀錄
+          className="bg-primary text-white px-xl py-sm font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer">
+          <span className="material-symbols-outlined text-sm align-middle mr-2">add</span>
+          新增技能紀錄
         </button>
       </div>
 
       {/* Items List */}
       {filtered.length === 0 ? (
-        <div className="text-center py-12 text-gray-400">
-          <p>還沒有技能紀錄</p>
-          <p className="text-sm mt-1">點擊「新增技能紀錄」開始累積你的技能旅程</p>
-          <div className="flex justify-center gap-3 mt-4">
-            <Link href="/calendar" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">從校曆匯入</Link>
-            <Link href="/timeline" className="text-gray-500 hover:text-gray-700 text-sm">查看成就時光軸</Link>
+        <div className="text-center py-xxl text-outline">
+          <span className="material-symbols-outlined text-5xl text-outline mb-lg block">folder_open</span>
+          <p className="font-h3 text-h3 text-on-surface-variant">還沒有技能紀錄</p>
+          <p className="font-body-md mt-sm">
+            點擊「新增技能紀錄」開始累積你的技能旅程
+          </p>
+          <div className="flex justify-center gap-3 mt-lg">
+            <button onClick={() => setShowTemplates(true)} className="text-primary hover:text-primary text-sm font-medium px-2 py-1.5 cursor-pointer">參考範本庫</button>
+            <Link href="/calendar" className="text-primary hover:text-primary text-sm font-medium px-2 py-1.5">從校曆匯入</Link>
+            <Link href="/timeline" className="text-on-surface-variant hover:text-on-background text-sm px-2 py-1.5">查看成就時光軸</Link>
           </div>
         </div>
       ) : (
         <div className="space-y-3">
           {filtered.map(item => (
-            <div key={item.id} className="p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+            <div key={item.id} className="bg-surface-container-low border border-[#E9E5DB] p-xl group hover:border-primary/30 transition-colors">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{SKILL_CATEGORY_ICONS[item.category]}</span>
-                  <span className="text-xs font-medium text-gray-500">{SKILL_CATEGORY_LABELS[item.category]}</span>
-                  <span className="text-xs text-gray-400">{item.date}</span>
+                  <span className="text-xs font-medium text-on-surface-variant">{SKILL_CATEGORY_LABELS[item.category]}</span>
+                  <span className="text-xs text-outline">{item.date}</span>
                   {item.qualityGrade && (
                     <span className={`${BADGE_CLS} font-medium ${GRADE_COLORS[item.qualityGrade]}`}>{item.qualityGrade}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => handleGenerateDraft(item)} className="text-xs text-indigo-600 hover:text-indigo-800 font-medium whitespace-nowrap">
-                    一鍵轉備審素材
+                  <button onClick={() => handleReview(item)} className="text-xs text-tertiary hover:text-tertiary font-medium whitespace-nowrap px-2 py-1.5 min-h-[36px] cursor-pointer">
+                    AI 幫忙改
                   </button>
-                  <button onClick={() => persist(items.filter(i => i.id !== item.id))} className="text-gray-400 hover:text-red-500 text-sm">刪除</button>
+                  <button onClick={() => handleGenerateDraft(item)} className="text-xs text-primary hover:text-primary font-medium whitespace-nowrap px-2 py-1.5 min-h-[36px] cursor-pointer">
+                    一鍵轉自傳草稿
+                  </button>
+                  <button onClick={() => persist(items.filter(i => i.id !== item.id))} className="text-outline hover:text-error text-sm cursor-pointer">刪除</button>
                 </div>
               </div>
-              <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
-              {item.description && <p className="text-sm text-gray-600 leading-relaxed mb-2">{item.description}</p>}
+              <h4 className="font-body-lg font-semibold text-on-surface mb-1">{item.title}</h4>
+              {item.description && <p className="text-sm text-on-surface-variant leading-relaxed mb-2">{item.description}</p>}
               <BadgeList item={item} />
               {item.generatedDraft && <DraftDisplay draft={item.generatedDraft} />}
             </div>
@@ -501,22 +703,30 @@ export default function SkillJourneyPage() {
         </div>
       )}
 
+      {/* Navigation hints */}
+      <div className="text-center mt-8 space-x-4">
+        <button onClick={() => setShowTemplates(true)} className="text-primary hover:text-primary text-sm font-medium px-2 py-1.5 cursor-pointer">專題範本庫</button>
+        <Link href="/calendar" className="text-primary hover:text-primary text-sm font-medium px-2 py-1.5">從校曆匯入</Link>
+        <Link href="/timeline" className="text-on-surface-variant hover:text-on-background text-sm px-2 py-1.5">成就時光軸</Link>
+        <Link href="/roadmap" className="text-on-surface-variant hover:text-on-background text-sm px-2 py-1.5">回到路線圖</Link>
+      </div>
+
       {/* Add Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-gray-900">新增技能紀錄</h2>
-              <button onClick={() => setShowForm(false)} className="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-lg">
+              <h2 className="font-h3 text-h3 text-on-surface">新增技能紀錄</h2>
+              <button onClick={() => setShowForm(false)} className="text-on-surface-variant hover:text-on-surface text-2xl min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer" aria-label="關閉">&times;</button>
             </div>
             <div className="space-y-4">
               {/* Category selector */}
               <div>
-                <label className={LABEL_CLS}>技能類別</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">技能類別</label>
                 <div className="grid grid-cols-4 gap-1.5">
                   {ALL_CATEGORIES.map(cat => (
                     <button key={cat} onClick={() => { setFormCat(cat); setForm(createEmptyItem(cat)); }}
-                      className={'px-2 py-2 rounded-lg text-xs font-medium transition-colors text-center ' + (formCat === cat ? 'bg-indigo-600 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200')}>
+                      className={'px-2 py-2 rounded-sm text-xs font-medium transition-colors text-center cursor-pointer ' + (formCat === cat ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high')}>
                       {SKILL_CATEGORY_ICONS[cat]} {SKILL_CATEGORY_LABELS[cat]}
                     </button>
                   ))}
@@ -525,24 +735,27 @@ export default function SkillJourneyPage() {
 
               {/* Common fields */}
               <div>
-                <label className={LABEL_CLS}>標題</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">標題</label>
                 <input type="text" value={form.title} onChange={e => updateForm({ title: e.target.value })}
-                  placeholder="例如：智慧溫室自動灌溉系統專題" className={INPUT_CLS} />
+                  placeholder="例如：智慧溫室自動灌溉系統專題"
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm" />
               </div>
               <div>
-                <label className={LABEL_CLS}>描述</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">描述</label>
                 <textarea value={form.description} onChange={e => updateForm({ description: e.target.value })}
                   placeholder="記錄你的過程、收穫、心得..." rows={3}
-                  className={INPUT_CLS + ' resize-none'} />
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm resize-none" />
               </div>
               <div>
-                <label className={LABEL_CLS}>日期</label>
-                <input type="date" value={form.date} onChange={e => updateForm({ date: e.target.value })} className={INPUT_CLS} />
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">日期</label>
+                <input type="date" value={form.date} onChange={e => updateForm({ date: e.target.value })}
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm" />
               </div>
               <div>
-                <label className={LABEL_CLS}>品質等級（選填）</label>
+                <label className="block font-label-caps text-label-caps text-primary mb-2 tracking-widest">品質等級（選填）</label>
                 <select value={form.qualityGrade || ''}
-                  onChange={e => updateForm({ qualityGrade: (e.target.value || undefined) as QualityGrade | undefined })} className={INPUT_CLS}>
+                  onChange={e => updateForm({ qualityGrade: (e.target.value || undefined) as QualityGrade | undefined })}
+                  className="w-full px-4 py-3 bg-white border border-[#E9E5DB] text-on-surface font-body-md outline-none focus:border-primary transition-colors rounded-sm">
                   <option value="">不設定</option>
                   {(Object.entries(QUALITY_GRADE_LABELS) as [QualityGrade, string][]).map(([g, l]) => (
                     <option key={g} value={g}>{l}</option>
@@ -554,7 +767,9 @@ export default function SkillJourneyPage() {
               <FormFields category={formCat} form={form} update={updateForm} />
 
               <button onClick={handleAdd} disabled={!form.title.trim() || !form.date}
-                className={'w-full py-3 rounded-xl font-bold transition-all ' + (form.title.trim() && form.date ? 'bg-indigo-600 text-white hover:bg-indigo-700' : 'bg-gray-200 text-gray-400 cursor-not-allowed')}>
+                className={form.title.trim() && form.date
+                  ? 'w-full py-3 bg-primary text-white font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer rounded-sm'
+                  : 'w-full py-3 font-label-caps text-label-caps tracking-widest bg-surface-container-high text-outline cursor-not-allowed rounded-sm'}>
                 新增技能紀錄
               </button>
             </div>
@@ -562,12 +777,163 @@ export default function SkillJourneyPage() {
         </div>
       )}
 
-      {/* Navigation hints */}
-      <div className="text-center mt-8 space-x-4">
-        <Link href="/calendar" className="text-indigo-600 hover:text-indigo-800 text-sm font-medium">從校曆匯入</Link>
-        <Link href="/timeline" className="text-gray-500 hover:text-gray-700 text-sm">成就時光軸</Link>
-        <Link href="/roadmap" className="text-gray-500 hover:text-gray-700 text-sm">回到路線圖</Link>
-      </div>
+      {/* E1: AI Review Modal */}
+      {reviewItem && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-lg">
+              <h2 className="font-h3 text-h3 text-on-surface">AI 幫你改</h2>
+              <button onClick={() => { setReviewItem(null); setReviewResult(null); }} className="text-on-surface-variant hover:text-on-surface text-2xl min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer" aria-label="關閉">&times;</button>
+            </div>
+            <div className="mb-3">
+              <span className="text-xs text-on-surface-variant">{SKILL_CATEGORY_LABELS[reviewItem.category]}</span>
+              <h3 className="font-body-lg font-semibold text-on-surface">{reviewItem.title}</h3>
+              <p className="text-sm text-on-surface-variant mt-1">{reviewItem.description || '（無描述）'}</p>
+            </div>
+            {reviewLoading && <div className="text-center py-8 text-outline">分析中...</div>}
+            {reviewResult && !reviewLoading && (
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-bold ${
+                    reviewResult.overallScore >= 8 ? 'bg-primary' :
+                    reviewResult.overallScore >= 6 ? 'bg-primary-fixed' :
+                    reviewResult.overallScore >= 4 ? 'bg-warning-container' : 'bg-error-container'
+                  }`}>
+                    {reviewResult.overallScore}
+                  </div>
+                  <div>
+                    <div className="font-bold text-on-surface">總分</div>
+                    <div className="text-sm text-on-surface-variant">{reviewResult.summary}</div>
+                  </div>
+                </div>
+                {reviewResult.dimensions.map(dim => (
+                  <div key={dim.name} className="bg-surface-container rounded-sm p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-medium text-on-surface text-sm">{dim.name}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                        dim.score >= 8 ? 'bg-success-container text-success' :
+                        dim.score >= 6 ? 'bg-primary-fixed text-primary' :
+                        dim.score >= 4 ? 'bg-warning-container text-warning' : 'bg-error-container text-error'
+                      }`}>{dim.score}/10</span>
+                    </div>
+                    <p className="text-sm text-on-surface-variant mb-2">{dim.feedback}</p>
+                    {dim.suggestions.length > 0 && (
+                      <ul className="space-y-1">
+                        {dim.suggestions.map((s, i) => (
+                          <li key={i} className="text-xs text-on-surface-variant flex items-start gap-1">
+                            <span className="text-primary mt-0.5">•</span>{s}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+                {reviewResult.improved && (
+                  <div className="bg-primary-fixed border border-primary/30 p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-body-lg font-semibold text-primary text-sm">AI 改寫建議</h4>
+                      {!isPro && <span className="text-xs px-2 py-0.5 bg-primary text-white rounded-full">Pro</span>}
+                    </div>
+                    <pre className="text-xs text-on-surface whitespace-pre-wrap leading-relaxed">{reviewResult.improved}</pre>
+                  </div>
+                )}
+                {!isPro && (
+                  <p className="text-xs text-outline text-center">
+                    升級 <Link href="/pricing" className="text-primary">Pro</Link> 讓 AI 幫你改寫成更完整的版本
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* E2: Template Library Modal */}
+      {showTemplates && !selectedTemplate && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-lg">
+              <h2 className="font-h3 text-h3 text-on-surface">專題實作範本庫</h2>
+              <button onClick={() => setShowTemplates(false)} className="text-on-surface-variant hover:text-on-surface text-2xl min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer" aria-label="關閉">&times;</button>
+            </div>
+            <p className="text-sm text-on-surface-variant mb-lg">參考範例，快速開始你的專題實作。點擊「使用範本」將自動填入 STAR 結構草稿。</p>
+            <div className="space-y-3">
+              {CAPSTONE_TEMPLATES.map(tpl => (
+                <div key={tpl.id} className="border border-[#E9E5DB] p-4 hover:border-primary/30 transition-colors">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-body-lg font-semibold text-on-surface text-sm">{tpl.title}</h3>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${
+                      tpl.difficulty === '入門' ? 'bg-success-container text-success' :
+                      tpl.difficulty === '進階' ? 'bg-primary-fixed text-primary' : 'bg-tertiary-fixed text-tertiary'
+                    }`}>{tpl.difficulty}</span>
+                  </div>
+                  <p className="text-xs text-on-surface-variant mb-2">{tpl.description}</p>
+                  <div className="flex items-center gap-3 text-xs text-outline">
+                    <span>{tpl.group}</span>
+                    <span>{tpl.duration}</span>
+                    <span>{tpl.teamSize}</span>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button onClick={() => setSelectedTemplate(tpl)} className="text-xs text-primary hover:text-primary font-medium px-2 py-1.5 min-h-[36px] cursor-pointer">查看詳情</button>
+                    <button onClick={() => handleUseTemplate(tpl)} className="text-xs text-tertiary hover:text-tertiary font-medium px-2 py-1.5 min-h-[36px] cursor-pointer">使用範本</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Template Detail Modal */}
+      {selectedTemplate && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
+          <div className="bg-surface-container-low border border-[#E9E5DB] p-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-lg">
+              <h2 className="font-h3 text-h3 text-on-surface">{selectedTemplate.title}</h2>
+              <button onClick={() => setSelectedTemplate(null)} className="text-on-surface-variant hover:text-on-surface text-2xl min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer" aria-label="關閉">&times;</button>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-lg">
+              <span className="text-xs px-2 py-0.5 bg-surface-container text-on-surface-variant rounded-full">{selectedTemplate.group}</span>
+              <span className="text-xs px-2 py-0.5 bg-surface-container text-on-surface-variant rounded-full">{selectedTemplate.duration}</span>
+              <span className="text-xs px-2 py-0.5 bg-surface-container text-on-surface-variant rounded-full">{selectedTemplate.teamSize}</span>
+            </div>
+            <p className="text-sm text-on-surface-variant mb-lg">{selectedTemplate.description}</p>
+            <div className="space-y-3 mb-lg">
+              <div className="bg-primary-fixed p-3">
+                <h4 className="text-xs font-bold text-primary mb-1">S — 情境</h4>
+                <p className="text-sm text-on-surface">{selectedTemplate.situation}</p>
+              </div>
+              <div className="bg-success-container p-3">
+                <h4 className="text-xs font-bold text-success mb-1">T — 任務</h4>
+                <p className="text-sm text-on-surface">{selectedTemplate.task}</p>
+              </div>
+              <div className="bg-warning-container p-3">
+                <h4 className="text-xs font-bold text-warning mb-1">A — 行動</h4>
+                <ul className="space-y-1">
+                  {selectedTemplate.action.map((a, i) => (
+                    <li key={i} className="text-sm text-on-surface flex items-start gap-1">
+                      <span className="text-warning mt-0.5">•</span>{a}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="bg-tertiary-fixed p-3">
+                <h4 className="text-xs font-bold text-tertiary mb-1">R — 結果</h4>
+                <p className="text-sm text-on-surface">{selectedTemplate.result}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-1 mb-lg">
+              {selectedTemplate.skills.map(s => (
+                <span key={s} className="text-xs px-2 py-0.5 bg-primary-fixed text-primary rounded-full">{s}</span>
+              ))}
+            </div>
+            <button onClick={() => handleUseTemplate(selectedTemplate)}
+              className="w-full py-3 bg-primary text-white font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer rounded-sm">
+              使用此範本
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,75 +1,201 @@
-import CountdownTimer from '@/components/CountdownTimer';
-import Link from 'next/link';
+// 升學大師 v4 - 首頁
 
-export default function Home() {
+'use client'
+
+import { useEffect, useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+export default function HomePage() {
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
+  const router = useRouter()
+  const supabase = createClient()
+
+  useEffect(() => {
+    checkUser()
+  }, [])
+
+  const checkUser = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        setUser(user)
+      }
+    } catch (error) {
+      console.error('Error checking user:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGetStarted = () => {
+    if (user) {
+      router.push('/ability-account')
+    } else {
+      router.push('/login')
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+      </div>
+    )
+  }
+
   return (
-    <div className="max-w-5xl mx-auto px-4">
-      {/* Hero */}
-      <section className="text-center py-16 md:py-24">
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-4">
-          高職升學<br />
-          <span className="text-indigo-600">從技能出發，以終為始</span>
-        </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10">
-          台灣高職生的升學準備平台。追蹤專題實作、技能檤定、實習和競賽，規劃你的四技二專之路。
-        </p>
-        <Link
-          href="/onboarding/step1"
-          className="inline-block px-8 py-4 bg-indigo-600 text-white rounded-xl text-lg font-bold hover:bg-indigo-700 shadow-lg hover:shadow-xl transition-all"
-        >
-          開始探索我的職群
-        </Link>
-      </section>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <span className="text-xl font-bold text-gray-900">升學大師 v4</span>
+            </div>
 
-      {/* Countdown */}
-      <section className="bg-white rounded-2xl p-8 md:p-12 shadow-sm text-center mb-16">
-        <h2 className="text-xl font-bold text-gray-900 mb-2">距離 115 統測還有</h2>
-        <p className="text-gray-500 text-sm mb-8">統一入學測驗是四技二專甄選的關鍵，現在開始準備</p>
-        <div className="flex justify-center">
-          <CountdownTimer />
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="grid gap-8 md:grid-cols-3 mb-16">
-        {[
-          {
-            icon: '🎯',
-            title: '技能旅程追蹤',
-            desc: '記錄專題實作、技能檤定、實習、競賽等 7 大技能類別。一鍵轉為備審素材，讓你的技能變成升學優勢。'
-          },
-          {
-            icon: '🗺️',
-            title: '職群探索',
-            desc: '15 個職群、17 個科別完整介紹，附就業數據和推薦科技大學。從你的技能反推最適合的方向。'
-          },
-          {
-            icon: '🤖',
-            title: 'AI 面試模擬',
-            desc: '四技二專甄選面試練習。AI 模擬面試官，根據你的職群出題，即時回饋，讓你面試不緊張。'
-          }
-        ].map(f => (
-          <div key={f.title} className="bg-white rounded-2xl p-6 shadow-sm">
-            <div className="text-3xl mb-3">{f.icon}</div>
-            <h3 className="font-bold text-gray-900 mb-2">{f.title}</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
+            <div className="flex items-center space-x-4">
+              {user ? (
+                <>
+                  <span className="text-gray-700">歡迎，{user.email}</span>
+                  <button
+                    onClick={() => router.push('/ability-account')}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm"
+                  >
+                    進入能力帳戶
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => router.push('/login')}
+                    className="text-gray-700 hover:text-indigo-600 transition"
+                  >
+                    登入
+                  </button>
+                  <button
+                    onClick={() => router.push('/login')}
+                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm"
+                  >
+                    註冊帳戶
+                  </button>
+                </>
+              )}
+            </div>
           </div>
-        ))}
-      </section>
+        </div>
+      </header>
 
-      {/* CTA */}
-      <section className="text-center py-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl text-white">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">不知道要選哪個職群？</h2>
-        <p className="text-indigo-100 mb-8 max-w-lg mx-auto">
-          5 步導入流程，從你已有的技能和經驗出發，推導適合你的職群方向，生成專屬三年路線圖。
-        </p>
-        <Link
-          href="/onboarding/step1"
-          className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-xl text-lg font-bold hover:bg-indigo-50 transition-colors"
-        >
-          免費開始
-        </Link>
-      </section>
+      {/* Hero Section */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            學升準備的
+            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              連結器
+            </span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            把學生正在做的事連結到升學目標，讓家長看到孩子的成長軌跡。
+            <br />
+            學生免費使用並病毒式傳播，家長為成長報告和 AI 輔導付費。
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex justify-center gap-4 mb-12">
+            <button
+              onClick={handleGetStarted}
+              className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg"
+            >
+              {user ? '進入能力帳戶' : '開始使用'}
+            </button>
+            <button
+              onClick={() => window.open('https://github.com', '_blank')}
+              className="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold border-2 border-gray-200 hover:border-indigo-300 transition"
+            >
+              了解更多
+            </button>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20">
+            {/* Feature 1 */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">能力帳戶</h3>
+              <p className="text-gray-600">
+                記錄你的學習歷程，自動分類為 A/B/C/D 四類，清楚看到自己的成長軌跡
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+              <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">AI 智慧分析</h3>
+              <p className="text-gray-600">
+                使用 AI 分析你的學習歷程，提供改進建議和內容預覽
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition">
+              <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">20 職群支援</h3>
+              <p className="text-gray-600">
+                完整支援 20 個高職類群，提供專屬的升學資訊和建議
+              </p>
+            </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl font-bold text-indigo-600 mb-2">20+</div>
+              <div className="text-gray-600">職群類別</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-indigo-600 mb-2">4</div>
+              <div className="text-gray-600">學習歷程代碼</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-indigo-600 mb-2">30+</div>
+              <div className="text-gray-600">外部競賽</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-indigo-600 mb-2">AI</div>
+              <div className="text-gray-600">智慧分析</div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-gray-600 text-sm">
+            <p>© 2026 升學大師 v4. 讓升學準備更簡單。</p>
+          </div>
+        </div>
+      </footer>
     </div>
-  );
+  )
 }

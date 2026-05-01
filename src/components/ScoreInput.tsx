@@ -58,7 +58,7 @@ export default function ScoreInput({ onSubmit }: Props) {
                 onClick={() => setScores(prev => ({ ...prev, mathTrack: track }))}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   scores.mathTrack === track
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-primary-600 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -74,7 +74,7 @@ export default function ScoreInput({ onSubmit }: Props) {
         disabled={!canSubmit}
         className={`w-full mt-8 py-3 px-6 rounded-xl text-lg font-bold transition-all ${
           canSubmit
-            ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-lg hover:shadow-xl'
+            ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-lg hover:shadow-xl'
             : 'bg-gray-200 text-gray-400 cursor-not-allowed'
         }`}
       >

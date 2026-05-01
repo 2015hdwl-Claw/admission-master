@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>統測分析 - 升學大師</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0edeb",
+                        "primary-fixed": "#d8e6d7",
+                        "on-secondary-container": "#75614e",
+                        "outline": "#747873",
+                        "surface-container-high": "#eae8e6",
+                        "secondary-container": "#f9dec6",
+                        "on-primary-fixed": "#121e15",
+                        "on-error": "#ffffff",
+                        "tertiary": "#6d5659",
+                        "secondary-fixed-dim": "#dcc2ab",
+                        "secondary": "#6e5b48",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#30302f",
+                        "on-primary-container": "#f6fff4",
+                        "outline-variant": "#c4c8c1",
+                        "tertiary-container": "#876e71",
+                        "surface-tint": "#546256",
+                        "surface-bright": "#fbf9f7",
+                        "inverse-primary": "#bccabc",
+                        "surface-dim": "#dcdad7",
+                        "secondary-fixed": "#f9dec6",
+                        "on-secondary-fixed-variant": "#554332",
+                        "on-primary-fixed-variant": "#3d4a3f",
+                        "background": "#fbf9f7",
+                        "tertiary-fixed": "#fadbde",
+                        "surface-container-low": "#f5f3f1",
+                        "on-surface": "#1b1c1b",
+                        "on-surface-variant": "#434843",
+                        "primary": "#525f54",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1b",
+                        "surface-variant": "#e4e2e0",
+                        "tertiary-fixed-dim": "#ddbfc2",
+                        "primary-fixed-dim": "#bccabc",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ee",
+                        "surface-container-highest": "#e4e2e0",
+                        "surface": "#fbf9f7",
+                        "on-secondary-fixed": "#26190a",
+                        "primary-container": "#6a786c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574144",
+                        "on-tertiary-fixed": "#28171a",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xxl": "80px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif TC"],
+                        "display-italic": ["Noto Serif TC"],
+                        "h3": ["Noto Serif TC"],
+                        "body-md": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h2": ["Noto Serif TC"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fbf9f7;
+            color: #1b1c1b;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<nav class="bg-[#fbf9f7] dark:bg-stone-950 border-b border-[#E9E5DB] dark:border-stone-800 flex justify-between items-center w-full px-6 h-16 fixed top-0 left-0 z-50 transition-colors duration-300">
+<div class="flex items-center gap-4">
+<button class="text-[#7D8B7E] dark:text-[#94a395] hover:bg-[#F4F1EA] dark:hover:bg-stone-900 p-2 transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<span class="text-xl font-serif font-bold text-[#7D8B7E] dark:text-[#94a395] tracking-tight">升學大師</span>
+</div>
+<div class="hidden md:flex gap-8">
+<a class="text-stone-500 font-label-caps text-label-caps hover:text-[#7D8B7E] transition-colors" href="#">我的路線</a>
+<a class="text-stone-500 font-label-caps text-label-caps hover:text-[#7D8B7E] transition-colors" href="#">學習歷程</a>
+<a class="text-[#7D8B7E] dark:text-[#94a395] border-b-2 border-[#7D8B7E] font-label-caps text-label-caps transition-colors" href="#">統測分析</a>
+<a class="text-stone-500 font-label-caps text-label-caps hover:text-[#7D8B7E] transition-colors" href="#">策略報告</a>
+<a class="text-stone-500 font-label-caps text-label-caps hover:text-[#7D8B7E] transition-colors" href="#">職群測驗</a>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center overflow-hidden">
+<img alt="用戶頭像" class="w-full h-full object-cover" data-alt="minimalist avatar of a male student with a calm expression in muted sage and cream colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1elePYV2i9jUcGJTq7mvCSR58WzWy9i2EwSia6STDe9JvRHFPUJVG6_eA-ME7Monyik-gdYFUq5zeGF-bnXZ0YRnMD9J-Tu36h2hT-rfMWcnnQ9Mqf-1z_O-8CYVRa1vUKsanqE2fpljIyPEeUge8jICWBvab9FdTg1G9d9-k1DQyj5it4CDyn5UHOf-dgV1is8u59BPwKGbTV7isjbAGwqWbgI1GRmUdM7EB3oEW31PbBPXA8rySSPQsVgWzusOQX9ZG7Ca43zpM"/>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-xxl pb-xxl px-gutter max-w-[1200px] mx-auto min-h-screen">
+<!-- Header Section -->
+<header class="mb-xl mt-8">
+<div class="flex items-center gap-2 mb-2">
+<span class="text-primary font-h3 text-h3">03</span>
+<div class="h-[1px] w-12 bg-outline-variant"></div>
+</div>
+<h1 class="font-h1 text-h1 text-on-surface mb-4">統測分析</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                基於學術表現的精密建模，我們為您梳理出核心優勢與關鍵突破點，以建築學般的精確度建構您的升學藍圖。
+            </p>
+</header>
+<!-- Bento Grid Analysis Sections -->
+<section class="bento-grid">
+<!-- Summary Card (8 cols) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low border border-[#E9E5DB] p-xl flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-h3 text-h3 text-primary mb-md">學科綜合趨勢</h3>
+<div class="h-64 flex items-end justify-between gap-4 mt-8">
+<!-- Mockup Line Chart using Dividers and Dots -->
+<div class="flex-1 h-full relative border-l border-b border-outline-variant/30">
+<div class="absolute inset-0 flex items-center justify-around opacity-20">
+<div class="w-[1px] h-full bg-outline"></div>
+<div class="w-[1px] h-full bg-outline"></div>
+<div class="w-[1px] h-full bg-outline"></div>
+</div>
+<!-- Minimal Chart Line SVG -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 400 200">
+<path d="M0,180 Q100,160 200,80 T400,20" fill="none" stroke="#7D8B7E" stroke-width="2"></path>
+<circle cx="0" cy="180" fill="#7D8B7E" r="4"></circle>
+<circle cx="200" cy="80" fill="#7D8B7E" r="4"></circle>
+<circle cx="400" cy="20" fill="#7D8B7E" r="4"></circle>
+</svg>
+</div>
+</div>
+<div class="flex justify-between mt-gutter text-label-caps font-label-caps text-on-surface-variant">
+<span>基礎測驗</span>
+<span>期中評量</span>
+<span>目前狀態</span>
+</div>
+</div>
+<!-- Artistic Background texture -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary-fixed rounded-full blur-[80px] opacity-20"></div>
+</div>
+<!-- Subject Breakdown (4 cols) -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container border border-[#E9E5DB] p-xl flex flex-col">
+<h3 class="font-h3 text-h3 text-primary mb-md">學群權重</h3>
+<div class="space-y-6 flex-grow">
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface">專業科目 (一)</span>
+<span class="font-label-caps text-label-caps text-primary">88%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full overflow-hidden">
+<div class="h-full bg-primary w-[88%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface">專業科目 (二)</span>
+<span class="font-label-caps text-label-caps text-primary">92%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full overflow-hidden">
+<div class="h-full bg-primary w-[92%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-label-caps text-label-caps text-on-surface">共同科目</span>
+<span class="font-label-caps text-label-caps text-primary">74%</span>
+</div>
+<div class="h-1 bg-surface-container-high w-full overflow-hidden">
+<div class="h-full bg-primary w-[74%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-md border-t border-outline-variant/30">
+<p class="text-label-caps font-label-caps text-on-secondary-container">強項建議：建築設計原理</p>
+</div>
+</div>
+<!-- Detailed Insight (5 cols) -->
+<div class="col-span-12 lg:col-span-5 bg-tertiary-container/5 border border-tertiary-container/10 p-xl relative overflow-hidden">
+<h3 class="font-h3 text-h3 text-tertiary mb-md">弱點結構</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-xl leading-relaxed">
+                    在工程力學與微積分交集領域呈現細微波動。這些波動顯示了在複雜模型推演時的邏輯連貫性需要更多結構化的練習。
+                </p>
+<div class="flex items-center gap-4 p-md bg-white/50 border border-white">
+<span class="material-symbols-outlined text-tertiary" data-icon="error">error</span>
+<div>
+<span class="block font-label-caps text-label-caps font-bold text-tertiary">關鍵弱點</span>
+<span class="text-label-caps font-label-caps text-on-surface">結構靜力學穩定性分析</span>
+</div>
+</div>
+</div>
+<!-- Strategy Report Preview (7 cols) -->
+<div class="col-span-12 lg:col-span-7 border border-[#E9E5DB] p-0 flex overflow-hidden group">
+<div class="w-1/2 p-xl flex flex-col justify-center">
+<h3 class="font-h3 text-h3 text-primary mb-md">策略指導</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" data-icon="check_circle">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">每日 20 分鐘專注於弱項題庫之基礎概念複習。</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-1" data-icon="check_circle">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">導入「空間思考」筆記法，將力學公式圖像化。</span>
+</li>
+</ul>
+<button class="mt-xl self-start px-8 py-3 bg-primary text-white font-label-caps text-label-caps tracking-widest hover:bg-opacity-90 transition-all duration-300">
+                        下載完整策略報告
+                    </button>
+</div>
+<div class="w-1/2 h-full relative overflow-hidden hidden sm:block">
+<img class="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="clean minimalist architectural drawing board with blueprint and measuring tools in natural morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ2KRYxeOaors6M-0Dl8KU4Z5_HDds8nqy2ODg4qwCWLUnrKsw1ZY6O47WA8gdllBElYOvD8vWiY6jKEljahUZbKFgw4A68ete49pnMqkDQTqEnAHNmcxqQ2r9j1D79kfo7JVJEi3Qx1Nmrl5h_4MGwXBSDl79Ll71vpV12bQWy5UW2bYA3jZSfO6X0nc26rx7btURWti9avAGlacp-tc0KdG5Dxu65njfXL8n9zmOWb7GDo5n8Zm3OXWFk-sNZP9KEPEAOPW-MRSV"/>
+</div>
+</div>
+</section>
+<!-- Academic Mentorship Quote -->
+<section class="mt-xxl border-l-4 border-primary pl-xl max-w-3xl">
+<blockquote class="italic font-display-italic text-h2 text-primary-container leading-snug">
+                「真正的建築不僅是堆砌磚石，而是理解每一份重量的去向。學習亦然，分析是為了更好的結構。」
+            </blockquote>
+<cite class="block mt-md font-label-caps text-label-caps text-on-surface-variant">— 學術導師 艾德華．林</cite>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-[#fbf9f7]/90 dark:bg-stone-950/90 backdrop-blur-md border-t border-[#E9E5DB] dark:border-stone-800 shadow-[0_-4px_30px_rgba(125,139,126,0.05)] md:hidden">
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">我的路線</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">學習歷程</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#7D8B7E] dark:text-[#94a395] font-bold scale-110 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">統測分析</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="Description">description</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">策略報告</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">職群測驗</span>
+</div>
+</nav>
+</body></html>

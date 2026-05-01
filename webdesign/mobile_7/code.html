@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-TW"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&amp;family=Manrope:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#f0edeb",
+                        "primary-fixed": "#d8e6d7",
+                        "on-secondary-container": "#75614e",
+                        "outline": "#747873",
+                        "surface-container-high": "#eae8e6",
+                        "secondary-container": "#f9dec6",
+                        "on-primary-fixed": "#121e15",
+                        "on-error": "#ffffff",
+                        "tertiary": "#6d5659",
+                        "secondary-fixed-dim": "#dcc2ab",
+                        "secondary": "#6e5b48",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#30302f",
+                        "on-primary-container": "#f6fff4",
+                        "outline-variant": "#c4c8c1",
+                        "tertiary-container": "#876e71",
+                        "surface-tint": "#546256",
+                        "surface-bright": "#fbf9f7",
+                        "inverse-primary": "#bccabc",
+                        "surface-dim": "#dcdad7",
+                        "secondary-fixed": "#f9dec6",
+                        "on-secondary-fixed-variant": "#554332",
+                        "on-primary-fixed-variant": "#3d4a3f",
+                        "background": "#fbf9f7",
+                        "tertiary-fixed": "#fadbde",
+                        "surface-container-low": "#f5f3f1",
+                        "on-surface": "#1b1c1b",
+                        "on-surface-variant": "#434843",
+                        "primary": "#525f54",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#1b1c1b",
+                        "surface-variant": "#e4e2e0",
+                        "tertiary-fixed-dim": "#ddbfc2",
+                        "primary-fixed-dim": "#bccabc",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#f3f0ee",
+                        "surface-container-highest": "#e4e2e0",
+                        "surface": "#fbf9f7",
+                        "on-secondary-fixed": "#26190a",
+                        "primary-container": "#6a786c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574144",
+                        "on-tertiary-fixed": "#28171a",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "gutter": "24px",
+                        "xxl": "80px",
+                        "xs": "4px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "sm": "8px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Noto Serif TC"],
+                        "display-italic": ["Noto Serif TC"],
+                        "h3": ["Noto Serif TC"],
+                        "body-md": ["Manrope"],
+                        "label-caps": ["Manrope"],
+                        "h2": ["Noto Serif TC"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "h1": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                        "display-italic": ["inherit", {"fontWeight": "400"}],
+                        "h3": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#fbf9f7] dark:bg-stone-950 border-b border-[#E9E5DB] dark:border-stone-800 flex justify-between items-center px-6 h-16 transition-colors duration-300">
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#7D8B7E] dark:text-[#94a395] hover:bg-[#F4F1EA] dark:hover:bg-stone-900 transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-xl font-serif font-bold text-[#7D8B7E] dark:text-[#94a395] tracking-tight">升學大師</h1>
+</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="h-full flex items-center px-2 text-stone-500 dark:text-stone-400 font-label-caps hover:text-[#7D8B7E] transition-colors" href="#">我的路線</a>
+<a class="h-full flex items-center px-2 text-[#7D8B7E] dark:text-[#94a395] border-b-2 border-[#7D8B7E] font-label-caps" href="#">學習歷程</a>
+<a class="h-full flex items-center px-2 text-stone-500 dark:text-stone-400 font-label-caps hover:text-[#7D8B7E] transition-colors" href="#">統計分析</a>
+<a class="h-full flex items-center px-2 text-stone-500 dark:text-stone-400 font-label-caps hover:text-[#7D8B7E] transition-colors" href="#">策略報告</a>
+</nav>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="用戶頭像" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional young man with a slight smile in a clean academic studio setting with soft natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCQejclycyoC1R5Z9L6ZG7wWriUngsFnrtz1g4G5BWbdZQtSReYksASO9kuBP45VnhDfWaT2iA01TQN2wyvF21Dyqe-Rq1OjIOzHLJWW6hEzAHLfPL6gOgVphederkJJXmBhgwjJd26P7TCye4eE55VDpFYaJt_3D5fWtTIvI7JU3RVr-qPZXDoCYflnZPzIyypmUlVk4p5nRtMVjywLAB5b2P--hp8Sylk26dNBEjfmnCLEhFWqYcbNqGrkoo4RwVxZovZhMJNm3a"/>
+</div>
+</header>
+<main class="pt-24 pb-xxl px-gutter max-w-container-max mx-auto">
+<!-- Hero Title Section -->
+<section class="mb-xl text-center md:text-left">
+<span class="font-label-caps text-primary tracking-[0.2em] mb-sm block">TIMELINE OF GROWTH</span>
+<h2 class="font-h1 text-h1 text-on-surface mb-md">時光軸</h2>
+<p class="font-body-lg text-on-surface-variant max-w-2xl">
+                每一段旅程都值得被銘記。這裡記錄了你從探索到實踐的每一個關鍵瞬間，構築出屬於你的學術導航圖。
+            </p>
+</section>
+<!-- Timeline Container -->
+<div class="relative mt-xxl">
+<!-- Vertical Line -->
+<div class="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-outline-variant md:block hidden"></div>
+<div class="space-y-xxl relative">
+<!-- Timeline Item 01 -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="md:w-5/12 w-full order-2 md:order-1 text-right">
+<div class="space-y-xs">
+<span class="font-h3 text-primary block">01</span>
+<span class="font-label-caps text-on-surface-variant block mb-sm">2023年 09月 15日</span>
+<h3 class="font-h2 text-h2 mb-md">初探：啟航的指南針</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                                完成了首次的職群測驗，確定了建築與空間設計的熱情所在。這不僅是一次選擇，更是對未來願景的初步描摹。
+                            </p>
+</div>
+</div>
+<div class="z-10 md:w-2/12 flex justify-center order-1 md:order-2">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-background border border-outline-variant"></div>
+</div>
+<div class="md:w-5/12 w-full order-3">
+<div class="aspect-[4/3] overflow-hidden bg-surface-container border border-outline-variant group">
+<img alt="時光軸縮圖" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A clean, minimalist desk with a drafting compass, white paper, and soft morning shadows, evoking a sense of new academic beginnings." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAt4eDmqV8ul_V6kBlma1L2Z_y2TnE89eahC9O88iZLAF2TjrUETmMha_lGAMVOP1-Tq8iS574gc-xVFfB2z0LnaTp9pVIff_NYB35L8BGyHRkBobiBz9rKzSp4WaM2Mi1cOkCiaOHLFBKeYRXMUyTfoUb_bRk_KsYKGV-6-w5Ilbq73lAyJ43FK5co69S7Ci9vRwPx5ZGg2ssY-uqHFgevnZqkVfHJKrA0TWX3qEsfamQPbyWCssd_EZ-lYm1BBKn6TGZ5YFTCWQU9"/>
+</div>
+</div>
+</div>
+<!-- Timeline Item 02 -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="md:w-5/12 w-full order-3 md:order-1">
+<div class="aspect-[4/3] overflow-hidden bg-surface-container border border-outline-variant group">
+<img alt="時光軸縮圖" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A group of students focused on a collaborative design project, with blueprints and architectural models in a bright, modern studio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkbh4Tccs12gPXpj4xyJf6ojIIaVuN9q15kznIU8KY8iioKjrjU20VB05ke_vh3TfZBZIlNrGj_oJy3-xu9_2CBukZ719Ct_AEAM_VIs8zqJVj3aUv4uX3Juibh5EiQmMTq2qpTuUj0ekDM19uxDkCo0SEMUnZtQdJLJkoPiYBFMiTQuEtsTs4CH1jNPQ9FV6Z-q7FZuiXP_pe9j62scVb0Df-zr9pjJR1N-ZI8ffA9LQEePAWgn1DR4ogyztJQd6ejq7QkBeNO1AO"/>
+</div>
+</div>
+<div class="z-10 md:w-2/12 flex justify-center order-1 md:order-2">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-background border border-outline-variant"></div>
+</div>
+<div class="md:w-5/12 w-full order-2 md:order-3">
+<div class="space-y-xs">
+<span class="font-h3 text-primary block">02</span>
+<span class="font-label-caps text-on-surface-variant block mb-sm">2023年 11月 02日</span>
+<h3 class="font-h2 text-h2 mb-md">對話：大師的指引</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                                與資深建築師進行了職涯訪談。從專業視角理解建築不僅是藝術，更是社會責任與空間邏輯的結合。
+                            </p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 03 -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="md:w-5/12 w-full order-2 md:order-1 text-right">
+<div class="space-y-xs">
+<span class="font-h3 text-primary block">03</span>
+<span class="font-label-caps text-on-surface-variant block mb-sm">2024年 01月 20日</span>
+<h3 class="font-h2 text-h2 mb-md">實踐：模型構築夢想</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                                完成了首件個人空間模型作品「光影的容器」。這是一次對材料與結構的探索，也是學習歷程中的重要里程碑。
+                            </p>
+</div>
+</div>
+<div class="z-10 md:w-2/12 flex justify-center order-1 md:order-2">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-background border border-outline-variant"></div>
+</div>
+<div class="md:w-5/12 w-full order-3">
+<div class="aspect-[4/3] overflow-hidden bg-surface-container border border-outline-variant group">
+<img alt="時光軸縮圖" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An intricate white architectural model made of cardboard and balsa wood, illuminated by dramatic side lighting creating sharp shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGf5Sw4_Y9G3CEyL-aBbrTQRtSaucfcrhNwktFucy0s14SjlZlHgMRUm5m7k_NANE0HDR7h5IGl-w-Oo_XPkhuRabnGmHAVOHMhPKz1lIe5A_jA2SSSQFvirn9HLkYv3l4-c6i0oS9AtcQAdTEL60Qiu5mNmL0vQ5kRHZF9qd0AdTGpBrZgLL0CY76up-aUMBzDC9vC9ewLQ_0wp2ZMgEqze31QcfxSQEdY3KDq_v8BPQLzURx4nN6jVBflTpG7nuxq47hYWJ40mS-"/>
+</div>
+</div>
+</div>
+<!-- Timeline Item 04 -->
+<div class="flex flex-col md:flex-row items-center justify-between gap-xl">
+<div class="md:w-5/12 w-full order-3 md:order-1">
+<div class="aspect-[4/3] overflow-hidden bg-surface-container border border-outline-variant group">
+<img alt="時光軸縮圖" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A focused close-up of hands writing in a journal with a fountain pen, symbolizing reflection and final academic strategic planning." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEPX5ueGIUHR_KyOb-d4vB6FKYlEJuaIBbi5f-yQdSov8qANUi44ru8zrgdzkJxYdO2mDIL_HfrgoEWHAhp6CaUQbE41HTFtX4-06uJQCaWN9X5Nq8u5BKy57Y8618iClBlgQGsAOcgC720mpH-yNbPQrn25eiMO009Q7vXszbNVoQmTQSNkh2r9Z_3L0e_Gp8bpBF7DzC8p6TFj5h7pPv9JBIVvnssJ25YF892Raudj-P5klIF_bTSrFrpW51MVfQyH2iZiz7jdhL"/>
+</div>
+</div>
+<div class="z-10 md:w-2/12 flex justify-center order-1 md:order-2">
+<div class="w-4 h-4 rounded-full bg-primary ring-8 ring-background border border-outline-variant"></div>
+</div>
+<div class="md:w-5/12 w-full order-2 md:order-3">
+<div class="space-y-xs">
+<span class="font-h3 text-primary block">04</span>
+<span class="font-label-caps text-on-surface-variant block mb-sm">2024年 03月 12日</span>
+<h3 class="font-h2 text-h2 mb-md">省思：彙整與定位</h3>
+<p class="font-body-md text-on-surface-variant leading-relaxed">
+                                完成學習歷程檔案的初稿編修。透過系統性的回顧，更清晰地看到了自己在設計思維上的成長軌跡。
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Summary Quote Section -->
+<section class="mt-xxl pt-xxl border-t border-outline-variant">
+<div class="max-w-3xl mx-auto text-center">
+<blockquote class="font-display-italic text-h2 italic text-primary leading-relaxed px-md">
+                    「成長並非一蹴而就，而是一連串細微步伐的積累，最終構築成通往未來的橋樑。」
+                </blockquote>
+<div class="mt-md h-1 w-12 bg-primary mx-auto"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#fbf9f7]/90 dark:bg-stone-950/90 backdrop-blur-md border-t border-[#E9E5DB] dark:border-stone-800 shadow-[0_-4px_30px_rgba(125,139,126,0.05)] flex justify-around items-center px-4 py-3 pb-safe transition-all duration-300 ease-in-out">
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">我的路線</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#7D8B7E] dark:text-[#94a395] font-bold scale-110 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">學習歷程</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">統計分析</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="Description">description</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">策略報告</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 dark:text-stone-600 opacity-80 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span class="font-serif text-[10px] uppercase tracking-widest mt-1">職群測驗</span>
+</a>
+</nav>
+</body></html>

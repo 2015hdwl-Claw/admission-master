@@ -30,18 +30,18 @@ export default function CountdownTimer() {
   }, []);
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-md">
       {[
         { value: time.days, label: '天' },
         { value: time.hours, label: '時' },
         { value: time.minutes, label: '分' },
         { value: time.seconds, label: '秒' }
       ].map(({ value, label }) => (
-        <div key={label} className="flex flex-col items-center">
-          <span className="text-4xl md:text-6xl font-bold tabular-nums text-indigo-600">
+        <div key={label} className="text-center">
+          <span className="font-serif text-3xl md:text-4xl text-primary tabular-nums">
             {String(value).padStart(2, '0')}
           </span>
-          <span className="text-xs md:text-sm text-gray-500 mt-1">{label}</span>
+          <span className="font-label-caps text-label-caps text-on-surface-variant mt-xs block">{label}</span>
         </div>
       ))}
     </div>
