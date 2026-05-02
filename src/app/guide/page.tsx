@@ -15,39 +15,39 @@ export const metadata: Metadata = {
 export default function GuidePage() {
   const guides = [
     {
-      title: '備審書寫作指南',
+      title: '準備備審資料',
       slug: 'portfolio-writing',
-      description: '從結構到內容，完整的備審書寫作技巧',
+      description: '簡單步驟，讓你的備審書更出色',
       icon: '📝'
     },
     {
-      title: '面試準備攻略',
+      title: '練習面試技巧',
       slug: 'interview-prep',
-      description: '常見面試問題、回答技巧、模擬面試',
+      description: '模擬面試，讓你表現得更好',
       icon: '🎯'
     },
     {
-      title: '科系探索分析',
+      title: '探索科系特色',
       slug: 'department-exploration',
-      description: '各大學科系特色、就業方向、申請策略',
+      description: '了解不同科系，找到適合你的',
       icon: '🔍'
     },
     {
-      title: '申請時程規劃',
+      title: '規劃申請時間',
       slug: 'application-timeline',
-      description: '高三申請入學完整時間表與重要節點',
+      description: '什麼時候該做什麼，一目瞭然',
       icon: '📅'
     },
     {
-      title: '學習歷程中心',
+      title: '記錄學習歷程',
       slug: 'learning-journey',
-      description: '如何整理與呈現你的學習歷程',
+      description: '把學會的技能都記錄下來',
       icon: '🎓'
     },
     {
-      title: '多元表現紀錄',
+      title: '展現多元能力',
       slug: 'diverse-performance',
-      description: '競賽、證書、專題如何加分',
+      description: '讓你的競賽和專題更亮眼',
       icon: '🏆'
     }
   ];
@@ -58,23 +58,23 @@ export default function GuidePage() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            申請入學完整指南
+            讓升學更簡單 📚
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            系統化準備，讓你的申請入學之路更順暢
+            幾個簡單步驟，讓你的升學之路更清楚
           </p>
           <div className="flex justify-center gap-4">
             <Link
-              href="/analyze"
+              href="/quiz"
               className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-colors"
             >
-              開始分析
+              🧩 先做測驗
             </Link>
             <Link
-              href="/explore"
+              href="/business-strategy"
               className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-bold hover:bg-gray-50 transition-colors border-2 border-indigo-600"
             >
-              探索科系
+              🎯 找科系
             </Link>
           </div>
         </div>
