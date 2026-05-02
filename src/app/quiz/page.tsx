@@ -2,7 +2,9 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { saveToStorage } from '@/lib/storage';
+import { loadFromStorage } from '@/lib/storage';
 import type { QuizQuestion, QuizResult } from '@/types';
+import SimpleShareCard from '@/components/SimpleShareCard';
 
 /* ═══════════════════════════════════════════════════════
    Quiz Data
@@ -215,6 +217,7 @@ export default function QuizPage() {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [result, setResult] = useState<QuizResult | null>(null);
   const [isSharing, setIsSharing] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   function handleAnswer(value: string) {
@@ -372,6 +375,12 @@ export default function QuizPage() {
             {isSharing ? '產生圖片中...' : '下載分享圖卡'}
           </button>
           <button
+            onClick={() => setShowShareModal(true)}
+            className="flex-1 bg-green-600 text-white px-xl py-sm font-label-caps text-label-caps tracking-widest hover:opacity-90 transition-all cursor-pointer"
+          >
+            📱 分享給同學
+          </button>
+          <button
             onClick={() => {
               setResult(null);
               setCurrentQuestion(0);
@@ -382,6 +391,20 @@ export default function QuizPage() {
             重測
           </button>
         </div>
+
+        {/* 分享彈窗 */}
+        {showShareModal && result && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="w-full max-w-lg">
+              <SimpleShareCard
+                title={`我是${result.typeName}！`}
+                description={result.description}
+                result={`推薦職群：${result.directions.join('、')}`}
+                onClose={() => setShowShareModal(false)}
+              />
+            </div>
+          </div>
+        )}
 
         {/* CTA */}
         <div className="text-center">
