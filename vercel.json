@@ -3,29 +3,5 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["hkg1"],
-  "env": {
-    "NEXT_PUBLIC_AI_BASE_URL": "@ai-base-url",
-    "NEXT_PUBLIC_AI_API_KEY": "@ai-api-key",
-    "NEXT_PUBLIC_AI_MODEL": "@ai-model",
-    "CLASSIFIER_BASE_URL": "@classifier-base-url",
-    "CLASSIFIER_API_KEY": "@classifier-api-key",
-    "CLASSIFIER_MODEL": "@classifier-model",
-    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-role-key"
-  },
-  "build": {
-    "env": {
-      "NEXT_PUBLIC_AI_BASE_URL": "@ai-base-url",
-      "NEXT_PUBLIC_AI_API_KEY": "@ai-api-key",
-      "NEXT_PUBLIC_AI_MODEL": "@ai-model",
-      "CLASSIFIER_BASE_URL": "@classifier-base-url",
-      "CLASSIFIER_API_KEY": "@classifier-api-key",
-      "CLASSIFIER_MODEL": "@classifier-model",
-      "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
-      "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key",
-      "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-role-key"
-    }
-  }
+  "regions": ["hkg1"]
 }

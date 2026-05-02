@@ -4,6 +4,8 @@ description: Taiwan admission platform - free for students, paid coaching for pa
 type: project
 ---
 
+> **ARCHIVED — superseded by [`PLAN-v4.md`](../PLAN-v4.md).** 本檔僅供歷程參考；**新開發與產品定位請以 v4 為準**（高職自我發現引擎）。請勿再依本檔「一般高中」主軸做新決策。
+
 # 升學大師 Admission Master — 完整專案計畫
 
 > 建立：2026-04-20 | 更新：2026-04-21 | 狀態：Phase 1-3 完成，Phase 4 規劃中

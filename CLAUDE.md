@@ -1,5 +1,9 @@
 # Admission Master — 升學大師
 
+## Authoritative planning (最新準則)
+
+**產品與商業策略以 `PLAN-v4.md` 為唯一準據**（高職自我發現引擎、光域 UI、116 選考、類群 MVP 順序、制度研究與驗證路線）。若與舊版文件（例如 `docs/PROJECT_PLAN.md`、`PLAN-v3.md`）或本檔歷史段落衝突，**以 `PLAN-v4.md` 為準**，並應逐步讓程式與文案對齊 v4。
+
 ## Project Overview
 升學準備的連結器。把學生正在做的事連結到升學目標，讓家長看到孩子的成長軌跡。學生免費使用並病毒式傳播，家長為成長報告和 AI 輔導付費。
 
@@ -81,3 +85,68 @@
 - YouTube long-form + FB content target parents for awareness
 - Email weekly reports build retention and parent trust
 - SEO long-tail content for sustainable organic traffic
+
+## Skill routing — V1 (minimal, generic)
+
+When a request matches an available skill, invoke it before acting. Keep this routing minimal and practical.
+
+Core routing rules:
+- Product ideas / feature exploration -> `/brainstorming`
+- New feature or major change without clear spec -> `/spec-driven-development`
+- Have requirements, need executable tasks -> `/planning-and-task-breakdown`
+- Implementing product code -> `/incremental-implementation`
+- Bug reports / unexpected behavior / runtime errors -> `/investigate`
+- Tests failing or bugfix implementation -> `/test-driven-development`
+- UI components / pages / interaction polish -> `/frontend-ui-engineering`
+- Security-sensitive flows (auth, user input, payments, secrets) -> `/security-and-hardening`
+- Ready for QA / "does this work?" -> `/qa`
+- Ready to ship / create PR / deploy -> `/ship`
+
+Execution notes:
+- If multiple skills apply, use process-first order: investigate/plan -> implementation -> verify -> ship.
+- User instruction has highest priority; routing defines HOW, not WHAT.
+
+## Skill routing — 升學大師強化版 (V2)
+
+Use this section when the task touches Admission Master product shape (student/parent, roadmap, Supabase, paid boundary, content, or AI). Prefer V2 over the generic list above when both could apply.
+
+**Precedence:** User message > V2 rules > V1 minimal list > default assistant behavior.
+
+### Product & scope
+- Vague product ideas, viral/content angles, parent messaging -> `/brainstorming` (then `/spec-driven-development` if it becomes buildable scope)
+- CEO-level tradeoffs (pricing, free/paid boundary, roadmap bets) -> `/plan-ceo-review` or `/office-hours` when installed
+- Engineering/architecture decisions (Supabase schema, Edge boundaries, multi-tenant) -> `/plan-eng-review` or `/planning-and-task-breakdown` after spec exists
+
+### Data & backend (Supabase)
+- New tables, columns, RLS policies, Storage buckets, or Edge Functions -> `/spec-driven-development` -> `/api-and-interface-design` -> `/incremental-implementation`
+- Migrations affecting existing users -> add `/test-driven-development` and `/security-and-hardening` before merge
+- Auth/session, parent-student linking, role checks -> `/security-and-hardening` (must not leak paid-only data to free routes)
+
+### Free vs paid boundary
+- Any change to entitlements, gating, or "what parents see" -> `/security-and-hardening` + `/test-driven-development` (assert both student and parent paths)
+- AI features that differ by tier -> same as above; verify logging does not store raw PII beyond policy
+
+### Student experience (connector, not pressure)
+- Roadmap, calendar sync, portfolio capture, progress/map UI -> `/frontend-ui-engineering` + `/incremental-implementation`
+- Achievement/progress features -> `/brainstorming` or `/code-review-and-quality` to enforce **encouragement-only** rules (no streak punishment, no leaderboard pressure); then `/frontend-ui-engineering`
+
+### Share cards & growth surfaces
+- 1280x720 share flows, Canvas/Sharp, QR to parent view, anonymous defaults -> `/frontend-ui-engineering` -> `/qa` (visual + console + mobile viewport)
+
+### AI pipeline
+- New prompts, model switches, provider fallback, logging fields -> `/api-and-interface-design` (contracts) -> `/incremental-implementation` -> `/security-and-hardening` (secrets, data minimization)
+
+### Content & SEO
+- `content/` Markdown, `data/` JSON seeds, long-tail pages -> `/incremental-implementation`; large IA changes -> `/spec-driven-development` first
+- Copy tone: user-facing must stay **Traditional Chinese**; code identifiers **English**
+
+### Email (Resend)
+- Templates, triggers, unsubscribe, parent reports -> `/incremental-implementation` + `/security-and-hardening` (secrets, PII in logs)
+
+### Verify & ship
+- Before merge: `/qa` for user-visible flows; `/code-review-and-quality` for risky diffs
+- Release: `/ship` (or `/land-and-deploy` if using gstack deploy flow)
+- Long sessions or handoff: `/context-save`; resume: `/context-restore`
+
+### gstack slash names (when Skill tool maps to these)
+If your environment exposes gstack commands, these are equivalent hooks: bugs `/investigate`; QA `/qa` or `/qa-only`; review `/review`; ship `/ship` or `/land-and-deploy`; full planning pipeline `/autoplan`.

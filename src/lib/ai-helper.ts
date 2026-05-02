@@ -19,9 +19,9 @@ const AI_MODEL =
 /** Models to try in order of preference */
 const MODEL_FALLBACKS = [AI_MODEL, 'glm-4.5-air', 'glm-4-flash'];
 
-const RETRY_DELAY_MS = 2000;
-const MAX_RETRIES = 1;
-const REQUEST_TIMEOUT_MS = 30000;
+const RETRY_DELAY_MS = 1000;
+const MAX_RETRIES = 2;
+const REQUEST_TIMEOUT_MS = 8000; // Vercel Serverless has 10s limit, leave buffer for retry logic
 
 export interface AIRequestOptions {
   systemPrompt?: string;
@@ -36,6 +36,8 @@ export interface AIResponse {
   error: string | null;
   usedFallback: boolean;
   isRateLimited: boolean;
+  retryCount?: number;
+  responseTime?: number;
 }
 
 /**
@@ -43,6 +45,8 @@ export interface AIResponse {
  * Returns structured result instead of throwing, so callers can handle fallbacks.
  */
 export async function callAI(options: AIRequestOptions): Promise<AIResponse> {
+  const startTime = Date.now();
+
   if (!AI_API_KEY) {
     return {
       ok: false,
@@ -50,6 +54,7 @@ export async function callAI(options: AIRequestOptions): Promise<AIResponse> {
       error: 'AI API key not configured',
       usedFallback: false,
       isRateLimited: false,
+      responseTime: Date.now() - startTime,
     };
   }
 
@@ -63,7 +68,7 @@ export async function callAI(options: AIRequestOptions): Promise<AIResponse> {
 
   // Try each model
   for (const model of MODEL_FALLBACKS) {
-    const result = await tryModel(model, messages, options.temperature ?? 0.5, timeoutMs);
+    const result = await tryModel(model, messages, options.temperature ?? 0.5, timeoutMs, startTime);
     if (result.ok) return result;
 
     // If rate limited on this model, try next model
@@ -78,7 +83,7 @@ export async function callAI(options: AIRequestOptions): Promise<AIResponse> {
   }
 
   // All models failed - try retry on original model once
-  const retryResult = await tryModel(AI_MODEL, messages, options.temperature ?? 0.5, timeoutMs);
+  const retryResult = await tryModel(AI_MODEL, messages, options.temperature ?? 0.5, timeoutMs, startTime);
   if (retryResult.ok) {
     return { ...retryResult, usedFallback: true };
   }
@@ -89,6 +94,7 @@ export async function callAI(options: AIRequestOptions): Promise<AIResponse> {
     error: retryResult.error ?? 'All AI models unavailable',
     usedFallback: false,
     isRateLimited: retryResult.isRateLimited,
+    responseTime: Date.now() - startTime,
   };
 }
 
@@ -97,7 +103,10 @@ async function tryModel(
   messages: Array<{ role: string; content: string }>,
   temperature: number,
   timeoutMs: number,
+  startTime: number,
 ): Promise<AIResponse> {
+  let lastError: string | null = null;
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     if (attempt > 0) {
       await sleep(RETRY_DELAY_MS);
@@ -135,15 +144,24 @@ async function tryModel(
             error: 'Rate limited - please wait a moment and try again',
             usedFallback: false,
             isRateLimited: true,
+            responseTime: Date.now() - startTime,
           };
+        }
+
+        lastError = `API error ${response.status}: ${errBody.slice(0, 200)}`;
+        console.error(`API error attempt ${attempt + 1}:`, lastError);
+
+        if (attempt < MAX_RETRIES) {
+          continue;
         }
 
         return {
           ok: false,
           content: null,
-          error: `API error ${response.status}: ${errBody.slice(0, 200)}`,
+          error: lastError,
           usedFallback: false,
           isRateLimited: false,
+          responseTime: Date.now() - startTime,
         };
       }
 
@@ -157,13 +175,33 @@ async function tryModel(
           error: 'Empty response from AI',
           usedFallback: false,
           isRateLimited: false,
+          responseTime: Date.now() - startTime,
         };
       }
 
-      return { ok: true, content, error: null, usedFallback: false, isRateLimited: false };
+      return {
+        ok: true,
+        content,
+        error: null,
+        usedFallback: false,
+        isRateLimited: false,
+        retryCount: attempt,
+        responseTime: Date.now() - startTime,
+      };
     } catch (err) {
       clearTimeout(timeoutId);
       const msg = err instanceof Error ? err.message : 'Unknown error';
+
+      // Handle network errors and socket closure
+      const isNetworkError =
+        msg.includes('socket') ||
+        msg.includes('connection') ||
+        msg.includes('ECONNRESET') ||
+        msg.includes('ENOTFOUND') ||
+        msg.includes('ETIMEDOUT') ||
+        msg.includes('fetch');
+
+      lastError = msg;
 
       // Don't retry on abort (timeout)
       if (msg.includes('abort') || msg.includes('timeout')) {
@@ -173,11 +211,12 @@ async function tryModel(
           error: 'Request timed out',
           usedFallback: false,
           isRateLimited: false,
+          responseTime: Date.now() - startTime,
         };
       }
 
-      // Retry on network errors
-      if (attempt < MAX_RETRIES) {
+      // Retry on network errors including socket closure
+      if (isNetworkError && attempt < MAX_RETRIES) {
         console.error(`AI request attempt ${attempt + 1} failed: ${msg}, retrying...`);
         continue;
       }
@@ -188,6 +227,7 @@ async function tryModel(
         error: `Request failed: ${msg}`,
         usedFallback: false,
         isRateLimited: false,
+        responseTime: Date.now() - startTime,
       };
     }
   }
@@ -196,9 +236,10 @@ async function tryModel(
   return {
     ok: false,
     content: null,
-    error: 'Max retries exhausted',
+    error: lastError || 'Max retries exhausted',
     usedFallback: false,
     isRateLimited: false,
+    responseTime: Date.now() - startTime,
   };
 }
 

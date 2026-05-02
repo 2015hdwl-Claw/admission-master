@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClientWrapper } from '@/lib/supabase/server'
 import { callAI, parseAIJson } from '@/lib/ai-helper'
+import { calculateAllBusinessMatches, convertAnswersToProfile, BusinessDepartment } from '@/lib/scoring/scoring-algorithm'
 
 interface AnalysisRequest {
   studentProfile?: {
@@ -21,6 +22,17 @@ interface AnalysisRequest {
     bonus_percent?: number
     occurred_date?: string
   }>
+  // 新增商管群特質評分（可選）
+  businessProfile?: {
+    mathScore?: number
+    logicScore?: number
+    languageScore?: number
+    communicationScore?: number
+    creativityScore?: number
+    leadershipScore?: number
+    itScore?: number
+    globalVisionScore?: number
+  }
 }
 
 interface AnalysisResponse {
@@ -42,6 +54,16 @@ interface AnalysisResponse {
       highlights: string[]
       patterns: string[]
       suggestions: string[]
+    }
+    // 新增商管群匹配度分析（如果提供了商管資料）
+    businessAnalysis?: {
+      topRecommendations: Array<{
+        department: string
+        matchScore: number
+        riskLevel: string
+        keyReasons: string[]
+      }>
+      summaryAdvice: string
     }
   }
   error?: string
@@ -77,21 +99,24 @@ export async function POST(request: NextRequest) {
 
     const userPrompt = buildAnalysisPrompt(body)
 
-    // 呼叫 AI API
+    // 呼叫 AI API with better timeout handling
     const aiResult = await callAI({
       systemPrompt,
       userPrompt,
       temperature: 0.7,
-      timeoutMs: 15000
+      timeoutMs: 7000 // Reduce timeout for Vercel compatibility
     })
 
     if (!aiResult.ok || !aiResult.content) {
+      console.error('AI analysis failed:', aiResult.error);
       return NextResponse.json(
         {
           success: false,
-          error: aiResult.error || 'AI 分析服務暫時無法使用'
+          error: 'AI 分析服務暫時無法使用，請稍後再試。如果問題持續，請使用規則分析功能。',
+          isRetryable: true,
+          originalError: aiResult.error
         },
-        { status: 500 }
+        { status: 503 } // Service Unavailable
       )
     }
 
@@ -103,6 +128,36 @@ export async function POST(request: NextRequest) {
         { success: false, error: 'AI 回應格式錯誤' },
         { status: 500 }
       )
+    }
+
+    // 新增：如果提供了商管群特質資料，計算科系匹配度
+    if (body.businessProfile) {
+      try {
+        const businessProfile = convertAnswersToProfile(body.businessProfile)
+        const businessMatches = calculateAllBusinessMatches(businessProfile)
+
+        // 取前 3 個推薦科系
+        const topRecommendations = businessMatches.slice(0, 3).map(match => ({
+          department: match.name,
+          matchScore: match.matchScore,
+          riskLevel: match.riskLevel,
+          keyReasons: [
+            ...match.strengths.slice(0, 2), // 優勢
+            ...match.concerns.slice(0, 1)   // 主要關注
+          ]
+        }))
+
+        // 生成建議摘要
+        const summaryAdvice = `根據你的商管特質分析，${topRecommendations[0].department}是最推薦的科系（匹配度${topRecommendations[0].matchScore}%）。${topRecommendations[0].riskLevel === 'high' ? '建議加強相關能力以提升競爭力。' : '你的特質與此科系高度匹配。'}`
+
+        parsedAnalysis.businessAnalysis = {
+          topRecommendations,
+          summaryAdvice
+        }
+      } catch (error) {
+        console.error('Business analysis failed:', error)
+        // 不中斷整個分析流程，只記錄錯誤
+      }
     }
 
     // 記錄分析日誌
