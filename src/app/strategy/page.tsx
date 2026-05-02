@@ -240,11 +240,11 @@ export default function StrategyPage() {
       {/* Report Header */}
       <section className="mb-xxl text-center md:text-left">
         <div className="inline-block px-3 py-1 bg-primary-fixed text-on-primary-fixed font-label-caps mb-md">
-          {isDemo ? 'CONFIDENTIAL STRATEGY REPORT 2024' : isFallback ? 'BASIC STRATEGY REPORT' : 'AI-POWERED STRATEGY REPORT'}
+          {isDemo ? '🎯 你的升學計畫' : isFallback ? '基礎分析報告' : 'AI 智慧分析報告'}
         </div>
-        <h1 className="font-h1 text-on-background mb-sm">個人升學戰略分析報告</h1>
+        <h1 className="font-h1 text-on-background mb-sm">你的專屬升學建議</h1>
         <p className="font-body-lg text-on-surface-variant max-w-[42rem]">
-          專為 <span className="font-bold text-primary">{isDemo ? '林嘉誠' : displayDirection}</span> 同學量身打造。基於近三年的學習歷程、模考數據與職業適性測驗，規劃之{displayGroup}升學錄取策略。
+          為 <span className="font-bold text-primary">{isDemo ? '林嘉誠' : displayDirection}</span> 同學專屬打造。根據你的學習狀況和興趣，幫你找到最適合的升學路徑。
         </p>
       </section>
 
@@ -253,7 +253,7 @@ export default function StrategyPage() {
         {/* Priority Schools (8 cols) */}
         <div className="col-span-12 md:col-span-8 bg-surface-container-low p-xl border border-outline-variant relative overflow-hidden">
           <div className="absolute top-0 right-0 p-lg opacity-10 font-h1 text-8xl pointer-events-none select-none">01</div>
-          <h3 className="font-h3 text-primary mb-lg">首選目標校系</h3>
+          <h3 className="font-h3 text-primary mb-lg">🎯 推薦你的目標學校</h3>
           <div className="space-y-md">
             {displayReport.departments.slice(0, 5).map((dept, i) => (
               <div key={dept.rank} className="flex justify-between items-end border-b border-outline-variant pb-xs">
@@ -300,7 +300,7 @@ export default function StrategyPage() {
       {/* SWOT Analysis */}
       <section className="mb-xxl">
         <div className="flex items-center gap-gutter mb-xl">
-          <h2 className="font-h2 text-on-background shrink-0">競爭優劣勢分析</h2>
+          <h2 className="font-h2 text-on-background shrink-0">💪 你的強項和要注意的地方</h2>
           <div className="h-[1px] w-full bg-outline-variant" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
@@ -308,7 +308,7 @@ export default function StrategyPage() {
           <div className="border-l-4 border-primary bg-surface-container-lowest p-lg shadow-[0_4px_30px_rgba(125,139,126,0.05)]">
             <div className="flex items-center gap-sm mb-md text-primary">
               <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>trending_up</span>
-              <span className="font-label-caps">核心優勢 (Strengths)</span>
+              <span className="font-label-caps">✅ 你的強項</span>
             </div>
             <ul className="space-y-md text-on-surface-variant">
               {displayReport.timeline.slice(0, 2).map((item, i) => (
@@ -323,7 +323,7 @@ export default function StrategyPage() {
           <div className="border-l-4 border-tertiary-container bg-surface-container-lowest p-lg shadow-[0_4px_30px_rgba(125,139,126,0.05)]">
             <div className="flex items-center gap-sm mb-md text-tertiary-container">
               <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>trending_down</span>
-              <span className="font-label-caps">潛在弱點 (Weaknesses)</span>
+              <span className="font-label-caps">⚠️ 需要注意的地方</span>
             </div>
             <ul className="space-y-md text-on-surface-variant">
               {displayReport.departments.slice(3, 5).map((dept, i) => (
@@ -362,7 +362,7 @@ export default function StrategyPage() {
 
       {/* Action Plan / Timeline */}
       <section className="mb-xxl">
-        <h2 className="font-h2 text-on-background mb-xl text-center">關鍵行動藍圖</h2>
+        <h2 className="font-h2 text-on-background mb-xl text-center">🚀 接下來怎麼做</h2>
         <div className="space-y-gutter">
           {displayReport.timeline.map((item, i) => (
             <div key={i} className={`flex flex-col ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-xl bg-white p-lg border border-outline-variant`}>
@@ -387,9 +387,9 @@ export default function StrategyPage() {
 
       {/* CTA */}
       <section className="bg-surface-container p-xl text-center">
-        <h3 className="font-h3 text-on-background mb-md">準備好執行你的藍圖了嗎？</h3>
+        <h3 className="font-h3 text-on-background mb-md">準備好開始行動了嗎？</h3>
         <p className="text-on-surface-variant font-body-md mb-lg max-w-[36rem] mx-auto">
-          我們的顧問團隊將伴隨你完成每一個節點。若對報告內容有任何疑問，請隨時安排諮詢會議。
+          我們會陪你完成每一個步驟。如果有任何問題，隨時可以詢問我們的顧問團隊。
         </p>
         <div className="flex flex-wrap justify-center gap-md">
           {isDemo ? (

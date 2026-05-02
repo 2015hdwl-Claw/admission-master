@@ -97,15 +97,15 @@ export default function HomePage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            學升準備的
+            讓你的努力，
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              連結器
+              看得見！
             </span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            把學生正在做的事連結到升學目標，讓家長看到孩子的成長軌跡。
+            把你在學校做的事情，連結到升學目標。讓你看到自己的成長，讓家長看到你的進步。
             <br />
-            學生免費使用並病毒式傳播，家長為成長報告和 AI 輔導付費。
+            高職生的升學助手，完全免費使用。
           </p>
 
           {/* CTA Buttons */}
@@ -133,9 +133,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">能力帳戶</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🏆 我的成就記錄</h3>
               <p className="text-gray-600">
-                記錄你的學習歷程，自動分類為 A/B/C/D 四類，清楚看到自己的成長軌跡
+                把你做過的事情記錄下來，自動整理成四大類。讓你看到自己到底學會了什麼，哪些地方越來越強。
               </p>
             </div>
 
@@ -146,9 +146,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">AI 智慧分析</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🤖 AI 智慧分析</h3>
               <p className="text-gray-600">
-                使用 AI 分析你的學習歷程，提供改進建議和內容預覽
+                AI 分析你學會的技能，告訴你哪裡做得好，哪裡可以再加強。就像有個專業老師幫你分析。
               </p>
             </div>
 
@@ -159,9 +159,9 @@ export default function HomePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">20 職群支援</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">🎯 找到適合你的科系</h3>
               <p className="text-gray-600">
-                完整支援 20 個高職類群，提供專屬的升學資訊和建議
+                不管你讀哪個職群，都能找到適合你的升學路徑。商管、設計、科技、服務，通通都有專屬建議。
               </p>
             </div>
           </div>
