@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true)
@@ -15,6 +16,7 @@ export default function HomePage() {
 
   useEffect(() => {
     checkUser()
+    trackPageView('homepage')
   }, [])
 
   const checkUser = async () => {
@@ -31,6 +33,7 @@ export default function HomePage() {
   }
 
   const handleGetStarted = () => {
+    trackFeatureUsage('get_started_click', { has_user: !!user })
     if (user) {
       router.push('/ability-account')
     } else {
