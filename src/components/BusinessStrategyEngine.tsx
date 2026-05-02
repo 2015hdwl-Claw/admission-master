@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import StudentFeedback from './StudentFeedback'
 
 interface BusinessProfile {
   mathScore: number
@@ -151,6 +152,7 @@ export default function BusinessStrategyEngine({ grade = '高二', portfolioCoun
   const [result, setResult] = useState<BusinessStrategyResponse | null>(null)
   const [showInstructions, setShowInstructions] = useState(true)
   const [currentStep, setCurrentStep] = useState(0)
+  const [showFeedback, setShowFeedback] = useState(false)
 
   const steps = [
     { title: '開始評估', description: '回答 8 個簡單問題' },
@@ -515,13 +517,25 @@ export default function BusinessStrategyEngine({ grade = '高二', portfolioCoun
             >
               🔄 重新評估
             </button>
-            <a
-              href="/quiz"
-              className="flex-1 border border-indigo-600 text-indigo-600 py-3 px-6 rounded-lg font-medium hover:bg-indigo-50 transition text-center"
+            <button
+              onClick={() => setShowFeedback(true)}
+              className="flex-1 border border-green-600 text-green-600 py-3 px-6 rounded-lg font-medium hover:bg-green-50 transition"
             >
-              🧩 做更多測驗
-            </a>
+              💬 提供反饋
+            </button>
           </div>
+
+          {/* 反饋彈窗 */}
+          {showFeedback && (
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+              <div className="w-full max-w-lg">
+                <StudentFeedback
+                  type="business-strategy"
+                  onClose={() => setShowFeedback(false)}
+                />
+              </div>
+            </div>
+          )}
         </div>
       ) : result && !result.success ? (
         <div className="text-center py-12">
