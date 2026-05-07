@@ -63,47 +63,82 @@ export default function Step5Page() {
 
   if (!loaded) {
     return (
-      <div className="text-center py-16">
-        <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
-        <p className="text-on-surface-variant">載入中...</p>
+      <div style={{ textAlign: 'center', padding: '64px 16px' }}>
+        <div style={{
+          width: '32px',
+          height: '32px',
+          border: '4px solid #525f54',
+          borderTopColor: 'transparent',
+          borderRadius: '50%',
+          margin: '0 auto 16px',
+          animation: 'spin 1s linear infinite'
+        }} />
+        <style>{`
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+        `}</style>
+        <p style={{ color: '#434843' }}>載入中...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-lg mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
+    <div style={{ maxWidth: '512px', margin: '0 auto', padding: '16px' }}>
+      {/* 標題區域 */}
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <h1 style={{
+          fontFamily: 'serif',
+          fontSize: '24px',
+          fontWeight: 'bold',
+          color: '#1b1c1b',
+          marginBottom: '8px'
+        }}>
           確認你的方向
         </h1>
-        <p className="text-on-surface-variant">選擇 1-2 個你最感興趣的方向</p>
+        <p style={{ color: '#434843' }}>
+          選擇 1-2 個你最感興趣的方向
+        </p>
       </div>
 
-      {/* Direction selection */}
-      <div className="space-y-3 mb-8">
+      {/* 方向選擇區域 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
         {directions.map(dir => {
           const isSelected = selected.includes(dir.direction);
           return (
             <button
               key={dir.direction}
               onClick={() => toggleDirection(dir.direction)}
-              className={`w-full p-4 rounded-sm border-2 text-left transition-all ${
-                isSelected
-                  ? 'border-primary bg-primary-fixed '
-                  : 'border-[#E9E5DB] bg-white hover:border-outline'
-              }`}
+              style={{
+                width: '100%',
+                padding: '16px',
+                borderRadius: '4px',
+                border: '2px solid',
+                textAlign: 'left',
+                transition: 'all 0.2s',
+                background: isSelected ? '#d8e6d7' : 'white',
+                borderColor: isSelected ? '#525f54' : '#E9E5DB',
+                cursor: 'pointer'
+              }}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm ${
-                    isSelected ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant'
-                  }`}
-                >
-                  {isSelected ? <span className="material-symbols-outlined text-[16px]">check_circle</span> : ''}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '14px',
+                  background: isSelected ? '#525f54' : '#f0edeb',
+                  color: isSelected ? 'white' : '#434843'
+                }}>
+                  {isSelected ? '✓' : ''}
                 </div>
                 <div>
-                  <div className="font-bold text-on-background">{dir.direction}</div>
-                  <div className="text-xs text-on-surface-variant">
+                  <div style={{ fontWeight: 'bold', color: '#1b1c1b' }}>{dir.direction}</div>
+                  <div style={{ fontSize: '12px', color: '#434843' }}>
                     匹配度 {Math.round(dir.confidence * 100)}%
                   </div>
                 </div>
@@ -113,24 +148,68 @@ export default function Step5Page() {
         })}
       </div>
 
-      {/* Confirmation summary */}
+      {/* 確認摘要 */}
       {selected.length > 0 && (
-        <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-sm p-6 border border-primary-100 mb-8">
-          <div className="text-center mb-3">
-            <div className="inline-block w-14 h-14 bg-success-container rounded-full flex items-center justify-center mb-2">
-              <span className="material-symbols-outlined text-[24px]">check_circle</span>
+        <div style={{
+          background: 'linear-gradient(to right, #e8f0ed, #fadbde)',
+          borderRadius: '4px',
+          padding: '24px',
+          border: '1px solid #d8e6d7',
+          marginBottom: '32px'
+        }}>
+          <div style={{ textAlign: 'center', marginBottom: '12px' }}>
+            <div style={{
+              display: 'inline-block',
+              width: '56px',
+              height: '56px',
+              background: '#c8e6c9',
+              borderRadius: '50%',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: '8px'
+            }}>
+              <span style={{ fontSize: '24px' }}>✓</span>
             </div>
-            <h3 className="font-serif font-bold text-success text-lg">導入完成！</h3>
+            <h3 style={{
+              fontFamily: 'serif',
+              fontWeight: 'bold',
+              color: '#2e7d32',
+              fontSize: '18px'
+            }}>導入完成！</h3>
           </div>
-          <h3 className="font-serif font-bold text-on-background mb-3 text-center">你的職群方向</h3>
-          <div className="flex flex-wrap gap-2 justify-center mb-4">
+          <h3 style={{
+            fontFamily: 'serif',
+            fontWeight: 'bold',
+            color: '#1b1c1b',
+            marginBottom: '12px',
+            textAlign: 'center'
+          }}>你的職群方向</h3>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px',
+            justifyContent: 'center',
+            marginBottom: '16px'
+          }}>
             {selected.map(dir => (
-              <span key={dir} className="px-4 py-2 bg-white text-primary rounded-full font-medium  border border-primary/30">
+              <span key={dir} style={{
+                padding: '8px 16px',
+                background: 'white',
+                color: '#525f54',
+                borderRadius: '9999px',
+                fontWeight: '500',
+                border: '1px solid rgba(82, 95, 84, 0.3)'
+              }}>
                 {dir}
               </span>
             ))}
           </div>
-          <p className="text-sm text-on-surface-variant text-center leading-relaxed">
+          <p style={{
+            fontSize: '14px',
+            color: '#434843',
+            textAlign: 'center',
+            lineHeight: '1.6'
+          }}>
             你選了 <strong>{selected.join('、')}</strong> 方向。
             接下來我們會根據你的年級和職群，幫你規劃個人化的升學路線圖，
             包含統測準備、技能培養、專題實作和面試練習。
@@ -138,30 +217,61 @@ export default function Step5Page() {
         </div>
       )}
 
-      {/* Actions */}
-      <div className="space-y-3">
+      {/* 操作按鈕 */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <Link
           href="/roadmap"
           onClick={handleConfirm}
-          className="block w-full py-4 rounded-sm bg-gradient-to-r from-primary to-tertiary text-white text-lg font-bold hover:from-indigo-700 hover:to-purple-700  transition-all text-center"
+          style={{
+            display: 'block',
+            width: '100%',
+            padding: '16px',
+            borderRadius: '4px',
+            background: 'linear-gradient(to right, #525f54, #6d5659)',
+            color: 'white',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            textAlign: 'center',
+            textDecoration: 'none',
+            transition: 'all 0.2s'
+          }}
         >
           進入我的路線圖
         </Link>
         <button
           onClick={() => router.push('/onboarding/step4')}
-          className="w-full py-3 text-on-surface-variant text-sm hover:text-on-background transition-colors"
+          style={{
+            width: '100%',
+            padding: '12px',
+            color: '#434843',
+            fontSize: '14px',
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'color 0.2s'
+          }}
         >
           回上一步調整
         </button>
       </div>
 
-      {/* Done message */}
-      <div className="mt-12 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-success-container rounded-full text-sm text-success font-medium">
-          <span className="material-symbols-outlined text-[20px]">check_circle</span>
+      {/* 完成訊息 */}
+      <div style={{ marginTop: '48px', textAlign: 'center' }}>
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          padding: '8px 16px',
+          background: '#c8e6c9',
+          borderRadius: '9999px',
+          fontSize: '14px',
+          color: '#2e7d32',
+          fontWeight: '500'
+        }}>
+          <span style={{ fontSize: '16px' }}>✓</span>
           Onboarding 完成
         </div>
-        <p className="text-xs text-on-surface-variant mt-2">
+        <p style={{ fontSize: '12px', color: '#434843', marginTop: '8px' }}>
           之後可以在路線圖頁面隨時重新設定
         </p>
       </div>
