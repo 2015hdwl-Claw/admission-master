@@ -120,53 +120,90 @@ export default function Step2Page() {
     const answered = interestAnswers.find(a => a.questionId === question.id);
 
     return (
-      <div className="max-w-lg mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
+      <div style={{ maxWidth: '512px', margin: '0 auto', padding: '16px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          <h1 style={{
+            fontFamily: 'serif',
+            fontSize: '24px',
+            fontWeight: 'bold',
+            color: '#1b1c1b',
+            marginBottom: '8px'
+          }}>
             興趣探索
           </h1>
-          <p className="text-on-surface-variant">
+          <p style={{ color: '#434843' }}>
             還沒有太多經歷沒關係，回答幾個問題幫你找到方向
           </p>
         </div>
 
-        <div className="mb-4">
-          <div className="flex justify-between text-xs text-on-surface-variant mb-2">
+        <div style={{ marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '12px', color: '#434843', marginBottom: '8px' }}>
             <span>問題 {currentQuestion + 1} / {INTEREST_QUESTIONS.length}</span>
             <span>{Math.round(((currentQuestion + 1) / INTEREST_QUESTIONS.length) * 100)}%</span>
           </div>
-          <div className="h-2 bg-surface-container-high rounded-full overflow-hidden">
+          <div style={{ height: '8px', background: '#e4e2e0', borderRadius: '9999px', overflow: 'hidden' }}>
             <div
-              className="h-full bg-primary rounded-full transition-all duration-300"
-              style={{ width: `${((currentQuestion + 1) / INTEREST_QUESTIONS.length) * 100}%` }}
+              style={{
+                height: '100%',
+                background: '#525f54',
+                borderRadius: '9999px',
+                transition: 'all 0.3s',
+                width: `${((currentQuestion + 1) / INTEREST_QUESTIONS.length) * 100}%`
+              }}
             />
           </div>
         </div>
 
-        <div className="bg-surface-container-low border border-[#E9E5DB] p-xl">
-          <h2 className="font-serif text-lg font-bold text-on-background mb-6">{question.question}</h2>
-          <div className="space-y-3">
+        <div style={{
+          background: '#f5f3f1',
+          border: '1px solid #E9E5DB',
+          padding: '24px'
+        }}>
+          <h2 style={{
+            fontFamily: 'serif',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            color: '#1b1c1b',
+            marginBottom: '24px'
+          }}>{question.question}</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {question.options.map(opt => (
               <button
                 key={opt.value}
                 onClick={() => handleInterestAnswer(question.id, opt.value)}
-                className={`w-full p-4 rounded-md border-2 text-left transition-all ${
-                  answered?.answer === opt.value
-                    ? 'border-primary bg-primary-fixed'
-                    : 'border-[#E9E5DB] hover:border-outline hover:bg-surface-container-low'
-                }`}
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  borderRadius: '6px',
+                  border: '2px solid',
+                  textAlign: 'left',
+                  transition: 'all 0.2s',
+                  background: answered?.answer === opt.value ? '#d8e6d7' : 'white',
+                  borderColor: answered?.answer === opt.value ? '#525f54' : '#E9E5DB',
+                  cursor: 'pointer'
+                }}
               >
-                <span className="font-medium text-on-background">{opt.label}</span>
+                <span style={{ fontWeight: '500', color: '#1b1c1b' }}>{opt.label}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="mt-6 flex gap-3">
+        <div style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
           {currentQuestion > 0 && (
             <button
               onClick={() => setCurrentQuestion(prev => prev - 1)}
-              className="flex-1 py-3 rounded-md border border-[#E9E5DB] text-on-surface-variant font-medium hover:bg-surface-container-low transition-colors cursor-pointer"
+              style={{
+                flex: 1,
+                padding: '12px',
+                borderRadius: '6px',
+                border: '1px solid #E9E5DB',
+                color: '#434843',
+                fontWeight: '500',
+                background: 'white',
+                cursor: 'pointer',
+                transition: 'background 0.2s'
+              }}
             >
               上一題
             </button>
@@ -180,11 +217,18 @@ export default function Step2Page() {
               }
             }}
             disabled={!answered}
-            className={`flex-1 py-3 rounded-md font-bold transition-all ${
-              answered
-                ? 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
-                : 'bg-surface-container-high text-outline cursor-not-allowed'
-            }`}
+            style={{
+              flex: 1,
+              padding: '12px',
+              borderRadius: '6px',
+              fontWeight: 'bold',
+              transition: 'all 0.2s',
+              background: answered ? 'linear-gradient(to right, #525f54, #6d5659)' : '#e4e2e0',
+              color: answered ? 'white' : '#747873',
+              border: 'none',
+              cursor: answered ? 'pointer' : 'not-allowed',
+              opacity: answered ? 1 : 0.5
+            }}
           >
             {isLast ? '查看結果' : '下一題'}
           </button>
@@ -194,65 +238,135 @@ export default function Step2Page() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="font-serif text-2xl md:text-3xl font-bold text-on-background mb-2">
+    <div style={{ maxWidth: '672px', margin: '0 auto', padding: '16px' }}>
+      <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+        <h1 style={{
+          fontFamily: 'serif',
+          fontSize: '24px',
+          fontWeight: 'bold',
+          color: '#1b1c1b',
+          marginBottom: '8px'
+        }}>
           你已經做了什麼？
         </h1>
-        <p className="text-on-surface-variant">勾選你已經完成的項目，填越多建議越準</p>
+        <p style={{ color: '#434843' }}>勾選你已經完成的項目，填越多建議越準</p>
         {selectedCount > 0 && (
-          <div className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-primary-fixed rounded-full text-sm text-primary font-medium">
+          <div style={{
+            marginTop: '12px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '8px 16px',
+            background: '#d8e6d7',
+            borderRadius: '9999px',
+            fontSize: '14px',
+            color: '#525f54',
+            fontWeight: '500'
+          }}>
             已選 {selectedCount} 項
           </div>
         )}
       </div>
 
-      <div className="space-y-4">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {FACT_CATEGORY_ORDER.map(cat => {
           const templates = VOCATIONAL_FACT_TEMPLATES.filter(t => t.category === cat);
           const isExpanded = expandedCategories.has(cat);
           const selectedInCat = templates.filter(t => selectedIds.has(t.id)).length;
 
           return (
-            <div key={cat} className="bg-white rounded-sm border border-[#E9E5DB]  overflow-hidden">
+            <div key={cat} style={{
+              background: 'white',
+              borderRadius: '4px',
+              border: '1px solid #E9E5DB',
+              overflow: 'hidden'
+            }}>
               <button
                 onClick={() => toggleCategory(cat)}
-                className="w-full p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors cursor-pointer"
+                style={{
+                  width: '100%',
+                  padding: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 0.2s'
+                }}
               >
-                <div className="flex items-center gap-3">
-                  <h3 className="font-serif font-bold text-on-background">{FACT_CATEGORY_LABELS[cat]}</h3>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <h3 style={{ fontFamily: 'serif', fontWeight: 'bold', color: '#1b1c1b' }}>
+                    {FACT_CATEGORY_LABELS[cat]}
+                  </h3>
                   {selectedInCat > 0 && (
-                    <span className="text-xs px-2 py-0.5 bg-primary-100 text-primary rounded-full font-medium">
+                    <span style={{
+                      fontSize: '12px',
+                      padding: '2px 8px',
+                      background: '#e8f0ed',
+                      color: '#525f54',
+                      borderRadius: '9999px',
+                      fontWeight: '500'
+                    }}>
                       {selectedInCat}
                     </span>
                   )}
                 </div>
-                <span className={`text-outline transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
-                  &#9660;
+                <span style={{
+                  color: '#747873',
+                  transition: 'transform 0.2s',
+                  transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)'
+                }}>
+                  ▼
                 </span>
               </button>
               {isExpanded && (
-                <div className="px-4 pb-4 space-y-2">
+                <div style={{ padding: '16px', paddingBottom: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   {templates.map(t => {
                     const isSelected = selectedIds.has(t.id);
                     return (
                       <div key={t.id}>
-                        <label className="flex items-start gap-3 p-3 rounded-md hover:bg-surface-container-low cursor-pointer transition-colors">
+                        <label style={{
+                          display: 'flex',
+                          alignItems: 'flex-start',
+                          gap: '12px',
+                          padding: '12px',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          transition: 'background 0.2s'
+                        }}>
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleFact(t.id)}
-                            className="mt-0.5 w-5 h-5 rounded border-outline text-primary focus:ring-primary"
+                            style={{
+                              marginTop: '2px',
+                              width: '20px',
+                              height: '20px',
+                              borderRadius: '4px',
+                              border: '1px solid #747873',
+                              cursor: 'pointer'
+                            }}
                           />
-                          <div className="flex-1">
-                            <span className="font-medium text-on-background text-sm">{t.label}</span>
+                          <div style={{ flex: 1 }}>
+                            <span style={{ fontWeight: '500', color: '#1b1c1b', fontSize: '14px' }}>
+                              {t.label}
+                            </span>
                             {isSelected && (
                               <input
                                 type="text"
                                 value={details[t.id] || ''}
                                 onChange={e => setDetails(prev => ({ ...prev, [t.id]: e.target.value }))}
                                 placeholder={t.placeholder}
-                                className="mt-2 input text-sm"
+                                style={{
+                                  marginTop: '8px',
+                                  width: '100%',
+                                  padding: '8px 16px',
+                                  border: '1px solid #d1d5db',
+                                  borderRadius: '4px',
+                                  fontSize: '14px',
+                                  outline: 'none'
+                                }}
                                 onClick={e => e.stopPropagation()}
                               />
                             )}
@@ -268,21 +382,38 @@ export default function Step2Page() {
         })}
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div style={{ marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <button
           onClick={handleNext}
-          className={`w-full py-4 rounded-sm text-lg font-bold transition-all ${
-            selectedCount > 0
-              ? 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
-              : 'bg-gradient-to-r from-primary to-tertiary text-white hover:from-indigo-700 hover:to-purple-700  cursor-pointer'
-          }`}
+          style={{
+            width: '100%',
+            padding: '16px',
+            borderRadius: '4px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            background: 'linear-gradient(to right, #525f54, #6d5659)',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            transition: 'all 0.2s'
+          }}
         >
           {selectedCount > 0 ? `下一步（${selectedCount} 項事實）` : '跳過，直接看結果'}
         </button>
         {selectedCount === 0 && (
           <button
             onClick={skipToInterest}
-            className="w-full py-3 text-primary text-sm font-medium hover:underline cursor-pointer"
+            style={{
+              width: '100%',
+              padding: '12px',
+              color: '#525f54',
+              fontSize: '14px',
+              fontWeight: '500',
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
           >
             沒什麼經歷？改用興趣探索模式
           </button>
