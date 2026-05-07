@@ -1,13 +1,8 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    // 添加更广泛的路径以确保覆盖所有文件
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  // Tailwind CSS v4 不再使用 content 字段，會自動掃描所有檔案
+  // theme.extend 仍然支援，用於自訂顏色、間距等
   theme: {
     extend: {},
   },
