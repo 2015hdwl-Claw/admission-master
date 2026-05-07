@@ -110,6 +110,16 @@ body {
 
 html {
   scroll-behavior: smooth;
+  /* Force horizontal text direction - override browser defaults for Chinese content */
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+}
+
+/* Global horizontal text enforcement */
+*, *::before, *::after {
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
 }
 /* Focus visible ring */
 *:focus-visible {
