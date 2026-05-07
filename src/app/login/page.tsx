@@ -23,60 +23,104 @@ export default function LoginPage() {
     setError(null)
     setMessage(null)
 
+    console.log('🚀 開始認證流程:', { isSignUp, email })
+
     try {
       if (isSignUp) {
+        console.log('📝 嘗試註冊帳戶...')
+
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: { role: 'student' }
+            data: { role: 'student' },
+            emailRedirectTo: `${window.location.origin}/ability-account`
           }
         })
 
-        if (error) throw error
+        console.log('📊 註冊回應:', { data, error })
+
+        if (error) {
+          console.error('❌ 註冊錯誤:', error)
+          throw error
+        }
 
         if (data.user) {
-          setMessage('註冊成功！請檢查您的電子郵件以確認帳戶。')
+          console.log('✅ 用戶創建成功:', data.user)
 
-          const { error: profileError } = await supabase
-            .from('student_profiles')
-            .insert({
-              user_id: data.user.id,
-              group_code: '01',
-              grade: 1,
-              school_name: null,
-              target_pathways: [],
-              target_schooles: [],
-              total_records: 0,
-              total_bonus_percent: 0,
-              partner_ids: [],
-              warmth_points: 0,
-              parent_ids: []
-            } as any)
-
-          if (profileError) {
-            console.error('建立學生資料失敗:', profileError)
-          } else {
-            setTimeout(() => {
-              router.push('/ability-account')
-            }, 2000)
+          // 檢查是否需要 email 驗證
+          if (data.user.identities && data.user.identities.length === 0) {
+            setMessage('註冊成功！但需要確認電子郵件才能登入。')
+            setLoading(false)
+            return
           }
+
+          setMessage('註冊成功！正在創建學生資料...')
+
+          // 延遲創建資料，確保 auth 完成後
+          setTimeout(async () => {
+            try {
+              const { error: profileError } = await supabase
+                .from('student_profiles')
+                .insert({
+                  user_id: data.user!.id,
+                  group_code: '01',
+                  grade: 1,
+                  school_name: null,
+                  target_pathways: [],
+                  target_schooles: [],
+                  total_records: 0,
+                  total_bonus_percent: 0,
+                  partner_ids: [],
+                  warmth_points: 0,
+                  parent_ids: []
+                } as any)
+
+              if (profileError) {
+                console.error('❌ 建立學生資料失敗:', profileError)
+                setError(`註冊成功但建立資料失敗: ${profileError.message}`)
+              } else {
+                console.log('✅ 學生資料創建成功')
+                setMessage('註冊完成！即將跳轉...')
+                setTimeout(() => {
+                  router.push('/ability-account')
+                }, 1000)
+              }
+            } catch (err) {
+              console.error('❌ 資料創建異常:', err)
+              setError('註冊成功但建立資料時發生錯誤')
+            } finally {
+              setLoading(false)
+            }
+          }, 1000)
+
+          return // 不立即設置 setLoading(false)，等待資料創建完成
         }
       } else {
+        console.log('🔑 嘗試登入帳戶...')
+
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password
         })
 
-        if (error) throw error
+        console.log('📊 登入回應:', { data, error })
+
+        if (error) {
+          console.error('❌ 登入錯誤:', error)
+          throw error
+        }
 
         if (data.session) {
+          console.log('✅ 登入成功')
           router.push('/ability-account')
         }
       }
     } catch (err) {
-      console.error('Auth error:', err)
-      setError(err instanceof Error ? err.message : '登入或註冊失敗')
+      console.error('❌ 認證失敗:', err)
+      const errorMessage = err instanceof Error ? err.message : '登入或註冊失敗'
+      console.error('詳細錯誤:', errorMessage)
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -230,6 +274,35 @@ export default function LoginPage() {
                 </div>
               </div>
             )}
+
+            {/* 測試連線按鈕 */}
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  console.log('🧪 測試 Supabase 連線...')
+                  const { data, error } = await supabase.auth.getSession()
+                  console.log('📊 連線測試結果:', { data, error })
+                  alert(`連線${error ? '失敗' : '成功'}: ${error ? error.message : 'Supabase 連線正常'}`)
+                } catch (err) {
+                  console.error('❌ 連線測試失敗:', err)
+                  alert(`連線失敗: ${err instanceof Error ? err.message : 'Unknown error'}`)
+                }
+              }}
+              style={{
+                width: '100%',
+                background: '#059669',
+                color: 'white',
+                padding: '8px',
+                borderRadius: '8px',
+                fontSize: '14px',
+                border: 'none',
+                cursor: 'pointer',
+                marginBottom: '8px'
+              }}
+            >
+              🧪 測試 Supabase 連線
+            </button>
 
             {/* Submit Button */}
             <button
