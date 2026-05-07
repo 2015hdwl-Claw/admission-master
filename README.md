@@ -291,6 +291,28 @@
 
 ## ⚠️ 當前阻礙與風險
 
+### 🔴 **CRITICAL - 垂直文字問題 (最後修復嘗試部署中)**
+- **問題**: 登入頁面所有中文文字呈現垂直排列 (從上到下)
+- **URL**: https://admission-master-ecru.vercel.app/login
+- **影響**: 表單完全無法使用，阻礙所有用戶註冊
+- **最新修復**: (Commit: ce0e48e) 使用 `@layer base` 解決 Tailwind CSS v4 載入順序問題
+- **狀態**: ⏳ **等待驗證** (部署剛完成，需要 5-10 分鐘測試)
+- **如果失敗**: 降級到 Tailwind CSS v3 作為最後解決方案
+
+### **嘗試過的修復** (全部失敗):
+1. ❌ CSS `writing-mode: horizontal-tb !important` 覆蓋
+2. ❌ HTML `lang` 屬性更改 (`zh-TW` → `zh-Hant`)
+3. ❌ Next.js 構建緩存清除
+4. ❌ Tailwind 配置修改
+5. ❌ Code-reviewer agent 分析
+6. ✅ **Architect agent 發現**: Tailwind CSS v4 `@import` 順序問題
+7. ✅ **最新修復**: 使用 `@layer base` 在正確的 CSS 層級設定規則
+
+### **下一步驗證**:
+1. 等待 5-10 分鐘讓 Vercel 完成部署
+2. 測試登入頁面是否顯示橫式文字
+3. 如果仍然垂直，立即執行 Tailwind CSS v3 降級
+
 ### 🟡 中風險
 1. **資料庫遷移風險**
    - 風險: Migration 腳本可能有兼容性問題
@@ -356,6 +378,49 @@
 2. **設置監控系統**
 3. **開始 Phase 5: 擴展與規模**
 4. **優化用戶體驗**
+
+---
+
+## 🔄 **SESSION 移交資訊 (2026-05-07)**
+
+### **當前 Session 狀態**:
+- **Context 壓縮次數**: 6次 (已達建議換 session 门槛)
+- **建議**: **開啟新 session** 繼續工作以保持最佳效能
+- **優先任務**: **驗證垂直文字修復**是否成功
+
+### **第一優先行動** (新 session 開始時):
+1. **立即測試**: https://admission-master-ecru.vercel.app/login
+2. **使用圖像辨識**: 確認文字是橫式還是直式排列
+3. **報告結果**:
+   - ✅ **成功**: 文字橫式排列 → 更新文檔，繼續 Phase 5
+   - ❌ **失敗**: 文字仍直式 → 立即降級到 Tailwind CSS v3
+
+### **技術背景知識**:
+- **根本原因**: Tailwind CSS v4 的 `@import "tailwindcss"` 會覆蓋自訂 CSS
+- **修復方法**: 使用 `@layer base` 在 Tailwind 載入後設定規則
+- **部署狀態**: Commit ce0e48e 已部署，等待驗證
+
+### **如果需要降級到 Tailwind CSS v3**:
+```bash
+# 移除 Tailwind CSS v4
+npm uninstall tailwindcss @tailwindcss/postcss
+
+# 安裝 Tailwind CSS v3
+npm install -D tailwindcss@3 postcss autoprefixer
+
+# 更新配置文件
+npx tailwindcss init -p
+
+# 修改 globals.css
+# 移除 @import "tailwindcss";
+# 添加傳統的 Tailwind directives
+```
+
+### **重要文件位置**:
+- 專案位置: `C:\Users\ntpud\.claude\projects\admission-master`
+- 主要配置: `tailwind.config.ts`, `globals.css`, `next.config.ts`
+- 進度追蹤: `admission-master_PROGRESS.json`
+- 版本歷史: `admission-master_VERSIONS.json`
 
 ---
 
