@@ -115,8 +115,11 @@ export default function LoginPage() {
           <form onSubmit={handleAuth} className="space-y-6">
 
             {/* Email - 橫式 */}
-            <div className="flex items-center gap-4">
-              <label htmlFor="email" className="w-28 flex-shrink-0 text-right font-medium text-gray-700">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <label
+                htmlFor="email"
+                style={{ width: '112px', textAlign: 'right', flexShrink: 0, fontWeight: 500, color: '#374151' }}
+              >
                 電子郵件
               </label>
               <input
@@ -125,14 +128,25 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  outline: 'none'
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
                 placeholder="your@email.com"
               />
             </div>
 
             {/* Password - 橫式 */}
-            <div className="flex items-center gap-4">
-              <label htmlFor="password" className="w-28 flex-shrink-0 text-right font-medium text-gray-700">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <label
+                htmlFor="password"
+                style={{ width: '112px', textAlign: 'right', flexShrink: 0, fontWeight: 500, color: '#374151' }}
+              >
                 密碼
               </label>
               <input
@@ -142,7 +156,15 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  border: '1px solid #d1d5db',
+                  borderRadius: '8px',
+                  outline: 'none'
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
                 placeholder="••••••••"
               />
             </div>
