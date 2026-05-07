@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW">
+    <html lang="zh-Hant">
       <body className="antialiased">
         <GoogleAnalytics />
         {children}

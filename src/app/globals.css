@@ -110,16 +110,6 @@ body {
 
 html {
   scroll-behavior: smooth;
-  /* Force horizontal text direction - override Tailwind v4 @supports rules */
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-  direction: ltr;
-}
-
-/* Force horizontal text layout globally */
-*, *::before, *::after {
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
 }
 /* Focus visible ring */
 *:focus-visible {

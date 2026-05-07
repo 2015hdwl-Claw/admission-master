@@ -269,5 +269,38 @@
       "Consider establishing clearer CSS styling strategy",
       "Continue with Phase 5: Growth & Scaling"
     ]
+  },
+  {
+    "version_id": "v20260507_css_horizontal_fix_final",
+    "timestamp": "2026-05-07T00:00:00.000Z",
+    "phase": "PHASE_4",
+    "phase_name": "成長與驗證",
+    "reason": "針對持續性垂直文字問題的最終 CSS 強制修復",
+    "trigger": "persistent_css_issue",
+    "impact": "critical",
+    "contributions": [
+      "Added strong CSS overrides to force horizontal text layout",
+      "Targeted Tailwind CSS v4 @supports conditional rules",
+      "Global CSS implementation for all elements"
+    ],
+    "status": "in_progress",
+    "skills_used": [
+      "systematic-debugging"
+    ],
+    "plan_section": "Phase 4: 成長與驗證",
+    "changes_made": [
+      "Added writing-mode: horizontal-tb !important to html element",
+      "Added text-orientation: mixed !important to ensure proper text orientation",
+      "Added global CSS overrides for all elements (*, *::before, *::after)",
+      "Targeted the root cause: Tailwind CSS v4 browser-specific conditional rules",
+      "Pushed changes to GitHub for Vercel automatic deployment",
+      "Awaiting production verification"
+    ],
+    "next_steps": [
+      "Verify production deployment completed",
+      "Test login page text layout at https://admission-master-ecru.vercel.app/login",
+      "Confirm horizontal text arrangement is working",
+      "Continue monitoring for any CSS-related issues"
+    ]
   }
 ]
