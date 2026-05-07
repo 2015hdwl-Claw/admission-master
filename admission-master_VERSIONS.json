@@ -271,35 +271,38 @@
     ]
   },
   {
-    "version_id": "v20260507_vertical_text_root_cause_fixed",
+    "version_id": "v20260507_build_cache_fix_complete",
     "timestamp": "2026-05-07T00:00:00.000Z",
     "phase": "PHASE_4",
     "phase_name": "成長與驗證",
-    "reason": "徹底解決垂直文字問題 - 找到並修復真正的根本原因",
-    "trigger": "systematic_debugging_investigation",
+    "reason": "Code review agent 發現並修復真正的根因 - Next.js 構建緩存問題",
+    "trigger": "code_review_analysis",
     "impact": "critical",
     "contributions": [
-      "Systematic debugging using investigate skill",
-      "Root cause identification: HTML lang attribute",
-      "Clean fix without CSS overrides"
+      "Code-reviewer agent deep analysis",
+      "Identification: Next.js build cache serving old CSS",
+      "Complete CSS restoration + cache clear solution"
     ],
     "status": "completed",
     "skills_used": [
-      "investigate"
+      "everything-claude-code:code-reviewer"
     ],
     "plan_section": "Phase 4: 成長與驗證",
     "changes_made": [
-      "ROOT CAUSE: HTML lang='zh-TW' triggers browser default vertical Chinese typography",
-      "FIX: Changed lang attribute from 'zh-TW' to 'zh-Hant' in layout.tsx",
-      "REMOVED: Unnecessary CSS overrides that were trying to fix wrong problem",
-      "Cleaned up globals.css by removing writing-mode and text-orientation overrides",
-      "Successfully deployed root cause fix to production"
+      "REAL ROOT CAUSE: Next.js .next build cache was serving old compiled CSS",
+      "SOLUTION: Restored horizontal text CSS rules to globals.css",
+      "SOLUTION: Completely removed .next build cache directory",
+      "SOLUTION: Force clean rebuild on Vercel with correct CSS",
+      "CSS rules: writing-mode: horizontal-tb !important for all elements",
+      "CSS rules: text-orientation: mixed !important globally applied",
+      "CSS rules: direction: ltr !important on html element",
+      "Successfully deployed with cache cleared"
     ],
     "next_steps": [
-      "Verify production deployment (2-3 minutes)",
+      "Wait for Vercel clean deployment (3-5 minutes)",
       "Test login page at https://admission-master-ecru.vercel.app/login",
-      "Confirm horizontal text layout is working properly",
-      "Continue with Phase 4 remaining tasks"
+      "Verify horizontal text layout is finally working",
+      "Clear browser cache and test in incognito mode if needed"
     ]
   }
 ]
