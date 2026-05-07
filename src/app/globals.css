@@ -5,6 +5,20 @@
    Architectural Mentorship · Sage & Stone · Quiet Luxury
    ═══════════════════════════════════════════════════════ */
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    direction: ltr !important;
+  }
+
+  *, *::before, *::after {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+  }
+}
+
 @theme inline {
   --font-sans: var(--font-manrope);
   --font-serif: var(--font-noto-serif-tc);
