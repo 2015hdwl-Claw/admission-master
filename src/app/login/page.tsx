@@ -106,10 +106,10 @@ export default function LoginPage() {
 
         {/* Form Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <form onSubmit={handleAuth} className="space-y-4">
+          <form onSubmit={handleAuth} className="space-y-6">
             {/* Email - 橫式排列 */}
-            <div className="flex gap-4 items-center">
-              <label htmlFor="email" className="w-20 flex-shrink-0 text-sm font-medium text-gray-700 text-right">
+            <div className="flex items-center gap-4">
+              <label htmlFor="email" className="w-28 flex-shrink-0 text-right font-medium text-gray-700">
                 電子郵件
               </label>
               <input
@@ -118,14 +118,14 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="your@email.com"
               />
             </div>
 
             {/* Password - 橫式排列 */}
-            <div className="flex gap-4 items-center">
-              <label htmlFor="password" className="w-20 flex-shrink-0 text-sm font-medium text-gray-700 text-right">
+            <div className="flex items-center gap-4">
+              <label htmlFor="password" className="w-28 flex-shrink-0 text-right font-medium text-gray-700">
                 密碼
               </label>
               <input
@@ -135,7 +135,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                 placeholder="••••••••"
               />
             </div>
