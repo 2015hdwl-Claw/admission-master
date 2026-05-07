@@ -46,26 +46,15 @@ async function main() {
   console.log('🚀 開始執行資料庫遷移...\n')
 
   try {
-    // 1. 執行主要 Schema
-    console.log('📋 執行主要資料庫 Schema...')
-    const schemaPath = join(process.cwd(), 'supabase', 'migrations', '20240430_complete_schema.sql')
+    // 1. 執行完整 Schema (一次性執行版本)
+    console.log('📋 執行完整資料庫 Schema...')
+    const schemaPath = join(process.cwd(), 'supabase', 'deploy_complete_schema.sql')
     const schemaSQL = readFileSync(schemaPath, 'utf-8')
 
-    const schemaResult = await executeSQL(schemaSQL, '主要 Schema')
+    const schemaResult = await executeSQL(schemaSQL, '完整 Schema')
 
     if (!schemaResult.success) {
-      console.log('⚠️ 主要 Schema 需要手動執行，請按照上面的指示操作')
-    }
-
-    // 2. 執行推薦系統 Schema
-    console.log('\n📋 執行推薦系統 Schema...')
-    const referralPath = join(process.cwd(), 'supabase', 'migrations', '20240430_referral_system.sql')
-    const referralSQL = readFileSync(referralPath, 'utf-8')
-
-    const referralResult = await executeSQL(referralSQL, '推薦系統 Schema')
-
-    if (!referralResult.success) {
-      console.log('⚠️ 推薦系統 Schema 需要手動執行，請按照上面的指示操作')
+      console.log('⚠️ 完整 Schema 需要手動執行，請按照上面的指示操作')
     }
 
     // 3. 驗證資料表是否建立成功

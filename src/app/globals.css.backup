@@ -110,17 +110,27 @@ body {
 
 html {
   scroll-behavior: smooth;
-  /* Force horizontal text direction - override Tailwind v4 @supports rules */
   writing-mode: horizontal-tb !important;
   text-orientation: mixed !important;
-  direction: ltr;
+  direction: ltr !important;
 }
 
-/* Force horizontal text layout globally */
+/* Force horizontal text on all elements — defensive override */
 *, *::before, *::after {
   writing-mode: horizontal-tb !important;
   text-orientation: mixed !important;
+  direction: ltr !important;
+  -webkit-writing-mode: horizontal-tb !important;
+  -ms-writing-mode: lr-tb !important;
 }
+
+/* Specific element overrides for common text containers */
+p, h1, h2, h3, h4, h5, h6, span, div, button, input, label, textarea, select {
+  writing-mode: horizontal-tb !important;
+  text-orientation: mixed !important;
+  direction: ltr !important;
+}
+
 /* Focus visible ring */
 *:focus-visible {
   outline: 2px solid var(--color-primary);

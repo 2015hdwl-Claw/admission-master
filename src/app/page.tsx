@@ -120,7 +120,7 @@ export default function HomePage() {
               {user ? '進入能力帳戶' : '開始使用'}
             </button>
             <button
-              onClick={() => window.open('https://github.com', '_blank')}
+              onClick={() => router.push('/guide')}
               className="px-8 py-4 bg-white text-gray-900 rounded-xl font-semibold border-2 border-gray-200 hover:border-indigo-300 transition"
             >
               了解更多
