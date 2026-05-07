@@ -9,10 +9,6 @@ const config: Config = {
   theme: {
     extend: {},
   },
-  // 重要：確保文字方向為橫式
-  corePlugins: {
-    preflight: true,
-  },
 };
 
 export default config;
