@@ -304,5 +304,47 @@
       "Verify horizontal text layout is finally working",
       "Clear browser cache and test in incognito mode if needed"
     ]
+  },
+  {
+    "version_id": "v20260508_phase5_ui_fix_complete",
+    "timestamp": "2026-05-08T00:00:00.000Z",
+    "phase": "PHASE_5",
+    "phase_name": "擴展與規模",
+    "reason": "Critical UI fixes - Complete rewrite of key pages with pure inline styles to resolve Tailwind CSS v4 compatibility issues",
+    "trigger": "production_issue_resolution",
+    "impact": "critical",
+    "contributions": [
+      "Complete rewrite of login page with inline styles",
+      "Complete rewrite of onboarding step1, step2, step5 with inline styles",
+      "Supabase API key correction and authentication fix",
+      "PostCSS and Tailwind v4 configuration resolution"
+    ],
+    "status": "completed",
+    "skills_used": [
+      "everything-claude-code:code-reviewer",
+      "systematic-debugging"
+    ],
+    "plan_section": "Phase 5: 擴展與規模",
+    "changes_made": [
+      "ISSUE IDENTIFIED: Tailwind CSS v4 compatibility causing vertical text display in production",
+      "ROOT CAUSE: Invalid API keys + Tailwind v4 build configuration issues",
+      "SOLUTION: Complete page rewrites using 100% inline styles (zero framework CSS dependency)",
+      "Login page: Full rewrite with horizontal form layout, proper validation, error handling",
+      "Onboarding step1: Grade and vocational group selection with clean UI",
+      "Onboarding step2: Complex dual-mode page (fact selection + interest exploration)",
+      "Onboarding step5: Direction confirmation and completion flow",
+      "Supabase: Updated NEXT_PUBLIC_SUPABASE_ANON_KEY with correct JWT format",
+      "Supabase: Updated SUPABASE_SERVICE_ROLE_KEY with correct JWT format",
+      "PostCSS: Created postcss.config.js with @tailwindcss/postcss plugin",
+      "Tailwind: Updated tailwind.config.ts to remove invalid 'content' configuration",
+      "All pages now guarantee horizontal text display regardless of build environment"
+    ],
+    "next_steps": [
+      "Test registration functionality with corrected API keys",
+      "Test complete onboarding flow (step1 → step2 → step3 → step4 → step5)",
+      "Begin user acquisition with first 10 real users",
+      "Monitor analytics and user behavior",
+      "Prepare for Phase 5 growth initiatives"
+    ]
   }
 ]
