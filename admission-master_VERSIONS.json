@@ -1,15 +1,16 @@
 {
   "project_name": "admission-master",
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
-  "current_version": "v2.0.0-phase1",
-  "current_stage": "Phase 1 Complete - Explorer Experience",
+  "current_version": "v2.0.0-phase1-strategy-update",
+  "current_stage": "Phase 1 Complete - 策略優化完成",
   "last_updated": "2026-05-11",
+  "strategy_pivot": "功能融合並用 - 重新定位舊功能以加速開發",
   "versions": [
     {
-      "version": "v2.0.0-phase1",
-      "stage": "Phase 1 Complete",
+      "version": "v2.0.0-phase1-strategy-update",
+      "stage": "Phase 1 Complete + 策略優化",
       "date": "2026-05-11",
-      "description": "Explorer Experience - 第一次發現核心功能",
+      "description": "Explorer Experience + 功能融合策略確立",
       "status": "completed",
       "changes": {
         "features": [
@@ -19,36 +20,41 @@
           "6種升學管道教育展示",
           "成功案例和故事預覽"
         ],
+        "strategy_changes": [
+          "確定功能融合策略 - 保留8個舊頁面重新定位",
+          "刪除8個無用頁面 - 清理v1.0舊功能",
+          "開發時間優化 - 從6週縮短為4週",
+          "快速部署策略 - 優先級功能快速上線"
+        ],
         "improvements": [
           "首頁重新設計 - 強調「99%高職生不知道」痛點",
           "註冊流程優化 - 加入職群選擇器",
           "用戶旅程簡化 - 註冊 → 第一次發現 → 規劃",
           "視覺設計升級 - Explorer 主題配色"
         ],
-        "bugs_fixed": [
-          "修復註冊流程硬編碼 group_code 問題",
-          "修復職群選擇器 TypeScript 類型問題",
-          "解決首次發現頁面資料查詢錯誤"
-        ],
-        "technical": [
-          "建立 VocationalGroupSelector 可重用組件",
-          "實現職群與升學管道映射邏輯",
-          "完成第一次發現路徑計算算法",
-          "TypeScript 嚴格模式驗證通過"
+        "planning_documents": [
+          "建立功能融合矩陣 - 8個頁面重新定位詳細計畫",
+          "更新YC計畫書 - 反映4週快速開發策略",
+          "優化開發時間估算 - 28-37小時總計",
+          "確立刪除清單 - 8個無用頁面識別"
         ]
       },
       "files_modified": [
         "src/app/page.tsx (Explorer 主題首頁)",
         "src/app/login/page.tsx (職群選擇器整合)",
         "src/app/first-discovery/page.tsx (新建 - 第一次發現頁面)",
-        "src/components/VocationalGroupSelector.tsx (新建 - 職群選擇器)"
+        "src/components/VocationalGroupSelector.tsx (新建 - 職群選擇器)",
+        "admission-master_YC_PLAN.md (更新 - 功能融合策略)",
+        "admission-master_PROGRESS.json (更新 - 4週開發計畫)",
+        "README.md (更新 - 階段檢核表)"
       ],
       "commits": [
         {
-          "hash": "pending",
-          "message": "feat: Implement Explorer Experience Phase 1 - 首頁改造和第一次發現頁面",
+          "hash": "733efe9",
+          "message": "feat: Phase 1 Explorer Experience Complete - 升學大師 v2.0 重新定位",
           "author": "Claude Code",
-          "date": "2026-05-11"
+          "date": "2026-05-11",
+          "notes": "包含標準化檔案結構和功能融合策略確立"
         }
       ],
       "testing": {
@@ -56,24 +62,27 @@
         "typescript_compile": "✓ Pass",
         "dev_server": "✓ Running",
         "manual_testing": "✓ Pass",
-        "notes": "本地開發環境測試完成，待生產環境驗證"
+        "strategy_validation": "✓ Confirmed"
       },
       "performance": {
         "page_load_time": "< 2s",
-        "build_time": "4.7s",
+        "build_time": "5.6s",
         "bundle_size": "待測量"
       },
       "documentation": [
-        "PLAN-3-ROLE-IMPLEMENTATION.md - 3角色系統實施計畫",
-        "project-plans/admission-master/README.md - 標準化檢核表",
-        "project-plans/admission-master/admission-master_YC_PLAN.md - YC 5-Phase 計畫書"
+        "admission-master_YC_PLAN.md - 更新為功能融合策略版",
+        "admission-master_PROGRESS.json - 更新為4週開發計畫",
+        "README.md - 更新檢核表反映新策略",
+        "功能融合矩陣建立 - 8個頁面詳細改造計畫"
       ],
-      "next_steps": [
-        "提交當前變更到版本控制",
-        "準備 Phase 2 - Planner 功能開發",
-        "建立自動化測試",
-        "性能優化和生產部署準備"
-      ]
+      "pages_reuse_strategy": {
+        "total_pages_analyzed": 27,
+        "pages_to_refactor": 8,
+        "pages_to_remove": 8,
+        "pages_to_hide": 3,
+        "pages_keep_unchanged": 8,
+        "efficiency_gain": "33% time saved"
+      }
     },
     {
       "version": "v1.0.0",
@@ -81,30 +90,60 @@
       "date": "2026-04-01",
       "description": "升學大師 v1.0 - 學習歷程管理平台",
       "status": "deprecated",
-      "notes": "原始版本，已重新定位為升學路徑發現引擎"
+      "notes": "原始版本，已重新定位為升學路徑發現引擎，功能已整合到 v2.0"
     }
   ],
   "upcoming_releases": [
     {
       "version": "v2.0.0-phase2",
-      "target_date": "2026-05-25",
-      "description": "Planner Functionality - 規劃中心和能力帳戶重新設計",
-      "planned_features": [
-        "規劃中心頁面 - 個人化升學路徑規劃工具",
-        "能力帳戶重新設計 - 從統計展示轉向行動指引",
-        "經驗值系統 - 角色成長和轉換邏輯",
-        "資料庫同步機制 - onboarding 與資料庫連接"
-      ]
+      "target_date": "2026-05-18",
+      "description": "功能融合實施 - Week 2 快速清理與高優先級改造",
+      "planned_tasks": [
+        "刪除8個無用頁面",
+        "改造 /pathways 為6種升學管道教育中心 (4-5小時)",
+        "改造 /quiz 為職群發現測驗 (5-6小時)",
+        "改造 /explore 為職群探索 (2-3小時)"
+      ],
+      "estimated_hours": "11-14小時",
+      "success_metrics": {
+        "pages_removed": 8,
+        "pages_refactored": 3,
+        "explorer_features_complete": true
+      }
     },
     {
       "version": "v2.0.0-phase3",
-      "target_date": "2026-06-08",
-      "description": "Guide System - 引導平台和病毒傳播機制",
-      "planned_features": [
-        "引導平台頁面 - 經驗分享和指導系統",
-        "故事系統 - 成功案例和彎路警告",
-        "病毒傳播機制 - 邀請獎勵和分享功能"
-      ]
+      "target_date": "2026-05-25",
+      "description": "Planner 核心功能 - Week 3 中優先級改造",
+      "planned_tasks": [
+        "改造 /ability-account 為Planner 能力中心 (6-8小時)",
+        "改造 /portfolio 為路徑準備材料 (4-5小時)",
+        "改造 /roadmap 為升學路徑時間線 (3-4小時)",
+        "實現經驗值系統和角色轉換邏輯"
+      ],
+      "estimated_hours": "13-17小時",
+      "success_metrics": {
+        "planner_features_complete": true,
+        "cross_page_integration": true,
+        "xp_system_functional": true
+      }
+    },
+    {
+      "version": "v2.0.0-phase4",
+      "target_date": "2026-06-07",
+      "description": "完整整合與部署 - Week 4 低優先級與部署",
+      "planned_tasks": [
+        "改造 /interview 為個人申請準備 (2-3小時)",
+        "改造 /department/[slug] 為職群科系介紹 (2-3小時)",
+        "跨頁面連結和資料同步",
+        "生產環境部署和優化"
+      ],
+      "estimated_hours": "6-10小時",
+      "success_metrics": {
+        "production_deployed": true,
+        "alpha_test_complete": true,
+        "all_refactoring_complete": true
+      }
     },
     {
       "version": "v2.1.0",
@@ -118,24 +157,161 @@
       ]
     }
   ],
+  "function_integration_details": {
+    "pages_to_refactor": {
+      "high_priority": [
+        {
+          "path": "/pathways",
+          "current_function": "基礎路徑介紹",
+          "new_function": "6種升學管道教育中心",
+          "estimated_hours": "4-5",
+          "business_impact": "Explorer 核心教育內容"
+        },
+        {
+          "path": "/quiz",
+          "current_function": "一般測驗",
+          "new_function": "職群發現測驗",
+          "estimated_hours": "5-6",
+          "business_impact": "Explorer 入口工具"
+        },
+        {
+          "path": "/explore",
+          "current_function": "科系探索",
+          "new_function": "職群探索",
+          "estimated_hours": "2-3",
+          "business_impact": "Explorer 發現工具"
+        }
+      ],
+      "medium_priority": [
+        {
+          "path": "/ability-account",
+          "current_function": "統計展示儀表板",
+          "new_function": "Planner 行動指引中心",
+          "estimated_hours": "6-8",
+          "business_impact": "Planner 核心功能"
+        },
+        {
+          "path": "/portfolio",
+          "current_function": "學習歷程記錄",
+          "new_function": "路徑準備材料管理",
+          "estimated_hours": "4-5",
+          "business_impact": "Planner 準備工具"
+        },
+        {
+          "path": "/roadmap",
+          "current_function": "個人歷程時間線",
+          "new_function": "升學路徑時間線",
+          "estimated_hours": "3-4",
+          "business_impact": "Planner 規劃工具"
+        }
+      ],
+      "low_priority": [
+        {
+          "path": "/interview",
+          "current_function": "面試準備",
+          "new_function": "個人申請準備工具",
+          "estimated_hours": "2-3",
+          "business_impact": "特定路徑工具"
+        },
+        {
+          "path": "/department/[slug]",
+          "current_function": "科系詳情",
+          "new_function": "職群科系介紹",
+          "estimated_hours": "2-3",
+          "business_impact": "內容頁面輕微調整"
+        }
+      ]
+    },
+    "pages_to_remove": [
+      {
+        "path": "/analyze",
+        "reason": "被 /first-discovery 取代"
+      },
+      {
+        "path": "/business-strategy",
+        "reason": "不符合 v2.0 升學路徑定位"
+      },
+      {
+        "path": "/calendar",
+        "reason": "整合到 /roadmap 時間線功能"
+      },
+      {
+        "path": "/guide",
+        "reason": "被 Phase 3 Guide 系統取代"
+      },
+      {
+        "path": "/results",
+        "reason": "被新的發現頁面取代"
+      },
+      {
+        "path": "/strategy",
+        "reason": "不符合新定位"
+      },
+      {
+        "path": "/teacher",
+        "reason": "暫時不需要"
+      },
+      {
+        "path": "/test",
+        "reason": "開發測試頁面"
+      },
+      {
+        "path": "/demo",
+        "reason": "開發測試頁面"
+      }
+    ],
+    "pages_to_hide": [
+      {
+        "path": "/parent",
+        "reason": "家長功能 Phase 3 再啟用"
+      },
+      {
+        "path": "/parent/register",
+        "reason": "家長功能 Phase 3 再啟用"
+      },
+      {
+        "path": "/pricing",
+        "reason": "付費功能 Phase 3 再啟用"
+      }
+    ]
+  },
   "branching_strategy": {
     "main_branch": "master",
     "development_branches": [],
     "feature_branches": [],
     "release_branches": [],
-    "notes": "當前在 master 分支直接開發，建議建立 feature branches"
+    "notes": "當前在 master 分支直接開發，功能融合策略確立後建議保持簡化"
   },
   "deployment_status": {
     "development": "✓ Running (localhost:3000)",
     "staging": "✗ Not deployed",
-    "production": "✗ Running previous version",
-    "last_deployment": "v1.0.0 (2026-04-01)"
+    "production": "✗ Running v1.0.0 (https://admission-master-ecru.vercel.app/)",
+    "last_deployment": "v1.0.0 (2026-04-01)",
+    "next_deployment": "v2.0.0-phase2 (2026-05-18)"
   },
   "rollback_plan": {
     "available": true,
-    "instructions": "如果 v2.0.0-phase1 出現問題，可以回滾到 v1.0.0",
+    "instructions": "如果 v2.0.0 出現問題，可以回滾到 v1.0.0",
     "previous_version": "v1.0.0",
     "backup_location": "Git tags and Vercel deployments"
+  },
+  "strategy_achievements": {
+    "time_optimization": {
+      "original_timeline": "6 週",
+      "optimized_timeline": "4 週",
+      "time_saved": "2 週 (33% faster)",
+      "confidence": "high"
+    },
+    "resource_efficiency": {
+      "pages_reused": 8,
+      "new_development_minimized": true,
+      "technical_debt_minimized": true
+    },
+    "risk_mitigation": {
+      "user_confusion_risk": "low (no existing users)",
+      "technical_complexity": "low (reuse existing architecture)",
+      "market_validation": "improved (faster time to market)"
+    }
   },
   "metadata": {
     "total_commits": 1,
@@ -144,6 +320,12 @@
     "project_age_days": 40,
     "development_phase": "active",
     "next_release": "v2.0.0-phase2",
-    "release_frequency": "2 weeks per phase"
+    "release_frequency": "1 week per phase (accelerated)",
+    "strategy_pivots": 1,
+    "major_decisions": [
+      "功能融合策略確立",
+      "開發時間從6週縮短為4週",
+      "舊功能直接重新定位刪除"
+    ]
   }
 }
