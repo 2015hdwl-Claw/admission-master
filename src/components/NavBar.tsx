@@ -3,17 +3,14 @@
 import { usePathname } from 'next/navigation';
 
 const NAV_ITEMS = [
-  { href: '/roadmap', label: '我的路線圖' },
-  { href: '/portfolio', label: '我學會的事' },
-  { href: '/calendar', label: '校曆' },
-  { href: '/timeline', label: '時光軸' },
+  { href: '/pathways', label: '6種升學管道' },
   { href: '/quiz', label: '職群測驗' },
-  { href: '/analyze', label: '統測分析' },
-  { href: '/interview', label: '面試模擬' },
-  { href: '/strategy', label: '策略報告' },
-  { href: '/pricing', label: '定價' },
-  { href: '/demo', label: '學校合作' },
-  { href: '/teacher', label: '教師端' },
+  { href: '/explore', label: '職群探索' },
+  { href: '/first-discovery', label: '發現路徑' },
+  { href: '/ability-account', label: '能力中心' },
+  { href: '/portfolio', label: '準備材料' },
+  { href: '/roadmap', label: '時間線' },
+  { href: '/interview', label: '申請準備' },
 ];
 
 const PRIMARY_NAV = NAV_ITEMS.slice(0, 6);
