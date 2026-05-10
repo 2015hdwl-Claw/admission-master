@@ -1,193 +1,249 @@
 {
-  "project_info": {
-    "name": "admission-master",
-    "current_phase": "PHASE_5",
-    "start_date": "2026-03-15",
-    "last_updated": "2026-05-08T21:30:00.000Z"
-  },
+  "project_name": "admission-master",
+  "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
+  "last_updated": "2026-05-11",
+  "current_phase": "Phase 3 - 開發執行",
+  "overall_progress": 25,
   "phases": {
-    "PHASE_1": {
+    "phase_1": {
       "name": "構思與確認",
       "status": "completed",
-      "start_date": "2026-03-15",
-      "end_date": "2026-04-05",
-      "progress_percentage": 100,
-      "checklist_completion": "6/6"
+      "progress": 100,
+      "start_date": "2026-05-01",
+      "end_date": "2026-05-10",
+      "key_decisions": [
+        "產品重新定位: 從學習歷程管理 → 升學路徑發現引擎",
+        "3角色系統: Explorer → Planner → Guide",
+        "目標市場: 高職生免費 + 家長付費",
+        "核心問題: 99%高職生不知道的6種升學管道"
+      ],
+      "deliverables": [
+        "產品定位明確",
+        "目標用戶定義",
+        "市場痛點驗證",
+        "解決方案設計"
+      ]
     },
-    "PHASE_2": {
+    "phase_2": {
       "name": "規劃與設計",
       "status": "completed",
-      "start_date": "2026-04-06",
-      "end_date": "2026-04-15",
-      "progress_percentage": 100,
-      "checklist_completion": "8/8"
-    },
-    "PHASE_3": {
-      "name": "開發執行",
-      "status": "completed",
-      "start_date": "2026-04-16",
-      "end_date": "2026-05-01",
-      "progress_percentage": 100,
-      "checklist_completion": "7/7"
-    },
-    "PHASE_4": {
-      "name": "成長與驗證",
-      "status": "completed",
-      "start_date": "2026-05-02",
-      "end_date": "2026-05-07",
-      "progress_percentage": 100,
-      "checklist_completion": "8/8",
-      "notes": "All critical UX/UI issues resolved, production deployment verified"
-    },
-    "PHASE_5": {
-      "name": "擴展與規模",
-      "status": "in_progress",
+      "progress": 100,
       "start_date": "2026-05-08",
-      "end_date": null,
-      "progress_percentage": 15,
-      "checklist_completion": "1/7",
-      "notes": "Critical UI fixes completed, Supabase API corrected, preparing for user acquisition"
+      "end_date": "2026-05-11",
+      "key_decisions": [
+        "漸進式實施: 3個Phase，每個2週",
+        "技術架構: Next.js 14 + Supabase",
+        "資料庫schema: user_roles, role_evolution, xp_history",
+        "UI/UX: Explorer主題，6種管道教育"
+      ],
+      "deliverables": [
+        "3角色系統詳細設計",
+        "技術架構完成",
+        "API規格定義",
+        "漸進式實施計畫"
+      ]
+    },
+    "phase_3": {
+      "name": "開發執行",
+      "status": "in_progress",
+      "progress": 40,
+      "start_date": "2026-05-11",
+      "end_date": "2026-06-07",
+      "weeks": {
+        "week_1_2": {
+          "name": "Explorer Experience",
+          "status": "completed",
+          "progress": 100,
+          "tasks": [
+            {
+              "name": "首頁 Explorer 主題改造",
+              "status": "completed",
+              "file": "src/app/page.tsx",
+              "completed_date": "2026-05-11"
+            },
+            {
+              "name": "職群選擇器整合到註冊流程",
+              "status": "completed",
+              "file": "src/app/login/page.tsx",
+              "completed_date": "2026-05-11"
+            },
+            {
+              "name": "第一次發現頁面實現",
+              "status": "completed",
+              "file": "src/app/first-discovery/page.tsx",
+              "completed_date": "2026-05-11"
+            },
+            {
+              "name": "構建驗證和測試",
+              "status": "completed",
+              "completed_date": "2026-05-11"
+            }
+          ],
+          "success_metrics": {
+            "build_status": "pass",
+            "typescript_compile": "pass",
+            "dev_server": "running",
+            "manual_testing": "pass"
+          }
+        },
+        "week_3_4": {
+          "name": "Planner Functionality",
+          "status": "pending",
+          "progress": 0,
+          "tasks": [
+            {
+              "name": "規劃中心頁面開發",
+              "status": "pending",
+              "file": "src/app/planning-center/page.tsx"
+            },
+            {
+              "name": "能力帳戶重新設計",
+              "status": "pending",
+              "file": "src/app/ability-account/page.tsx"
+            },
+            {
+              "name": "經驗值系統實現",
+              "status": "pending",
+              "file": "src/lib/role-xp-system.ts"
+            },
+            {
+              "name": "資料庫同步機制",
+              "status": "pending",
+              "file": "src/lib/storage.ts"
+            }
+          ],
+          "success_metrics": {
+            "explorer_to_planner_conversion": "> 40%",
+            "recording_first_experience": "> 30%",
+            "planning_tool_usage": "> 60%"
+          }
+        },
+        "week_5_6": {
+          "name": "Guide System",
+          "status": "pending",
+          "progress": 0,
+          "tasks": [
+            {
+              "name": "引導平台開發",
+              "status": "pending",
+              "file": "src/app/guide-hub/page.tsx"
+            },
+            {
+              "name": "故事系統實現",
+              "status": "pending",
+              "file": "待定義"
+            },
+            {
+              "name": "病毒傳播機制",
+              "status": "pending",
+              "file": "待定義"
+            }
+          ],
+          "success_metrics": {
+            "planner_to_guide_conversion": "> 20%",
+            "story_sharing_rate": "> 15%",
+            "viral_coefficient": "> 1.2"
+          }
+        }
+      }
+    },
+    "phase_4": {
+      "name": "成長與驗證",
+      "status": "pending",
+      "progress": 0,
+      "start_date": "2026-06-08",
+      "end_date": "2026-06-15",
+      "tasks": [
+        {
+          "name": "代碼審查",
+          "status": "pending"
+        },
+        {
+          "name": "測試策略實施",
+          "status": "pending"
+        },
+        {
+          "name": "性能優化",
+          "status": "pending"
+        },
+        {
+          "name": "發布準備",
+          "status": "pending"
+        }
+      ]
+    },
+    "phase_5": {
+      "name": "擴展與規模",
+      "status": "pending",
+      "progress": 0,
+      "start_date": "2026-06-16",
+      "end_date": "2026-06-22",
+      "tasks": [
+        {
+          "name": "Beta 測試",
+          "status": "pending"
+        },
+        {
+          "name": "正式發布",
+          "status": "pending"
+        },
+        {
+          "name": "用戶反饋收集",
+          "status": "pending"
+        },
+        {
+          "name": "成長策略執行",
+          "status": "pending"
+        }
+      ]
     }
   },
-  "skills_usage": {
-    "PHASE_1": {
-      "used_skills": [
-        "/brainstorming",
-        "/plan-ceo-review",
-        "/plan-eng-review",
-        "/plan-design-review",
-        "/plan-devex-review"
-      ],
-      "current_skill": null,
-      "effectiveness_rating": null
-    },
-    "PHASE_2": {
-      "used_skills": [
-        "/writing-plans",
-        "/design-consultation",
-        "/api-and-interface-design"
-      ],
-      "current_skill": null,
-      "effectiveness_rating": null
-    },
-    "PHASE_3": {
-      "used_skills": [
-        "/test-driven-development",
-        "/systematic-debugging",
-        "code-reviewer"
-      ],
-      "current_skill": null,
-      "effectiveness_rating": null
-    },
-    "PHASE_4": {
-      "used_skills": [
-        "/investigate",
-        "/requesting-code-review",
-        "/receiving-code-review",
-        "/andrej-karpathy-perspective",
-        "everything-claude-code:code-reviewer"
-      ],
-      "current_skill": null,
-      "effectiveness_rating": null
-    },
-    "PHASE_5": {
-      "used_skills": [
-        "/ship",
-        "/finishing-a-development-branch"
-      ],
-      "current_skill": null,
-      "effectiveness_rating": null
-    }
-  },
-  "overall_metrics": {
-    "total_duration_weeks": 8,
-    "phases_completed": 4,
-    "readiness_percentage": 85,
-    "next_milestone": "Begin user acquisition and testing - target first 10 real users",
-    "production_status": "live_and_stable",
-    "critical_issues_remaining": 0,
-    "deployment_url": "https://admission-master-ecru.vercel.app",
-    "recent_achievements": [
-      "✅ Login page completely rewritten with inline styles",
-      "✅ Onboarding flow pages (step1, step2, step5) rewritten",
-      "✅ Supabase API authentication fully functional",
-      "✅ Tailwind CSS v4 configuration resolved",
-      "✅ PostCSS build process optimized"
+  "current_status": {
+    "development_server": "running",
+    "build_status": "pass",
+    "last_commit": "pending",
+    "branch": "master",
+    "pending_files": [
+      "src/app/page.tsx (modified)",
+      "src/app/login/page.tsx (modified)",
+      "src/app/first-discovery/ (new)",
+      "src/components/VocationalGroupSelector.tsx (new)"
     ]
   },
-  "brainstorming_sessions": [
+  "blockers": [],
+  "risks": [
     {
-      "date": "2026-03-20T00:00:00.000Z",
-      "phase": "PHASE_1",
-      "participants": ["CEO", "CTO", "Designer"],
-      "outcome": "Validated problem-solution fit and confirmed freemium model"
+      "type": "technical",
+      "description": "需要建立自動化測試",
+      "mitigation": "在Phase 2開發期間補充"
+    },
+    {
+      "type": "schedule",
+      "description": "6週時間緊湊，可能需要調整優先級",
+      "mitigation": "漸進式實施，每個Phase獨立驗證"
     }
   ],
-  "recent_changes": [
-    {
-      "date": "2026-05-08T21:30:00.000Z",
-      "change": "CRITICAL UI FIX COMPLETE: Rewrote login and onboarding pages (step1, step2, step5) with pure inline styles to resolve vertical text display issues caused by Tailwind CSS v4 compatibility problems",
-      "phase": "PHASE_5"
+  "next_actions": [
+    "提交 Phase 1 代碼變更",
+    "更新版本歷史",
+    "準備 Phase 2 開發環境",
+    "建立自動化測試基礎"
+  ],
+  "success_metrics": {
+    "technical": {
+      "build_success_rate": 100,
+      "typesafe_code": 100,
+      "page_load_time": "< 2s"
     },
-    {
-      "date": "2026-05-08T20:00:00.000Z",
-      "change": "Supabase API keys corrected - Invalid API key format resolved, authentication and database operations now functional",
-      "phase": "PHASE_5"
+    "user_experience": {
+      "registration_rate": "> 60%",
+      "first_discovery_completion": "> 80%",
+      "user_satisfaction": "> 4.0/5.0"
     },
-    {
-      "date": "2026-05-08T19:00:00.000Z",
-      "change": "PostCSS configuration fixed for Tailwind CSS v4 - Created postcss.config.js and updated tailwind.config.ts for proper build process",
-      "phase": "PHASE_5"
-    },
-    {
-      "date": "2026-05-07T12:30:00.000Z",
-      "change": "Vertical text issue ROOT CAUSE FIXED: Code-reviewer agent identified Next.js build cache issue, implemented complete CSS solution with cache clear, deployed clean build to production",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-07T12:30:00.000Z",
-      "change": "Vertical text issue ROOT CAUSE FIXED: Code-reviewer agent identified Next.js build cache issue, implemented complete CSS solution with cache clear, deployed clean build to production",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-07T00:00:00.000Z",
-      "change": "Supabase database migration completed, system fully operational with all tests passing",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-07T00:00:00.000Z",
-      "change": "Production deployment completed successfully, all pages returning HTTP 200 OK",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-03T00:00:00.000Z",
-      "change": "CSS vertical text bug initially addressed via /investigate workflow, temporary fix deployed",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-02T23:30:00.000Z",
-      "change": "Created standardized YC 5-phase project documentation",
-      "phase": "PHASE_4"
-    },
-    {
-      "date": "2026-05-01T21:00:00.000Z",
-      "change": "Completed Phase 3 development with business administration algorithm",
-      "phase": "PHASE_3"
-    },
-    {
-      "date": "2026-04-30T16:00:00.000Z",
-      "change": "Built production successfully, ready for deployment",
-      "phase": "PHASE_3"
-    },
-    {
-      "date": "2026-04-15T18:00:00.000Z",
-      "change": "Completed Phase 2 design and architecture",
-      "phase": "PHASE_2"
-    },
-    {
-      "date": "2026-04-05T12:00:00.000Z",
-      "change": "Completed Phase 1 problem validation",
-      "phase": "PHASE_1"
+    "business": {
+      "viral_coefficient": "> 1.2",
+      "7_day_retention": "> 40%",
+      "explorer_to_planner_conversion": "> 40%"
     }
-  ]
+  }
 }

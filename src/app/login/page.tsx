@@ -5,6 +5,8 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
+import type { VocationalGroup } from '@/types'
+import VocationalGroupSelector from '@/components/VocationalGroupSelector'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -13,6 +15,7 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
   const [isSignUp, setIsSignUp] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
+  const [selectedGroup, setSelectedGroup] = useState<VocationalGroup | null>(null)
 
   const router = useRouter()
   const supabase = createClient()
@@ -29,11 +32,21 @@ export default function LoginPage() {
       if (isSignUp) {
         console.log('📝 嘗試註冊帳戶...')
 
+        // 檢查註冊時是否選擇了職群
+        if (!selectedGroup) {
+          setError('請選擇您的職群以繼續註冊')
+          setLoading(false)
+          return
+        }
+
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
-            data: { role: 'student' },
+            data: {
+              role: 'student',
+              vocational_group: selectedGroup
+            },
             emailRedirectTo: `${window.location.origin}/ability-account`
           }
         })
@@ -60,15 +73,34 @@ export default function LoginPage() {
           // 延遲創建資料，確保 auth 完成後
           setTimeout(async () => {
             try {
+              // 將職群名稱轉換為 group_code (使用前兩個字或特定映射)
+              const groupCodeMap: Record<VocationalGroup, string> = {
+                '餐旅群': '01',
+                '機械群': '02',
+                '電機群': '03',
+                '電子群': '04',
+                '資訊群': '05',
+                '商管群': '06',
+                '設計群': '07',
+                '農業群': '08',
+                '化工群': '09',
+                '土木群': '10',
+                '海事群': '11',
+                '護理群': '12',
+                '家政群': '13',
+                '語文群': '14',
+                '商業與管理群': '15',
+              }
+
               const { error: profileError } = await supabase
                 .from('student_profiles')
                 .insert({
                   user_id: data.user!.id,
-                  group_code: '01',
+                  group_code: groupCodeMap[selectedGroup],
                   grade: 1,
                   school_name: null,
                   target_pathways: [],
-                  target_schooles: [],
+                  target_schools: [],  // 修復錯字
                   total_records: 0,
                   total_bonus_percent: 0,
                   partner_ids: [],
@@ -80,7 +112,7 @@ export default function LoginPage() {
                 console.error('❌ 建立學生資料失敗:', profileError)
                 setError(`註冊成功但建立資料失敗: ${profileError.message}`)
               } else {
-                console.log('✅ 學生資料創建成功')
+                console.log('✅ 學生資料創建成功，職群:', selectedGroup)
                 setMessage('註冊完成！即將跳轉...')
                 setTimeout(() => {
                   router.push('/ability-account')
@@ -240,6 +272,28 @@ export default function LoginPage() {
                 onBlur={(e) => e.target.style.borderColor = '#d1d5db'}
               />
             </div>
+
+            {/* 職群選擇器 - 只在註冊時顯示 */}
+            {isSignUp && (
+              <div>
+                <VocationalGroupSelector
+                  selectedGroup={selectedGroup}
+                  onGroupSelect={setSelectedGroup}
+                  disabled={loading}
+                  showLabel={true}
+                  compact={false}
+                />
+                {!selectedGroup && (
+                  <p style={{
+                    fontSize: '12px',
+                    color: '#ef4444',
+                    marginTop: '4px'
+                  }}>
+                    請選擇您的職群
+                  </p>
+                )}
+              </div>
+            )}
 
             {/* Error Message */}
             {error && (
