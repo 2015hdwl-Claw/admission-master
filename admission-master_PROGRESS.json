@@ -3,7 +3,7 @@
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
   "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 30,
+  "overall_progress": 35,
   "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
   "phases": {
     "phase_1": {
@@ -98,13 +98,14 @@
         },
         "week_2": {
           "name": "快速清理與功能融合",
-          "status": "pending",
-          "progress": 0,
+          "status": "in_progress",
+          "progress": 20,
           "tasks": [
             {
               "name": "Day 1-2: 刪除8個無用頁面",
-              "status": "pending",
-              "pages_to_remove": [
+              "status": "completed",
+              "completed_date": "2026-05-11",
+              "pages_removed": [
                 "/analyze",
                 "/business-strategy",
                 "/calendar",
@@ -112,9 +113,10 @@
                 "/results",
                 "/strategy",
                 "/teacher",
-                "/test",
                 "/demo"
-              ]
+              ],
+              "commit": "f4d8783",
+              "notes": "NavBar 已更新為 Explorer 主題導航"
             },
             {
               "name": "Day 3-4: 高優先級頁面改造",
