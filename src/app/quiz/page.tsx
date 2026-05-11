@@ -295,30 +295,12 @@ export default function QuizPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-indigo-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-xl font-bold text-gray-900">升學大師 v2.0</span>
-                <p className="text-xs text-indigo-600 font-medium">職群發現測驗</p>
-              </div>
-            </div>
-            <button
-              onClick={() => router.push('/')}
-              className="text-gray-700 hover:text-indigo-600 transition text-sm font-medium"
-            >
-              返回首頁
-            </button>
-          </div>
+      {/* Page title bar */}
+      <div className="bg-white/90 border-b border-indigo-100 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <p className="text-indigo-600 font-semibold text-sm">職群發現測驗</p>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {!showResult ? (

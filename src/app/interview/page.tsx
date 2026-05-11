@@ -364,50 +364,17 @@ export default function InterviewPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-indigo-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-xl font-bold text-gray-900">升學大師 v2.0</span>
-                <p className="text-xs text-indigo-600 font-medium">個人申請準備</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              {profile?.group_code && (
-                <div className="text-right">
-                  <div className="text-sm font-medium text-gray-900">
-                    {profile.group_code === '01' ? '餐旅群' :
-                     profile.group_code === '02' ? '機械群' :
-                     profile.group_code === '03' ? '電機群' :
-                     profile.group_code === '04' ? '電子群' :
-                     profile.group_code === '05' ? '資訊群' :
-                     profile.group_code === '06' ? '商管群' :
-                     profile.group_code === '07' ? '設計群' :
-                     profile.group_code === '08' ? '農業群' :
-                     profile.group_code === '09' ? '化工群' :
-                     profile.group_code === '10' ? '土木群' :
-                     profile.group_code === '11' ? '海事群' :
-                     profile.group_code === '12' ? '護理群' :
-                     profile.group_code === '13' ? '家政群' :
-                     profile.group_code === '14' ? '語文群' :
-                     profile.group_code === '15' ? '商業與管理群' : profile.group_code}
-                  </div>
-                  <div className="text-xs text-gray-600">
-                    {profile.grade ? `${profile.grade} 年級` : '就讀中'}
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+      {/* Page title bar */}
+      <div className="bg-white/90 border-b border-indigo-100 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <p className="text-indigo-600 font-semibold text-sm">個人申請準備</p>
+          {profile?.group_code && (
+            <span className="text-xs text-gray-500">
+              {profile.group_code === '06' ? '商管群' : profile.group_code} · {profile.grade || '高三'}
+            </span>
+          )}
         </div>
-      </header>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Welcome Section */}

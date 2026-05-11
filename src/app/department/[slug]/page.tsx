@@ -398,25 +398,20 @@ export default function DepartmentPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Header */}
-      <header className="bg-white/90 backdrop-blur-sm border-b border-indigo-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center space-x-3">
+      {/* Page title bar */}
+      <div className="bg-white/90 border-b border-indigo-100 py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          <div className="flex items-center gap-2">
             <Link href="/explore" className="text-indigo-600 hover:text-indigo-700 transition">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </Link>
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
-              <span className="text-2xl">{group.emoji}</span>
-            </div>
-            <div>
-              <span className="text-xl font-bold text-gray-900">升學大師 v2.0</span>
-              <p className="text-xs text-indigo-600 font-medium">職群科系介紹</p>
-            </div>
+            <p className="text-indigo-600 font-semibold text-sm">{group.emoji} {group.name}</p>
           </div>
+          <span className="text-xs text-gray-500">職群科系介紹</span>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Group Header */}
