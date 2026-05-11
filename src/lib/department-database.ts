@@ -1,3 +1,6 @@
+import { supabase } from './supabase'
+import { DepartmentRequirements } from '@/types/department'
+
 export interface Department {
   id: string
   schoolId: string
@@ -237,4 +240,14 @@ export function calculateGapAnalysis(
 
 export function getDepartmentById(id: string): Department | undefined {
   return departmentDatabase.find(d => d.id === id)
+}
+
+export async function getDepartmentPathways(departmentCode: string): Promise<DepartmentRequirements[]> {
+  const { data } = await supabase
+    .from('department_requirements')
+    .select('*')
+    .eq('department_code', departmentCode)
+    .eq('academic_year', new Date().getFullYear())
+
+  return data || []
 }
