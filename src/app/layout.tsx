@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import GlobalNav from "@/components/GlobalNav";
 
 export const metadata: Metadata = {
   title: "升學大師 — 讓你的努力看得見",
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="zh-Hant">
       <body className="antialiased">
         <GoogleAnalytics />
+        <GlobalNav />
         {children}
       </body>
     </html>

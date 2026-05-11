@@ -3,7 +3,7 @@
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
   "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 90,
+  "overall_progress": 92,
   "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
   "phases": {
     "phase_1": {
@@ -291,6 +291,13 @@
               }
             },
             {
+              "name": "登入限制移除",
+              "status": "completed",
+              "completed_date": "2026-05-11",
+              "commit": "2da801b",
+              "description": "所有頁面允許匿名瀏覽，未登入用戶看到示範資料"
+            },
+            {
               "name": "Alpha 測試 (5-10名高職生)",
               "status": "pending"
             },
@@ -476,7 +483,7 @@
   "current_status": {
     "development_server": "running",
     "build_status": "pass",
-    "git_commit": "028b214",
+    "git_commit": "2da801b",
     "branch": "master",
     "production_deployed": true,
     "production_url": "https://admission-master-ecru.vercel.app/",
@@ -484,6 +491,8 @@
     "all_key_pages_200": true,
     "removed_pages_404": true,
     "all_core_features_complete": true,
+    "login_gates_removed": true,
+    "anonymous_access_enabled": true,
     "ready_for_alpha_testing": true
   },
   "blockers": [],
