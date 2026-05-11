@@ -237,14 +237,14 @@ export default function RoadmapPage() {
       })
     }
 
-    // 指考分發時間線
+    // 聯合登記分發時間線
     const zhikaoEvents: TimelineEvent[] = [
       {
         id: 'zhikao_1',
         date: `${currentYear}-09`,
-        title: '9月：開始準備指考',
-        description: '制定指考準備計畫，開始系統化複習指定科目',
-        pathway: '指考分發',
+        title: '9月：開始準備統測',
+        description: '制定統測準備計畫，開始系統化複習統測科目',
+        pathway: '聯合登記分發',
         importance: 'high',
         completed: false,
         category: 'preparation'
@@ -252,9 +252,9 @@ export default function RoadmapPage() {
       {
         id: 'zhikao_2',
         date: `${currentYear}-12`,
-        title: '12月：學測報名',
-        description: '完成學測報名手續，確認考試科目與時間',
-        pathway: '指考分發',
+        title: '12月：統測報名',
+        description: '完成統測報名手續，確認考試科目與時間',
+        pathway: '聯合登記分發',
         importance: 'critical',
         completed: false,
         category: 'deadline'
@@ -262,29 +262,39 @@ export default function RoadmapPage() {
       {
         id: 'zhikao_3',
         date: `${currentYear + 1}-01`,
-        title: '1月：學測考試',
-        description: '參加學測考試，發揮最佳水準',
-        pathway: '指考分發',
-        importance: 'critical',
-        completed: false,
-        category: 'milestone'
-      },
-      {
-        id: 'zhikao_4',
-        date: `${currentYear + 1}-03`,
-        title: '3月：指考報名',
-        description: '完成指考報名，選擇指定考科',
-        pathway: '指考分發',
+        title: '1月：統測報名截止',
+        description: '確認統測報名完成，了解統測科目採計方式',
+        pathway: '聯合登記分發',
         importance: 'high',
         completed: false,
         category: 'deadline'
       },
       {
+        id: 'zhikao_4',
+        date: `${currentYear + 1}-04`,
+        title: '4月-5月：統測考試',
+        description: '參加統測考試，發揮最佳水準',
+        pathway: '聯合登記分發',
+        importance: 'critical',
+        completed: false,
+        category: 'milestone'
+      },
+      {
         id: 'zhikao_5',
         date: `${currentYear + 1}-07`,
-        title: '7月：指考考試',
-        description: '參加指定科目考試',
-        pathway: '指考分發',
+        title: '7月-8月：聯合登記分發選填志願',
+        description: '依統測成績選填志願，進行聯合登記分發',
+        pathway: '聯合登記分發',
+        importance: 'critical',
+        completed: false,
+        category: 'deadline'
+      },
+      {
+        id: 'zhikao_6',
+        date: `${currentYear + 1}-08`,
+        title: '8月：分發結果公布',
+        description: '聯合登記分發結果公布，確認錄取學校與科系',
+        pathway: '聯合登記分發',
         importance: 'critical',
         completed: false,
         category: 'milestone'
@@ -292,49 +302,49 @@ export default function RoadmapPage() {
     ]
 
     timelines.push({
-      pathway: '指考分發',
+      pathway: '聯合登記分發',
       pathwayCode: 'zhikao',
       events: zhikaoEvents,
       color: 'from-orange-500 to-red-600',
       active: true
     })
 
-    // 社區推甄時間線
+    // 技優保送時間線
     const communityEvents: TimelineEvent[] = [
       {
         id: 'community_1',
-        date: `${currentYear}-09`,
-        title: '9月：社區服務規劃',
-        description: '規劃並參與社區服務活動，累積服務時數與經驗',
-        pathway: '社區推甄',
-        importance: 'medium',
+        date: `${currentYear + 1}-02`,
+        title: '2月-3月：報名技優保送',
+        description: '技能競賽獲獎者報名技優保送，準備相關證明文件',
+        pathway: '技優保送',
+        importance: 'critical',
         completed: false,
-        category: 'preparation'
+        category: 'deadline'
       },
       {
         id: 'community_2',
-        date: `${currentYear}-11`,
-        title: '11月：服務紀錄整理',
-        description: '整理社區服務紀錄、心得感想等申請資料',
-        pathway: '社區推甄',
-        importance: 'medium',
+        date: `${currentYear + 1}-03`,
+        title: '3月-4月：審查與分發',
+        description: '技優保送資格審查，進行分發作業',
+        pathway: '技優保送',
+        importance: 'high',
         completed: false,
-        category: 'preparation'
+        category: 'milestone'
       },
       {
         id: 'community_3',
-        date: `${currentYear}-12`,
-        title: '12月：社區推甄申請',
-        description: '提交社區推甄申請，附上服務紀錄與心得',
-        pathway: '社區推甄',
-        importance: 'medium',
+        date: `${currentYear + 1}-04`,
+        title: '4月-5月：錄取結果公布',
+        description: '技優保送錄取結果公布，確認錄取學校與科系',
+        pathway: '技優保送',
+        importance: 'critical',
         completed: false,
-        category: 'deadline'
+        category: 'milestone'
       }
     ]
 
     timelines.push({
-      pathway: '社區推甄',
+      pathway: '技優保送',
       pathwayCode: 'community',
       events: communityEvents,
       color: 'from-teal-500 to-cyan-600',

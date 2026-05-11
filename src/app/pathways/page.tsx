@@ -14,107 +14,108 @@ const SIX_PATHWAYS = {
     name: '繁星推薦',
     icon: '📚',
     shortDesc: '用校內成績申請，不用另外考試',
-    fullDesc: '繁星推薦是許多高職生忽略的黃金管道！只要高一高二成績優秀，就能在校內推薦競爭中獲得資格，不用參加激烈的統一考試。',
+    fullDesc: '繁星推薦是許多高職生忽略的黃金管道！只要高一高二成績優秀，就能在校內推薦競爭中獲得資格，不採計統測成績。',
     color: 'from-blue-500 to-indigo-500',
     borderColor: 'border-blue-200',
     bgColor: 'bg-blue-50',
     quota: '佔總名額約 15%',
     suitableGroups: ['所有職群'],
     requirements: [
-      '校內成績排名前 20%',
+      '校內成績排名前 30%',
       '通過學校推薦',
-      '學測成績達到校系門檻（門檻通常較低）'
+      '不採計統測成績'
     ],
     advantages: [
-      '壓力較小，不用準備統一考試',
+      '壓力較小，不用準備統測',
       '可以同時申請多個校系',
-      '錄取後不用再參加其他指考',
+      '錄取後不用再參加統測',
       '高一高二成績就很重要，不是高三才開始'
     ],
     timeline: [
-      '3月：高中內部推薦選拔',
+      '3月：學校內部推薦選拔',
       '3月底：統一報名',
       '4月：放榜'
     ],
     tips: [
-      '跟導師和學務處保持良好關係',
-      '了解校內競爭對手，評估獲推薦機會',
-      '高一高二就要保持成績穩定',
-      '學測成績只需達門檻，主要看在校排名'
+      '高一高二就要顧好在校成績',
+      '了解學校的繁星推薦配額',
+      '可以同時準備甄選入學作為備案',
+      '不同學校採計的科目比重不同'
     ],
-    successStory: '陳同學（電子群）從高一起保持全班前3名，透過繁星推薦成功申請上台灣科大電機系，避開了激烈的指考競爭。'
+    successStory: '陳同學（電子群）從高一起保持全班前3名，透過繁星推薦成功申請上台灣科大電機系，避開了激烈的統測競爭。'
   },
-  application: {
-    id: 'application',
-    name: '個人申請',
+  selection: {
+    id: 'selection',
+    name: '甄選入學',
     icon: '🎯',
-    shortDesc: '備審資料 + 口試，展現你的特色',
-    fullDesc: '個人申請是展現個人特色的最佳舞台！透過學習歷程檔案、備審資料和面試，讓學校看到你的專題實作、技能競賽和實習經驗。',
+    shortDesc: '統測成績 + 備審面試，展現你的特色',
+    fullDesc: '甄選入學是高職生最重要的升學管道，招生名額最多！透過統測成績、備審資料和面試，讓學校看到你的專題實作、技能競賽和實習經驗。',
     color: 'from-indigo-500 to-purple-500',
     borderColor: 'border-indigo-200',
     bgColor: 'bg-indigo-50',
     quota: '佔總名額約 40-45%',
     suitableGroups: ['所有職群'],
     requirements: [
+      '參加四技二專統測並達到檢定標準',
       '準備備審資料（學習歷程、專題成果、技能證照）',
-      '參加系所口試',
-      '展現你的專題實作和實習經驗'
+      '參加系所面試'
     ],
     advantages: [
       '可以展現個人特色和專題成果',
-      '不只看成績，更看重實務能力',
+      '不只看統測成績，更看重實務能力',
       '適合有特殊經歷和競賽獲獎的學生',
-      '面試可以補足成績的不足'
+      '面試可以補足統測成績的不足'
     ],
     timeline: [
       '3月：公布招生簡章',
-      '4月：第一階段報名',
+      '4月：第一階段報名（統測成績篩選）',
       '4月底：第一階段篩選結果',
       '5月：第二階段面試',
       '6月：放榜'
     ],
     tips: [
+      '統測成績是第一階段門檻，要先過關',
       '專題實作是備審資料的核心',
       '技能檢定證照是加分利器',
-      '面試準備 STAR-S 框架',
-      '多練習 3 分鐘自我介紹'
+      '面試準備 STAR-S 框架，多練習 3 分鐘自我介紹'
     ],
-    successStory: '林同學（設計群）用他的專題作品集和設計競賽獎項，透過個人申請成功進入實踐大學工業設計系，面試表現獲得高度評價。'
+    successStory: '林同學（設計群）統測成績達標後，用他的專題作品集和設計競賽獎項，透過甄選入學成功進入實踐大學工業設計系，面試表現獲得高度評價。'
   },
-  exam: {
-    id: 'exam',
-    name: '指考分發',
+  distribution: {
+    id: 'distribution',
+    name: '聯合登記分發',
     icon: '📝',
-    shortDesc: '傳統統一入學考試，分數決定一切',
-    fullDesc: '指考分發是最傳統但也最直接的升學管道。統測成績就是一切，適合成績穩定、不想額外準備面試和備審資料的學生。',
+    shortDesc: '依統測成績填志願分發，分數決定一切',
+    fullDesc: '聯合登記分發是最直接也最傳統的升學管道。純看統測成績填志願分發，適合成績穩定、不想額外準備面試和備審資料的學生。',
     color: 'from-purple-500 to-pink-500',
     borderColor: 'border-purple-200',
     bgColor: 'bg-purple-50',
     quota: '佔總名額約 25%',
     suitableGroups: ['所有職群'],
     requirements: [
-      '參加學測/統測',
-      '成績達到分數標準',
-      '分發依據成績排序'
+      '參加四技二專統測',
+      '統測成績達到登記標準',
+      '依成績排序填志願分發'
     ],
     advantages: [
-      '標準最明確，分數就是一切',
-      '準備方式單純，專注在學科準備',
+      '標準最明確，統測分數就是一切',
+      '準備方式單純，專注在統測準備',
       '適合應試型學生',
       '志願序可以精確控制'
     ],
     timeline: [
-      '7月：分科測驗/統測',
-      '7月：填志願',
+      '5月：統測考試',
+      '6月：公告成績',
+      '7月：填志願登記分發',
       '7月底：放榜'
     ],
     tips: [
       '統測成績要穩定，避免失手',
       '志願序非常重要，要仔細排列',
       '了解同分比序規則',
-      '可以和個人申請同時準備'
+      '可以和甄選入學同時準備'
     ],
-    successStory: '張同學（機械群）統測成績優異，專注於學科準備，透過分發成功進入雲科大機械系，符合他穩扎穩打的升學策略。'
+    successStory: '張同學（機械群）統測成績優異，專注於學科準備，透過聯合登記分發成功進入雲科大機械系，符合他穩扎穩打的升學策略。'
   },
   skills: {
     id: 'skills',
@@ -151,40 +152,40 @@ const SIX_PATHWAYS = {
     ],
     successStory: '王同學（餐旅群）在全國餐旅技能競賽獲得金牌，透過技優保送直接進入高雄餐旅大學，完全跳過統測壓力。'
   },
-  community: {
-    id: 'community',
-    name: '社區推甄',
+  guarantee: {
+    id: 'guarantee',
+    name: '技優保送',
     icon: '⭐',
-    shortDesc: '社區高中獨特的推薦入學管道',
-    fullDesc: '社區推甄是社區高中學生的專屬福利！升學機會增加，準備負擔較輕，是社區高中學生的重要升學途徑。',
+    shortDesc: '技能競賽前三名直接保送，免統測',
+    fullDesc: '技優保送是技能競賽頂尖選手的專屬直達車！全國技能競賽或國際技能競賽前三名可直接保送四技，完全不需要統測成績，是最快也最穩的升學捷徑。',
     color: 'from-yellow-500 to-orange-500',
     borderColor: 'border-yellow-200',
     bgColor: 'bg-yellow-50',
-    quota: '佔總名額約 8%',
-    suitableGroups: ['社區高中學生', '所有職群'],
+    quota: '佔總名額約 1%',
+    suitableGroups: ['所有職群', '特別適合技能競賽頂尖選手'],
     requirements: [
-      '就讀社區高中',
-      '通過學校推薦',
-      '參加簡單面試'
+      '全國技能競賽前三名',
+      '或國際技能競賽獲獎',
+      '無需統測成績'
     ],
     advantages: [
-      '升學機會增加，專屬名額',
-      '準備負擔較輕',
-      '面試相對簡單',
-      '社區高中專屬福利'
+      '直接保送，免統測、免面試',
+      '競爭者極少，錄取率最高',
+      '可選擇最頂尖的科大',
+      '專業技能獲得最高肯定'
     ],
     timeline: [
-      '3月：報名',
-      '4月：簡單面試',
+      '3月：公告保送名單',
+      '4月：分發選填志願',
       '5月：放榜'
     ],
     tips: [
-      '了解學校的社區推甄配額',
-      '跟導師保持良好關係',
-      '面試相對簡單，不用過度緊張',
-      '可以和其他管道同時準備'
+      '高二就要在全國賽脫穎而出',
+      '選擇正確的競賽職類很重要',
+      '保送名額競爭激烈，每一分都關鍵',
+      '可以和甄選入學同時準備作為備案'
     ],
-    successStory: '李同學（護理群）就讀社區高中，透過社區推甄成功申請上慈濟大學護理系，享受社區高中專屬升學優勢。'
+    successStory: '李同學（餐旅群）在全國技能競賽烘焙職類奪得金牌，透過技優保送直接進入高雄餐旅大學烘焙系，完全跳過統測壓力。'
   },
   special: {
     id: 'special',
@@ -276,7 +277,7 @@ export default function PathwaysPage() {
             </span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            多數高職生只知道聯考和推甄，錯過了其他 4 種升學管道。
+            多數高職生只知道統測和甄選入學，錯過了其他 4 種升學管道。
             <br />
             <strong>了解這 6 種管道，找到最適合你的升學路徑。</strong>
           </p>
@@ -426,6 +427,7 @@ export default function PathwaysPage() {
                     </div>
 
                     {/* Tips */}
+                    {pathway.tips && (
                     <div className={`mb-6 p-4 rounded-xl ${pathway.bgColor}`}>
                       <h3 className="text-lg font-bold text-gray-900 mb-3">💡 成功秘訣</h3>
                       <ul className="space-y-2">
@@ -437,6 +439,7 @@ export default function PathwaysPage() {
                         ))}
                       </ul>
                     </div>
+                    )}
 
                     {/* Success Story */}
                     <div className="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
@@ -482,21 +485,21 @@ export default function PathwaysPage() {
                 <tr className="bg-indigo-50">
                   <th className="p-3 text-left font-semibold text-gray-900">比較項目</th>
                   <th className="p-3 text-center font-semibold text-gray-900">繁星推薦</th>
-                  <th className="p-3 text-center font-semibold text-gray-900">個人申請</th>
-                  <th className="p-3 text-center font-semibold text-gray-900">指考分發</th>
+                  <th className="p-3 text-center font-semibold text-gray-900">甄選入學</th>
+                  <th className="p-3 text-center font-semibold text-gray-900">聯合登記分發</th>
                   <th className="p-3 text-center font-semibold text-gray-900">技優甄審</th>
-                  <th className="p-3 text-center font-semibold text-gray-900">社區推甄</th>
+                  <th className="p-3 text-center font-semibold text-gray-900">技優保送</th>
                   <th className="p-3 text-center font-semibold text-gray-900">特殊選才</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
                   <td className="p-3 font-medium">主要評估標準</td>
-                  <td className="p-3 text-center">校內成績</td>
-                  <td className="p-3 text-center">備審+面試</td>
+                  <td className="p-3 text-center">在校成績</td>
+                  <td className="p-3 text-center">統測+備審+面試</td>
                   <td className="p-3 text-center">統測成績</td>
-                  <td className="p-3 text-center">競賽成績</td>
-                  <td className="p-3 text-center">推薦+面試</td>
+                  <td className="p-3 text-center">證照+競賽</td>
+                  <td className="p-3 text-center">競賽前三名</td>
                   <td className="p-3 text-center">特殊才能</td>
                 </tr>
                 <tr className="border-b bg-gray-50">
@@ -505,7 +508,7 @@ export default function PathwaysPage() {
                   <td className="p-3 text-center">中</td>
                   <td className="p-3 text-center">重</td>
                   <td className="p-3 text-center">重（競賽）</td>
-                  <td className="p-3 text-center">輕</td>
+                  <td className="p-3 text-center">重（競賽）</td>
                   <td className="p-3 text-center">中</td>
                 </tr>
                 <tr className="border-b">
@@ -522,17 +525,17 @@ export default function PathwaysPage() {
                   <td className="p-3 text-center">成績穩定</td>
                   <td className="p-3 text-center">有特色成果</td>
                   <td className="p-3 text-center">應試型</td>
-                  <td className="p-3 text-center">技藝突出</td>
-                  <td className="p-3 text-center">社區高中</td>
+                  <td className="p-3 text-center">有證照獲獎</td>
+                  <td className="p-3 text-center">競賽頂尖選手</td>
                   <td className="p-3 text-center">特殊專長</td>
                 </tr>
                 <tr className="bg-gray-50">
                   <td className="p-3 font-medium">時間投入</td>
                   <td className="p-3 text-center">早期（高一高二）</td>
                   <td className="p-3 text-center">中期（備審準備）</td>
-                  <td className="p-3 text-center">晚期（考前衝刺）</td>
+                  <td className="p-3 text-center">晚期（統測衝刺）</td>
                   <td className="p-3 text-center">長期（競賽準備）</td>
-                  <td className="p-3 text-center">短期</td>
+                  <td className="p-3 text-center">長期（競賽準備）</td>
                   <td className="p-3 text-center">個人時程</td>
                 </tr>
               </tbody>

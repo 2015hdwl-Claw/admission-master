@@ -30,7 +30,7 @@ const VOCATIONAL_GROUPS = {
       '外語能力是重要優勢',
       '強調團隊合作與溝通能力'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '繁星推薦']
+    relatedPathways: ['甄選入學', '技優甄審', '繁星推薦']
   },
   '02': {
     code: '02',
@@ -54,7 +54,7 @@ const VOCATIONAL_GROUPS = {
       '實作經驗比理論知識更重要',
       '展現對製造業的興趣與了解'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '指考分發']
+    relatedPathways: ['甄選入學', '技優甄審', '聯合登記分發']
   },
   '03': {
     code: '03',
@@ -78,7 +78,7 @@ const VOCATIONAL_GROUPS = {
       '程式設計能力是重要優勢',
       '展現對電子技術的熱情'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '繁星推薦']
+    relatedPathways: ['甄選入學', '技優甄審', '繁星推薦']
   },
   '04': {
     code: '04',
@@ -102,7 +102,7 @@ const VOCATIONAL_GROUPS = {
       '相關技證加分',
       '對電子產品有濃厚興趣'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '社區推甄']
+    relatedPathways: ['甄選入學', '技優甄審', '技優保送']
   },
   '05': {
     code: '05',
@@ -126,7 +126,7 @@ const VOCATIONAL_GROUPS = {
       'GitHub作品集或個人網站加分',
       '參加黑客松或程式競賽'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '繁星推薦', '特殊選才']
+    relatedPathways: ['甄選入學', '技優甄審', '繁星推薦', '特殊選才']
   },
   '06': {
     code: '06',
@@ -150,7 +150,7 @@ const VOCATIONAL_GROUPS = {
       '展現領導力與團隊合作',
       '英語能力是重要優勢'
     ],
-    relatedPathways: ['個人申請', '繁星推薦', '指考分發']
+    relatedPathways: ['甄選入學', '繁星推薦', '聯合登記分發']
   },
   '07': {
     code: '07',
@@ -174,7 +174,7 @@ const VOCATIONAL_GROUPS = {
       '展示設計思考過程',
       '美學素養與創意能力'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '特殊選才']
+    relatedPathways: ['甄選入學', '技優甄審', '特殊選才']
   },
   '08': {
     code: '08',
@@ -198,7 +198,7 @@ const VOCATIONAL_GROUPS = {
       '生物、化學基礎重要',
       '農業相關專案或競賽'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '社區推甄']
+    relatedPathways: ['甄選入學', '技優甄審', '技優保送']
   },
   '09': {
     code: '09',
@@ -222,7 +222,7 @@ const VOCATIONAL_GROUPS = {
       '展現對材料科學的興趣',
       '工讀或實習經驗很有幫助'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '指考分發']
+    relatedPathways: ['甄選入學', '技優甄審', '聯合登記分發']
   },
   '10': {
     code: '10',
@@ -246,7 +246,7 @@ const VOCATIONAL_GROUPS = {
       '相關實習或工讀加分',
       '對營建業有深入了解'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '指考分發']
+    relatedPathways: ['甄選入學', '技優甄審', '聯合登記分發']
   },
   '11': {
     code: '11',
@@ -270,7 +270,7 @@ const VOCATIONAL_GROUPS = {
       '對航運業有興趣',
       '國外就業機會多'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '社區推甄']
+    relatedPathways: ['甄選入學', '技優甄審', '技優保送']
   },
   '12': {
     code: '12',
@@ -294,7 +294,7 @@ const VOCATIONAL_GROUPS = {
       '展現對醫護工作的熱情',
       '體力與耐心很重要'
     ],
-    relatedPathways: ['個人申請', '技優甄審', '繁星推薦']
+    relatedPathways: ['甄選入學', '技優甄審', '繁星推薦']
   },
   '13': {
     code: '13',
@@ -318,7 +318,7 @@ const VOCATIONAL_GROUPS = {
       '教育相關背景優勢',
       '展現生活應用能力'
     ],
-    relatedPathways: ['個人申請', '繁星推薦', '社區推甄']
+    relatedPathways: ['甄選入學', '繁星推薦', '技優保送']
   },
   '14': {
     code: '14',
@@ -342,7 +342,7 @@ const VOCATIONAL_GROUPS = {
       '文學相關競賽或專案',
       '展現文化素養與國際視野'
     ],
-    relatedPathways: ['個人申請', '繁星推薦', '特殊選才']
+    relatedPathways: ['甄選入學', '繁星推薦', '特殊選才']
   },
   '15': {
     code: '15',
@@ -366,7 +366,7 @@ const VOCATIONAL_GROUPS = {
       '展現國際視野與商業敏感度',
       '創新思考與執行力'
     ],
-    relatedPathways: ['個人申請', '繁星推薦', '技優甄審']
+    relatedPathways: ['甄選入學', '繁星推薦', '技優甄審']
   }
 }
 

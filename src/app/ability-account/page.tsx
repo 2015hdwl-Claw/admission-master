@@ -90,9 +90,9 @@ export default function AbilityAccountPage() {
       priority: 'high'
     })
 
-    // 個人申請
+    // 甄選入學
     pathways.push({
-      pathway: '個人申請',
+      pathway: '甄選入學',
       pathwayCode: 'individual',
       readinessPercent: 60,
       requiredItems: ['在校成績', '學習歷程', '在校表現'],
@@ -112,23 +112,23 @@ export default function AbilityAccountPage() {
       })
     }
 
-    // 指考分發
+    // 聯合登記分發
     pathways.push({
-      pathway: '指考分發',
-      pathwayCode: 'zhikao',
+      pathway: '聯合登記分發',
+      pathwayCode: 'distribution',
       readinessPercent: 40,
-      requiredItems: ['學測成績', '指考成績'],
-      nextSteps: ['制定考試準備計畫', '參加指考模擬考', '瞞解指定科目採計'],
+      requiredItems: ['統測成績', '統測成績'],
+      nextSteps: ['制定統測準備計畫', '參加統測模擬考', '了解統測科目採計'],
       priority: 'medium'
     })
 
-    // 社區推甄
+    // 技優保送
     pathways.push({
-      pathway: '社區推甄',
-      pathwayCode: 'community',
+      pathway: '技優保送',
+      pathwayCode: 'guarantee',
       readinessPercent: 30,
-      requiredItems: ['在校成績', '社區服務紀錄'],
-      nextSteps: ['參與社區服務活動', '累積服務時數', '瞭解社區推甄機會'],
+      requiredItems: ['在校成績', '競賽成果紀錄'],
+      nextSteps: ['參與技能競賽活動', '累積競賽經驗', '瞭解技優保送機會'],
       priority: 'low'
     })
 

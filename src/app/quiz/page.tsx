@@ -182,29 +182,29 @@ const QUIZ_QUESTIONS = [
 
 // 職群與升學管道的映射關係
 const GROUP_PATHWAY_MAPPING: Record<string, string[]> = {
-  '餐旅群': ['stars', 'application', 'special', 'skills'],
-  '機械群': ['stars', 'application', 'skills', 'exam'],
-  '電機群': ['stars', 'application', 'skills', 'exam'],
-  '電子群': ['stars', 'application', 'skills', 'exam'],
-  '資訊群': ['stars', 'application', 'skills', 'special'],
-  '商管群': ['stars', 'application', 'community', 'exam'],
-  '設計群': ['application', 'special', 'stars', 'skills'],
-  '農業群': ['stars', 'application', 'skills', 'special'],
-  '化工群': ['stars', 'application', 'skills', 'exam'],
-  '土木群': ['stars', 'application', 'skills', 'exam'],
-  '海事群': ['stars', 'application', 'skills', 'special'],
-  '護理群': ['stars', 'application', 'skills', 'exam'],
-  '家政群': ['application', 'special', 'stars', 'community'],
-  '語文群': ['stars', 'application', 'community', 'special'],
-  '商業與管理群': ['stars', 'application', 'community', 'exam']
+  '餐旅群': ['stars', 'selection', 'special', 'skills'],
+  '機械群': ['stars', 'selection', 'skills', 'distribution'],
+  '電機群': ['stars', 'selection', 'skills', 'distribution'],
+  '電子群': ['stars', 'selection', 'skills', 'distribution'],
+  '資訊群': ['stars', 'selection', 'skills', 'special'],
+  '商管群': ['stars', 'selection', 'guarantee', 'distribution'],
+  '設計群': ['selection', 'special', 'stars', 'skills'],
+  '農業群': ['stars', 'selection', 'skills', 'special'],
+  '化工群': ['stars', 'selection', 'skills', 'distribution'],
+  '土木群': ['stars', 'selection', 'skills', 'distribution'],
+  '海事群': ['stars', 'selection', 'skills', 'special'],
+  '護理群': ['stars', 'selection', 'skills', 'distribution'],
+  '家政群': ['selection', 'special', 'stars', 'guarantee'],
+  '語文群': ['stars', 'selection', 'guarantee', 'special'],
+  '商業與管理群': ['stars', 'selection', 'guarantee', 'distribution']
 }
 
 const PATHWAY_NAMES: Record<string, string> = {
   'stars': '繁星推薦',
-  'application': '個人申請',
-  'exam': '指考分發',
+  'selection': '甄選入學',
+  'distribution': '聯合登記分發',
   'skills': '技優甄審',
-  'community': '社區推甄',
+  'guarantee': '技優保送',
   'special': '特殊選才'
 }
 
@@ -444,10 +444,10 @@ export default function QuizPage() {
                     <div key={pathwayKey} className="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg border border-purple-100">
                       <div className="text-2xl mb-2">
                         {pathwayKey === 'stars' && '📚'}
-                        {pathwayKey === 'application' && '🎯'}
-                        {pathwayKey === 'exam' && '📝'}
+                        {pathwayKey === 'selection' && '🎯'}
+                        {pathwayKey === 'distribution' && '📝'}
                         {pathwayKey === 'skills' && '🏆'}
-                        {pathwayKey === 'community' && '⭐'}
+                        {pathwayKey === 'guarantee' && '⭐'}
                         {pathwayKey === 'special' && '🎓'}
                       </div>
                       <h3 className="font-bold text-gray-900 text-sm">{pathwayName}</h3>

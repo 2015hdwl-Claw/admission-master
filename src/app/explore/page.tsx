@@ -18,7 +18,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-orange-500 to-red-500',
     borderColor: 'border-orange-200',
     bgColor: 'bg-orange-50',
-    pathways: ['繁星推薦', '個人申請', '技優甄審', '特殊選才'],
+    pathways: ['繁星推薦', '甄選入學', '技優甄審', '特殊選才'],
     skills: ['烹飪技術', '服務管理', '外語能力', '溝通技巧'],
     careers: ['廚師', '餐飲經理', '旅遊規劃師', '飯店管理'],
     techSchools: ['高雄餐旅大學', '台中科技大學', '國立澎湖科技大學']
@@ -32,7 +32,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-gray-500 to-slate-500',
     borderColor: 'border-gray-200',
     bgColor: 'bg-gray-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['機械製圖', 'CAD 設計', 'CNC 加工', '機械維修'],
     careers: ['機械工程師', '製造技術員', '維修工程師', 'CNC 操作員'],
     techSchools: ['台北科技大學', '雲林科技大學', '勤益科技大學']
@@ -46,7 +46,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-yellow-500 to-orange-500',
     borderColor: 'border-yellow-200',
     bgColor: 'bg-yellow-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['電路設計', '電力系統', '控制工程', '能源管理'],
     careers: ['電機工程師', '電力技術員', '控制工程師', '維修技師'],
     techSchools: ['台北科技大學', '雲林科技大學', '高雄科技大學']
@@ -60,7 +60,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-blue-500 to-cyan-500',
     borderColor: 'border-blue-200',
     bgColor: 'bg-blue-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['電路設計', '通訊技術', '半導體製程', '嵌入式系統'],
     careers: ['電子工程師', 'IC 設計師', '通訊工程師', '研發工程師'],
     techSchools: ['台北科技大學', '雲林科技大學', '台應大']
@@ -74,7 +74,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-indigo-500 to-purple-500',
     borderColor: 'border-indigo-200',
     bgColor: 'bg-indigo-50',
-    pathways: ['繁星推薦', '個人申請', '技優甄審', '特殊選才'],
+    pathways: ['繁星推薦', '甄選入學', '技優甄審', '特殊選才'],
     skills: ['程式設計', '系統開發', '網路管理', '資料庫'],
     careers: ['軟體工程師', '系統分析師', '網路工程師', '資料工程師'],
     techSchools: ['台北科技大學', '台科大', '雲科大']
@@ -88,7 +88,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-green-500 to-emerald-500',
     borderColor: 'border-green-200',
     bgColor: 'bg-green-50',
-    pathways: ['繁星推薦', '個人申請', '社區推甄', '指考分發'],
+    pathways: ['繁星推薦', '甄選入學', '技優保送', '聯合登記分發'],
     skills: ['會計財務', '商業分析', '行銷管理', '企業經營'],
     careers: ['會計師', '行銷經理', '企業管理', '財務分析'],
     techSchools: ['台北商業大學', '台灣體大', '國立澎湖科技大學']
@@ -102,7 +102,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-pink-500 to-rose-500',
     borderColor: 'border-pink-200',
     bgColor: 'bg-pink-50',
-    pathways: ['個人申請', '特殊選才', '繁星推薦', '技優甄審'],
+    pathways: ['甄選入學', '特殊選才', '繁星推薦', '技優甄審'],
     skills: ['視覺設計', '產品設計', '空間設計', '美學素養'],
     careers: ['平面設計師', '產品設計師', '室內設計師', '藝術總監'],
     techSchools: ['台北科技大學', '雲林科技大學', '實踐大學']
@@ -116,7 +116,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-lime-500 to-green-500',
     borderColor: 'border-lime-200',
     bgColor: 'bg-lime-50',
-    pathways: ['繁星推薦', '個人申請', '技優甄審', '特殊選才'],
+    pathways: ['繁星推薦', '甄選入學', '技優甄審', '特殊選才'],
     skills: ['農業技術', '園藝技術', '畜產管理', '生物科技'],
     careers: ['農業技師', '園藝工程師', '畜牧管理師', '農企業經營'],
     techSchools: ['屏東科技大學', '嘉義大學', '宜蘭大學']
@@ -130,7 +130,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-teal-500 to-cyan-500',
     borderColor: 'border-teal-200',
     bgColor: 'bg-teal-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['化學工程', '材料技術', '程序控制', '化學分析'],
     careers: ['化學工程師', '材料工程師', '製程工程師', '研發科長'],
     techSchools: ['台北科技大學', '雲林科技大學', '高雄科技大學']
@@ -144,7 +144,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-amber-500 to-yellow-500',
     borderColor: 'border-amber-200',
     bgColor: 'bg-amber-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['建築結構', '營建技術', '工程測量', '施工管理'],
     careers: ['建築師', '營建工程師', '測量師', '專案經理'],
     techSchools: ['台北科技大學', '中華大學', '高雄科技大學']
@@ -158,7 +158,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-blue-600 to-blue-800',
     borderColor: 'border-blue-300',
     bgColor: 'bg-blue-50',
-    pathways: ['繁星推薦', '個人申請', '技優甄審', '特殊選才'],
+    pathways: ['繁星推薦', '甄選入學', '技優甄審', '特殊選才'],
     skills: ['航運技術', '輪機工程', '海事事務', '國際貿易'],
     careers: ['船長', '輪機長', '海事事務員', '航運經理'],
     techSchools: ['海洋大學', '高雄海洋科技大學', '國立澎湖科技大學']
@@ -172,7 +172,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-rose-500 to-pink-500',
     borderColor: 'border-rose-200',
     bgColor: 'bg-rose-50',
-    pathways: ['繁星推薦', '個人申請', '指考分發', '技優甄審'],
+    pathways: ['繁星推薦', '甄選入學', '聯合登記分發', '技優甄審'],
     skills: ['護理技術', '健康照護', '醫學知識', '溝通技巧'],
     careers: ['護理師', '醫檢師', '照護服務員', '醫事行政'],
     techSchools: ['台北醫學大學', '國立陽明大學', '長庚大學']
@@ -186,7 +186,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-purple-500 to-fuchsia-500',
     borderColor: 'border-purple-200',
     bgColor: 'bg-purple-50',
-    pathways: ['個人申請', '特殊選才', '繁星推薦', '社區推甄'],
+    pathways: ['甄選入學', '特殊選才', '繁星推薦', '技優保送'],
     skills: ['生活應用', '兒童發展', '食品營養', '家庭管理'],
     careers: ['幼教老師', '營養師', '家庭教育師', '生活服務員'],
     techSchools: ['實踐大學', '樹德科技大學', '慈濟大學']
@@ -200,7 +200,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-violet-500 to-purple-500',
     borderColor: 'border-violet-200',
     bgColor: 'bg-violet-50',
-    pathways: ['繁星推薦', '個人申請', '社區推甄', '特殊選才'],
+    pathways: ['繁星推薦', '甄選入學', '技優保送', '特殊選才'],
     skills: ['語文應用', '翻譯技巧', '傳播能力', '國際視野'],
     careers: ['翻譯員', '記者', '編輯', '廣播人員'],
     techSchools: ['文藻外語大學', '淡江大學', '世新大學']
@@ -214,7 +214,7 @@ const VOCATIONAL_GROUPS = [
     color: 'from-emerald-500 to-teal-500',
     borderColor: 'border-emerald-200',
     bgColor: 'bg-emerald-50',
-    pathways: ['繁星推薦', '個人申請', '社區推甄', '指考分發'],
+    pathways: ['繁星推薦', '甄選入學', '技優保送', '聯合登記分發'],
     skills: ['企業管理', '國際貿易', '商業服務', '創新創業'],
     careers: ['企業經理', '貿易商', '創業家', '顧問'],
     techSchools: ['台北商業大學', '實踐大學', '逢甲大學']

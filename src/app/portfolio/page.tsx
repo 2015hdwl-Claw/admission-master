@@ -141,9 +141,9 @@ export default function PortfolioPage() {
       status: 'not_started'
     })
 
-    // 個人申請
+    // 甄選入學
     pathways.push({
-      pathway: '個人申請',
+      pathway: '甄選入學',
       pathwayCode: 'individual',
       requiredMaterials: [
         {
@@ -237,22 +237,22 @@ export default function PortfolioPage() {
       })
     }
 
-    // 指考分發
+    // 聯合登記分發
     pathways.push({
-      pathway: '指考分發',
-      pathwayCode: 'zhikao',
+      pathway: '聯合登記分發',
+      pathwayCode: 'distribution',
       requiredMaterials: [
         {
           id: 'exam_scores',
-          name: '學測成績',
+          name: '統測成績',
           description: '國文、英文、數學、社會、自然等科目成績',
           required: true,
           completed: false
         },
         {
           id: 'entrance_exam_scores',
-          name: '指考成績',
-          description: '指定科目考試成績單',
+          name: '統測成績',
+          description: '統測成績單',
           required: true,
           completed: false
         }
@@ -270,10 +270,10 @@ export default function PortfolioPage() {
       status: 'not_started'
     })
 
-    // 社區推甄
+    // 技優保送
     pathways.push({
-      pathway: '社區推甄',
-      pathwayCode: 'community',
+      pathway: '技優保送',
+      pathwayCode: 'guarantee',
       requiredMaterials: [
         {
           id: 'transcript_community',

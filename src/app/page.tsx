@@ -80,12 +80,12 @@ export default function HomePage() {
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
             你以為只有<br />
             <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              聯考和推甄這兩條路？
+              統測分發這一條路？
             </span>
           </h1>
 
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-            <strong>其實你有 6 種升學管道。</strong>多數高職生只知道聯考和推甄，
+            <strong>其實你有 6 種升學管道。</strong>多數高職生只知道統測分發，
             錯過了原本可以申請的夢想校系。<strong>3 分鐘發現你的潛在路徑</strong>，不再遺憾。
           </p>
 
@@ -112,27 +112,27 @@ export default function HomePage() {
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border-2 border-blue-100">
                 <div className="text-2xl mb-2">📚</div>
                 <h3 className="font-bold text-gray-900 mb-1">繁星推薦</h3>
-                <p className="text-sm text-gray-600">校內推薦升學</p>
+                <p className="text-sm text-gray-600">在校成績推薦</p>
               </div>
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 border-2 border-indigo-100">
                 <div className="text-2xl mb-2">🎯</div>
-                <h3 className="font-bold text-gray-900 mb-1">個人申請</h3>
-                <p className="text-sm text-gray-600">備審+口試評比</p>
+                <h3 className="font-bold text-gray-900 mb-1">甄選入學</h3>
+                <p className="text-sm text-gray-600">統測+備審面試</p>
               </div>
               <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4 border-2 border-purple-100">
                 <div className="text-2xl mb-2">📝</div>
-                <h3 className="font-bold text-gray-900 mb-1">指考分發</h3>
-                <p className="text-sm text-gray-600">統一入學考試</p>
+                <h3 className="font-bold text-gray-900 mb-1">聯合登記分發</h3>
+                <p className="text-sm text-gray-600">統測成績分發</p>
               </div>
               <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-4 border-2 border-green-100">
                 <div className="text-2xl mb-2">🏆</div>
                 <h3 className="font-bold text-gray-900 mb-1">技優甄審</h3>
-                <p className="text-sm text-gray-600">技藝優秀甄審</p>
+                <p className="text-sm text-gray-600">證照競賽甄審</p>
               </div>
               <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl p-4 border-2 border-yellow-100">
                 <div className="text-2xl mb-2">⭐</div>
-                <h3 className="font-bold text-gray-900 mb-1">社區推甄</h3>
-                <p className="text-sm text-gray-600">社區高中推薦</p>
+                <h3 className="font-bold text-gray-900 mb-1">技優保送</h3>
+                <p className="text-sm text-gray-600">競賽保送</p>
               </div>
               <div className="bg-gradient-to-br from-red-50 to-pink-50 rounded-xl p-4 border-2 border-red-100">
                 <div className="text-2xl mb-2">🎓</div>
@@ -156,11 +156,11 @@ export default function HomePage() {
                   </div>
                   <div className="ml-3">
                     <p className="font-bold text-gray-900">陳同學 • 電子群</p>
-                    <p className="text-sm text-gray-600">原本只知道聯考</p>
+                    <p className="text-sm text-gray-600">原本只知道統測</p>
                   </div>
                 </div>
                 <p className="text-gray-700">
-                  「以為只能拼命考指考，後來發現有繁星推薦，用我的專題競賽成果申請上了台灣科大！」
+                  「以為只能拼命考統測...用專題競賽成果申請上了台灣科大」
                 </p>
               </div>
 
@@ -175,7 +175,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <p className="text-gray-700">
-                  「完全不知道有特殊選才這條路，用我的設計作品集申請上了實踐大學工業設計！」
+                  「發現特殊選才機會...用設計作品集申請上了實踐大學」
                 </p>
               </div>
             </div>

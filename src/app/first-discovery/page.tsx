@@ -8,52 +8,52 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
 
-// 6 種升學管道的詳細資訊
+// 高職四技二專 6 種入學管道
 const ADMISSION_PATHWAYS = {
   stars: {
     name: '繁星推薦',
     icon: '📚',
-    description: '用校內成績申請，不用另外考試',
+    description: '用在校成績申請，不用考統測',
     color: 'from-blue-500 to-indigo-500',
     borderColor: 'border-blue-200',
-    requirements: ['校內成績前 50%', '通過學校推薦', '不用另外準備考試'],
-    benefits: ['壓力較小', '可以同時申請多校', '錄取後不用再參加其他指考']
+    requirements: ['在校成績前 30%', '由學校推薦', '不用考統測'],
+    benefits: ['不用考統測也能上科大', '壓力較小', '幫助縮短城鄉差距']
   },
-  application: {
-    name: '個人申請',
+  selection: {
+    name: '甄選入學',
     icon: '🎯',
-    description: '備審資料 + 口試，展現你的特色',
+    description: '統測成績 + 備審面試，展現你的特色',
     color: 'from-indigo-500 to-purple-500',
     borderColor: 'border-indigo-200',
-    requirements: ['準備備審資料', '參加系所口試', '展現學習歷程'],
-    benefits: ['可以展現個人特色', '不只看成績', '適合有特殊經歷的學生']
+    requirements: ['統測成績', '準備備審資料', '參加系所面試'],
+    benefits: ['招生名額最多', '可以展現個人特色', '不只看成績']
   },
-  exam: {
-    name: '指考分發',
+  distribution: {
+    name: '聯合登記分發',
     icon: '📝',
-    description: '傳統統一入學考試，分數決定一切',
+    description: '依統測成績填志願分發，分數決定一切',
     color: 'from-purple-500 to-pink-500',
     borderColor: 'border-purple-200',
-    requirements: ['參加學測/指考', '成績達到分數標準', '分發依據成績排序'],
-    benefits: ['標準最明確', '準備方式單純', '適合應試型學生']
+    requirements: ['參加統測', '成績達到錄取標準', '依志願序分發'],
+    benefits: ['標準最明確', '準備方式單純', '志願填越多上榜機會越高']
   },
   skills: {
     name: '技優甄審',
     icon: '🏆',
-    description: '用你的專業技藝成績申請',
+    description: '用專業技藝成績或證照申請，免統測',
     color: 'from-green-500 to-blue-500',
     borderColor: 'border-green-200',
-    requirements: ['參加技藝競賽', '取得專業證照', '通過技能檢定'],
-    benefits: ['發揮專業長才', '競爭者較少', '適合技藝突出的學生']
+    requirements: ['持有乙級技術士證', '或參加技藝競賽獲獎', '繳交書審資料'],
+    benefits: ['不用考統測', '強調技能與證照', '適合實作型學生']
   },
-  community: {
-    name: '社區推甄',
+  guarantee: {
+    name: '技優保送',
     icon: '⭐',
-    description: '社區高中獨特的推薦入學管道',
+    description: '技能競賽前三名直接保送科大',
     color: 'from-yellow-500 to-orange-500',
     borderColor: 'border-yellow-200',
-    requirements: ['就讀社區高中', '通過學校推薦', '參加簡單面試'],
-    benefits: ['升學機會增加', '準備負擔較輕', '社區高中專屬福利']
+    requirements: ['全國技能競賽前三名', '或具國手資格', '不需統測成績'],
+    benefits: ['直接保送不用考試', '競爭者極少', '實力證明就能入學']
   },
   special: {
     name: '特殊選才',
@@ -62,27 +62,27 @@ const ADMISSION_PATHWAYS = {
     color: 'from-red-500 to-pink-500',
     borderColor: 'border-red-200',
     requirements: ['特殊才能證明', '實作經驗展現', '通過特殊選才審查'],
-    benefits: ['肯定特殊才能', '不看傳統成績', '適合有特殊專長的學生']
+    benefits: ['不看統測成績', '肯定特殊才能', '適合有特殊專長的學生']
   }
 }
 
 // 職群與適合升學管道的映射
 const GROUP_PATHWAY_MAPPING = {
-  '餐旅群': ['stars', 'application', 'special', 'skills'],
-  '機械群': ['stars', 'application', 'skills', 'exam'],
-  '電機群': ['stars', 'application', 'skills', 'exam'],
-  '電子群': ['stars', 'application', 'skills', 'exam'],
-  '資訊群': ['stars', 'application', 'skills', 'special'],
-  '商管群': ['stars', 'application', 'community', 'exam'],
-  '設計群': ['application', 'special', 'stars', 'skills'],
-  '農業群': ['stars', 'application', 'skills', 'special'],
-  '化工群': ['stars', 'application', 'skills', 'exam'],
-  '土木群': ['stars', 'application', 'skills', 'exam'],
-  '海事群': ['stars', 'application', 'skills', 'special'],
-  '護理群': ['stars', 'application', 'skills', 'exam'],
-  '家政群': ['application', 'special', 'stars', 'community'],
-  '語文群': ['stars', 'application', 'community', 'special'],
-  '商業與管理群': ['stars', 'application', 'community', 'exam']
+  '餐旅群': ['stars', 'selection', 'special', 'skills', 'guarantee'],
+  '機械群': ['stars', 'selection', 'skills', 'distribution', 'guarantee'],
+  '電機群': ['stars', 'selection', 'skills', 'distribution', 'guarantee'],
+  '電子群': ['stars', 'selection', 'skills', 'distribution', 'guarantee'],
+  '資訊群': ['stars', 'selection', 'skills', 'special', 'guarantee'],
+  '商管群': ['stars', 'selection', 'distribution', 'skills'],
+  '設計群': ['selection', 'special', 'stars', 'skills'],
+  '農業群': ['stars', 'selection', 'skills', 'special'],
+  '化工群': ['stars', 'selection', 'skills', 'distribution'],
+  '土木群': ['stars', 'selection', 'skills', 'distribution'],
+  '海事群': ['stars', 'selection', 'skills', 'special'],
+  '護理群': ['stars', 'selection', 'skills', 'distribution'],
+  '家政群': ['selection', 'special', 'stars', 'skills'],
+  '語文群': ['stars', 'selection', 'special'],
+  '商業與管理群': ['stars', 'selection', 'distribution', 'skills']
 }
 
 export default function FirstDiscoveryPage() {
