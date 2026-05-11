@@ -1,12 +1,10 @@
-// 第一次發現頁面 - 即時計算潛在升學路徑
-// 目標：製造驚喜感，讓用戶了解自己的選擇
+'use client';
 
-'use client'
-
-import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
-import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
+import { trackPageView, trackFeatureUsage } from '@/lib/analytics';
+import DiscoveryProgress from '@/components/DiscoveryProgress';
 
 // 高職四技二專 6 種入學管道
 const ADMISSION_PATHWAYS = {
@@ -64,10 +62,10 @@ const ADMISSION_PATHWAYS = {
     requirements: ['特殊才能證明', '實作經驗展現', '通過特殊選才審查'],
     benefits: ['不看統測成績', '肯定特殊才能', '適合有特殊專長的學生']
   }
-}
+};
 
 // 職群與適合升學管道的映射
-const GROUP_PATHWAY_MAPPING = {
+const GROUP_PATHWAY_MAPPING: Record<string, string[]> = {
   '餐旅群': ['stars', 'selection', 'special', 'skills', 'guarantee'],
   '機械群': ['stars', 'selection', 'skills', 'distribution', 'guarantee'],
   '電機群': ['stars', 'selection', 'skills', 'distribution', 'guarantee'],
@@ -83,117 +81,244 @@ const GROUP_PATHWAY_MAPPING = {
   '家政群': ['selection', 'special', 'stars', 'skills'],
   '語文群': ['stars', 'selection', 'special'],
   '商業與管理群': ['stars', 'selection', 'distribution', 'skills']
-}
+};
+
+const ALL_SCHOOLS = [
+  { id: 'ntust', name: '國立臺灣科技大學' },
+  { id: 'ntut', name: '國立臺北科技大學' },
+  { id: 'ncnu', name: '國立暨南國際大學' },
+  { id: 'nchu', name: '國立中興大學' },
+  { id: 'ncyu', name: '國立嘉義大學' },
+  { id: 'nkust', name: '國立高雄科技大學' },
+  { id: 'nfcu', name: '國立虎尾科技大學' },
+  { id: 'nfu', name: '國立勤益科技大學' },
+  { id: 'nutn', name: '國立臺南大學' },
+  { id: 'ntou', name: '國立臺灣海洋大學' },
+];
+
+const ALL_DEPARTMENTS = [
+  { id: '01', name: '餐旅群' },
+  { id: '02', name: '機械群' },
+  { id: '03', name: '電機群' },
+  { id: '04', name: '電子群' },
+  { id: '05', name: '資訊群' },
+  { id: '06', name: '商管群' },
+  { id: '07', name: '設計群' },
+  { id: '08', name: '農業群' },
+  { id: '09', name: '化工群' },
+  { id: '10', name: '土木群' },
+  { id: '11', name: '海事群' },
+  { id: '12', name: '護理群' },
+  { id: '13', name: '家政群' },
+  { id: '14', name: '語文群' },
+  { id: '15', name: '商業與管理群' },
+];
 
 export default function FirstDiscoveryPage() {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [userGroup, setUserGroup] = useState<string>('')
-  const [recommendedPathways, setRecommendedPathways] = useState<string[]>([])
-  const [discoveryMade, setDiscoveryMade] = useState(false)
-  const router = useRouter()
-  const supabase = createClient()
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  const [selectedSchool, setSelectedSchool] = useState<string>('');
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+  const [recommendedPathways, setRecommendedPathways] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+  const supabase = createClient();
 
   useEffect(() => {
-    loadUserData()
-    trackPageView('first_discovery')
-  }, [])
+    loadUserData();
+    trackPageView('first_discovery');
+  }, []);
 
   const loadUserData = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        setUser(user)
+        setUser(user);
       }
-
-      // 獲取用戶的職群資訊（已登入用戶從DB讀取，未登入使用localStorage）
-      let groupCode = ''
-
-      if (user) {
-        const { data: profile, error } = await supabase
-          .from('student_profiles')
-          .select('group_code')
-          .eq('user_id', user.id)
-          .single()
-
-        if (!error && profile) {
-          const profileData = profile as { group_code: string }
-          groupCode = profileData.group_code || ''
-        }
-      }
-
-      // 如果沒有DB資料，嘗試從localStorage讀取
-      if (!groupCode && typeof window !== 'undefined') {
-        groupCode = localStorage.getItem('admission-master:selectedGroup') || ''
-      }
-
-      // 如果都沒有，使用預設值讓用戶仍然能看到內容
-      if (!groupCode) {
-        groupCode = '06' // 預設商管群作為展示
-      }
-
-      // 將 group_code 轉換為職群名稱
-      const groupCodeToName: Record<string, string> = {
-        '01': '餐旅群', '02': '機械群', '03': '電機群', '04': '電子群',
-        '05': '資訊群', '06': '商管群', '07': '設計群', '08': '農業群',
-        '09': '化工群', '10': '土木群', '11': '海事群', '12': '護理群',
-        '13': '家政群', '14': '語文群', '15': '商業與管理群'
-      }
-
-      const groupName = groupCodeToName[groupCode] || ''
-      setUserGroup(groupName)
-
-      // 計算推薦的升學管道
-      const pathways = GROUP_PATHWAY_MAPPING[groupName as keyof typeof GROUP_PATHWAY_MAPPING] || ['stars', 'application', 'exam']
-      setRecommendedPathways(pathways)
-
     } catch (error) {
-      console.error('Error in loadUserData:', error)
+      console.error('Error in loadUserData:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const handleStartDiscovery = () => {
-    trackFeatureUsage('discover_pathways', {
-      user_group: userGroup,
-      pathways_count: recommendedPathways.length
-    })
-    setDiscoveryMade(true)
+  const filteredSchools = ALL_SCHOOLS.filter(school =>
+    school.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-    // 自動滾動到結果區
-    setTimeout(() => {
-      document.getElementById('discovery-results')?.scrollIntoView({ behavior: 'smooth' })
-    }, 100)
-  }
+  const handleSchoolSelect = (schoolId: string) => {
+    setSelectedSchool(schoolId);
+    trackFeatureUsage('discovery_school_selected', { school_id: schoolId });
+  };
+
+  const handleDepartmentSelect = (departmentId: string, departmentName: string) => {
+    setSelectedDepartment(departmentId);
+    trackFeatureUsage('discovery_department_selected', { department_id: departmentId });
+
+    // 計算推薦的升學管道
+    const pathways = GROUP_PATHWAY_MAPPING[departmentName] || ['stars', 'selection', 'distribution'];
+    setRecommendedPathways(pathways);
+  };
+
+  const handleNextStep = () => {
+    if (currentStep < 5) {
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
 
   const handleStartPlanning = () => {
     trackFeatureUsage('start_planning_from_discovery', {
-      user_group: userGroup,
+      department_id: selectedDepartment,
       pathways_discovered: recommendedPathways.length
-    })
-    router.push('/ability-account')
-  }
+    });
+    router.push('/ability-account');
+  };
 
   const handleShareDiscovery = () => {
     trackFeatureUsage('share_discovery', {
-      user_group: userGroup,
+      department_id: selectedDepartment,
       pathways_count: recommendedPathways.length
-    })
+    });
 
-    // 複製分享文字到剪貼簿
-    const shareText = `🎓 我用升學大師發現，原來${userGroup}有 ${recommendedPathways.length} 種升學管道可以選！你也來測測看吧：https://admission-master.vercel.app`
-    navigator.clipboard.writeText(shareText)
+    const deptName = ALL_DEPARTMENTS.find(d => d.id === selectedDepartment)?.name || '';
+    const shareText = `🎓 我用升學大師發現，原來${deptName}有 ${recommendedPathways.length} 種升學管道可以選！你也來測測看吧：https://admission-master.vercel.app`;
+    navigator.clipboard.writeText(shareText);
+    alert('分享文字已複製到剪貼簿！\n\n' + shareText);
+  };
 
-    alert('分享文字已複製到剪貼簿！\n\n' + shareText)
-  }
+  // Step 0: School Search
+  const renderStep0 = () => (
+    <div className="text-center">
+      <div className="mb-8">
+        <div className="inline-block p-4 bg-blue-100 rounded-full mb-6">
+          <svg className="w-16 h-16 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          選擇你想申請的學校
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          輸入學校名稱或從下方列表選擇
+        </p>
+      </div>
+
+      <div className="max-w-xl mx-auto">
+        <input
+          type="text"
+          placeholder="搜尋學校..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition mb-6"
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-80 overflow-y-auto">
+          {filteredSchools.map((school) => (
+            <button
+              key={school.id}
+              onClick={() => handleSchoolSelect(school.id)}
+              className={`p-4 rounded-xl text-left transition ${
+                selectedSchool === school.id
+                  ? 'bg-blue-600 text-white border-blue-700'
+                  : 'bg-white border border-gray-200 hover:border-blue-300 hover:bg-blue-50'
+              }`}
+            >
+              <div className="font-medium">{school.name}</div>
+            </button>
+          ))}
+        </div>
+
+        {selectedSchool && (
+          <div className="mt-8">
+            <button
+              onClick={handleNextStep}
+              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition shadow-lg text-lg"
+            >
+              繼續下一步 →
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  // Step 1: Department Selection
+  const renderStep1 = () => (
+    <div className="text-center">
+      <div className="mb-8">
+        <div className="inline-block p-4 bg-indigo-100 rounded-full mb-6">
+          <svg className="w-16 h-16 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+        </div>
+
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          選擇你就讀的職群
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          這將幫助我們為你推薦最適合的升學管道
+        </p>
+      </div>
+
+      <div className="max-w-2xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          {ALL_DEPARTMENTS.map((dept) => (
+            <button
+              key={dept.id}
+              onClick={() => handleDepartmentSelect(dept.id, dept.name)}
+              className={`p-4 rounded-xl text-center transition ${
+                selectedDepartment === dept.id
+                  ? 'bg-indigo-600 text-white border-indigo-700'
+                  : 'bg-white border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50'
+              }`}
+            >
+              <div className="font-medium">{dept.name}</div>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-8 flex justify-center gap-4">
+          <button
+            onClick={handlePrevStep}
+            className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition"
+          >
+            ← 上一步
+          </button>
+          {selectedDepartment && (
+            <button
+              onClick={handleNextStep}
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition shadow-lg"
+            >
+              繼續下一步 →
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
+  // Step Placeholders (will be implemented in subsequent tasks)
+  const renderStepPlaceholder = (stepNumber: number, stepTitle: string) => (
+    <div className="text-center py-20">
+      <h2 className="text-2xl font-bold text-gray-400">Step {stepNumber}: {stepTitle}</h2>
+      <p className="text-gray-400 mt-4">即將推出</p>
+    </div>
+  );
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
       </div>
-    )
+    );
   }
 
   return (
@@ -209,149 +334,14 @@ export default function FirstDiscoveryPage() {
       </div>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Initial Discovery State */}
-        {!discoveryMade && (
-          <div className="text-center">
-            <div className="mb-8">
-              <div className="inline-block p-4 bg-indigo-100 rounded-full mb-6">
-                <svg className="w-16 h-16 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              </div>
+        <DiscoveryProgress currentStep={currentStep} totalSteps={6} />
 
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                準備好發現你的升學路徑了嗎？
-              </h1>
-              <p className="text-xl text-gray-600 mb-8">
-                你是 <span className="font-bold text-indigo-600">{userGroup}</span> 的學生
-              </p>
-              <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto shadow-sm border border-indigo-100">
-                <p className="text-lg text-gray-700 leading-relaxed">
-                  根據你的職群，我們發現你可能適合 <strong className="text-indigo-600">{recommendedPathways.length} 種升學管道</strong>。
-                  <br /><br />
-                  準備好看看你的選擇了嗎？這可能會改變你的升學策略！
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={handleStartDiscovery}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition transform hover:scale-105 shadow-lg text-lg"
-            >
-              🔍 開始發現我的升學路徑
-            </button>
-          </div>
-        )}
-
-        {/* Discovery Results */}
-        {discoveryMade && (
-          <div id="discovery-results">
-            {/* Celebration Header */}
-            <div className="text-center mb-12">
-              <div className="inline-block p-4 bg-green-100 rounded-full mb-6">
-                <svg className="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">
-                🎉 恭喜！發現你的升學路徑
-              </h1>
-              <p className="text-xl text-gray-600">
-                你是 <span className="font-bold text-indigo-600">{userGroup}</span> 的學生
-              </p>
-              <div className="mt-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-indigo-200">
-                <p className="text-lg font-semibold text-gray-900">
-                  你有 <span className="text-3xl text-indigo-600 font-bold">{recommendedPathways.length}</span> 種升學管道可以選擇！
-                </p>
-                <p className="text-sm text-gray-600 mt-2">
-                  比你想像的還要多，對吧？
-                </p>
-              </div>
-            </div>
-
-            {/* Pathways Display */}
-            <div className="space-y-6 mb-12">
-              {recommendedPathways.map((pathwayKey, index) => {
-                const pathway = ADMISSION_PATHWAYS[pathwayKey as keyof typeof ADMISSION_PATHWAYS]
-                return (
-                  <div key={pathwayKey} className={`bg-white rounded-xl p-6 shadow-sm border-2 ${pathway.borderColor} hover:shadow-md transition`}>
-                    <div className="flex items-start mb-4">
-                      <div className={`w-16 h-16 bg-gradient-to-br ${pathway.color} rounded-xl flex items-center justify-center text-3xl mr-4 flex-shrink-0`}>
-                        {pathway.icon}
-                      </div>
-                      <div className="flex-grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-2xl font-bold text-gray-900">{pathway.name}</h3>
-                          <span className="text-sm text-indigo-600 font-medium">選項 {index + 1}</span>
-                        </div>
-                        <p className="text-gray-700 mb-3">{pathway.description}</p>
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">📋 申請條件</h4>
-                        <ul className="space-y-1">
-                          {pathway.requirements.map((req, i) => (
-                            <li key={i} className="text-sm text-gray-600 flex items-start">
-                              <span className="text-indigo-600 mr-2">•</span>
-                              {req}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 mb-2">✨ 優勢特色</h4>
-                        <ul className="space-y-1">
-                          {pathway.benefits.map((benefit, i) => (
-                            <li key={i} className="text-sm text-gray-600 flex items-start">
-                              <span className="text-green-600 mr-2">✓</span>
-                              {benefit}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Call to Action */}
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-8 text-white text-center">
-              <h2 className="text-2xl font-bold mb-4">🚀 下一步：開始規劃你的升學策略</h2>
-              <p className="mb-6 text-indigo-100">
-                現在你知道有這麼多選擇了，該怎麼選擇最適合你的路徑呢？
-              </p>
-              <div className="flex justify-center gap-4 flex-wrap">
-                <button
-                  onClick={handleStartPlanning}
-                  className="px-6 py-3 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition"
-                >
-                  📋 開始規劃我的路徑
-                </button>
-                <button
-                  onClick={handleShareDiscovery}
-                  className="px-6 py-3 bg-indigo-800 text-white rounded-lg font-semibold hover:bg-indigo-900 transition"
-                >
-                  📢 分享給同學
-                </button>
-              </div>
-            </div>
-
-            {/* Additional Info */}
-            <div className="mt-8 bg-yellow-50 rounded-xl p-6 border border-yellow-200">
-              <h3 className="font-bold text-gray-900 mb-2">💡 重要提醒</h3>
-              <p className="text-sm text-gray-700">
-                每種升學管道都有不同的申請時間和準備要求。建議你：
-                <br />1. <strong>深入了解</strong>每個管道的申請條件
-                <br />2. <strong>準備相關材料</strong>（學習歷程、證明、作品集等）
-                <br />3. <strong>規劃時間表</strong>，避免錯過申請期限
-              </p>
-            </div>
-          </div>
-        )}
+        {currentStep === 0 && renderStep0()}
+        {currentStep === 1 && renderStep1()}
+        {currentStep === 2 && renderStepPlaceholder(3, '選擇學程')}
+        {currentStep === 3 && renderStepPlaceholder(4, '填寫成績')}
+        {currentStep === 4 && renderStepPlaceholder(5, '分析結果')}
+        {currentStep === 5 && renderStepPlaceholder(6, '完成')}
       </main>
 
       {/* Footer */}
@@ -363,5 +353,5 @@ export default function FirstDiscoveryPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
