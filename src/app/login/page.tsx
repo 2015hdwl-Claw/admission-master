@@ -329,35 +329,6 @@ export default function LoginPage() {
               </div>
             )}
 
-            {/* 測試連線按鈕 */}
-            <button
-              type="button"
-              onClick={async () => {
-                try {
-                  console.log('🧪 測試 Supabase 連線...')
-                  const { data, error } = await supabase.auth.getSession()
-                  console.log('📊 連線測試結果:', { data, error })
-                  alert(`連線${error ? '失敗' : '成功'}: ${error ? error.message : 'Supabase 連線正常'}`)
-                } catch (err) {
-                  console.error('❌ 連線測試失敗:', err)
-                  alert(`連線失敗: ${err instanceof Error ? err.message : 'Unknown error'}`)
-                }
-              }}
-              style={{
-                width: '100%',
-                background: '#059669',
-                color: 'white',
-                padding: '8px',
-                borderRadius: '8px',
-                fontSize: '14px',
-                border: 'none',
-                cursor: 'pointer',
-                marginBottom: '8px'
-              }}
-            >
-              🧪 測試 Supabase 連線
-            </button>
-
             {/* Submit Button */}
             <button
               type="submit"

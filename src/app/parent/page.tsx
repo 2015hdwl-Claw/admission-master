@@ -475,13 +475,13 @@ export default function ParentPage() {
             <span className="material-symbols-outlined text-2xl text-primary block mb-xs">auto_stories</span>
             技能旅程
           </Link>
-          <Link href="/calendar" className="text-on-surface-variant hover:text-primary text-sm font-medium cursor-pointer transition-colors">
-            <span className="material-symbols-outlined text-2xl text-primary block mb-xs">calendar_month</span>
-            校曆行程
+          <Link href="/pathways" className="text-on-surface-variant hover:text-primary text-sm font-medium cursor-pointer transition-colors">
+            <span className="material-symbols-outlined text-2xl text-primary block mb-xs">school</span>
+            升學管道
           </Link>
-          <Link href="/analyze" className="text-on-surface-variant hover:text-primary text-sm font-medium cursor-pointer transition-colors">
-            <span className="material-symbols-outlined text-2xl text-primary block mb-xs">analytics</span>
-            統測分析
+          <Link href="/first-discovery" className="text-on-surface-variant hover:text-primary text-sm font-medium cursor-pointer transition-colors">
+            <span className="material-symbols-outlined text-2xl text-primary block mb-xs">explore</span>
+            路徑發現
           </Link>
         </div>
       </div>

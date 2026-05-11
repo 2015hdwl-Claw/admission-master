@@ -20,6 +20,11 @@ export default function GlobalNav() {
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname === href || pathname.startsWith(href + '/')
+  }
+
   // Don't show on login, onboarding, parent pages
   const hiddenPaths = ['/login', '/onboarding', '/parent', '/pricing']
   if (hiddenPaths.some(p => pathname.startsWith(p))) return null
@@ -44,7 +49,7 @@ export default function GlobalNav() {
                 key={link.href}
                 href={link.href}
                 className={`px-3 py-1.5 rounded-lg text-sm whitespace-nowrap transition ${
-                  pathname === link.href
+                  isActive(link.href)
                     ? 'bg-indigo-100 text-indigo-700 font-medium'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
@@ -79,7 +84,7 @@ export default function GlobalNav() {
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className={`flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm ${
-                  pathname === link.href
+                  isActive(link.href)
                     ? 'bg-indigo-100 text-indigo-700 font-medium'
                     : 'text-gray-600 hover:bg-gray-50'
                 }`}
