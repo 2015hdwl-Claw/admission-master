@@ -1,233 +1,47 @@
 {
   "project_name": "admission-master",
-  "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
+  "project_title": "升學大師 v2.0 - 以終為始的高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
-  "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 95,
-  "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
+  "current_phase": "Phase 3 - Week 4: 免費發現之旅實作 + 光域風格重構",
+  "overall_progress": 85,
+  "core_philosophy": "以終為始 - 先選擇目標科系，再顯示達成路徑與差距。永遠不說「你不行」。",
+  "ui_style": "光域風格 - 全螢幕沉浸、一次一個問題、沒有按鈕、流暢過渡",
 
-  "critical_gap": {
-    "issue": "角色系統 (Explorer/Planner/Guide) 已寫好但完全沒有接入頁面",
-    "file": "src/lib/role-xp-system.ts",
-    "status": "dead_code",
-    "imports_count": 0,
-    "impact": "用戶感受不到角色進化，整個產品缺乏遊戲化和引導感",
-    "department_pages_disconnected": "explore 頁面用 modal 而非連結到 /department/[slug]，導致職群詳情頁成為孤島"
-  },
+  "major_update": "2026-05-11: 以終為始免費發現之旅 MVP 完成（5 tasks, 6 commits），待光域風格 UI 重構",
 
-  "user_journey_map": {
-    "description": "基於年級和時間壓力的差異化用戶旅程",
-
-    "journey_grade_10_11": {
-      "label": "高一 / 高二 (有時間探索)",
-      "persona": "我還不確定自己喜歡什麼，也不知道有哪些路可以走",
-      "urgency": "低 — 距離升學還有 1-2 年",
-      "primary_role": "Explorer (探險家)",
-      "steps": [
-        {
-          "step": 1,
-          "name": "踏出第一步",
-          "page": "/",
-          "action": "看到「99% 高職生不知道」的震撼標題，點擊「開始免費發現之旅」",
-          "goes_to": "/first-discovery",
-          "xp": null,
-          "role": "Explorer Lv.1"
-        },
-        {
-          "step": 2,
-          "name": "第一次發現",
-          "page": "/first-discovery",
-          "action": "輸入/選擇職群，看到自己有 4-5 種升學管道（驚喜感！）",
-          "goes_to": "點擊「開始規劃我的路徑」→ /ability-account",
-          "xp": "+100 XP (milestone: first_discovery_complete)",
-          "role": "Explorer Lv.1 → Lv.2"
-        },
-        {
-          "step": 3,
-          "name": "認識自己",
-          "page": "/quiz",
-          "action": "做 5 題職群測驗，確認自己的性向和興趣",
-          "goes_to": "結果顯示推薦職群 → /first-discovery",
-          "xp": "+50 XP (complete_quiz)",
-          "role": "Explorer Lv.2"
-        },
-        {
-          "step": 4,
-          "name": "探索職群",
-          "page": "/explore",
-          "action": "瀏覽 15 個職群，點擊感興趣的看詳情",
-          "goes_to": "每個職群 card → modal 詳情",
-          "xp": "+30 XP (explore_3_groups)",
-          "role": "Explorer Lv.2"
-        },
-        {
-          "step": 5,
-          "name": "深入了解 6 種管道",
-          "page": "/pathways",
-          "action": "逐一閱讀繁星推薦、個人申請、指考分發等，找到最適合的",
-          "goes_to": "modal 詳情 → 「開始發現我的路徑」→ /first-discovery",
-          "xp": "+40 XP (read_all_pathways)",
-          "role": "Explorer Lv.2 → Lv.3"
-        },
-        {
-          "step": 6,
-          "name": "建立能力帳戶",
-          "page": "/ability-account",
-          "action": "查看各管道準備度，了解還缺什麼",
-          "goes_to": "「查看時間線」→ /roadmap 或「準備申請材料」→ /portfolio",
-          "xp": "+30 XP (check_ability_center)",
-          "role": "Explorer → Planner Lv.1 解鎖！"
-        }
-      ],
-      "summary": "高一高二的重點是「發現」：先知道有哪些選擇，再慢慢探索興趣。不需要急著準備材料。"
+  "free_discovery_journey": {
+    "status": "MVP_COMPLETE_NEEDS_REFACTOR",
+    "branch": "feature/free-discovery-implementation",
+    "worktree": ".worktrees/free-discovery-implementation",
+    "commits": ["eaaf8fa", "a1b9fcf", "98977ef", "6bf966d", "4dcaef2", "5b0f5bb"],
+    "build_status": "pass",
+    "six_steps": {
+      "step_1": { "name": "我想去哪裡？", "status": "done", "note": "搜尋科系，選擇目標" },
+      "step_2": { "name": "這個目標需要什麼？", "status": "done", "note": "6 種管道卡片展示" },
+      "step_3": { "name": "我現在有什麼？", "status": "done", "note": "盤點表單（需改為全螢幕逐題）" },
+      "step_4": { "name": "我的差距在哪裡？", "status": "done", "note": "機率卡片 + 條件盤點 + 動力訊息" },
+      "step_5": { "name": "我需要完成什麼？", "status": "done", "note": "待辦清單 + 儲存 + 分享" },
+      "step_6": { "name": "我的時間表是？", "status": "partial", "note": "行動計畫合併在步驟 5，需獨立為步驟 6" }
     },
-
-    "journey_grade_12": {
-      "label": "高三 (需要立即行動)",
-      "persona": "我知道自己要升學，但不知道該怎麼準備，時間很緊",
-      "urgency": "高 — 距離申請只剩幾個月",
-      "primary_role": "Planner (建築師)",
-      "steps": [
-        {
-          "step": 1,
-          "name": "快速發現",
-          "page": "/",
-          "action": "看到首頁，點擊「開始免費發現之旅」",
-          "goes_to": "/first-discovery",
-          "xp": null,
-          "role": "Explorer (快速通過)"
-        },
-        {
-          "step": 2,
-          "name": "確認路徑",
-          "page": "/first-discovery",
-          "action": "看到適合的升學管道，立刻知道要準備什麼",
-          "goes_to": "/ability-account",
-          "xp": "+100 XP",
-          "role": "Explorer → Planner Lv.1"
-        },
-        {
-          "step": 3,
-          "name": "盤點戰力",
-          "page": "/ability-account",
-          "action": "看繁星推薦 75%、個人申請 60%... 知道哪些管道最有機會",
-          "goes_to": "從各管道卡片直接跳轉 /roadmap 或 /portfolio",
-          "xp": "+30 XP (check_ability_center)",
-          "role": "Planner Lv.1"
-        },
-        {
-          "step": 4,
-          "name": "掌握時間線",
-          "page": "/roadmap",
-          "action": "看到 9月-12月 各管道關鍵截止日，知道什麼時候要做什麼",
-          "goes_to": "從時間線事件 → /portfolio 或 /interview",
-          "xp": "+25 XP (review_timeline)",
-          "role": "Planner Lv.1 → Lv.2"
-        },
-        {
-          "step": 5,
-          "name": "準備申請材料",
-          "page": "/portfolio",
-          "action": "看到每個管道需要的材料清單，逐一準備",
-          "goes_to": "完成項目 → /ability-account 更新進度",
-          "xp": "+15 XP per item (add_material_item)",
-          "role": "Planner Lv.2"
-        },
-        {
-          "step": 6,
-          "name": "面試與口試準備",
-          "page": "/interview",
-          "action": "針對個人申請管道，準備面試技巧和備審資料",
-          "goes_to": "完成準備步驟",
-          "xp": "+50 XP (complete_preparation_step)",
-          "role": "Planner Lv.2 → Lv.3"
-        }
-      ],
-      "summary": "高三的重點是「行動」：快速確認路徑，立即開始準備材料，掌握截止日。每一步都要有明確的下一步。"
+    "refactor_needed": {
+      "priority_1": "移除所有按鈕，改為自動前進 + 滑動導航",
+      "priority_2": "步驟 3 表單改為全螢幕逐題呈現（一次一個問題）",
+      "priority_3": "背景色隨步驟漸變（6 種不同漸層色）",
+      "priority_4": "移除頂部導覽列，改為極簡進度指示",
+      "priority_5": "步驟 5 和步驟 6 拆分為獨立步驟"
     }
   },
 
-  "role_system_plan": {
-    "current_state": "DEAD CODE - role-xp-system.ts 存在但 0 imports",
-    "three_roles": {
-      "Explorer": {
-        "name_cn": "探險家",
-        "tagline": "發現你的可能性",
-        "target_user": "高一/高二，還在探索的學生",
-        "levels": [
-          { "level": 1, "name": "新手探索者", "xp": 0, "unlock": "基礎職群測驗 + 6種管道介紹" },
-          { "level": 2, "name": "進階探索者", "xp": 100, "unlock": "職群深度探索 + 個人化推薦" },
-          { "level": 3, "name": "專家探索者", "xp": 350, "unlock": "完整職群資料庫 + 升學路徑模擬" },
-          { "level": 4, "name": "探索大師", "xp": 850, "unlock": "Guide 系統解鎖 + 高級分析" }
-        ],
-        "core_pages": ["/quiz", "/explore", "/pathways", "/first-discovery"],
-        "xp_activities": [
-          "complete_quiz (+50)",
-          "explore_3_groups (+30)",
-          "read_all_pathways (+40)",
-          "first_discovery_complete (+100 milestone)"
-        ]
-      },
-      "Planner": {
-        "name_cn": "建築師",
-        "tagline": "建造你的升學計畫",
-        "target_user": "高三，需要立即行動的學生",
-        "levels": [
-          { "level": 1, "name": "新手規劃師", "xp": 0, "unlock": "能力中心 + 材料清單" },
-          { "level": 2, "name": "進階規劃師", "xp": 150, "unlock": "時間線規劃 + 個人化策略" },
-          { "level": 3, "name": "專家規劃師", "xp": 500, "unlock": "申請文件審查 + 面試模擬" },
-          { "level": 4, "name": "規劃大師", "xp": 1200, "unlock": "Guide 系統解鎖 + 專家諮詢" }
-        ],
-        "core_pages": ["/ability-account", "/portfolio", "/roadmap", "/interview"],
-        "xp_activities": [
-          "check_ability_center (+30)",
-          "add_material_item (+15)",
-          "review_timeline (+25)",
-          "complete_preparation_step (+50 milestone)"
-        ]
-      },
-      "Guide": {
-        "name_cn": "嚮導",
-        "tagline": "幫助更多人找到路",
-        "target_user": "已錄取或高年級，願意幫助學弟妹的學生",
-        "levels": [
-          { "level": 1, "name": "新手指導者", "xp": 0, "unlock": "分享經驗 + 幫助學弟妹" },
-          { "level": 2, "name": "進階指導者", "xp": 200, "unlock": "學習小組 + 指導文章" },
-          { "level": 3, "name": "專家指導者", "xp": 600, "unlock": "指導權限 + 社群管理" },
-          { "level": 4, "name": "指導大師", "xp": 1400, "unlock": "認證指導者 + 專屬社群" }
-        ],
-        "core_pages": [],
-        "xp_activities": [
-          "help_peer (+20)",
-          "share_experience (+40)",
-          "create_study_group (+60 milestone)"
-        ]
-      }
-    }
-  },
-
-  "navigation_flow_issues": {
-    "issue_1": {
-      "severity": "HIGH",
-      "title": "角色系統完全沒接入",
-      "description": "role-xp-system.ts 是死代碼，沒有任何頁面 import 它",
-      "impact": "用戶感受不到進步，沒有遊戲化動力",
-      "fix": "需要在核心頁面接入 XP 追蹤，GlobalNav 顯示角色/等級"
-    },
-    "issue_2": {
-      "severity": "MEDIUM",
-      "title": "職群詳情頁是孤島",
-      "description": "/explore 的職群卡片打開 modal 而非連到 /department/[slug]",
-      "impact": "/department/[slug] 頁面用戶永遠不會自然到達",
-      "fix": "explore 的 modal 中加「查看完整介紹」連結到 /department/[slug]"
-    },
-    "issue_3": {
-      "severity": "LOW",
-      "title": "缺乏年級分流",
-      "description": "首頁只有一個 CTA，沒有根據年級引導不同路徑",
-      "impact": "高三生可能先做測驗而非直接看行動計畫",
-      "fix": "首頁根據年級（onboarding 已有）顯示不同的優先引導"
-    }
+  "department_database": {
+    "status": "MOCK_DATA_READY",
+    "records": 35,
+    "universities": 10,
+    "vocational_groups": "all 15 groups covered",
+    "file": "src/lib/department-database.ts",
+    "search_api": "src/app/api/departments/search/route.ts",
+    "types": "src/types/department.ts",
+    "migration": "supabase/migrations/20260511_department_requirements.sql",
+    "note": "MVP 使用 mock data，正式上線前需匯入真實歷史數據"
   },
 
   "phases": {
@@ -236,160 +50,111 @@
       "status": "completed",
       "progress": 100,
       "start_date": "2026-05-01",
-      "end_date": "2026-05-10",
-      "key_decisions": [
-        "產品重新定位: 從學習歷程管理 → 升學路徑發現引擎",
-        "3角色系統: Explorer → Planner → Guide",
-        "目標市場: 高職生免費 + 家長付費",
-        "核心問題: 99%高職生不知道的6種升學管道",
-        "功能融合策略: 舊功能沒有用戶，可以直接重新定位"
-      ]
+      "end_date": "2026-05-10"
     },
     "phase_2": {
       "name": "規劃與設計",
       "status": "completed",
       "progress": 100,
       "start_date": "2026-05-08",
-      "end_date": "2026-05-11",
-      "key_decisions": [
-        "功能融合策略: 保留8個頁面重新定位，移除8個無用頁面",
-        "簡化時間線: 從6週縮短為4週",
-        "技術架構: Next.js 14 + Supabase (維持不變)"
-      ]
+      "end_date": "2026-05-11"
     },
     "phase_3": {
-      "name": "開發執行 (功能融合)",
+      "name": "開發執行",
       "status": "in_progress",
-      "progress": 80,
+      "progress": 85,
       "start_date": "2026-05-11",
       "end_date": "2026-06-07",
       "weeks": {
-        "week_1": {
-          "name": "Explorer Experience",
-          "status": "completed",
-          "progress": 100
-        },
-        "week_2": {
-          "name": "快速清理與功能融合",
-          "status": "completed",
-          "progress": 100
-        },
-        "week_3": {
-          "name": "核心功能整合",
-          "status": "completed",
-          "progress": 100,
-          "note": "role-xp-system.ts 已撰寫但未接入頁面"
-        },
-        "week_4": {
-          "name": "部署、驗證與角色接入",
-          "status": "in_progress",
-          "progress": 60,
-          "tasks_completed": [
-            "生產環境部署 ✅",
-            "登入限制移除 ✅",
-            "GlobalNav 全局導航 + 標題去重 ✅",
-            "UX 修復（除錯按鈕、斷裂連結）✅"
-          ],
-          "tasks_remaining": [
-            "角色系統接入頁面（GlobalNav 顯示角色/XP）",
-            "職群詳情頁從 explore 連結（修復孤島問題）",
-            "年級分流引導（首頁根據年級推薦不同起點）",
-            "Alpha 測試 (5-10名高職生)"
-          ]
-        }
+        "week_1": { "name": "Explorer Experience", "status": "completed", "progress": 100 },
+        "week_2": { "name": "快速清理與功能融合", "status": "completed", "progress": 100 },
+        "week_3": { "name": "核心功能整合 + 以終為始設計", "status": "completed", "progress": 100 },
+        "week_4": { "name": "免費發現之旅實作 + 光域風格重構", "status": "in_progress", "progress": 60 }
       }
     },
-    "phase_4": {
-      "name": "成長與驗證",
-      "status": "pending",
-      "progress": 0,
-      "start_date": "2026-06-08",
-      "end_date": "2026-06-15"
-    },
-    "phase_5": {
-      "name": "擴展與規模",
-      "status": "pending",
-      "progress": 0,
-      "start_date": "2026-06-16",
-      "end_date": "2026-06-22"
-    }
+    "phase_4": { "name": "成長與驗證", "status": "pending", "progress": 0 },
+    "phase_5": { "name": "擴展與規模", "status": "pending", "progress": 0 }
   },
 
   "page_inventory": {
-    "active_pages": {
-      "explorer_zone": [
-        { "path": "/", "name": "首頁", "role": "Explorer", "status": "live" },
-        { "path": "/quiz", "name": "職群測驗", "role": "Explorer", "status": "live" },
-        { "path": "/explore", "name": "職群探索", "role": "Explorer", "status": "live" },
-        { "path": "/pathways", "name": "6種管道", "role": "Explorer", "status": "live" },
-        { "path": "/pathways/[slug]", "name": "管道詳情", "role": "Explorer", "status": "live" },
-        { "path": "/first-discovery", "name": "發現路徑", "role": "Explorer→Planner轉換", "status": "live" },
-        { "path": "/department/[slug]", "name": "職群詳情", "role": "Explorer", "status": "live (但孤立)" }
-      ],
-      "planner_zone": [
-        { "path": "/ability-account", "name": "能力中心", "role": "Planner", "status": "live" },
-        { "path": "/portfolio", "name": "準備材料", "role": "Planner", "status": "live" },
-        { "path": "/roadmap", "name": "時間線", "role": "Planner", "status": "live" },
-        { "path": "/interview", "name": "申請準備", "role": "Planner", "status": "live" }
-      ],
-      "auth_and_setup": [
-        { "path": "/login", "name": "登入", "role": "系統", "status": "live" },
-        { "path": "/onboarding/step1-5", "name": "新用戶引導", "role": "系統", "status": "live" }
-      ],
-      "hidden": [
-        { "path": "/parent", "name": "家長儀表板", "role": "家長", "status": "hidden" },
-        { "path": "/parent/register", "name": "家長註冊", "role": "家長", "status": "hidden" },
-        { "path": "/pricing", "name": "定價", "role": "家長", "status": "hidden" }
-      ]
-    },
-    "removed_pages": [
-      "/analyze", "/business-strategy", "/calendar", "/guide",
-      "/results", "/strategy", "/teacher", "/test", "/demo"
-    ]
+    "core_product": [
+      { "path": "/first-discovery", "name": "以終為始的發現之旅", "status": "MVP in worktree", "note": "6 步驟流程，需光域風格重構" }
+    ],
+    "explorer_zone": [
+      { "path": "/", "name": "首頁", "status": "live" },
+      { "path": "/quiz", "name": "職群測驗", "status": "live" },
+      { "path": "/explore", "name": "職群探索", "status": "live" },
+      { "path": "/pathways", "name": "6 種管道", "status": "live" },
+      { "path": "/department/[slug]", "name": "職群詳情", "status": "live" }
+    ],
+    "planner_zone": [
+      { "path": "/ability-account", "name": "能力中心", "status": "live" },
+      { "path": "/portfolio", "name": "準備材料", "status": "live" },
+      { "path": "/roadmap", "name": "時間線", "status": "live" },
+      { "path": "/interview", "name": "申請準備", "status": "live" }
+    ],
+    "auth_and_setup": [
+      { "path": "/login", "name": "登入", "status": "live" },
+      { "path": "/onboarding/step1-5", "name": "新用戶引導", "status": "live" }
+    ],
+    "hidden": [
+      { "path": "/parent", "name": "家長儀表板", "status": "hidden" },
+      { "path": "/pricing", "name": "定價", "status": "hidden" }
+    ],
+    "removed": ["/analyze", "/business-strategy", "/calendar", "/guide", "/results", "/strategy", "/teacher", "/test", "/demo"]
   },
 
   "current_status": {
     "development_server": "available",
     "build_status": "pass",
-    "git_commit": "8349aee",
-    "branch": "master",
+    "git_branch": "feature/free-discovery-implementation (worktree)",
+    "master_branch": "stable",
     "production_deployed": true,
     "production_url": "https://admission-master-ecru.vercel.app/",
-    "production_status": "live",
-    "all_key_pages_200": true,
-    "login_gates_removed": true,
+    "production_status": "live (old version)",
     "anonymous_access_enabled": true,
     "global_nav_active": true,
     "role_system_integrated": false,
-    "department_pages_linked": false,
     "ready_for_alpha_testing": false,
-    "alpha_blocker": "角色系統未接入 — 用戶體驗缺乏引導感"
+    "alpha_blocker": "光域風格 UI 重構未完成 + feature branch 未合併到 master"
   },
 
   "next_actions_priority": [
     {
       "priority": 1,
-      "action": "接入角色系統到 GlobalNav + 核心頁面",
-      "effort": "medium",
-      "impact": "用戶看到自己的角色和等級，有進步感"
+      "action": "光域風格 UI 重構：移除按鈕、全螢幕沉浸、自動前進、滑動導航、背景漸變",
+      "effort": "high",
+      "impact": "核心產品體驗的靈魂，決定用戶是否願意走完全程"
     },
     {
       "priority": 2,
-      "action": "修復職群詳情頁孤島問題",
-      "effort": "low",
-      "impact": "explore → department 流程打通"
+      "action": "步驟 3 盤點表單改為全螢幕逐題呈現（一次一個問題）",
+      "effort": "medium",
+      "impact": "光域風格核心原則，大幅降低認知負擔"
     },
     {
       "priority": 3,
-      "action": "首頁年級分流（高一/二走 Explorer，高三走 Planner）",
+      "action": "步驟 5 和步驟 6 拆分：待辦清單 + 時間表獨立",
       "effort": "low",
-      "impact": "不同年級的用戶被引導到最適合的起點"
+      "impact": "完整 6 步驟體驗"
     },
     {
       "priority": 4,
-      "action": "Alpha 測試",
+      "action": "合併 feature branch 到 master + 部署到生產環境",
+      "effort": "low",
+      "impact": "讓真實用戶可以開始使用"
+    },
+    {
+      "priority": 5,
+      "action": "Alpha 測試（5-10 名高職生）",
       "effort": "requires_user",
       "impact": "真實反饋驗證產品假設"
+    },
+    {
+      "priority": 6,
+      "action": "接入角色系統到 GlobalNav + 核心頁面",
+      "effort": "medium",
+      "impact": "用戶看到角色和等級，有進步感"
     }
   ]
 }
