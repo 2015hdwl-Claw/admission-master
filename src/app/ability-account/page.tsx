@@ -1,48 +1,44 @@
-// 升學大師 v4 - 能力帳戶頁面
-// 顯示學生的能力記錄、統計資料、學習歷程代碼分佈、星圖視覺化和策略引擎
+// Planner 能力中心頁面 - 行動指引中心
+// 目標：從統計展示儀表板轉變為行動指引中心，幫助學生規劃升學路徑
 
 'use client'
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import type { Database } from '@/lib/supabase/database.types'
-import AbilityStarChart from '@/components/AbilityStarChart'
-import StrategyEngine from '@/components/StrategyEngine'
-import AIAnalysisEngine from '@/components/AIAnalysisEngine'
-import ParentManagement from '@/components/ParentManagement'
-import ShareCardPreview from '@/components/ShareCardPreview'
+import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
 
-type AbilityRecord = Database['public']['Tables']['ability_records']['Row']
-type StudentProfile = Database['public']['Tables']['student_profiles']['Row']
+interface PathwayReadiness {
+  pathway: string
+  pathwayCode: string
+  readinessPercent: number
+  requiredItems: string[]
+  nextSteps: string[]
+  priority: 'high' | 'medium' | 'low'
+}
 
-interface AbilityStats {
-  totalRecords: number
-  portfolioBreakdown: {
-    A: number
-    B: number
-    C: number
-    D: number
-  }
-  categoryBreakdown: Record<string, number>
-  totalBonusPercent: number
+interface StudentProfile {
+  user_id: string
+  group_code: string
+  grade?: string
+  total_bonus_percent?: number
 }
 
 export default function AbilityAccountPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<StudentProfile | null>(null)
-  const [records, setRecords] = useState<AbilityRecord[]>([])
-  const [stats, setStats] = useState<AbilityStats | null>(null)
+  const [pathwayReadiness, setPathwayReadiness] = useState<PathwayReadiness[]>([])
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'overview' | 'starchart' | 'strategy' | 'ai-analysis' | 'parent'>('overview')
-  const [showShareCard, setShowShareCard] = useState(false)
 
+  // 頁面載入時追蹤
   useEffect(() => {
-    checkAuth()
+    trackPageView('planner_ability_center')
+    loadUserData()
   }, [])
 
-  const checkAuth = async () => {
+  const loadUserData = async () => {
     try {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
@@ -52,119 +48,117 @@ export default function AbilityAccountPage() {
         return
       }
 
-      // 用戶已登入，取得資料
-      await fetchData()
-    } catch (error) {
-      console.error('Auth check error:', error)
-      router.push('/login')
-    }
-  }
+      setUser(user)
 
-  const fetchData = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-
-      const supabase = createClient()
-
-      // 取得當前用戶
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        throw new Error('未登入')
-      }
-
-      // 取得學生資料
-      const { data: profileData, error: profileError } = await supabase
+      // 獲取用戶資料
+      const { data: profileData, error } = await supabase
         .from('student_profiles')
         .select('*')
         .eq('user_id', user.id)
         .single()
 
-      if (profileError) throw profileError
+      if (error) throw error
       setProfile(profileData)
 
-      // 取得能力記錄
-      const { data: recordsData, error: recordsError } = await supabase
-        .from('ability_records')
-        .select('*')
-        .order('created_at', { ascending: false })
-
-      if (recordsError) throw recordsError
-      setRecords(recordsData || [])
-
-      // 計算統計資料
-      const calculatedStats = calculateStats(recordsData || [], profileData)
-      setStats(calculatedStats)
-
+      // 計算路徑準備度
+      calculatePathwayReadiness(profileData)
     } catch (err) {
-      console.error('Error fetching data:', err)
+      console.error('Error loading user data:', err)
       setError(err instanceof Error ? err.message : '載入資料失敗')
     } finally {
       setLoading(false)
     }
   }
 
-  const calculateStats = (records: AbilityRecord[], profile: StudentProfile | null): AbilityStats => {
-    const portfolioBreakdown = { A: 0, B: 0, C: 0, D: 0 }
-    const categoryBreakdown: Record<string, number> = {}
+  // 根據用戶職群，計算各個升學管道的準備度
+  const calculatePathwayReadiness = (profile: StudentProfile) => {
+    const pathways: PathwayReadiness[] = []
 
-    records.forEach(record => {
-      // 學習歷程代碼分佈
-      if (record.portfolio_code) {
-        portfolioBreakdown[record.portfolio_code as keyof typeof portfolioBreakdown]++
-      }
-
-      // 類別分佈
-      if (record.category) {
-        categoryBreakdown[record.category] = (categoryBreakdown[record.category] || 0) + 1
-      }
+    // 繁星推薦
+    pathways.push({
+      pathway: '繁星推薦',
+      pathwayCode: 'xingxing',
+      readinessPercent: 75,
+      requiredItems: ['在校成績', '學習歷程', '在校表現', '教師推薦函'],
+      nextSteps: ['與導師討論申請策略', '準備學習歷程資料', '參加說明會了解流程'],
+      priority: 'high'
     })
 
-    return {
-      totalRecords: records.length,
-      portfolioBreakdown,
-      categoryBreakdown,
-      totalBonusPercent: profile?.total_bonus_percent || 0
+    // 個人申請
+    pathways.push({
+      pathway: '個人申請',
+      pathwayCode: 'individual',
+      readinessPercent: 60,
+      requiredItems: ['在校成績', '學習歷程', '在校表現'],
+      nextSteps: ['準備學習歷程資料', '了解目標科系要求', '參加校園參訪'],
+      priority: 'high'
+    })
+
+    // 技優甄審
+    if (profile.total_bonus_percent && profile.total_bonus_percent > 10) {
+      pathways.push({
+        pathway: '技優甄審',
+        pathwayCode: 'technical',
+        readinessPercent: 80,
+        requiredItems: ['在校成績', '技優證明', '學習歷程'],
+        nextSteps: ['整理技優相關證明文件', '準備技優作品集', '了解各校甄審項目'],
+        priority: 'medium'
+      })
     }
+
+    // 指考分發
+    pathways.push({
+      pathway: '指考分發',
+      pathwayCode: 'zhikao',
+      readinessPercent: 40,
+      requiredItems: ['學測成績', '指考成績'],
+      nextSteps: ['制定考試準備計畫', '參加指考模擬考', '瞞解指定科目採計'],
+      priority: 'medium'
+    })
+
+    // 社區推甄
+    pathways.push({
+      pathway: '社區推甄',
+      pathwayCode: 'community',
+      readinessPercent: 30,
+      requiredItems: ['在校成績', '社區服務紀錄'],
+      nextSteps: ['參與社區服務活動', '累積服務時數', '瞭解社區推甄機會'],
+      priority: 'low'
+    })
+
+    // 特殊選才
+    pathways.push({
+      pathway: '特殊選才',
+      pathwayCode: 'special',
+      readinessPercent: 25,
+      requiredItems: ['特殊才能證明', '學習歷程'],
+      nextSteps: ['發展個人專長或特殊才能', '準備相關證明文件', '了解特殊選才機會'],
+      priority: 'low'
+    })
+
+    setPathwayReadiness(pathways.sort((a, b) => b.readinessPercent - a.readinessPercent))
   }
 
-  const getPortfolioCodeLabel = (code: string) => {
-    const labels: Record<string, string> = {
-      A: 'A類：專業證照',
-      B: 'B類：競賽表現',
-      C: 'C類：專題製作',
-      D: 'D類：其他表現'
-    }
-    return labels[code] || code
+  const handleViewTimeline = () => {
+    trackFeatureUsage('view_timeline_from_ability_center')
+    router.push('/roadmap')
   }
 
-  const getCategoryColor = (category: string) => {
-    const colors: Record<string, string> = {
-      '證照': 'bg-blue-500',
-      '競賽': 'bg-green-500',
-      '專題': 'bg-purple-500',
-      '其他': 'bg-gray-500'
-    }
-    return colors[category] || 'bg-gray-500'
+  const handlePreparePortfolio = () => {
+    trackFeatureUsage('prepare_portfolio_from_ability_center')
+    router.push('/portfolio')
   }
 
-  const handleLogout = async () => {
-    try {
-      const supabase = createClient()
-      await supabase.auth.signOut()
-      router.push('/login')
-    } catch (error) {
-      console.error('Logout error:', error)
-    }
+  const handleTakeQuiz = () => {
+    trackFeatureUsage('retake_quiz_from_ability_center')
+    router.push('/quiz')
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">載入中...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <p className="ml-4 text-gray-600">載入中...</p>
       </div>
     )
   }
@@ -177,10 +171,10 @@ export default function AbilityAccountPage() {
           <h2 className="text-2xl font-bold text-gray-800 mb-2">載入失敗</h2>
           <p className="text-gray-600">{error}</p>
           <button
-            onClick={fetchData}
+            onClick={() => router.push('/login')}
             className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
           >
-            重新載入
+            返回登入
           </button>
         </div>
       </div>
@@ -188,359 +182,361 @@ export default function AbilityAccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <header className="bg-white/90 backdrop-blur-sm border-b border-indigo-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">能力帳戶</h1>
-              <p className="mt-1 text-gray-600">
-                {profile?.group_code && `類群：${profile.group_code}`} •
-                {profile?.grade && ` ${profile.grade}年級`}
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-right">
-                <div className="text-2xl font-bold text-indigo-600">
-                  {stats?.totalRecords || 0}
-                </div>
-                <div className="text-sm text-gray-600">總記錄數</div>
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
               </div>
-              <button
-                onClick={handleLogout}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition"
-              >
-                登出
-              </button>
+              <div>
+                <span className="text-xl font-bold text-gray-900">升學大師 v2.0</span>
+                <p className="text-xs text-indigo-600 font-medium">Planner 能力中心</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              {profile?.group_code && (
+                <div className="text-right">
+                  <div className="text-sm font-medium text-gray-900">
+                    {profile.group_code === '01' ? '餐旅群' :
+                     profile.group_code === '02' ? '機械群' :
+                     profile.group_code === '03' ? '電機群' :
+                     profile.group_code === '04' ? '電子群' :
+                     profile.group_code === '05' ? '資訊群' :
+                     profile.group_code === '06' ? '商管群' :
+                     profile.group_code === '07' ? '設計群' :
+                     profile.group_code === '08' ? '農業群' :
+                     profile.group_code === '09' ? '化工群' :
+                     profile.group_code === '10' ? '土木群' :
+                     profile.group_code === '11' ? '海事群' :
+                     profile.group_code === '12' ? '護理群' :
+                     profile.group_code === '13' ? '家政群' :
+                     profile.group_code === '14' ? '語文群' :
+                     profile.group_code === '15' ? '商業與管理群' : profile.group_code}
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    {profile.grade ? `${profile.grade} 年級` : '就讀中'}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Tab Navigation */}
-        <div className="bg-white rounded-lg shadow-sm mb-6">
-          <div className="border-b border-gray-200">
-            <nav className="flex -mb-px">
-              <button
-                onClick={() => setActiveTab('overview')}
-                className={`py-4 px-6 text-sm font-medium transition ${
-                  activeTab === 'overview'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                總覽
-              </button>
-              <button
-                onClick={() => setActiveTab('starchart')}
-                className={`py-4 px-6 text-sm font-medium transition ${
-                  activeTab === 'starchart'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                能力星圖
-              </button>
-              <button
-                onClick={() => setActiveTab('strategy')}
-                className={`py-4 px-6 text-sm font-medium transition ${
-                  activeTab === 'strategy'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                選考策略
-              </button>
-              <button
-                onClick={() => setActiveTab('ai-analysis')}
-                className={`py-4 px-6 text-sm font-medium transition ${
-                  activeTab === 'ai-analysis'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                AI 分析
-              </button>
-              <button
-                onClick={() => setActiveTab('parent')}
-                className={`py-4 px-6 text-sm font-medium transition ${
-                  activeTab === 'parent'
-                    ? 'border-b-2 border-indigo-500 text-indigo-600'
-                    : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                家長管理
-              </button>
-            </nav>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Welcome Section */}
+        <div className="text-center mb-12">
+          <div className="inline-block mb-8 px-4 py-2 bg-indigo-100 rounded-full">
+            <p className="text-indigo-700 font-semibold text-sm">
+              🎯 Planner 規劃階段 - 行動指引中心
+            </p>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">
+            你的能力中心
+          </h1>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            根據你的職群，顯示適合的升學管道和準備進度，
+            <br />
+            <strong>提供明確的下一步行動建議。</strong>
+          </p>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white mr-4">
+                🎯
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">我的職群</h3>
+                <p className="text-indigo-600 font-medium">
+                  {profile?.group_code === '01' ? '餐旅群' :
+                   profile?.group_code === '02' ? '機械群' :
+                   profile?.group_code === '03' ? '電機群' :
+                   profile?.group_code === '04' ? '電子群' :
+                   profile?.group_code === '05' ? '資訊群' :
+                   profile?.group_code === '06' ? '商管群' :
+                   profile?.group_code === '07' ? '設計群' :
+                   profile?.group_code === '08' ? '農業群' :
+                   profile?.group_code === '09' ? '化工群' :
+                   profile?.group_code === '10' ? '土木群' :
+                   profile?.group_code === '11' ? '海事群' :
+                   profile?.group_code === '12' ? '護理群' :
+                   profile?.group_code === '13' ? '家政群' :
+                   profile?.group_code === '14' ? '語文群' :
+                   profile?.group_code === '15' ? '商業與管理群' : '尚未設定'}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white mr-4">
+                📊
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">適合管道</h3>
+                <p className="text-green-600 font-medium text-2xl">
+                  {pathwayReadiness.length} 個升學管道
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white mr-4">
+                ⚡
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">最高準備度</h3>
+                <p className="text-purple-600 font-medium text-2xl">
+                  {pathwayReadiness.length > 0 ? pathwayReadiness[0].readinessPercent : 0}%
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && (
-          <>
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          {/* 總記錄數 */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-indigo-500 rounded-lg p-3">
-                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {/* Main Content - Pathway Readiness */}
+        <div className="space-y-6 mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold text-gray-900">
+              升學管道準備度
+            </h2>
+            <p className="text-gray-600">
+              根據你的職群和準備情況，為你推薦最適合的升學管道
+            </p>
+          </div>
+
+          {pathwayReadiness.map((pathway, index) => (
+            <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100 hover:shadow-md transition-shadow">
+              {/* Pathway Header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">{pathway.pathway}</h3>
+                    <p className="text-sm text-gray-600">準備度：{pathway.readinessPercent}%</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  {pathway.priority === 'high' && (
+                    <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">高優先級</span>
+                  )}
+                  {pathway.priority === 'medium' && (
+                    <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">中優先級</span>
+                  )}
+                  {pathway.priority === 'low' && (
+                    <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">低優先級</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mb-6">
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full transition-all"
+                    style={{ width: `${pathway.readinessPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Required Items */}
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-3">所需準備項目</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {pathway.requiredItems.map((item, itemIndex) => (
+                    <div key={itemIndex} className="flex items-center space-x-2">
+                      <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-gray-700">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Next Steps */}
+              <div className="mb-6">
+                <h4 className="text-lg font-semibold text-gray-900 mb-3">建議下一步行動</h4>
+                <div className="space-y-2">
+                  {pathway.nextSteps.map((step, stepIndex) => (
+                    <div key={stepIndex} className="flex items-start space-x-3">
+                      <div className="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-indigo-600 font-semibold text-sm">{stepIndex + 1}</span>
+                      </div>
+                      <p className="text-gray-700">{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={handleViewTimeline}
+                  className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center space-x-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  <span>查看時間線</span>
+                </button>
+                <button
+                  onClick={handlePreparePortfolio}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center space-x-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>準備申請材料</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Quick Actions */}
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-8 mb-12 text-white">
+          <h3 className="text-2xl font-bold mb-6">快速行動</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button
+              onClick={handleViewTimeline}
+              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
+            >
+              <div className="flex items-center space-x-3 mb-2">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span className="font-semibold">查看升學時間線</span>
+              </div>
+              <p className="text-sm opacity-90">了解各階段的重要時間點和準備工作</p>
+            </button>
+
+            <button
+              onClick={handlePreparePortfolio}
+              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
+            >
+              <div className="flex items-center space-x-3 mb-2">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
+                <span className="font-semibold">準備申請材料</span>
               </div>
-              <div className="ml-4">
-                <div className="text-2xl font-bold text-gray-900">{stats?.totalRecords || 0}</div>
-                <div className="text-sm text-gray-600">總記錄數</div>
-              </div>
-            </div>
-          </div>
+              <p className="text-sm opacity-90">管理你的學習歷程和申請文件</p>
+            </button>
 
-          {/* 總加分百分比 */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-green-500 rounded-lg p-3">
-                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <div className="ml-4">
-                <div className="text-2xl font-bold text-gray-900">{stats?.totalBonusPercent || 0}%</div>
-                <div className="text-sm text-gray-600">總加分百分比</div>
-              </div>
-            </div>
-          </div>
-
-          {/* A類記錄 */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-blue-500 rounded-lg p-3">
-                <div className="text-white font-bold">A</div>
-              </div>
-              <div className="ml-4">
-                <div className="text-2xl font-bold text-gray-900">{stats?.portfolioBreakdown.A || 0}</div>
-                <div className="text-sm text-gray-600">專業證照</div>
-              </div>
-            </div>
-          </div>
-
-          {/* C類記錄 */}
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="flex items-center">
-              <div className="flex-shrink-0 bg-purple-500 rounded-lg p-3">
-                <div className="text-white font-bold">C</div>
-              </div>
-              <div className="ml-4">
-                <div className="text-2xl font-bold text-gray-900">{stats?.portfolioBreakdown.C || 0}</div>
-                <div className="text-sm text-gray-600">專題製作</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Share Achievement */}
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-sm p-6 mb-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-white mb-2">分享你的成就！</h3>
-              <p className="text-indigo-100">讓朋友看到你的學習歷程成果</p>
-            </div>
             <button
-              onClick={() => setShowShareCard(true)}
-              className="px-6 py-3 bg-white text-indigo-600 rounded-lg hover:bg-indigo-50 transition font-semibold"
+              onClick={handleTakeQuiz}
+              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
             >
-              生成分享卡片
-            </button>
-          </div>
-        </div>
-
-        {/* 學習歷程代碼分佈 */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">學習歷程代碼分佈</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(stats?.portfolioBreakdown || {}).map(([code, count]) => (
-              <div key={code} className="border border-gray-200 rounded-lg p-4">
-                <div className="text-2xl font-bold text-indigo-600">{count}</div>
-                <div className="text-sm text-gray-600 mt-1">{getPortfolioCodeLabel(code)}</div>
+              <div className="flex items-center space-x-3 mb-2">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                </svg>
+                <span className="font-semibold">重新測驗</span>
               </div>
-            ))}
+              <p className="text-sm opacity-90">重新發現適合你的職群和升學路徑</p>
+            </button>
           </div>
         </div>
 
-        {/* 類別分佈 */}
-        {stats?.categoryBreakdown && Object.keys(stats.categoryBreakdown).length > 0 && (
-          <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">類別分佈</h2>
-            <div className="space-y-3">
-              {Object.entries(stats.categoryBreakdown).map(([category, count]) => (
-                <div key={category} className="flex items-center">
-                  <div className={`w-3 h-3 rounded-full ${getCategoryColor(category)} mr-3`}></div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-700">{category}</span>
-                      <span className="text-gray-900 font-semibold">{count}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+        {/* Current Status Overview */}
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100 mb-12">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-2xl font-bold text-gray-900">目前狀態概覽</h3>
+            <div className="text-right">
+              <p className="text-sm text-gray-600">職群代碼</p>
+              <p className="text-lg font-bold text-indigo-600">{profile?.group_code || '尚未設定'}</p>
             </div>
           </div>
-        )}
 
-        {/* 最近記錄 */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-gray-900">最近記錄</h2>
-            <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm">
-              + 新增記錄
-            </button>
-          </div>
-
-          {records.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-400 text-6xl mb-4">📝</div>
-              <p className="text-gray-600">還沒有能力記錄，開始建立你的第一個記錄吧！</p>
-            </div>
-          ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              {records.slice(0, 5).map((record) => (
-                <div key={record.id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getCategoryColor(record.category)} text-white`}>
-                          {record.category}
-                        </span>
-                        {record.portfolio_code && (
-                          <span className="px-2 py-1 text-xs font-medium rounded-full bg-indigo-100 text-indigo-800">
-                            {record.portfolio_code}類
-                          </span>
-                        )}
-                      </div>
-                      <h3 className="text-lg font-semibold text-gray-900">{record.title}</h3>
-                      {record.description && (
-                        <p className="text-gray-600 mt-1 line-clamp-2">{record.description}</p>
-                      )}
-                      {record.occurred_date && (
-                        <p className="text-sm text-gray-500 mt-2">
-                          發生日期：{new Date(record.occurred_date).toLocaleDateString('zh-TW')}
-                        </p>
-                      )}
-                    </div>
-                    <div className="ml-4 flex gap-2">
-                      <button className="p-2 text-gray-400 hover:text-indigo-600 transition">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-red-600 transition">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-blue-900 font-medium text-lg">
+                  {profile?.group_code === '01' ? '餐旅群' :
+                   profile?.group_code === '02' ? '機械群' :
+                   profile?.group_code === '03' ? '電機群' :
+                   profile?.group_code === '04' ? '電子群' :
+                   profile?.group_code === '05' ? '資訊群' :
+                   profile?.group_code === '06' ? '商管群' :
+                   profile?.group_code === '07' ? '設計群' :
+                   profile?.group_code === '08' ? '農業群' :
+                   profile?.group_code === '09' ? '化工群' :
+                   profile?.group_code === '10' ? '土木群' :
+                   profile?.group_code === '11' ? '海事群' :
+                   profile?.group_code === '12' ? '護理群' :
+                   profile?.group_code === '13' ? '家政群' :
+                   profile?.group_code === '14' ? '語文群' :
+                   profile?.group_code === '15' ? '商業與管理群' : '尚未設定'}
+                </p>
+                <p className="text-sm text-blue-700 mt-2">你的職群決定了適合的升學管道</p>
+              </div>
+
+              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <p className="text-purple-900 font-medium">技優加分</p>
+                <p className="text-2xl font-bold text-purple-700 mt-1">{profile?.total_bonus_percent || 0}%</p>
+                <p className="text-sm text-purple-700 mt-2">技優加分可以申請技優甄審</p>
+              </div>
             </div>
-          )}
+
+            <div className="space-y-4">
+              {/* Action Guidance */}
+              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <h4 className="text-green-900 font-semibold mb-2">💡 建議行動</h4>
+                <ul className="space-y-2 text-sm text-green-800">
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-1">✓</span>
+                    <span>專注於<strong>行動指引</strong>而非僅是資訊展示</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-1">✓</span>
+                    <span>根據你的職群特性和目標，提供<strong>個人化的升學策略</strong></span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <span className="text-green-600 mt-1">✓</span>
+                    <span>整合<strong>學習歷程</strong>準備與<strong>升學時間線</strong>規劃</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        </>
-        )}
 
-        {activeTab === 'starchart' && (
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">能力星圖分析</h2>
-              <p className="text-gray-600">
-                基於你的學習歷程記錄，視覺化呈現你的 8 大能力維度發展狀況
-              </p>
-            </div>
+        {/* Help & Support */}
+        <div className="text-center text-gray-600 text-sm">
+          <p className="mb-2">
+            <strong>Planner 能力中心</strong>幫助你規劃升學路徑
+            <br />• 專注於<strong>行動指引</strong>而非僅是資訊展示
+            <br />• 根據你的職群特性和目標，提供<strong>個人化的升學策略</strong>
+            <br />• 整合<strong>學習歷程</strong>準備與<strong>升學時間線</strong>規劃
+          </p>
+          <p className="text-xs text-gray-500 mt-4">
+            不知道下一步該做什麼？查看上面的升學管道準備度，我們已經為你整理好明確的行動建議
+          </p>
+        </div>
+      </main>
 
-            {records.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="text-gray-400 text-6xl mb-4">⭐</div>
-                <p className="text-gray-600">
-                  還沒有能力記錄，無法生成星圖分析。開始建立記錄吧！
-                </p>
-              </div>
-            ) : (
-              <AbilityStarChart records={records} size={500} />
-            )}
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center text-gray-600 text-sm">
+            <p>© 2026 升學大師 v2.0 • 讓每個高職生都找到最適合的升學路徑</p>
           </div>
-        )}
-
-        {activeTab === 'strategy' && (
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">116 選考策略引擎</h2>
-              <p className="text-gray-600">
-                AI 分析你的能力分佈，推薦最適合的大學科系和升學策略
-              </p>
-            </div>
-
-            {records.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="text-gray-400 text-6xl mb-4">🎯</div>
-                <p className="text-gray-600">
-                  還沒有能力記錄，無法生成選考策略。開始建立記錄吧！
-                </p>
-              </div>
-            ) : (
-              <StrategyEngine
-                profile={profile}
-                records={records}
-              />
-            )}
-          </div>
-        )}
-
-        {activeTab === 'ai-analysis' && (
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">AI 學習歷程深度分析</h2>
-              <p className="text-gray-600">
-                AI 全方位分析你的學習歷程，提供個人化的成長建議
-              </p>
-            </div>
-
-            <AIAnalysisEngine
-              records={records}
-              profile={profile ? {
-                group_code: profile.group_code,
-                grade: profile.grade?.toString(),
-                total_bonus_percent: profile.total_bonus_percent
-              } : undefined}
-            />
-          </div>
-        )}
-
-        {activeTab === 'parent' && (
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">家長管理</h2>
-              <p className="text-gray-600">
-                邀請家長查看您的學習歷程和成長報告
-              </p>
-            </div>
-
-            <ParentManagement profile={profile} />
-          </div>
-        )}
-      </div>
-
-      {/* Share Card Modal */}
-      {showShareCard && (
-        <ShareCardPreview
-          options={{
-            type: 'achievement',
-            achievement: `累積了 ${stats?.totalRecords || 0} 項學習歷程記錄`,
-            theme: 'default'
-          }}
-          onClose={() => setShowShareCard(false)}
-        />
-      )}
+        </div>
+      </footer>
     </div>
   )
 }
