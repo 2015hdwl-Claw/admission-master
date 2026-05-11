@@ -294,11 +294,50 @@ export const departments: DepartmentInfo[] = [
   },
 ]
 
-// ── 搜尋科系 ──
+// ── 大學簡稱對照表 ──
+const SCHOOL_ALIASES: Record<string, string> = {
+  '台科': '國立臺灣科技大學', '台科大': '國立臺灣科技大學', '臺科': '國立臺灣科技大學', '臺科大': '國立臺灣科技大學', 'ntust': '國立臺灣科技大學',
+  '北科': '國立臺北科技大學', '北科大': '國立臺北科技大學', '臺北科大': '國立臺北科技大學', 'ntut': '國立臺北科技大學',
+  '高科': '國立高雄科技大學', '高科大': '國立高雄科技大學', '高雄科大': '國立高雄科技大學', 'nkust': '國立高雄科技大學',
+  '虎科': '國立虎尾科技大學', '虎科大': '國立虎尾科技大學', '虎尾科大': '國立虎尾科技大學', 'nfcu': '國立虎尾科技大學',
+  '勤益': '國立勤益科技大學', '勤益科大': '國立勤益科技大學', 'nfu': '國立勤益科技大學',
+  '暨南': '國立暨南國際大學', '暨大': '國立暨南國際大學', 'ncnu': '國立暨南國際大學',
+  '中興': '國立中興大學', '興大': '國立中興大學', 'nchu': '國立中興大學',
+  '嘉義': '國立嘉義大學', '嘉大': '國立嘉義大學', '嘉義大': '國立嘉義大學', 'ncyu': '國立嘉義大學',
+  '臺南大': '國立臺南大學', '南大': '國立臺南大學', 'nutn': '國立臺南大學',
+  '海大': '國立臺灣海洋大學', '海洋': '國立臺灣海洋大學', 'ntou': '國立臺灣海洋大學',
+}
+
+// ── 取得所有不重複的學校列表 ──
+export function getSchools(): { id: string; name: string; aliases: string[] }[] {
+  const seen = new Map<string, { id: string; name: string; aliases: string[] }>()
+  for (const d of departments) {
+    if (!seen.has(d.schoolId)) {
+      seen.set(d.schoolId, { id: d.schoolId, name: d.schoolName, aliases: [] })
+    }
+  }
+  for (const [alias, schoolName] of Object.entries(SCHOOL_ALIASES)) {
+    const entry = [...seen.values()].find(s => s.name === schoolName)
+    if (entry) entry.aliases.push(alias)
+  }
+  return [...seen.values()]
+}
+
+// ── 搜尋科系（支援簡稱） ──
 export function searchDepartments(query: string): DepartmentInfo[] {
   if (!query || query.length < 1) return []
   const q = query.toLowerCase()
+  // Resolve aliases to full school name
+  let expandedQuery = query
+  for (const [alias, fullName] of Object.entries(SCHOOL_ALIASES)) {
+    if (alias.includes(q) || q.includes(alias)) {
+      expandedQuery = fullName
+      break
+    }
+  }
+  const eq = expandedQuery.toLowerCase()
   return departments.filter(d =>
+    d.schoolName.toLowerCase().includes(eq) ||
     d.schoolName.toLowerCase().includes(q) ||
     d.departmentName.toLowerCase().includes(q) ||
     d.groupName.toLowerCase().includes(q) ||

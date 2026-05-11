@@ -12,6 +12,7 @@ import {
   searchDepartments,
   findBestPathway,
   consolidateActionPlan,
+  getSchools,
 } from '@/lib/department-database';
 import type { DepartmentInfo, UserProfile, ConsolidatedActionPlan } from '@/types/department';
 
@@ -41,6 +42,8 @@ const GROUPS = [
   { code: '14', name: '語文群', emoji: '🌍' },
   { code: '15', name: '商業與管理群', emoji: '💼' },
 ];
+
+const SCHOOLS = getSchools();
 
 // ── 盤點子步驟 ──
 type SubStep = 'grade' | 'percentile' | 'certificate' | 'competition' | 'project';
@@ -103,6 +106,8 @@ export default function FirstDiscoveryPage() {
   // Step 1: 探索科系
   const [targetDepartments, setTargetDepartments] = useState<DepartmentInfo[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedSchoolId, setSelectedSchoolId] = useState('');
+  const [schoolDropdownOpen, setSchoolDropdownOpen] = useState(false);
   const [detailModalDept, setDetailModalDept] = useState<DepartmentInfo | null>(null);
 
   // Step 2: 盤點現況
@@ -231,9 +236,12 @@ export default function FirstDiscoveryPage() {
   // ── Available departments for Step 1 ──
   const groupDepts = selectedGroup ? getDepartmentsByGroup(selectedGroup) : [];
   const searchResults = searchQuery.length >= 1 ? searchDepartments(searchQuery) : [];
-  const displayDepts = searchQuery.length >= 1
-    ? searchResults
-    : groupDepts;
+  const schoolFiltered = selectedSchoolId ? departments.filter(d => d.schoolId === selectedSchoolId) : groupDepts;
+  const displayDepts = searchQuery.length >= 1 ? searchResults : schoolFiltered;
+  const filteredSchools = SCHOOLS.filter(s => {
+    const q = searchQuery.toLowerCase();
+    return !q || s.name.toLowerCase().includes(q) || s.aliases.some(a => a.toLowerCase().includes(q));
+  });
 
   // ════════════════════════════════════════════════════
   // Step 0: 你現在念什麼？（選職群）
@@ -284,24 +292,68 @@ export default function FirstDiscoveryPage() {
         選 1-3 個你想了解的科系（已選 {targetDepartments.length}/3）
       </motion.p>
 
-      {/* Search bar for cross-group exploration */}
-      <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="mb-6">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={e => setSearchQuery(e.target.value)}
-          placeholder="搜尋科系、學校、職涯方向..."
-          className="w-full px-6 py-4 text-lg rounded-2xl border-0 bg-white/80 shadow-lg outline-none focus:ring-2 focus:ring-purple-300 transition"
-        />
+      {/* School dropdown + keyword search */}
+      <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex gap-3 mb-6">
+        {/* School dropdown */}
+        <div className="relative w-64 shrink-0">
+          <button
+            onClick={() => setSchoolDropdownOpen(!schoolDropdownOpen)}
+            className="w-full px-4 py-4 text-left text-lg rounded-2xl border-0 bg-white/80 shadow-lg flex justify-between items-center"
+          >
+            <span className={selectedSchoolId ? 'text-gray-900' : 'text-gray-400'}>
+              {selectedSchoolId ? SCHOOLS.find(s => s.id === selectedSchoolId)?.name : '選擇學校'}
+            </span>
+            <span className="text-gray-400 text-sm">{schoolDropdownOpen ? '▲' : '▼'}</span>
+          </button>
+          <AnimatePresence>
+            {schoolDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl z-30 max-h-60 overflow-y-auto"
+              >
+                <button
+                  onClick={() => { setSelectedSchoolId(''); setSchoolDropdownOpen(false); }}
+                  className="w-full px-4 py-3 text-left text-gray-500 hover:bg-purple-50 transition"
+                >
+                  全部學校
+                </button>
+                {SCHOOLS.map(s => (
+                  <button
+                    key={s.id}
+                    onClick={() => { setSelectedSchoolId(s.id); setSchoolDropdownOpen(false); }}
+                    className={`w-full px-4 py-3 text-left hover:bg-purple-50 transition ${
+                      selectedSchoolId === s.id ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-700'
+                    }`}
+                  >
+                    <div>{s.name}</div>
+                    {s.aliases.length > 0 && (
+                      <div className="text-xs text-gray-400">{s.aliases.slice(0, 3).join('、')}</div>
+                    )}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Keyword search */}
+        <div className="flex-1">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            placeholder="搜尋科系、學校簡稱（如：台科）、職涯..."
+            className="w-full px-6 py-4 text-lg rounded-2xl border-0 bg-white/80 shadow-lg outline-none focus:ring-2 focus:ring-purple-300 transition"
+          />
+        </div>
       </motion.div>
 
       {/* Department cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[45vh] overflow-y-auto pr-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[35vh] overflow-y-auto pr-1">
         {displayDepts.map((dept, i) => {
           const isSelected = targetDepartments.some(d => d.id === dept.id);
-          const best = targetDepartments.length > 0 && isSelected
-            ? null // Will show in results
-            : null;
           return (
             <motion.div
               key={dept.id}
@@ -320,15 +372,11 @@ export default function FirstDiscoveryPage() {
                     {dept.schoolName}
                   </div>
                 </div>
-                {isSelected && (
-                  <span className="text-white text-xl">✓</span>
-                )}
+                {isSelected && <span className="text-white text-xl">✓</span>}
               </div>
               <p className={`text-sm mb-3 ${isSelected ? 'text-purple-100' : 'text-gray-600'}`}>
                 {dept.description}
               </p>
-
-              {/* Quick preview: features + career paths */}
               <div className="flex flex-wrap gap-1 mb-2">
                 {dept.features.slice(0, 2).map((f, j) => (
                   <span key={j} className={`px-2 py-0.5 text-xs rounded-full ${
@@ -336,8 +384,6 @@ export default function FirstDiscoveryPage() {
                   }`}>{f}</span>
                 ))}
               </div>
-
-              {/* Detail modal trigger */}
               <button
                 onClick={e => { e.stopPropagation(); setDetailModalDept(dept); }}
                 className={`text-xs underline ${isSelected ? 'text-purple-200' : 'text-purple-500'}`}
@@ -349,84 +395,106 @@ export default function FirstDiscoveryPage() {
         })}
       </div>
 
-      {/* Continue button when at least 1 selected */}
+      {/* ── 已選目標展示區（固定在下方） ── */}
       <AnimatePresence>
-        {targetDepartments.length >= 1 && (
+        {targetDepartments.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             className="mt-6"
           >
-            <button
-              onClick={() => {
-                trackFeatureUsage('discovery_targets_confirmed', { count: targetDepartments.length });
-                setCurrentSubStep(0);
-                autoAdvance(2);
-              }}
-              className="px-8 py-4 bg-purple-600 text-white rounded-2xl font-medium text-lg hover:bg-purple-700 transition shadow-lg"
-            >
-              選好了，開始盤點我的條件 →
-            </button>
+            <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-4 shadow-sm">
+              <p className="text-sm text-gray-500 mb-3">已選目標科系：</p>
+              <div className="flex flex-wrap gap-2 mb-4">
+                {targetDepartments.map(dept => (
+                  <span key={dept.id} className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium">
+                    {dept.departmentName}
+                    <button
+                      onClick={() => toggleTarget(dept)}
+                      className="ml-1 text-purple-200 hover:text-white transition"
+                    >
+                      &times;
+                    </button>
+                  </span>
+                ))}
+              </div>
+              <button
+                onClick={() => {
+                  trackFeatureUsage('discovery_targets_confirmed', { count: targetDepartments.length });
+                  setCurrentSubStep(0);
+                  autoAdvance(2);
+                }}
+                className="px-8 py-3 bg-purple-600 text-white rounded-2xl font-medium text-lg hover:bg-purple-700 transition shadow-lg"
+              >
+                選好了，開始盤點我的條件 →
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Detail modal */}
+      {/* ── 科系介紹 Modal（橫式三欄） ── */}
       <AnimatePresence>
         {detailModalDept && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-6"
             onClick={() => setDetailModalDept(null)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 max-w-lg w-full max-h-[80vh] overflow-y-auto"
+              className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[80vh] overflow-y-auto"
               onClick={e => e.stopPropagation()}
             >
-              <div className="flex justify-between items-start mb-4">
+              {/* Header */}
+              <div className="flex justify-between items-start mb-5">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{detailModalDept.departmentName}</h2>
                   <p className="text-gray-500">{detailModalDept.schoolName} · {detailModalDept.groupName}</p>
                 </div>
                 <button onClick={() => setDetailModalDept(null)} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
               </div>
-
               <p className="text-gray-700 mb-6">{detailModalDept.description}</p>
 
-              <div className="mb-5">
-                <h3 className="font-bold text-gray-900 mb-2">教學特色</h3>
-                <div className="space-y-1">
-                  {detailModalDept.features.map((f, i) => (
-                    <div key={i} className="flex items-center gap-2 text-gray-700">
-                      <span className="text-purple-500">•</span> {f}
-                    </div>
-                  ))}
+              {/* Three columns: 教學特色 | 研究方向 | 畢業出路 */}
+              <div className="grid grid-cols-3 gap-6 mb-6">
+                <div className="bg-purple-50 rounded-2xl p-5">
+                  <h3 className="font-bold text-purple-700 mb-3 text-base">教學特色</h3>
+                  <div className="space-y-2">
+                    {detailModalDept.features.map((f, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="text-purple-400 mt-0.5 shrink-0">•</span>
+                        <span>{f}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <div className="mb-5">
-                <h3 className="font-bold text-gray-900 mb-2">研究方向</h3>
-                <div className="space-y-1">
-                  {detailModalDept.researchAreas.map((r, i) => (
-                    <div key={i} className="flex items-center gap-2 text-gray-700">
-                      <span className="text-blue-500">•</span> {r}
-                    </div>
-                  ))}
+                <div className="bg-blue-50 rounded-2xl p-5">
+                  <h3 className="font-bold text-blue-700 mb-3 text-base">研究方向</h3>
+                  <div className="space-y-2">
+                    {detailModalDept.researchAreas.map((r, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="text-blue-400 mt-0.5 shrink-0">•</span>
+                        <span>{r}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-
-              <div className="mb-6">
-                <h3 className="font-bold text-gray-900 mb-2">畢業出路</h3>
-                <div className="flex flex-wrap gap-2">
-                  {detailModalDept.careerPaths.map((c, i) => (
-                    <span key={i} className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">{c}</span>
-                  ))}
+                <div className="bg-green-50 rounded-2xl p-5">
+                  <h3 className="font-bold text-green-700 mb-3 text-base">畢業出路</h3>
+                  <div className="space-y-2">
+                    {detailModalDept.careerPaths.map((c, i) => (
+                      <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
+                        <span className="text-green-400 mt-0.5 shrink-0">•</span>
+                        <span>{c}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
