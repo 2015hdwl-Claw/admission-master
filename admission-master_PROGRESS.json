@@ -3,7 +3,7 @@
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
   "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 55,
+  "overall_progress": 60,
   "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
   "phases": {
     "phase_1": {
@@ -98,8 +98,9 @@
         },
         "week_2": {
           "name": "快速清理與功能融合",
-          "status": "in_progress",
-          "progress": 60,
+          "status": "completed",
+          "completed_date": "2026-05-11",
+          "progress": 100,
           "tasks": [
             {
               "name": "Day 1-2: 刪除8個無用頁面",
@@ -155,7 +156,8 @@
             },
             {
               "name": "Day 5-7: 中優先級頁面改造",
-              "status": "in_progress",
+              "status": "completed",
+              "completed_date": "2026-05-11",
               "priority": "medium",
               "pages_refactored": [
                 {
@@ -165,18 +167,22 @@
                   "actual_hours": "complete",
                   "completed_date": "2026-05-11",
                   "commit": "80bfd39"
-                }
-              ],
-              "pages_to_refactor": [
+                },
                 {
                   "page": "/portfolio",
                   "new_name": "路徑準備材料",
-                  "estimated_hours": "4-5"
+                  "estimated_hours": "4-5",
+                  "actual_hours": "complete",
+                  "completed_date": "2026-05-11",
+                  "commit": "76f1733"
                 },
                 {
                   "page": "/roadmap",
                   "new_name": "升學路徑時間線",
-                  "estimated_hours": "3-4"
+                  "estimated_hours": "3-4",
+                  "actual_hours": "complete",
+                  "completed_date": "2026-05-11",
+                  "commit": "3ea12e9"
                 }
               ]
             }
