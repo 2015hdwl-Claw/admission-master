@@ -459,7 +459,17 @@ export default function FirstDiscoveryPage() {
                 </div>
                 <button onClick={() => setDetailModalDept(null)} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
               </div>
-              <p className="text-gray-700 mb-6">{detailModalDept.description}</p>
+              <p className="text-gray-700 mb-4">{detailModalDept.description}</p>
+              {detailModalDept.website && (
+                <a
+                  href={detailModalDept.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-800 underline mb-6"
+                >
+                  前往科系官網 ↗
+                </a>
+              )}
 
               {/* Three columns: 教學特色 | 研究方向 | 畢業出路 */}
               <div className="grid grid-cols-3 gap-6 mb-6">

@@ -9,6 +9,7 @@ export interface DepartmentInfo {
 
   // 科系特色
   description: string        // 一句話介紹
+  website: string            // 科系官網網址
   features: string[]         // 教學特色（2-3 點）
   researchAreas: string[]    // 研究方向（2-3 點）
   careerPaths: string[]      // 畢業出路（3-5 個）
