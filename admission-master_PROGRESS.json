@@ -3,7 +3,7 @@
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
   "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 50,
+  "overall_progress": 55,
   "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
   "phases": {
     "phase_1": {
@@ -99,7 +99,7 @@
         "week_2": {
           "name": "快速清理與功能融合",
           "status": "in_progress",
-          "progress": 50,
+          "progress": 60,
           "tasks": [
             {
               "name": "Day 1-2: 刪除8個無用頁面",
@@ -155,14 +155,19 @@
             },
             {
               "name": "Day 5-7: 中優先級頁面改造",
-              "status": "pending",
+              "status": "in_progress",
               "priority": "medium",
-              "pages_to_refactor": [
+              "pages_refactored": [
                 {
                   "page": "/ability-account",
                   "new_name": "Planner 能力中心",
-                  "estimated_hours": "6-8"
-                },
+                  "estimated_hours": "6-8",
+                  "actual_hours": "complete",
+                  "completed_date": "2026-05-11",
+                  "commit": "80bfd39"
+                }
+              ],
+              "pages_to_refactor": [
                 {
                   "page": "/portfolio",
                   "new_name": "路徑準備材料",
