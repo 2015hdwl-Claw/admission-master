@@ -1,47 +1,73 @@
-export interface DepartmentRequirements {
-  id: string;
-  university_code: string;
-  department_code: string;
-  academic_year: number;
-  admission_group: string;
+// 科系資訊：每個科系的教學特色、研究方向、職涯方向
+export interface DepartmentInfo {
+  id: string
+  schoolId: string
+  schoolName: string
+  departmentName: string
+  groupCode: string
+  groupName: string
 
-  min_total_score?: number;
-  min_chinese_score?: number;
-  min_english_score?: number;
-  min_math_score?: number;
-  min_science_score?: number;
-  min_social_score?: number;
+  // 科系特色
+  description: string        // 一句話介紹
+  features: string[]         // 教學特色（2-3 點）
+  researchAreas: string[]    // 研究方向（2-3 點）
+  careerPaths: string[]      // 畢業出路（3-5 個）
 
-  chinese_weight: number;
-  english_weight: number;
-  math_weight: number;
-  science_weight: number;
-  social_weight: number;
-
-  required_subjects?: string[];
-  recommended_subjects?: string[];
-  minimum_grade_requirement?: Record<string, any>;
-  special_conditions?: string[];
-
-  last_year_lowest_rank?: number;
-  last_year_lowest_score?: number;
-  estimated_acceptance_rate?: number;
-
-  created_at: string;
-  updated_at: string;
+  // 6 種管道的錄取條件（每個科系不同）
+  pathways: Record<string, PathwayRequirement>
 }
 
-export interface DepartmentRequirementFilter {
-  university_code?: string;
-  department_code?: string;
-  academic_year?: number;
-  admission_group?: string;
-  min_total_score?: number;
+// 單一管道的錄取條件
+export interface PathwayRequirement {
+  available: boolean           // 這個科系有沒有這個管道
+  minGradePercentile?: number  // 在校成績門檻
+  requiredCertificate?: string // 需要的證照
+  requiredCompetition?: string // 需要的競賽
+  acceptanceRate: number       // 去年錄取率 %
+  deadline: string             // 截止日期
+  quota?: number               // 招生名額
+  lowestScore?: number         // 去年最低錄取分
+  specialNote?: string         // 特別備註
 }
 
-export interface WeightedScoreCalculation {
-  total_score: number;
-  weighted_total: number;
-  subject_scores: Record<string, number>;
-  weighted_subjects: Record<string, number>;
+// 使用者盤點結果
+export interface UserProfile {
+  grade: number
+  gradePercentile: number
+  certificates: string[]
+  competitions: string[]
+  hasProject: boolean
+}
+
+// 差距分析結果
+export interface GapAnalysis {
+  departmentId: string
+  departmentName: string
+  schoolName: string
+  pathwayType: string
+  pathwayName: string
+  currentProbability: number
+  potentialProbability: number
+  alreadyHave: { name: string }[]
+  needImprovement: { name: string; current: string; required: string; daysLeft: number }[]
+  completelyMissing: { name: string; required: string; daysLeft: number }[]
+  actionItems: { title: string; deadline: string; daysLeft: number; priority: 'high' | 'medium' | 'low' }[]
+}
+
+// 合併的行動計畫（跨多個目標科系）
+export interface ConsolidatedActionPlan {
+  targets: {
+    departmentName: string
+    schoolName: string
+    bestPathway: string
+    currentProbability: number
+    potentialProbability: number
+  }[]
+  actionItems: {
+    title: string
+    deadline: string
+    daysLeft: number
+    priority: 'high' | 'medium' | 'low'
+    forDepartments: string[]  // 這個行動項目服務哪些目標科系
+  }[]
 }

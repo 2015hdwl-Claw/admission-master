@@ -1,48 +1,46 @@
 import { NextResponse } from 'next/server'
-import { searchDepartments, calculateGapAnalysis, SearchFilter } from '@/lib/department-database'
+import { searchDepartments, calculateGapForDepartment, getDepartmentsByGroup } from '@/lib/department-database'
+import type { UserProfile } from '@/types/department'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
 
     const {
-      filter,
-      studentSubjects,
-      studentScores,
-      certificates,
-      includeGapAnalysis = false
+      query,
+      groupCode,
+      profile,
+      includeGapAnalysis = false,
+      pathwayType,
     } = body
 
-    const searchFilter: SearchFilter = {
-      groupCode: filter?.groupCode,
-      pathwayType: filter?.pathwayType,
-      requiredSubjects: filter?.requiredSubjects,
-      minAcceptanceRate: filter?.minAcceptanceRate,
-      maxAverageScore: filter?.maxAverageScore,
-      tags: filter?.tags
+    let results
+    if (query && typeof query === 'string') {
+      results = searchDepartments(query)
+    } else if (groupCode) {
+      results = getDepartmentsByGroup(groupCode)
+    } else {
+      results = []
     }
 
-    const departments = searchDepartments(searchFilter)
-
-    let results
-    if (includeGapAnalysis && studentSubjects) {
-      results = departments.map(dept => ({
+    if (includeGapAnalysis && profile && pathwayType) {
+      const userProfile: UserProfile = {
+        grade: profile.grade || 0,
+        gradePercentile: profile.gradePercentile || 0,
+        certificates: profile.certificates || [],
+        competitions: profile.competitions || [],
+        hasProject: profile.hasProject || false,
+      }
+      results = results.map(dept => ({
         ...dept,
-        gapAnalysis: calculateGapAnalysis(
-          dept,
-          studentSubjects,
-          studentScores || {},
-          certificates || []
-        )
+        gapAnalysis: calculateGapForDepartment(dept, pathwayType, userProfile),
       }))
-    } else {
-      results = departments
     }
 
     return NextResponse.json({
       success: true,
       count: results.length,
-      data: results
+      data: results,
     })
 
   } catch (error) {
@@ -51,7 +49,7 @@ export async function POST(request: Request) {
       {
         success: false,
         error: 'Failed to search departments',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
     )
@@ -61,18 +59,6 @@ export async function POST(request: Request) {
 export async function GET() {
   return NextResponse.json({
     success: true,
-    message: "Department search API is running",
-    endpoints: {
-      POST: {
-        description: "Search departments with optional gap analysis",
-        requestBody: {
-          filter: "SearchFilter object",
-          studentSubjects: "Array of subjects student is taking",
-          studentScores: "Object with subject scores",
-          certificates: "Array of certificates student has",
-          includeGapAnalysis: "Boolean to include gap analysis"
-        }
-      }
-    }
+    message: 'Department search API is running',
   })
 }
