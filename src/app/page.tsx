@@ -34,13 +34,7 @@ export default function HomePage() {
 
   const handleStartDiscovery = () => {
     trackFeatureUsage('start_discovery_click', { has_user: !!user })
-    if (user) {
-      // 已登入用戶進入第一次發現頁面
-      router.push('/first-discovery')
-    } else {
-      // 新用戶進入註冊（已包含職群選擇）
-      router.push('/login')
-    }
+    router.push('/first-discovery')
   }
 
   const handleExploreGroups = () => {

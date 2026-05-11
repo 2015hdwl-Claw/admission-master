@@ -102,33 +102,34 @@ export default function FirstDiscoveryPage() {
   const loadUserData = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        router.push('/login')
-        return
+      if (user) {
+        setUser(user)
       }
 
-      setUser(user)
+      // 獲取用戶的職群資訊（已登入用戶從DB讀取，未登入使用localStorage）
+      let groupCode = ''
 
-      // 獲取用戶的職群資訊
-      const { data: profile, error } = await supabase
-        .from('student_profiles')
-        .select('group_code')
-        .eq('user_id', user.id)
-        .single()
+      if (user) {
+        const { data: profile, error } = await supabase
+          .from('student_profiles')
+          .select('group_code')
+          .eq('user_id', user.id)
+          .single()
 
-      if (error || !profile) {
-        console.error('Error loading profile:', error)
-        // 如果沒有資料，引導用戶完成 onboarding
-        router.push('/login')
-        return
+        if (!error && profile) {
+          const profileData = profile as { group_code: string }
+          groupCode = profileData.group_code || ''
+        }
       }
 
-      // 使用類型斷言來處理 TypeScript 問題
-      const profileData = profile as { group_code: string }
-      if (!profileData.group_code) {
-        console.error('No group_code found in profile')
-        router.push('/login')
-        return
+      // 如果沒有DB資料，嘗試從localStorage讀取
+      if (!groupCode && typeof window !== 'undefined') {
+        groupCode = localStorage.getItem('admission-master:selectedGroup') || ''
+      }
+
+      // 如果都沒有，使用預設值讓用戶仍然能看到內容
+      if (!groupCode) {
+        groupCode = '06' // 預設商管群作為展示
       }
 
       // 將 group_code 轉換為職群名稱
@@ -139,7 +140,7 @@ export default function FirstDiscoveryPage() {
         '13': '家政群', '14': '語文群', '15': '商業與管理群'
       }
 
-      const groupName = groupCodeToName[profileData.group_code] || ''
+      const groupName = groupCodeToName[groupCode] || ''
       setUserGroup(groupName)
 
       // 計算推薦的升學管道
@@ -148,7 +149,6 @@ export default function FirstDiscoveryPage() {
 
     } catch (error) {
       console.error('Error in loadUserData:', error)
-      router.push('/login')
     } finally {
       setLoading(false)
     }

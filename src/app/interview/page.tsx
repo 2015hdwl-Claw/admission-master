@@ -53,25 +53,28 @@ export default function InterviewPage() {
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
 
-      if (!user) {
-        router.push('/login')
-        return
+      if (user) {
+        setUser(user)
+
+        const { data: profileData, error } = await supabase
+          .from('student_profiles')
+          .select('*')
+          .eq('user_id', user.id)
+          .single()
+
+        if (!error && profileData) {
+          setProfile(profileData)
+          generateApplicationSteps(profileData)
+        } else {
+          const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
+          setProfile(defaultProfile)
+          generateApplicationSteps(defaultProfile)
+        }
+      } else {
+        const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
+        setProfile(defaultProfile)
+        generateApplicationSteps(defaultProfile)
       }
-
-      setUser(user)
-
-      // 獲取用戶資料
-      const { data: profileData, error } = await supabase
-        .from('student_profiles')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
-
-      if (error) throw error
-      setProfile(profileData)
-
-      // 生成個人申請準備步驟
-      generateApplicationSteps(profileData)
     } catch (err) {
       console.error('Error loading user data:', err)
       setError(err instanceof Error ? err.message : '載入資料失敗')
@@ -349,10 +352,10 @@ export default function InterviewPage() {
           <h2 className="text-2xl font-bold text-gray-800 mb-2">載入失敗</h2>
           <p className="text-gray-600">{error}</p>
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push('/')}
             className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
           >
-            返回登入
+            返回首頁
           </button>
         </div>
       </div>
