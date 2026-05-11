@@ -3,7 +3,7 @@
   "project_title": "升學大師 v2.0 - 高職升學路徑發現引擎",
   "last_updated": "2026-05-11",
   "current_phase": "Phase 3 - 開發執行 (功能融合策略)",
-  "overall_progress": 60,
+  "overall_progress": 65,
   "strategy": "功能融合並用 - 重新定位舊功能以加速開發",
   "phases": {
     "phase_1": {
@@ -196,12 +196,13 @@
         },
         "week_3": {
           "name": "核心功能整合",
-          "status": "pending",
-          "progress": 0,
+          "status": "in_progress",
+          "progress": 25,
           "tasks": [
             {
               "name": "跨頁面連結建立",
-              "status": "pending",
+              "status": "completed",
+              "completed_date": "2026-05-11",
               "description": "Explorer → Planner → Guide 流暢連接"
             },
             {
