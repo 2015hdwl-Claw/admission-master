@@ -2,12 +2,12 @@
   "project_name": "admission-master",
   "project_title": "升學大師 - 武器庫導向的高職升學路徑發現引擎 → 生涯導航平台",
   "last_updated": "2026-05-14",
-  "current_phase": "Phase 3 - 電機群 MVP 閉環 (v4.0)",
-  "overall_progress": 55,
+  "current_phase": "Phase 3 - 電機群 MVP 閉環完成 (v4.0)",
+  "overall_progress": 90,
   "core_philosophy": "先盤點武器庫，再推薦最有利的管道。從升學工具升級為生涯導航平台。",
-  "strategy_pivot": "v4.0: 入學條件 + 畢業出路 + 產學合作 三合一",
+  "strategy_pivot": "v4.0: 入學條件 + 畢業出路 + 薪資行情 三合一",
 
-  "major_update": "2026-05-14: v4.0 策略升級 — 電機群 MVP 閉環，資料從 36 擴展到 ~170 科系，加入護城河資料（畢業出路+產學合作）",
+  "major_update": "2026-05-14: v4.0 電機群 MVP 完成 — 181 科系完整資料 + 104 職涯薪資 + UI 展示，已部署生產環境",
 
   "phases": {
     "phase_1": {
@@ -27,7 +27,7 @@
     "phase_3": {
       "name": "開發執行",
       "status": "in_progress",
-      "progress": 55,
+      "progress": 90,
       "start_date": "2026-05-12",
       "tasks": {
         "completed": {
@@ -35,49 +35,24 @@
           "first_discovery": "✅ first-discovery 頁面 — 年級分流 + 武器庫 + 科系選擇",
           "ability_account": "✅ ability-account 頁面 — localStorage 串接 + 分析展示",
           "bug_fixes": "✅ 3 個 bug 修復 — 重複分數/錯誤推薦/按鈕寬度",
-          "seed_data": "✅ 36 個科系 seed data + 證照清單 + 競賽清單",
           "data_source_research": "✅ 官方資料來源研究 — jctv.ntut.edu.tw 結構分析",
-          "moat_research": "✅ 護城河資料來源研究 — 104/ColleGo!/教育部/國科會 可行性驗證"
+          "moat_research": "✅ 護城河資料來源研究 — 104/ColleGo!/教育部/國科會 可行性驗證",
+          "step1_scraper": "✅ Step 1: 爬蟲抓取 181 電機群科系 — warehouse.js 解析，68 校，publicPrivate/region 正確",
+          "step2_tags": "✅ Step 2: 50+ regex 標籤規則 — 181/181 科系標記，20 features, 167 researchAreas, 89 careerPaths",
+          "step3_career": "✅ Step 3: 104 升學就業地圖 API — 181/181 careerOutcomes, 180/181 薪資，平均 57,363 NTD/month",
+          "step4_ui": "✅ Step 4: UI 展示 — 薪資標籤卡片 + 詳情 Modal（薪資行情/必備工具/必備技能/就業產業）"
         },
-        "current_sprint": {
-          "name": "電機群 MVP 閉環",
-          "target_user": "用戶兒子（控制科二年級）",
-          "steps": {
-            "step_1": {
-              "name": "爬蟲抓取電機群 ~170 科系入學條件",
-              "status": "pending",
-              "effort": "4-6h",
-              "source": "jctv.ntut.edu.tw (甄選 HTML + 分發 PDF + 繁星 PDF + 技優 PDF)",
-              "output": "~170 科系的完整入學條件"
-            },
-            "step_2": {
-              "name": "科系標籤 + 專題配對",
-              "status": "pending",
-              "effort": "2-3h",
-              "scope": "#PLC #控制 #電力 #IoT #半導體 #綠能 #冷凍 標籤系統"
-            },
-            "step_3": {
-              "name": "護城河資料 — 畢業出路 + 產學合作",
-              "status": "pending",
-              "effort": "6-8h",
-              "sources": [
-                "P0: 教育部開放資料 (CSV 直接下載)",
-                "P0: ColleGo! (ASP.NET MVC)",
-                "P1: 104升學就業地圖 (Playwright)",
-                "P1: 國科會產學查詢 (Playwright)",
-                "P2: 1111人才地圖 (HTML)",
-                "P2: 各校新聞稿 RSS"
-              ]
-            },
-            "step_4": {
-              "name": "UI 展示護城河資料",
-              "status": "pending",
-              "effort": "4-6h",
-              "scope": "DepartmentCard 元件 + 科系画像展示 + 出路比較"
-            }
-          },
-          "total_effort": "16-23h"
-        }
+        "pipeline_tools": {
+          "scrape": "tools/scrape_electrical_departments.py --year 114 --group 03",
+          "tags": "tools/enrich_tags.py",
+          "career": "tools/enrich_career_104.py（用 cache，秒完成）",
+          "test": "tools/test_pipeline.py（一鍵全跑 + 驗證）"
+        },
+        "remaining": [
+          "真實用戶測試（用戶兒子 — 控制科二年級）",
+          "其他 19 群科系資料擴展",
+          "光域風格 UI 重構（待定）"
+        ]
       }
     },
     "phase_4": {
@@ -97,10 +72,10 @@
   "data_status": {
     "departments_json": {
       "path": "src/data/departments.json",
-      "current_records": 36,
-      "target_records": 170,
-      "status": "SEED_DATA_READY",
-      "next_action": "爬蟲擴展電機群科系"
+      "current_records": 181,
+      "target_records": 181,
+      "status": "COMPLETE",
+      "note": "電機群 (group 03) 完整，含 careerOutcomes"
     },
     "certificates_db": {
       "path": "src/data/certificates.ts",
@@ -112,21 +87,29 @@
       "status": "CREATED",
       "note": "校內/全國/國際競賽清單"
     },
-    "department_profiles": {
-      "path": "src/data/department-profiles.json",
-      "status": "NOT_CREATED",
-      "note": "畢業出路 + 產學合作資料（Step 3 產出）"
+    "career_outcomes": {
+      "status": "COMPLETE",
+      "coverage": "181/181 departments",
+      "salary_coverage": "180/181",
+      "avg_fresh_salary": 57363,
+      "source": "104 be.guide.104.com.tw API",
+      "cache_files": [
+        "tools/_104_job_cache.json (89 career→job mappings)",
+        "tools/_104_detail_cache.json (40 job details)"
+      ]
     },
-    "topic_tags": {
-      "path": "src/data/topic-tags.ts",
-      "status": "NOT_CREATED",
-      "note": "專題關鍵字標籤庫（Step 2 產出）"
+    "tags": {
+      "status": "COMPLETE",
+      "coverage": "181/181 departments",
+      "unique_features": 20,
+      "unique_research_areas": 167,
+      "unique_career_paths": 89
     }
   },
 
   "page_inventory": {
     "core_product": [
-      { "path": "/first-discovery", "name": "武器庫導向發現之旅", "status": "v3.0 完成，待加入科系画像" },
+      { "path": "/first-discovery", "name": "武器庫導向發現之旅", "status": "v3.0 + 職涯薪資展示" },
       { "path": "/ability-account", "name": "能力中心", "status": "v3.0 完成，已串接 first-discovery" }
     ],
     "explorer_zone": [
@@ -148,29 +131,26 @@
     "build_status": "pass",
     "production_url": "https://admission-master-ecru.vercel.app/",
     "production_deployed": true,
+    "last_commit": "c09186e",
+    "deployment_date": "2026-05-14",
     "mvp_validation_user": "用戶兒子（控制科二年級）"
   },
 
   "next_actions": [
     {
       "priority": 1,
-      "action": "Step 1: 建立爬蟲 tools/scrape-electrical-departments.py — 抓取 ~170 電機群科系",
-      "effort": "4-6h"
+      "action": "真實用戶測試 — 用戶兒子用控制科二年級身份走完 first-discovery 流程",
+      "effort": "1-2h"
     },
     {
       "priority": 2,
-      "action": "Step 2: 科系標籤系統 + 專題關鍵字配對",
-      "effort": "2-3h"
+      "action": "根據測試反饋迭代 UI/UX",
+      "effort": "2-4h"
     },
     {
       "priority": 3,
-      "action": "Step 3: 護城河資料爬蟲（教育部 CSV + ColleGo! + 104）",
-      "effort": "6-8h"
-    },
-    {
-      "priority": 4,
-      "action": "Step 4: UI 展示（DepartmentCard + 科系画像）",
-      "effort": "4-6h"
+      "action": "擴展其他 19 群科系資料（爬蟲 pipeline 已可複用）",
+      "effort": "8-16h"
     }
   ],
 

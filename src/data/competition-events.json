@@ -1,0 +1,737 @@
+[
+  {
+    "id": "115-技藝競賽-工業類-工業配電",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "工業配電",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-室內配電",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "室內配電",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-工業電子",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "工業電子",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-數位電子",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "數位電子",
+    "level": "全國",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-電腦修護",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "電腦修護",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "04",
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-電腦軟體設計",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "電腦軟體設計",
+    "level": "全國",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技藝競賽-工業類-機電整合",
+    "competitionName": "全國高級中等學校學生技藝競賽",
+    "subCompetition": "工業類",
+    "category": "機電整合",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2026-05-25",
+    "registrationEnd": "2026-06-12",
+    "schoolCompetitionDeadline": "2026-07-31",
+    "finalRegistrationStart": "2026-08-17",
+    "finalRegistrationEnd": "2026-09-11",
+    "eventDate": "2026-11-24",
+    "eventEndDate": "2026-11-27",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "金手獎"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://sci-me.k12ea.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-電氣裝配",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "電氣裝配",
+    "level": "分區",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-電氣裝配",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "電氣裝配",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-工業控制",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "工業控制",
+    "level": "分區",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-工業控制",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "工業控制",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-電子",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "電子",
+    "level": "分區",
+    "groupCodes": [
+      "03",
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-電子",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "電子",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-機電整合",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "機電整合",
+    "level": "分區",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-機電整合",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "機電整合",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-資訊網路布建",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "資訊網路布建",
+    "level": "分區",
+    "groupCodes": [
+      "03",
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-資訊網路布建",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "資訊網路布建",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-自主移動機器人",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "自主移動機器人",
+    "level": "分區",
+    "groupCodes": [
+      "03",
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-自主移動機器人",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "自主移動機器人",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "05"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-分區賽-冷凍空調",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "分區技能競賽",
+    "category": "冷凍空調",
+    "level": "分區",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": "2025-12-08",
+    "registrationEnd": "2025-12-17",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-03-23",
+    "eventEndDate": "2026-03-28",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://www.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-技能競賽-全國賽-冷凍空調",
+    "competitionName": "全國技能競賽",
+    "subCompetition": "全國技能競賽",
+    "category": "冷凍空調",
+    "level": "全國",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "registrationStart": null,
+    "registrationEnd": null,
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-07-30",
+    "eventEndDate": "2026-08-01",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名"
+    ],
+    "pathwayUseful": [
+      "guarantee",
+      "skills",
+      "special"
+    ],
+    "source": "https://worldskillstw.wdasec.gov.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-專題競賽-電機電子群-專題組",
+    "competitionName": "全國高級中等學校專題暨創意製作競賽",
+    "subCompetition": "電機與電子群",
+    "category": "專題組",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": "2026-01-20",
+    "registrationEnd": "2026-02-06",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-04-30",
+    "eventEndDate": "2026-05-02",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "優勝",
+      "佳作"
+    ],
+    "pathwayUseful": [
+      "skills",
+      "special",
+      "selection"
+    ],
+    "source": "https://topic.tcivs.tc.edu.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  },
+  {
+    "id": "115-專題競賽-電機電子群-創意組",
+    "competitionName": "全國高級中等學校專題暨創意製作競賽",
+    "subCompetition": "電機與電子群",
+    "category": "創意組",
+    "level": "全國",
+    "groupCodes": [
+      "03",
+      "04"
+    ],
+    "year": 115,
+    "registrationStart": "2026-01-20",
+    "registrationEnd": "2026-02-06",
+    "schoolCompetitionDeadline": null,
+    "finalRegistrationStart": null,
+    "finalRegistrationEnd": null,
+    "eventDate": "2026-04-30",
+    "eventEndDate": "2026-05-02",
+    "resultDate": null,
+    "placingThreshold": [
+      "第1名",
+      "第2名",
+      "第3名",
+      "優勝",
+      "佳作"
+    ],
+    "pathwayUseful": [
+      "skills",
+      "special",
+      "selection"
+    ],
+    "source": "https://topic.tcivs.tc.edu.tw/",
+    "fetchedAt": "2026-05-14T14:04:47.901822"
+  }
+]

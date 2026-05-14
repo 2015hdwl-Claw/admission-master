@@ -13,6 +13,7 @@ import {
   consolidateActionPlan,
   generateGradeAdvice,
 } from '@/lib/pathway-matcher'
+import { generateStrategy } from '@/lib/strategy-engine'
 import type {
   DepartmentInfo,
   StudentProfile,
@@ -20,6 +21,7 @@ import type {
   ConsolidatedActionPlan,
   GradeAdvice,
 } from '@/types/department'
+import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/strategy'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -64,6 +66,7 @@ export default function AbilityAccountPage() {
   const [analyses, setAnalyses] = useState<DepartmentAnalysis[]>([])
   const [consolidated, setConsolidated] = useState<ConsolidatedActionPlan | null>(null)
   const [advice, setAdvice] = useState<GradeAdvice | null>(null)
+  const [strategy, setStrategy] = useState<StrategyAdvice | null>(null)
   const [expandedPathway, setExpandedPathway] = useState<string | null>(null)
 
   useEffect(() => {
@@ -119,6 +122,7 @@ export default function AbilityAccountPage() {
     setConsolidated(consolidateActionPlan(a))
     if (resolved.length > 0) {
       setAdvice(generateGradeAdvice(resolved[0], saved.profile))
+      setStrategy(generateStrategy(saved.profile, resolved))
     }
     setLoading(false)
   }
@@ -435,6 +439,112 @@ export default function AbilityAccountPage() {
           </div>
         )}
 
+        {/* ── Strategy: Upgrade Paths ── */}
+        {strategy && strategy.upgradePaths.length > 0 && (
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-gray-900 mb-2">
+              {gradeLabel}策略 · {strategy.phase}
+            </h2>
+            <p className="text-sm text-gray-500 mb-4">
+              {strategy.phase === '鍛造期'
+                ? '你還有時間鍛造新武器，以下是 CP 值最高的升級路線'
+                : strategy.phase === '衝刺期'
+                ? '時間有限，專注在還來得及的行動'
+                : '三年養成路線，現在開始累積'}
+            </p>
+
+            <div className="space-y-3">
+              {strategy.upgradePaths.filter(p => p.canStillMakeIt).map((path, i) => (
+                <motion.div key={path.id} {...stagger(i)}
+                  className={`bg-white rounded-2xl p-5 shadow-sm border-l-4 ${
+                    path.roi === 'high' ? 'border-l-amber-400' :
+                    path.roi === 'medium' ? 'border-l-blue-400' : 'border-l-gray-300'
+                  }`}
+                >
+                  <div className="flex justify-between items-start gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                          path.type === 'certificate' ? 'bg-amber-100 text-amber-700' :
+                          'bg-blue-100 text-blue-700'
+                        }`}>
+                          {path.type === 'certificate' ? '證照' : '競賽'}
+                        </span>
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          path.roi === 'high' ? 'bg-green-100 text-green-700' :
+                          path.roi === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'
+                        }`}>
+                          {path.roi === 'high' ? '高 CP 值' : path.roi === 'medium' ? '中 CP 值' : '一般'}
+                        </span>
+                      </div>
+                      <div className="font-bold text-lg">{path.title}</div>
+                      <div className="text-sm text-gray-500 mt-1">{path.description}</div>
+
+                      {/* Impact */}
+                      <div className="flex flex-wrap gap-1 mt-2">
+                        {path.pathwaysOpened.map(pw => (
+                          <span key={pw} className="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-600 rounded-full">
+                            +{pathwayShort(pw)}管道
+                          </span>
+                        ))}
+                        {path.probabilityBoost > 0 && (
+                          <span className="px-2 py-0.5 text-xs bg-green-50 text-green-600 rounded-full">
+                            +{path.probabilityBoost}% 錄取率
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Timeline */}
+                    {path.registrationDeadline && (
+                      <div className="text-right shrink-0">
+                        <div className="text-xs text-gray-400">報名截止</div>
+                        <div className={`text-sm font-bold ${
+                          daysFromNowLocal(path.registrationDeadline) < 14 ? 'text-red-500' :
+                          daysFromNowLocal(path.registrationDeadline) < 30 ? 'text-amber-500' : 'text-gray-700'
+                        }`}>
+                          {formatDaysLeft(path.registrationDeadline)}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── Strategy: Critical Deadlines ── */}
+        {strategy && strategy.criticalDeadlines.length > 0 && (
+          <div className="mb-10">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">不可錯過的截止日</h2>
+            <div className="space-y-2">
+              {strategy.criticalDeadlines.filter(d => d.daysLeft > 0).slice(0, 8).map((dl, i) => (
+                <motion.div key={`${dl.date}-${dl.title}`} {...stagger(i)}
+                  className="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4"
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-white text-sm font-bold ${
+                    dl.urgency === 'critical' ? 'bg-red-400' :
+                    dl.urgency === 'warning' ? 'bg-amber-400' : 'bg-blue-400'
+                  }`}>
+                    {dl.daysLeft}天
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-sm">{dl.title}</div>
+                    <div className="text-xs text-gray-500">{dl.description}</div>
+                  </div>
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${
+                    dl.urgency === 'critical' ? 'bg-red-100 text-red-700' :
+                    dl.urgency === 'warning' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                  }`}>
+                    {dl.type === 'certificate' ? '證照' : dl.type === 'competition' ? '競賽' : '管道'}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── Quick Actions ── */}
         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white mb-8">
           <h3 className="text-lg font-bold mb-4">快速行動</h3>
@@ -489,4 +599,17 @@ function pathwayShort(key: string): string {
     skills: '技優', guarantee: '保送', special: '特殊',
   }
   return map[key] || key
+}
+
+function daysFromNowLocal(date: string): number {
+  return Math.ceil((new Date(date).getTime() - Date.now()) / 86400000)
+}
+
+function formatDaysLeft(date: string): string {
+  const d = daysFromNowLocal(date)
+  if (d <= 0) return '已截止'
+  if (d < 7) return `${d} 天後截止`
+  if (d < 30) return `${Math.ceil(d / 7)} 週後`
+  if (d < 365) return `${Math.ceil(d / 30)} 個月後`
+  return `${Math.ceil(d / 365)} 年後`
 }
