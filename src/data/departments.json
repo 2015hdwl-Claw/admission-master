@@ -35,7 +35,7 @@
     "source": {
       "year": 114,
       "deptCode": "202009",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -175,22 +175,22 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "C#",
         "SolidWorks",
-        "C#"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
+        "電機設備保養修護",
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "外科",
-        "內科"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [
-        "丙級工業配線技術士",
+        "醫師證書",
         "專科醫師",
-        "醫師證書"
+        "丙級工業配線技術士"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -230,7 +230,7 @@
     "source": {
       "year": 114,
       "deptCode": "202011",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -360,16 +360,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -419,7 +419,7 @@
     "source": {
       "year": 114,
       "deptCode": "202012",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -559,18 +559,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "LightTools"
+        "Lens",
+        "DAC",
+        "VCSEL"
       ],
       "requiredSkills": [
-        "光學模擬",
-        "production",
-        "光學系統測試分析",
-        "協助改善產品良率",
-        "光學檢測"
+        "生產設備",
+        "ESD",
+        "製程",
+        "Customer Support",
+        "production"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -606,7 +606,7 @@
     "source": {
       "year": 114,
       "deptCode": "202015",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -724,17 +724,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -770,7 +770,7 @@
     "source": {
       "year": 114,
       "deptCode": "203007",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -900,16 +900,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -946,7 +946,7 @@
     "source": {
       "year": 114,
       "deptCode": "203012",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1072,13 +1072,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "環安衛",
         "水處理",
+        "環安衛",
         "環境工程"
       ],
       "requiredCerts": [
-        "廢水處理專責人員合格證書",
-        "乙級職業安全衛生管理員"
+        "乙級職業安全衛生管理員",
+        "廢水處理專責人員合格證書"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -1112,7 +1112,7 @@
     "source": {
       "year": 114,
       "deptCode": "203024",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1237,14 +1237,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -1279,7 +1279,7 @@
     "source": {
       "year": 114,
       "deptCode": "204042",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1405,13 +1405,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "環安衛",
         "水處理",
+        "環安衛",
         "環境工程"
       ],
       "requiredCerts": [
-        "廢水處理專責人員合格證書",
-        "乙級職業安全衛生管理員"
+        "乙級職業安全衛生管理員",
+        "廢水處理專責人員合格證書"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -1445,7 +1445,7 @@
     "source": {
       "year": 114,
       "deptCode": "205030",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1570,14 +1570,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -1617,7 +1617,7 @@
     "source": {
       "year": 114,
       "deptCode": "216003",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1747,16 +1747,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "職業安全衛生",
+        "圖面判讀",
         "故障排除",
-        "執行安全衛生督導及稽核",
-        "工安"
+        "職業安全衛生",
+        "執行安全衛生督導及稽核"
       ],
       "requiredCerts": [
         "乙級職業安全衛生管理員"
@@ -1794,7 +1794,7 @@
     "source": {
       "year": 114,
       "deptCode": "222003",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -1924,18 +1924,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "DAC"
+        "DAC",
+        "EUV",
+        "LDO"
       ],
       "requiredSkills": [
-        "production",
-        "協助改善產品良率",
         "生產設備",
+        "ESD",
+        "製程",
         "Customer Support",
-        "製程"
+        "production"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -1970,7 +1970,7 @@
     "source": {
       "year": 114,
       "deptCode": "223001",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2090,14 +2090,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -2133,7 +2133,7 @@
     "source": {
       "year": 114,
       "deptCode": "812003",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2263,16 +2263,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -2310,7 +2310,7 @@
     "source": {
       "year": 114,
       "deptCode": "229004",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2440,18 +2440,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -2489,7 +2489,7 @@
     "source": {
       "year": 114,
       "deptCode": "236005",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2619,16 +2619,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -2671,7 +2671,7 @@
     "source": {
       "year": 114,
       "deptCode": "246011",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2806,18 +2806,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -2853,7 +2853,7 @@
     "source": {
       "year": 114,
       "deptCode": "707002",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -2983,16 +2983,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -3032,7 +3032,7 @@
     "source": {
       "year": 114,
       "deptCode": "228007",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -3157,17 +3157,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "API",
-        "Git"
+        "Git",
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "演算法",
-        "資料結構",
-        "程式開發",
         "維修",
-        "電控"
+        "資料結構",
+        "電控",
+        "程式開發"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -3213,7 +3213,7 @@
     "source": {
       "year": 114,
       "deptCode": "202006",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -3353,17 +3353,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "C#",
         "SolidWorks",
-        "C#"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
+        "電機設備保養修護",
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "圖面判讀",
-        "自動控制"
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -3401,7 +3401,7 @@
     "source": {
       "year": 114,
       "deptCode": "226005",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -3531,16 +3531,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -3578,7 +3578,7 @@
     "source": {
       "year": 114,
       "deptCode": "233008",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -3708,16 +3708,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -3754,7 +3754,7 @@
     "source": {
       "year": 114,
       "deptCode": "233011",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -3879,21 +3879,21 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "消防系統",
         "SolidWorks",
-        "消防系統"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "消防安全",
-        "故障排除",
+        "消防設計",
         "圖面判讀",
+        "故障排除",
         "消防檢修"
       ],
       "requiredCerts": [
-        "丙級室內配線技術士",
-        "特考消防設備士"
+        "特考消防設備士",
+        "丙級室內配線技術士"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -3931,7 +3931,7 @@
     "source": {
       "year": 114,
       "deptCode": "231006",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4061,14 +4061,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
         "圖面判讀",
+        "故障排除",
         "維修",
         "電控"
       ],
@@ -4108,7 +4108,7 @@
     "source": {
       "year": 114,
       "deptCode": "718001",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4238,16 +4238,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -4292,7 +4292,7 @@
     "source": {
       "year": 114,
       "deptCode": "411009",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4432,23 +4432,23 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Firewall",
-        "WAF",
-        "Vmware",
-        "Git"
+        "API",
+        "Ghost",
+        "Git",
+        "SolidWorks",
+        "MySQL"
       ],
       "requiredSkills": [
-        "儀器校正",
         "伺服器網站管理維護",
-        "故障排除",
-        "資訊設備環境設定",
-        "RESTful"
+        "RESTful",
+        "儀器校正",
+        "弱點掃描",
+        "演算法"
       ],
       "requiredCerts": [
-        "CCNA",
-        "CEH",
-        "ISO27001"
+        "CISSP",
+        "ISO27001",
+        "CEH"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -4482,7 +4482,7 @@
     "source": {
       "year": 114,
       "deptCode": "231002",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4607,14 +4607,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -4650,7 +4650,7 @@
     "source": {
       "year": 114,
       "deptCode": "246007",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4780,18 +4780,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -4828,7 +4828,7 @@
     "source": {
       "year": 114,
       "deptCode": "229021",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -4953,14 +4953,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -4996,7 +4996,7 @@
     "source": {
       "year": 114,
       "deptCode": "211007",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -5126,18 +5126,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -5173,7 +5173,7 @@
     "source": {
       "year": 114,
       "deptCode": "236007",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -5291,17 +5291,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -5337,7 +5337,7 @@
     "source": {
       "year": 114,
       "deptCode": "732014",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -5467,16 +5467,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -5520,7 +5520,7 @@
     "source": {
       "year": 114,
       "deptCode": "222006",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -5655,17 +5655,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "SolidWorks",
         "機電設備",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "水電",
-        "負責空調和機電設備系統異常處理",
-        "圖面判讀"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -5702,7 +5702,7 @@
     "source": {
       "year": 114,
       "deptCode": "738020",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -5827,14 +5827,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -5870,7 +5870,7 @@
     "source": {
       "year": 114,
       "deptCode": "810003",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6000,16 +6000,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -6047,7 +6047,7 @@
     "source": {
       "year": 114,
       "deptCode": "810004",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6177,16 +6177,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -6223,7 +6223,7 @@
     "source": {
       "year": 114,
       "deptCode": "240011",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6347,9 +6347,9 @@
         "Git"
       ],
       "requiredSkills": [
+        "演算法",
         "資料結構",
-        "程式開發",
-        "演算法"
+        "程式開發"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -6385,7 +6385,7 @@
     "source": {
       "year": 114,
       "deptCode": "738017",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6515,18 +6515,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -6564,7 +6564,7 @@
     "source": {
       "year": 114,
       "deptCode": "228003",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6694,16 +6694,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "C#",
         "SolidWorks",
-        "C#"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "圖面判讀",
+        "故障排除",
+        "電控",
         "自動控制"
       ],
       "requiredCerts": [],
@@ -6740,7 +6740,7 @@
     "source": {
       "year": 114,
       "deptCode": "203020",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -6870,18 +6870,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -6918,7 +6918,7 @@
     "source": {
       "year": 114,
       "deptCode": "204055",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.268455"
     },
     "pathways": {
       "stars": {
@@ -7043,21 +7043,21 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "消防系統",
         "SolidWorks",
-        "消防系統"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "消防安全",
-        "故障排除",
+        "消防設計",
         "圖面判讀",
+        "故障排除",
         "消防檢修"
       ],
       "requiredCerts": [
-        "丙級室內配線技術士",
-        "特考消防設備士"
+        "特考消防設備士",
+        "丙級室內配線技術士"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -7092,7 +7092,7 @@
     "source": {
       "year": 114,
       "deptCode": "205032",
-      "crawledAt": "2026-05-14T12:27:08.453393"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -7222,18 +7222,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -7271,7 +7271,7 @@
     "source": {
       "year": 114,
       "deptCode": "211009",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -7401,16 +7401,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -7448,7 +7448,7 @@
     "source": {
       "year": 114,
       "deptCode": "211003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -7566,17 +7566,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -7616,7 +7616,7 @@
     "source": {
       "year": 114,
       "deptCode": "223040",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -7751,18 +7751,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "C#",
-        "Java",
         "ASP.NET",
-        "Oracle"
+        "Ghost",
+        "SolidWorks",
+        "Oracle",
+        "SQL"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "伺服器網站管理維護",
-        "資料庫系統管理維護",
-        "資訊設備環境設定"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "資料備份與復原"
       ],
       "requiredCerts": [
         "CCNA"
@@ -7800,7 +7800,7 @@
     "source": {
       "year": 114,
       "deptCode": "724005",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -7930,16 +7930,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -7977,7 +7977,7 @@
     "source": {
       "year": 114,
       "deptCode": "411003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -8107,18 +8107,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -8161,7 +8161,7 @@
     "source": {
       "year": 114,
       "deptCode": "411006",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -8301,18 +8301,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -8347,7 +8347,7 @@
     "source": {
       "year": 114,
       "deptCode": "203015",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -8473,13 +8473,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "環安衛",
         "水處理",
+        "環安衛",
         "環境工程"
       ],
       "requiredCerts": [
-        "廢水處理專責人員合格證書",
-        "乙級職業安全衛生管理員"
+        "乙級職業安全衛生管理員",
+        "廢水處理專責人員合格證書"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -8514,7 +8514,7 @@
     "source": {
       "year": 114,
       "deptCode": "246006",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -8644,18 +8644,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -8690,7 +8690,7 @@
     "source": {
       "year": 114,
       "deptCode": "238006",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -8815,17 +8815,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
-        "治具"
+        "PLC",
+        "AutoCAD",
+        "SMT"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
-        "協助改善產品良率",
         "生產設備",
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
         "製程"
       ],
       "requiredCerts": [],
@@ -8874,7 +8874,7 @@
     "source": {
       "year": 114,
       "deptCode": "238003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9014,14 +9014,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -9064,7 +9064,7 @@
     "source": {
       "year": 114,
       "deptCode": "805004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9204,18 +9204,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "C#",
         "PLC",
-        "SolidWorks",
-        "CDMA"
+        "OrCAD",
+        "HFSS"
       ],
       "requiredSkills": [
+        "電機設備保養修護",
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "自動化設備"
+        "LTE"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -9252,7 +9252,7 @@
     "source": {
       "year": 114,
       "deptCode": "216007",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9377,21 +9377,21 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "消防系統",
         "SolidWorks",
-        "消防系統"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "消防安全",
-        "故障排除",
+        "消防設計",
         "圖面判讀",
+        "故障排除",
         "消防檢修"
       ],
       "requiredCerts": [
-        "丙級室內配線技術士",
-        "特考消防設備士"
+        "特考消防設備士",
+        "丙級室內配線技術士"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -9434,7 +9434,7 @@
     "source": {
       "year": 114,
       "deptCode": "105029",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9569,17 +9569,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "SolidWorks",
         "機電設備",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "水電",
-        "負責空調和機電設備系統異常處理",
-        "圖面判讀"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -9617,7 +9617,7 @@
     "source": {
       "year": 114,
       "deptCode": "724007",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9735,17 +9735,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -9780,7 +9780,7 @@
     "source": {
       "year": 114,
       "deptCode": "710005",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -9905,14 +9905,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -9948,7 +9948,7 @@
     "source": {
       "year": 114,
       "deptCode": "238007",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10062,18 +10062,18 @@
         }
       ],
       "requiredTools": [
-        "tensorflow",
-        "ETL",
         "SQL",
-        "Python",
-        "PyTorch"
+        "ETL",
+        "PyTorch",
+        "tensorflow",
+        "Python"
       ],
       "requiredSkills": [
+        "機器學習",
         "data pipeline",
-        "深度學習",
-        "NLP",
         "資料科學",
-        "機器學習"
+        "NLP",
+        "深度學習"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -10114,7 +10114,7 @@
     "source": {
       "year": 114,
       "deptCode": "215006",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10249,18 +10249,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "C#",
         "PLC",
-        "SolidWorks",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "繪製2D／3D模具設計圖",
-        "機構設計"
+        "圖面判讀",
+        "故障排除",
+        "製程"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -10296,7 +10296,7 @@
     "source": {
       "year": 114,
       "deptCode": "215003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10426,16 +10426,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -10472,7 +10472,7 @@
     "source": {
       "year": 114,
       "deptCode": "215008",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10596,9 +10596,9 @@
         "Git"
       ],
       "requiredSkills": [
+        "演算法",
         "資料結構",
-        "程式開發",
-        "演算法"
+        "程式開發"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -10639,7 +10639,7 @@
     "source": {
       "year": 114,
       "deptCode": "411012",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10769,18 +10769,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -10825,7 +10825,7 @@
     "source": {
       "year": 114,
       "deptCode": "233001",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -10965,18 +10965,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "tensorflow",
-        "ETL",
+        "SolidWorks",
         "SQL",
-        "PLC"
+        "ETL",
+        "PyTorch",
+        "tensorflow"
       ],
       "requiredSkills": [
+        "機器學習",
         "儀器校正",
-        "故障排除",
         "data pipeline",
-        "深度學習",
-        "NLP"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -11011,7 +11011,7 @@
     "source": {
       "year": 114,
       "deptCode": "822006",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -11125,15 +11125,15 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "醫務管理",
+        "護理",
         "外科",
-        "內科",
         "報備支援",
-        "護理"
+        "掛號",
+        "醫務管理"
       ],
       "requiredCerts": [
-        "專科醫師",
         "醫師證書",
+        "專科醫師",
         "高考醫師(一)"
       ],
       "source": "104升學就業地圖",
@@ -11168,7 +11168,7 @@
     "source": {
       "year": 114,
       "deptCode": "822008",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -11293,14 +11293,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -11341,7 +11341,7 @@
     "source": {
       "year": 114,
       "deptCode": "814003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -11476,18 +11476,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "C#",
         "PLC",
-        "SolidWorks",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "繪製2D／3D模具設計圖",
-        "機構設計"
+        "圖面判讀",
+        "故障排除",
+        "製程"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -11523,7 +11523,7 @@
     "source": {
       "year": 114,
       "deptCode": "503415",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -11653,16 +11653,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -11700,7 +11700,7 @@
     "source": {
       "year": 114,
       "deptCode": "808017",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -11834,18 +11834,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -11882,7 +11882,7 @@
     "source": {
       "year": 114,
       "deptCode": "209021",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12011,14 +12011,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -12054,7 +12054,7 @@
     "source": {
       "year": 114,
       "deptCode": "704004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12188,16 +12188,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -12250,7 +12250,7 @@
     "source": {
       "year": 114,
       "deptCode": "712002",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12395,17 +12395,17 @@
       ],
       "requiredTools": [
         "AutoCAD",
-        "PLC",
-        "機電設備",
         "SolidWorks",
-        "品質系統"
+        "PLC",
+        "ISO9000",
+        "SPC"
       ],
       "requiredSkills": [
-        "品管",
+        "檢驗",
+        "水電",
         "儀器校正",
-        "故障排除",
-        "品保",
-        "檢驗"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -12442,7 +12442,7 @@
     "source": {
       "year": 114,
       "deptCode": "825004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12572,9 +12572,9 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
+        "工安",
         "職業安全衛生",
-        "執行安全衛生督導及稽核",
-        "工安"
+        "執行安全衛生督導及稽核"
       ],
       "requiredCerts": [
         "乙級職業安全衛生管理員"
@@ -12618,7 +12618,7 @@
     "source": {
       "year": 114,
       "deptCode": "704003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12757,14 +12757,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -12799,7 +12799,7 @@
     "source": {
       "year": 114,
       "deptCode": "101004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -12928,14 +12928,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -12971,7 +12971,7 @@
     "source": {
       "year": 114,
       "deptCode": "101009",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -13105,16 +13105,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -13152,7 +13152,7 @@
     "source": {
       "year": 114,
       "deptCode": "102003",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -13286,16 +13286,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -13341,7 +13341,7 @@
     "source": {
       "year": 114,
       "deptCode": "104004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -13480,17 +13480,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "SolidWorks",
         "機電設備",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "水電",
-        "負責空調和機電設備系統異常處理",
-        "圖面判讀"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -13528,7 +13528,7 @@
     "source": {
       "year": 114,
       "deptCode": "107012",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -13662,16 +13662,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "C#",
         "SolidWorks",
-        "C#"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "自動化設備",
         "圖面判讀",
+        "故障排除",
+        "電控",
         "自動控制"
       ],
       "requiredCerts": [],
@@ -13706,7 +13706,7 @@
     "source": {
       "year": 114,
       "deptCode": "107018",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -13830,14 +13830,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -13876,7 +13876,7 @@
     "source": {
       "year": 114,
       "deptCode": "207020",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14010,13 +14010,13 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
+        "化工",
         "儀器校正",
-        "故障排除",
         "化學分析能力",
         "HPLC",
         "圖面判讀"
@@ -14054,7 +14054,7 @@
     "source": {
       "year": 114,
       "deptCode": "207024",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14184,9 +14184,9 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
+        "工安",
         "職業安全衛生",
-        "執行安全衛生督導及稽核",
-        "工安"
+        "執行安全衛生督導及稽核"
       ],
       "requiredCerts": [
         "乙級職業安全衛生管理員"
@@ -14223,7 +14223,7 @@
     "source": {
       "year": 114,
       "deptCode": "209046",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14352,14 +14352,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -14395,7 +14395,7 @@
     "source": {
       "year": 114,
       "deptCode": "217001",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14529,16 +14529,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -14580,7 +14580,7 @@
     "source": {
       "year": 114,
       "deptCode": "220024",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14719,18 +14719,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "C#",
-        "Java",
         "ASP.NET",
-        "Oracle"
+        "Ghost",
+        "SolidWorks",
+        "Oracle",
+        "SQL"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "伺服器網站管理維護",
-        "資料庫系統管理維護",
-        "資訊設備環境設定"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "資料備份與復原"
       ],
       "requiredCerts": [
         "CCNA"
@@ -14770,7 +14770,7 @@
     "source": {
       "year": 114,
       "deptCode": "713002",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -14899,17 +14899,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "Inventor",
         "SolidWorks",
-        "Inventor"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "繪製2D／3D模具設計圖",
-        "機構設計",
         "製程",
         "維修",
-        "電控"
+        "電控",
+        "機構設計"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -14947,7 +14947,7 @@
     "source": {
       "year": 114,
       "deptCode": "809001",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15081,16 +15081,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -15127,7 +15127,7 @@
     "source": {
       "year": 114,
       "deptCode": "707001",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15256,14 +15256,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -15298,7 +15298,7 @@
     "source": {
       "year": 114,
       "deptCode": "224019",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15427,17 +15427,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Java",
-        "PLC",
         "SolidWorks",
-        "C++"
+        "PLC",
+        "Java",
+        "C++",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "軟體程式設計",
         "故障排除",
-        "儀器校正"
+        "儀器校正",
+        "軟體程式設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -15472,7 +15472,7 @@
     "source": {
       "year": 114,
       "deptCode": "738022",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15601,14 +15601,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -15643,7 +15643,7 @@
     "source": {
       "year": 114,
       "deptCode": "207018",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15773,13 +15773,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "環安衛",
         "水處理",
+        "環安衛",
         "環境工程"
       ],
       "requiredCerts": [
-        "廢水處理專責人員合格證書",
-        "乙級職業安全衛生管理員"
+        "乙級職業安全衛生管理員",
+        "廢水處理專責人員合格證書"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -15820,7 +15820,7 @@
     "source": {
       "year": 114,
       "deptCode": "207029",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -15954,17 +15954,17 @@
         }
       ],
       "requiredTools": [
-        "Oracle",
-        "Vmware",
-        "Git",
         "API",
-        "MySQL"
+        "Ghost",
+        "Git",
+        "Oracle",
+        "SQL"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資料庫系統管理維護",
-        "資訊設備環境設定",
         "演算法",
+        "資料備份與復原",
+        "資訊設備環境設定",
         "資料結構"
       ],
       "requiredCerts": [
@@ -16003,7 +16003,7 @@
     "source": {
       "year": 114,
       "deptCode": "105115",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -16137,18 +16137,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -16184,7 +16184,7 @@
     "source": {
       "year": 114,
       "deptCode": "102005",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -16306,17 +16306,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -16352,7 +16352,7 @@
     "source": {
       "year": 114,
       "deptCode": "102016",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -16486,18 +16486,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -16534,7 +16534,7 @@
     "source": {
       "year": 114,
       "deptCode": "102054",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -16663,14 +16663,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -16705,7 +16705,7 @@
     "source": {
       "year": 114,
       "deptCode": "822004",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -16829,14 +16829,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -16877,7 +16877,7 @@
     "source": {
       "year": 114,
       "deptCode": "713007",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17011,14 +17011,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -17061,7 +17061,7 @@
     "source": {
       "year": 114,
       "deptCode": "102008",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17205,18 +17205,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design",
-        "Assembly"
+        "MCU",
+        "OrCAD",
+        "PLC"
       ],
       "requiredSkills": [
+        "ESD",
         "儀器校正",
+        "圖面判讀",
         "故障排除",
-        "硬體設計",
-        "電路設計",
-        "ESD"
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -17256,7 +17256,7 @@
     "source": {
       "year": 114,
       "deptCode": "103030",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17390,14 +17390,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
         "圖面判讀",
+        "故障排除",
         "維修",
         "電控"
       ],
@@ -17442,7 +17442,7 @@
     "source": {
       "year": 114,
       "deptCode": "105043",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17581,18 +17581,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -17628,7 +17628,7 @@
     "source": {
       "year": 114,
       "deptCode": "107020",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17762,16 +17762,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -17808,7 +17808,7 @@
     "source": {
       "year": 114,
       "deptCode": "107022",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.269498"
     },
     "pathways": {
       "stars": {
@@ -17925,18 +17925,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LightTools",
         "Lens",
         "VCSEL",
-        "Zemax"
+        "Zemax",
+        "AutoCAD",
+        "LightTools"
       ],
       "requiredSkills": [
-        "光學模擬",
-        "光學系統測試分析",
         "製程",
+        "光學檢測",
+        "光學模擬",
         "光學設計",
-        "光學檢測"
+        "光學系統測試分析"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -17971,7 +17971,7 @@
     "source": {
       "year": 114,
       "deptCode": "201023",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -18101,13 +18101,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "環安衛",
         "水處理",
+        "環安衛",
         "環境工程"
       ],
       "requiredCerts": [
-        "廢水處理專責人員合格證書",
-        "乙級職業安全衛生管理員"
+        "乙級職業安全衛生管理員",
+        "廢水處理專責人員合格證書"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -18142,7 +18142,7 @@
     "source": {
       "year": 114,
       "deptCode": "208002",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -18276,16 +18276,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -18335,7 +18335,7 @@
     "source": {
       "year": 114,
       "deptCode": "208011",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -18479,18 +18479,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "LightTools"
+        "Lens",
+        "DAC",
+        "VCSEL"
       ],
       "requiredSkills": [
-        "光學模擬",
-        "production",
-        "光學系統測試分析",
-        "協助改善產品良率",
-        "光學檢測"
+        "生產設備",
+        "ESD",
+        "製程",
+        "Customer Support",
+        "production"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -18526,7 +18526,7 @@
     "source": {
       "year": 114,
       "deptCode": "250002",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -18660,16 +18660,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -18707,7 +18707,7 @@
     "source": {
       "year": 114,
       "deptCode": "250008",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -18841,18 +18841,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -18888,7 +18888,7 @@
     "source": {
       "year": 114,
       "deptCode": "415002",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19022,16 +19022,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -19069,7 +19069,7 @@
     "source": {
       "year": 114,
       "deptCode": "107024",
-      "crawledAt": "2026-05-14T12:27:08.454407"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19203,18 +19203,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -19255,7 +19255,7 @@
     "source": {
       "year": 114,
       "deptCode": "105027",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19389,14 +19389,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
         "圖面判讀",
+        "故障排除",
         "維修",
         "電控"
       ],
@@ -19436,7 +19436,7 @@
     "source": {
       "year": 114,
       "deptCode": "105041",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19558,17 +19558,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -19603,7 +19603,7 @@
     "source": {
       "year": 114,
       "deptCode": "227042",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19731,9 +19731,9 @@
         "Git"
       ],
       "requiredSkills": [
+        "演算法",
         "資料結構",
-        "程式開發",
-        "演算法"
+        "程式開發"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -19769,7 +19769,7 @@
     "source": {
       "year": 114,
       "deptCode": "250005",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -19891,17 +19891,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -19936,7 +19936,7 @@
     "source": {
       "year": 114,
       "deptCode": "218014",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20064,9 +20064,9 @@
         "Git"
       ],
       "requiredSkills": [
+        "演算法",
         "資料結構",
-        "程式開發",
-        "演算法"
+        "程式開發"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20102,7 +20102,7 @@
     "source": {
       "year": 114,
       "deptCode": "208005",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20224,17 +20224,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20269,7 +20269,7 @@
     "source": {
       "year": 114,
       "deptCode": "724009",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20386,18 +20386,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LightTools",
         "Lens",
         "VCSEL",
-        "Zemax"
+        "Zemax",
+        "AutoCAD",
+        "LightTools"
       ],
       "requiredSkills": [
-        "光學模擬",
-        "光學系統測試分析",
         "製程",
+        "光學檢測",
+        "光學模擬",
         "光學設計",
-        "光學檢測"
+        "光學系統測試分析"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20432,7 +20432,7 @@
     "source": {
       "year": 114,
       "deptCode": "103032",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20561,14 +20561,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20604,7 +20604,7 @@
     "source": {
       "year": 114,
       "deptCode": "105045",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20738,18 +20738,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "DAC"
+        "DAC",
+        "EUV",
+        "LDO"
       ],
       "requiredSkills": [
-        "production",
-        "協助改善產品良率",
         "生產設備",
+        "ESD",
+        "製程",
         "Customer Support",
-        "製程"
+        "production"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20784,7 +20784,7 @@
     "source": {
       "year": 114,
       "deptCode": "415009",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -20913,14 +20913,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -20955,7 +20955,7 @@
     "source": {
       "year": 114,
       "deptCode": "103062",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21084,14 +21084,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
         "圖面判讀",
+        "故障排除",
         "維修",
         "電控"
       ],
@@ -21131,7 +21131,7 @@
     "source": {
       "year": 114,
       "deptCode": "107028",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21253,17 +21253,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -21305,7 +21305,7 @@
     "source": {
       "year": 114,
       "deptCode": "107010",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21444,18 +21444,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -21490,7 +21490,7 @@
     "source": {
       "year": 114,
       "deptCode": "208023",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21619,14 +21619,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -21661,7 +21661,7 @@
     "source": {
       "year": 114,
       "deptCode": "218026",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21790,17 +21790,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
-        "治具"
+        "PLC",
+        "AutoCAD",
+        "SMT"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
-        "協助改善產品良率",
         "生產設備",
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
         "製程"
       ],
       "requiredCerts": [],
@@ -21843,7 +21843,7 @@
     "source": {
       "year": 114,
       "deptCode": "218058",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -21982,23 +21982,23 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Firewall",
-        "SMT",
+        "治具",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "Firewall",
+        "WAF"
       ],
       "requiredSkills": [
+        "生產設備",
+        "弱點掃描",
         "儀器校正",
-        "故障排除",
-        "規劃與管理防火牆",
-        "協助改善產品良率",
-        "弱點掃描"
+        "安裝與維護網路安全系統",
+        "圖面判讀"
       ],
       "requiredCerts": [
+        "CISSP",
         "ISO27001",
-        "CEH",
-        "CISSP"
+        "CEH"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -22033,7 +22033,7 @@
     "source": {
       "year": 114,
       "deptCode": "250017",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -22167,18 +22167,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -22214,7 +22214,7 @@
     "source": {
       "year": 114,
       "deptCode": "250020",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -22348,18 +22348,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -22394,7 +22394,7 @@
     "source": {
       "year": 114,
       "deptCode": "103027",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -22523,14 +22523,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -22565,7 +22565,7 @@
     "source": {
       "year": 114,
       "deptCode": "227036",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -22695,15 +22695,15 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "提案與簡報技巧",
         "廣告企劃案╱文案撰寫",
         "活動企劃",
+        "提案與簡報技巧",
         "水中救生",
         "運動相關"
       ],
       "requiredCerts": [
-        "個人指導證",
         "體適能教練證照",
+        "個人指導證",
         "CPR證照"
       ],
       "source": "104升學就業地圖",
@@ -22738,7 +22738,7 @@
     "source": {
       "year": 114,
       "deptCode": "230022",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -22866,9 +22866,9 @@
         "Git"
       ],
       "requiredSkills": [
+        "演算法",
         "資料結構",
-        "程式開發",
-        "演算法"
+        "程式開發"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -22910,7 +22910,7 @@
     "source": {
       "year": 114,
       "deptCode": "230025",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23044,22 +23044,22 @@
         }
       ],
       "requiredTools": [
+        "Firewall",
         "API",
         "WAF",
-        "Firewall",
         "Git"
       ],
       "requiredSkills": [
-        "規劃與管理防火牆",
-        "演算法",
         "弱點掃描",
+        "演算法",
+        "安裝與維護網路安全系統",
         "資料結構",
-        "程式開發"
+        "規劃與管理防火牆"
       ],
       "requiredCerts": [
+        "CISSP",
         "ISO27001",
-        "CEH",
-        "CISSP"
+        "CEH"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -23100,7 +23100,7 @@
     "source": {
       "year": 114,
       "deptCode": "230031",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23239,21 +23239,21 @@
         }
       ],
       "requiredTools": [
-        "Photoshop",
         "Firewall",
-        "WAF"
+        "WAF",
+        "Photoshop"
       ],
       "requiredSkills": [
-        "平面設計",
-        "視覺設計相關知識",
-        "規劃與管理防火牆",
-        "遊戲營運",
-        "美術"
+        "品牌設計",
+        "弱點掃描",
+        "安裝與維護網路安全系統",
+        "美術",
+        "遊戲營運"
       ],
       "requiredCerts": [
+        "CISSP",
         "ISO27001",
-        "CEH",
-        "CISSP"
+        "CEH"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -23288,7 +23288,7 @@
     "source": {
       "year": 114,
       "deptCode": "107401",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23410,17 +23410,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -23456,7 +23456,7 @@
     "source": {
       "year": 114,
       "deptCode": "109009",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23590,16 +23590,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -23637,7 +23637,7 @@
     "source": {
       "year": 114,
       "deptCode": "110002",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23771,16 +23771,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -23824,7 +23824,7 @@
     "source": {
       "year": 114,
       "deptCode": "110017",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -23963,17 +23963,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "SolidWorks",
         "機電設備",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "水電",
-        "負責空調和機電設備系統異常處理",
-        "圖面判讀"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -24011,7 +24011,7 @@
     "source": {
       "year": 114,
       "deptCode": "206007",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -24145,16 +24145,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -24196,7 +24196,7 @@
     "source": {
       "year": 114,
       "deptCode": "245021",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -24335,18 +24335,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "C#",
-        "Java",
         "ASP.NET",
-        "Oracle"
+        "Ghost",
+        "SolidWorks",
+        "Oracle",
+        "SQL"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "伺服器網站管理維護",
-        "資料庫系統管理維護",
-        "資訊設備環境設定"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "資料備份與復原"
       ],
       "requiredCerts": [
         "CCNA"
@@ -24384,7 +24384,7 @@
     "source": {
       "year": 114,
       "deptCode": "110010",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -24518,18 +24518,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -24566,7 +24566,7 @@
     "source": {
       "year": 114,
       "deptCode": "201059",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -24695,17 +24695,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Java",
-        "PLC",
         "SolidWorks",
-        "C++"
+        "PLC",
+        "Java",
+        "C++",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "軟體程式設計",
         "故障排除",
-        "儀器校正"
+        "儀器校正",
+        "軟體程式設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -24741,7 +24741,7 @@
     "source": {
       "year": 114,
       "deptCode": "239008",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -24875,16 +24875,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -24927,7 +24927,7 @@
     "source": {
       "year": 114,
       "deptCode": "239013",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -25066,18 +25066,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -25118,7 +25118,7 @@
     "source": {
       "year": 114,
       "deptCode": "110004",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -25257,18 +25257,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design",
-        "Assembly"
+        "MCU",
+        "OrCAD",
+        "PLC"
       ],
       "requiredSkills": [
+        "ESD",
         "儀器校正",
+        "圖面判讀",
         "故障排除",
-        "硬體設計",
-        "電路設計",
-        "ESD"
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -25317,7 +25317,7 @@
     "source": {
       "year": 114,
       "deptCode": "110006",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -25461,18 +25461,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Photoshop",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design"
+        "MCU",
+        "OrCAD",
+        "PLC"
       ],
       "requiredSkills": [
+        "品牌設計",
+        "ESD",
         "儀器校正",
-        "平面設計",
-        "故障排除",
-        "視覺設計相關知識",
-        "硬體設計"
+        "美術",
+        "圖面判讀"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -25518,7 +25518,7 @@
     "source": {
       "year": 114,
       "deptCode": "110008",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -25662,18 +25662,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design",
-        "Assembly"
+        "MCU",
+        "OrCAD",
+        "PLC"
       ],
       "requiredSkills": [
+        "ESD",
         "儀器校正",
+        "圖面判讀",
         "故障排除",
-        "硬體設計",
-        "電路設計",
-        "ESD"
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -25720,7 +25720,7 @@
     "source": {
       "year": 114,
       "deptCode": "110014",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -25864,18 +25864,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "DAC"
+        "SolidWorks",
+        "DAC",
+        "EUV"
       ],
       "requiredSkills": [
+        "生產設備",
+        "ESD",
+        "化工",
         "儀器校正",
-        "故障排除",
-        "production",
-        "化學分析能力",
-        "協助改善產品良率"
+        "化學分析能力"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -25911,7 +25911,7 @@
     "source": {
       "year": 114,
       "deptCode": "109007",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26045,18 +26045,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "CDMA",
-        "HFSS"
+        "PLC",
+        "OrCAD",
+        "HFSS",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "圖面判讀"
+        "LTE",
+        "天線設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -26098,7 +26098,7 @@
     "source": {
       "year": 114,
       "deptCode": "110019",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26237,17 +26237,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
         "PLC",
+        "SolidWorks",
         "機電設備",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "儀器校正",
-        "故障排除",
         "水電",
-        "負責空調和機電設備系統異常處理",
-        "圖面判讀"
+        "儀器校正",
+        "圖面判讀",
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級室內配線技術士"
@@ -26285,7 +26285,7 @@
     "source": {
       "year": 114,
       "deptCode": "206009",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26407,17 +26407,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -26453,7 +26453,7 @@
     "source": {
       "year": 114,
       "deptCode": "105033",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26587,16 +26587,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -26634,7 +26634,7 @@
     "source": {
       "year": 114,
       "deptCode": "239010",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26768,18 +26768,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -26816,7 +26816,7 @@
     "source": {
       "year": 114,
       "deptCode": "206012",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -26945,23 +26945,23 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "Firewall",
-        "PLC",
         "SolidWorks",
-        "WAF"
+        "PLC",
+        "Firewall",
+        "WAF",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "規劃與管理防火牆",
         "弱點掃描",
-        "安裝與維護網路安全系統"
+        "安裝與維護網路安全系統",
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [
+        "CISSP",
         "ISO27001",
-        "CEH",
-        "CISSP"
+        "CEH"
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -27001,7 +27001,7 @@
     "source": {
       "year": 114,
       "deptCode": "110043",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -27140,17 +27140,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "PLC",
+        "C#",
         "SolidWorks",
-        "C#"
+        "PLC",
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
-        "自動化設備",
+        "電機設備保養修護",
         "圖面判讀",
-        "自動控制"
+        "故障排除",
+        "維修"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -27188,7 +27188,7 @@
     "source": {
       "year": 114,
       "deptCode": "110044",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -27306,18 +27306,18 @@
         }
       ],
       "requiredTools": [
-        "tensorflow",
-        "ETL",
         "SQL",
-        "Python",
-        "PyTorch"
+        "ETL",
+        "PyTorch",
+        "tensorflow",
+        "Python"
       ],
       "requiredSkills": [
+        "機器學習",
         "data pipeline",
-        "深度學習",
-        "NLP",
         "資料科學",
-        "機器學習"
+        "NLP",
+        "深度學習"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -27360,7 +27360,7 @@
     "source": {
       "year": 114,
       "deptCode": "201052",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -27504,18 +27504,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Assembly",
+        "API",
+        "Ghost",
         "Git",
-        "PHP",
-        "PADS"
+        "MCU",
+        "MySQL"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
-        "硬體設計",
         "RESTful",
-        "演算法"
+        "演算法",
+        "韌體工程開發",
+        "資料備份與復原"
       ],
       "requiredCerts": [
         "CCNA"
@@ -27552,7 +27552,7 @@
     "source": {
       "year": 114,
       "deptCode": "201066",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -27661,13 +27661,13 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "培訓機師Cadet Pilot",
-        "駕駛艙資源管理(CRM)"
+        "駕駛艙資源管理(CRM)",
+        "培訓機師Cadet Pilot"
       ],
       "requiredCerts": [
-        "初級機師執照(RPL) ",
+        "商用飛行執照(CPL)",
         "私人飛行執照(PPL) ",
-        "商用飛行執照(CPL)"
+        "初級機師執照(RPL) "
       ],
       "source": "104升學就業地圖",
       "fetchedAt": "2026-05-14"
@@ -27702,7 +27702,7 @@
     "source": {
       "year": 114,
       "deptCode": "206004",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -27836,18 +27836,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
+        "治具",
         "ATE",
-        "LDO",
-        "DAC"
+        "DAC",
+        "EUV",
+        "LDO"
       ],
       "requiredSkills": [
-        "production",
-        "協助改善產品良率",
         "生產設備",
+        "ESD",
+        "製程",
         "Customer Support",
-        "製程"
+        "production"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -27894,7 +27894,7 @@
     "source": {
       "year": 114,
       "deptCode": "105038",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -28038,17 +28038,17 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design",
-        "Assembly"
+        "MCU",
+        "Linux",
+        "OrCAD"
       ],
       "requiredSkills": [
+        "ESD",
         "儀器校正",
+        "圖面判讀",
         "故障排除",
-        "硬體設計",
-        "韌體程式設計",
         "韌體工程開發"
       ],
       "requiredCerts": [],
@@ -28092,7 +28092,7 @@
     "source": {
       "year": 114,
       "deptCode": "105036",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -28236,18 +28236,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "LDO",
+        "SolidWorks",
         "DAC",
-        "Circuit Design",
-        "Assembly"
+        "MCU",
+        "OrCAD",
+        "PLC"
       ],
       "requiredSkills": [
+        "ESD",
         "儀器校正",
-        "天線設計",
+        "圖面判讀",
         "故障排除",
-        "射頻",
-        "硬體設計"
+        "LTE"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -28283,7 +28283,7 @@
     "source": {
       "year": 114,
       "deptCode": "105034",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -28405,17 +28405,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -28450,7 +28450,7 @@
     "source": {
       "year": 114,
       "deptCode": "201064",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -28579,14 +28579,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -28629,7 +28629,7 @@
     "source": {
       "year": 114,
       "deptCode": "239005",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.270478"
     },
     "pathways": {
       "stars": {
@@ -28773,18 +28773,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -28820,7 +28820,7 @@
     "source": {
       "year": 114,
       "deptCode": "104006",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -28954,16 +28954,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -29001,7 +29001,7 @@
     "source": {
       "year": 114,
       "deptCode": "104010",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -29135,18 +29135,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -29184,7 +29184,7 @@
     "source": {
       "year": 114,
       "deptCode": "213007",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -29318,16 +29318,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -29365,7 +29365,7 @@
     "source": {
       "year": 114,
       "deptCode": "213009",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -29487,17 +29487,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -29533,7 +29533,7 @@
     "source": {
       "year": 114,
       "deptCode": "219033",
-      "crawledAt": "2026-05-14T12:27:08.455424"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -29667,18 +29667,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -29715,7 +29715,7 @@
     "source": {
       "year": 114,
       "deptCode": "818002",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -29833,15 +29833,15 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "醫務管理",
+        "護理",
         "外科",
-        "內科",
         "報備支援",
-        "護理"
+        "掛號",
+        "醫務管理"
       ],
       "requiredCerts": [
-        "專科醫師",
         "醫師證書",
+        "專科醫師",
         "高考醫師(一)"
       ],
       "source": "104升學就業地圖",
@@ -29876,7 +29876,7 @@
     "source": {
       "year": 114,
       "deptCode": "228006",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30005,14 +30005,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -30055,7 +30055,7 @@
     "source": {
       "year": 114,
       "deptCode": "213005",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30199,18 +30199,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -30246,7 +30246,7 @@
     "source": {
       "year": 114,
       "deptCode": "801005",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30380,16 +30380,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -30426,7 +30426,7 @@
     "source": {
       "year": 114,
       "deptCode": "210031",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30556,17 +30556,17 @@
       ],
       "requiredTools": [
         "AutoCAD",
-        "PLC",
         "SolidWorks",
-        "品質系統",
+        "PLC",
+        "ISO9000",
         "SPC"
       ],
       "requiredSkills": [
-        "品管",
+        "檢驗",
         "儀器校正",
+        "圖面判讀",
         "故障排除",
-        "品保",
-        "檢驗"
+        "品保"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -30601,7 +30601,7 @@
     "source": {
       "year": 114,
       "deptCode": "210042",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30731,9 +30731,9 @@
       ],
       "requiredTools": [],
       "requiredSkills": [
-        "提案與簡報技巧",
         "廣告企劃案╱文案撰寫",
-        "活動企劃"
+        "活動企劃",
+        "提案與簡報技巧"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -30769,7 +30769,7 @@
     "source": {
       "year": 114,
       "deptCode": "210056",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -30891,17 +30891,17 @@
         }
       ],
       "requiredTools": [
-        "LDO",
         "DAC",
-        "Circuit Design",
-        "Assembly",
-        "PADS"
+        "MCU",
+        "OrCAD",
+        "LDO",
+        "Assembly"
       ],
       "requiredSkills": [
-        "硬體設計",
-        "PCB Layout",
+        "ESD",
         "電路設計",
-        "ESD"
+        "PCB Layout",
+        "硬體設計"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -30937,7 +30937,7 @@
     "source": {
       "year": 114,
       "deptCode": "210059",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31071,16 +31071,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -31118,7 +31118,7 @@
     "source": {
       "year": 114,
       "deptCode": "210008",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31252,18 +31252,18 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
-        "SMT",
-        "PLC",
+        "治具",
         "SolidWorks",
+        "PLC",
+        "AutoCAD",
         "Inventor"
       ],
       "requiredSkills": [
+        "生產設備",
         "儀器校正",
-        "故障排除",
         "繪製2D／3D模具設計圖",
-        "協助改善產品良率",
-        "生產設備"
+        "圖面判讀",
+        "故障排除"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -31299,7 +31299,7 @@
     "source": {
       "year": 114,
       "deptCode": "113047",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31417,18 +31417,18 @@
         }
       ],
       "requiredTools": [
-        "tensorflow",
-        "ETL",
         "SQL",
-        "Python",
-        "PyTorch"
+        "ETL",
+        "PyTorch",
+        "tensorflow",
+        "Python"
       ],
       "requiredSkills": [
+        "機器學習",
         "data pipeline",
-        "深度學習",
-        "NLP",
         "資料科學",
-        "機器學習"
+        "NLP",
+        "深度學習"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -31464,7 +31464,7 @@
     "source": {
       "year": 114,
       "deptCode": "214007",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31598,16 +31598,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
@@ -31644,7 +31644,7 @@
     "source": {
       "year": 114,
       "deptCode": "214017",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31773,14 +31773,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "圖面判讀",
-        "儀器校正",
-        "故障排除"
+        "故障排除",
+        "儀器校正"
       ],
       "requiredCerts": [],
       "source": "104升學就業地圖",
@@ -31815,7 +31815,7 @@
     "source": {
       "year": 114,
       "deptCode": "212009",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -31944,14 +31944,14 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "SolidWorks",
         "PLC",
-        "SolidWorks"
+        "AutoCAD"
       ],
       "requiredSkills": [
         "儀器校正",
-        "故障排除",
         "圖面判讀",
+        "故障排除",
         "維修",
         "電控"
       ],
@@ -31991,7 +31991,7 @@
     "source": {
       "year": 114,
       "deptCode": "212004",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -32125,18 +32125,18 @@
         }
       ],
       "requiredTools": [
-        "Vmware",
-        "Git",
         "API",
+        "Ghost",
+        "Git",
         "MySQL",
-        "Linux"
+        "Vmware"
       ],
       "requiredSkills": [
         "伺服器網站管理維護",
-        "資訊設備環境設定",
         "RESTful",
         "演算法",
-        "資料結構"
+        "資料備份與復原",
+        "資訊設備環境設定"
       ],
       "requiredCerts": [
         "CCNA"
@@ -32174,7 +32174,7 @@
     "source": {
       "year": 114,
       "deptCode": "212013",
-      "crawledAt": "2026-05-14T12:27:08.456315"
+      "crawledAt": "2026-05-14T16:23:41.271477"
     },
     "pathways": {
       "stars": {
@@ -32308,16 +32308,16 @@
         }
       ],
       "requiredTools": [
-        "AutoCAD",
+        "C#",
         "PLC",
-        "C#"
+        "AutoCAD"
       ],
       "requiredSkills": [
-        "自動化設備",
-        "自動控制",
+        "電機設備保養修護",
         "維修",
         "電控",
-        "電機設備保養修護"
+        "自動控制",
+        "自動化設備"
       ],
       "requiredCerts": [
         "丙級工業配線技術士"
