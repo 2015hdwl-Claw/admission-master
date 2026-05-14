@@ -1,48 +1,13 @@
 {
   "project_name": "admission-master",
-  "project_title": "升學大師 v2.0 - 以終為始的高職升學路徑發現引擎",
-  "last_updated": "2026-05-11",
-  "current_phase": "Phase 3 - Week 4: 免費發現之旅實作 + 光域風格重構",
-  "overall_progress": 85,
-  "core_philosophy": "以終為始 - 先選擇目標科系，再顯示達成路徑與差距。永遠不說「你不行」。",
-  "ui_style": "光域風格 - 全螢幕沉浸、一次一個問題、沒有按鈕、流暢過渡",
+  "project_title": "升學大師 - 武器庫導向的高職升學路徑發現引擎 → 生涯導航平台",
+  "last_updated": "2026-05-14",
+  "current_phase": "Phase 3 - 電機群 MVP 閉環 (v4.0)",
+  "overall_progress": 55,
+  "core_philosophy": "先盤點武器庫，再推薦最有利的管道。從升學工具升級為生涯導航平台。",
+  "strategy_pivot": "v4.0: 入學條件 + 畢業出路 + 產學合作 三合一",
 
-  "major_update": "2026-05-11: 以終為始免費發現之旅 MVP 完成（5 tasks, 6 commits），待光域風格 UI 重構",
-
-  "free_discovery_journey": {
-    "status": "MVP_COMPLETE_NEEDS_REFACTOR",
-    "branch": "feature/free-discovery-implementation",
-    "worktree": ".worktrees/free-discovery-implementation",
-    "commits": ["eaaf8fa", "a1b9fcf", "98977ef", "6bf966d", "4dcaef2", "5b0f5bb"],
-    "build_status": "pass",
-    "six_steps": {
-      "step_1": { "name": "我想去哪裡？", "status": "done", "note": "搜尋科系，選擇目標" },
-      "step_2": { "name": "這個目標需要什麼？", "status": "done", "note": "6 種管道卡片展示" },
-      "step_3": { "name": "我現在有什麼？", "status": "done", "note": "盤點表單（需改為全螢幕逐題）" },
-      "step_4": { "name": "我的差距在哪裡？", "status": "done", "note": "機率卡片 + 條件盤點 + 動力訊息" },
-      "step_5": { "name": "我需要完成什麼？", "status": "done", "note": "待辦清單 + 儲存 + 分享" },
-      "step_6": { "name": "我的時間表是？", "status": "partial", "note": "行動計畫合併在步驟 5，需獨立為步驟 6" }
-    },
-    "refactor_needed": {
-      "priority_1": "移除所有按鈕，改為自動前進 + 滑動導航",
-      "priority_2": "步驟 3 表單改為全螢幕逐題呈現（一次一個問題）",
-      "priority_3": "背景色隨步驟漸變（6 種不同漸層色）",
-      "priority_4": "移除頂部導覽列，改為極簡進度指示",
-      "priority_5": "步驟 5 和步驟 6 拆分為獨立步驟"
-    }
-  },
-
-  "department_database": {
-    "status": "MOCK_DATA_READY",
-    "records": 35,
-    "universities": 10,
-    "vocational_groups": "all 15 groups covered",
-    "file": "src/lib/department-database.ts",
-    "search_api": "src/app/api/departments/search/route.ts",
-    "types": "src/types/department.ts",
-    "migration": "supabase/migrations/20260511_department_requirements.sql",
-    "note": "MVP 使用 mock data，正式上線前需匯入真實歷史數據"
-  },
+  "major_update": "2026-05-14: v4.0 策略升級 — 電機群 MVP 閉環，資料從 36 擴展到 ~170 科系，加入護城河資料（畢業出路+產學合作）",
 
   "phases": {
     "phase_1": {
@@ -50,35 +15,119 @@
       "status": "completed",
       "progress": 100,
       "start_date": "2026-05-01",
-      "end_date": "2026-05-10"
+      "end_date": "2026-05-12"
     },
     "phase_2": {
       "name": "規劃與設計",
       "status": "completed",
       "progress": 100,
-      "start_date": "2026-05-08",
-      "end_date": "2026-05-11"
+      "start_date": "2026-05-12",
+      "end_date": "2026-05-12"
     },
     "phase_3": {
       "name": "開發執行",
       "status": "in_progress",
-      "progress": 85,
-      "start_date": "2026-05-11",
-      "end_date": "2026-06-07",
-      "weeks": {
-        "week_1": { "name": "Explorer Experience", "status": "completed", "progress": 100 },
-        "week_2": { "name": "快速清理與功能融合", "status": "completed", "progress": 100 },
-        "week_3": { "name": "核心功能整合 + 以終為始設計", "status": "completed", "progress": 100 },
-        "week_4": { "name": "免費發現之旅實作 + 光域風格重構", "status": "in_progress", "progress": 60 }
+      "progress": 55,
+      "start_date": "2026-05-12",
+      "tasks": {
+        "completed": {
+          "engine": "✅ 管道匹配引擎 (pathway-matcher.ts) — 六管道獨立計算、findBestPathway tiebreaker、consolidateActionPlan 分數去重",
+          "first_discovery": "✅ first-discovery 頁面 — 年級分流 + 武器庫 + 科系選擇",
+          "ability_account": "✅ ability-account 頁面 — localStorage 串接 + 分析展示",
+          "bug_fixes": "✅ 3 個 bug 修復 — 重複分數/錯誤推薦/按鈕寬度",
+          "seed_data": "✅ 36 個科系 seed data + 證照清單 + 競賽清單",
+          "data_source_research": "✅ 官方資料來源研究 — jctv.ntut.edu.tw 結構分析",
+          "moat_research": "✅ 護城河資料來源研究 — 104/ColleGo!/教育部/國科會 可行性驗證"
+        },
+        "current_sprint": {
+          "name": "電機群 MVP 閉環",
+          "target_user": "用戶兒子（控制科二年級）",
+          "steps": {
+            "step_1": {
+              "name": "爬蟲抓取電機群 ~170 科系入學條件",
+              "status": "pending",
+              "effort": "4-6h",
+              "source": "jctv.ntut.edu.tw (甄選 HTML + 分發 PDF + 繁星 PDF + 技優 PDF)",
+              "output": "~170 科系的完整入學條件"
+            },
+            "step_2": {
+              "name": "科系標籤 + 專題配對",
+              "status": "pending",
+              "effort": "2-3h",
+              "scope": "#PLC #控制 #電力 #IoT #半導體 #綠能 #冷凍 標籤系統"
+            },
+            "step_3": {
+              "name": "護城河資料 — 畢業出路 + 產學合作",
+              "status": "pending",
+              "effort": "6-8h",
+              "sources": [
+                "P0: 教育部開放資料 (CSV 直接下載)",
+                "P0: ColleGo! (ASP.NET MVC)",
+                "P1: 104升學就業地圖 (Playwright)",
+                "P1: 國科會產學查詢 (Playwright)",
+                "P2: 1111人才地圖 (HTML)",
+                "P2: 各校新聞稿 RSS"
+              ]
+            },
+            "step_4": {
+              "name": "UI 展示護城河資料",
+              "status": "pending",
+              "effort": "4-6h",
+              "scope": "DepartmentCard 元件 + 科系画像展示 + 出路比較"
+            }
+          },
+          "total_effort": "16-23h"
+        }
       }
     },
-    "phase_4": { "name": "成長與驗證", "status": "pending", "progress": 0 },
-    "phase_5": { "name": "擴展與規模", "status": "pending", "progress": 0 }
+    "phase_4": {
+      "name": "成長與驗證",
+      "status": "pending",
+      "progress": 0,
+      "next_milestone": "用戶兒子（控制科二年級）實際測試"
+    },
+    "phase_5": {
+      "name": "擴展與規模",
+      "status": "pending",
+      "progress": 0,
+      "plan": "電機群 → 全部 20 群 (2,383 科系) + 課程地圖 + 目標反推"
+    }
+  },
+
+  "data_status": {
+    "departments_json": {
+      "path": "src/data/departments.json",
+      "current_records": 36,
+      "target_records": 170,
+      "status": "SEED_DATA_READY",
+      "next_action": "爬蟲擴展電機群科系"
+    },
+    "certificates_db": {
+      "path": "src/data/certificates.ts",
+      "status": "CREATED",
+      "note": "15 個職群的丙級/乙級證照清單"
+    },
+    "competitions_db": {
+      "path": "src/data/competitions.ts",
+      "status": "CREATED",
+      "note": "校內/全國/國際競賽清單"
+    },
+    "department_profiles": {
+      "path": "src/data/department-profiles.json",
+      "status": "NOT_CREATED",
+      "note": "畢業出路 + 產學合作資料（Step 3 產出）"
+    },
+    "topic_tags": {
+      "path": "src/data/topic-tags.ts",
+      "status": "NOT_CREATED",
+      "note": "專題關鍵字標籤庫（Step 2 產出）"
+    }
   },
 
   "page_inventory": {
     "core_product": [
-      { "path": "/first-discovery", "name": "以終為始的發現之旅", "status": "MVP in worktree", "note": "6 步驟流程，需光域風格重構" }
+      { "path": "/first-discovery", "name": "武器庫導向發現之旅", "status": "v3.0 完成，待加入科系画像" },
+      { "path": "/ability-account", "name": "能力中心", "status": "v3.0 完成，已串接 first-discovery" }
     ],
     "explorer_zone": [
       { "path": "/", "name": "首頁", "status": "live" },
@@ -88,73 +137,83 @@
       { "path": "/department/[slug]", "name": "職群詳情", "status": "live" }
     ],
     "planner_zone": [
-      { "path": "/ability-account", "name": "能力中心", "status": "live" },
       { "path": "/portfolio", "name": "準備材料", "status": "live" },
       { "path": "/roadmap", "name": "時間線", "status": "live" },
       { "path": "/interview", "name": "申請準備", "status": "live" }
-    ],
-    "auth_and_setup": [
-      { "path": "/login", "name": "登入", "status": "live" },
-      { "path": "/onboarding/step1-5", "name": "新用戶引導", "status": "live" }
-    ],
-    "hidden": [
-      { "path": "/parent", "name": "家長儀表板", "status": "hidden" },
-      { "path": "/pricing", "name": "定價", "status": "hidden" }
-    ],
-    "removed": ["/analyze", "/business-strategy", "/calendar", "/guide", "/results", "/strategy", "/teacher", "/test", "/demo"]
+    ]
   },
 
   "current_status": {
     "development_server": "available",
     "build_status": "pass",
-    "git_branch": "feature/free-discovery-implementation (worktree)",
-    "master_branch": "stable",
-    "production_deployed": true,
     "production_url": "https://admission-master-ecru.vercel.app/",
-    "production_status": "live (old version)",
-    "anonymous_access_enabled": true,
-    "global_nav_active": true,
-    "role_system_integrated": false,
-    "ready_for_alpha_testing": false,
-    "alpha_blocker": "光域風格 UI 重構未完成 + feature branch 未合併到 master"
+    "production_deployed": true,
+    "mvp_validation_user": "用戶兒子（控制科二年級）"
   },
 
-  "next_actions_priority": [
+  "next_actions": [
     {
       "priority": 1,
-      "action": "光域風格 UI 重構：移除按鈕、全螢幕沉浸、自動前進、滑動導航、背景漸變",
-      "effort": "high",
-      "impact": "核心產品體驗的靈魂，決定用戶是否願意走完全程"
+      "action": "Step 1: 建立爬蟲 tools/scrape-electrical-departments.py — 抓取 ~170 電機群科系",
+      "effort": "4-6h"
     },
     {
       "priority": 2,
-      "action": "步驟 3 盤點表單改為全螢幕逐題呈現（一次一個問題）",
-      "effort": "medium",
-      "impact": "光域風格核心原則，大幅降低認知負擔"
+      "action": "Step 2: 科系標籤系統 + 專題關鍵字配對",
+      "effort": "2-3h"
     },
     {
       "priority": 3,
-      "action": "步驟 5 和步驟 6 拆分：待辦清單 + 時間表獨立",
-      "effort": "low",
-      "impact": "完整 6 步驟體驗"
+      "action": "Step 3: 護城河資料爬蟲（教育部 CSV + ColleGo! + 104）",
+      "effort": "6-8h"
     },
     {
       "priority": 4,
-      "action": "合併 feature branch 到 master + 部署到生產環境",
-      "effort": "low",
-      "impact": "讓真實用戶可以開始使用"
-    },
-    {
-      "priority": 5,
-      "action": "Alpha 測試（5-10 名高職生）",
-      "effort": "requires_user",
-      "impact": "真實反饋驗證產品假設"
-    },
-    {
-      "priority": 6,
-      "action": "接入角色系統到 GlobalNav + 核心頁面",
-      "effort": "medium",
-      "impact": "用戶看到角色和等級，有進步感"
+      "action": "Step 4: UI 展示（DepartmentCard + 科系画像）",
+      "effort": "4-6h"
     }
-  ]
+  ],
+
+  "rpg_vision": {
+    "status": "PLANNED",
+    "target_version": "v5.0",
+    "core_philosophy": "成就極大化，目標極小化 — RPG 不是前端的皮，是系統的骨",
+    "world_map": {
+      "電力峽谷": "傳統電機系（台電、配電、電力設備）",
+      "自控晶塔": "自動化工程系（PLC、機械手臂、產線控制）",
+      "晶片秘境": "資工/微電子系（IC設計、韌體、Arduino）"
+    },
+    "data_models": [
+      "players (PlayerProfile) — 取代 StudentProfile，加 exp/quest/ability",
+      "player_abilities — 雷達圖（硬體配線/軟體控制/學科理論/跨域整合）",
+      "player_inventory — 背包（證照/競賽/專題），可裝備",
+      "guilds — 公會（科系），有據點位置和動態事件",
+      "guild_events — 據點動態（產學新聞）",
+      "quest_definitions — 任務定義（主線/支線/每日）",
+      "player_quests — 玩家任務進度",
+      "codex_items — 圖鑑（證照/競賽），含稀有度",
+      "player_achievements — 成就解鎖",
+      "player_action_logs — 冒險日誌（為 AI 專題精靈存子彈）"
+    ],
+    "event_trigger_engine": "動作寫入 → 觸發 exp/ability/quest 狀態改變 → 前端視覺反饋",
+    "monetization": [
+      "AI 專題精靈：平時上傳 → AI 生成專題報告（家長付親子關係維護費）",
+      "破關路線圖：目標科系評分比重 + 備審範本 + 教授偏好",
+      "產學直通車：合作企業面試攻略 + 學長姐證照配置",
+      "成長報告：各年級進度追蹤 + 出路趨勢"
+    ],
+    "v4_compatibility_checklist": [
+      "DepartmentInfo.id 用 UUID 格式（可對應 guild_id）",
+      "certificates.ts 需包含 rarity (丙=普通, 乙=稀有, 甲=傳說)",
+      "departments.json 需包含 map_region",
+      "pathway-matcher 計算結果需可轉為 exp 和 ability 變化",
+      "localStorage 結構需可遷移至 Supabase"
+    ],
+    "development_phases": {
+      "phase_5a": "Supabase 後端 + RPG 資料模型建表",
+      "phase_5b": "任務系統 + 事件觸發引擎",
+      "phase_5c": "AI 整合 + 付費功能（專題精靈、破關路線圖）",
+      "phase_5d": "全群擴展（20 群, 2,383 科系）+ 2.5D 地圖 UI"
+    }
+  }
 }

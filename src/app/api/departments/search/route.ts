@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import { searchDepartments, calculateGapForDepartment, getDepartmentsByGroup } from '@/lib/department-database'
-import type { UserProfile } from '@/types/department'
+import { searchDepartments, calculateGapForDepartment, getDepartmentsByGroup } from '@/lib/department-data'
+import type { StudentProfile } from '@/types/department'
 
 export async function POST(request: Request) {
   try {
@@ -24,8 +24,9 @@ export async function POST(request: Request) {
     }
 
     if (includeGapAnalysis && profile && pathwayType) {
-      const userProfile: UserProfile = {
-        grade: profile.grade || 0,
+      const userProfile: StudentProfile = {
+        grade: profile.grade || 12,
+        groupCode: profile.groupCode || '05',
         gradePercentile: profile.gradePercentile || 0,
         certificates: profile.certificates || [],
         competitions: profile.competitions || [],

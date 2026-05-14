@@ -495,7 +495,7 @@ export function consolidateActionPlan(
           existing.forDepartments.push(dept.departmentName)
         }
       } else {
-        const entry = { ...item, forDepartments: [dept.departmentName] }
+        const entry = { ...item, forDepartments: [dept.departmentName], forPathway: analysis.pathwayType }
         seenTitles.set(item.title, entry)
         allActions.push(entry)
       }

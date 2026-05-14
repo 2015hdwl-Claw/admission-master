@@ -6,15 +6,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { trackPageView, trackFeatureUsage } from '@/lib/analytics';
 import DiscoveryProgress from '@/components/DiscoveryProgress';
 import StepTransition from '@/components/StepTransition';
+import PathwayResults from '@/components/PathwayResults';
 import {
   departments,
   getDepartmentsByGroup,
   searchDepartments,
-  findBestPathway,
-  consolidateActionPlan,
   getSchools,
-} from '@/lib/department-database';
-import type { DepartmentInfo, UserProfile, ConsolidatedActionPlan } from '@/types/department';
+} from '@/lib/department-data';
+import { getCertificatesByGroup } from '@/data/certificates';
+import { getCompetitionsByGroup, PLACING_OPTIONS } from '@/data/competitions';
+import type { DepartmentInfo, StudentProfile, CompetitionRecord } from '@/types/department';
 
 // ── 4 步驟背景漸變 ──
 const STEP_GRADIENTS = [
@@ -45,14 +46,10 @@ const GROUPS = [
 
 const SCHOOLS = getSchools();
 
-// ── 盤點子步驟 ──
-type SubStep = 'grade' | 'percentile' | 'certificate' | 'competition' | 'project';
-const SUB_STEPS: SubStep[] = ['grade', 'percentile', 'certificate', 'competition', 'project'];
-
 const GRADE_OPTIONS = [
-  { value: 10, label: '高一（十年級）' },
-  { value: 11, label: '高二（十一年級）' },
-  { value: 12, label: '高三（十二年級）' },
+  { value: 10 as const, label: '高一（十年級）' },
+  { value: 11 as const, label: '高二（十一年級）' },
+  { value: 12 as const, label: '高三（十二年級）' },
 ];
 
 const PERCENTILE_OPTIONS = [
@@ -65,19 +62,13 @@ const PERCENTILE_OPTIONS = [
   { value: 75, label: '前 75%' },
 ];
 
-const CERTIFICATE_OPTIONS = [
-  { value: '', label: '還沒有' },
-  { value: '丙級技術士', label: '有丙級證照' },
-  { value: '乙級技術士', label: '有乙級證照' },
-  { value: '甲級技術士', label: '有甲級證照' },
-];
-
-const COMPETITION_OPTIONS = [
-  { value: '', label: '沒有參加過' },
-  { value: '校內比賽', label: '校內比賽' },
-  { value: '區域賽', label: '區域賽' },
-  { value: '全國賽', label: '全國賽' },
-];
+// ── 武器盤點子步驟（年級分流） ──
+type SubStep = 'percentile' | 'certificate' | 'competition' | 'project' | 'specialExperiences';
+function getSubSteps(grade: number): SubStep[] {
+  const base: SubStep[] = ['percentile', 'certificate', 'competition', 'project'];
+  if (grade === 12) base.push('specialExperiences');
+  return base;
+}
 
 // ── 動畫 ──
 const fadeUp = {
@@ -99,9 +90,10 @@ export default function FirstDiscoveryPage() {
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const router = useRouter();
 
-  // Step 0: 選職群
+  // Step 0: 選職群 + 年級
   const [selectedGroup, setSelectedGroup] = useState('');
   const [selectedGroupName, setSelectedGroupName] = useState('');
+  const [groupConfirmed, setGroupConfirmed] = useState(false);
 
   // Step 1: 探索科系
   const [targetDepartments, setTargetDepartments] = useState<DepartmentInfo[]>([]);
@@ -110,26 +102,33 @@ export default function FirstDiscoveryPage() {
   const [schoolDropdownOpen, setSchoolDropdownOpen] = useState(false);
   const [detailModalDept, setDetailModalDept] = useState<DepartmentInfo | null>(null);
 
-  // Step 2: 盤點現況
+  // Step 2: 武器盤點
   const [currentSubStep, setCurrentSubStep] = useState(0);
-  const [profile, setProfile] = useState<UserProfile>({
-    grade: 0,
+  const [profile, setProfile] = useState<StudentProfile>({
+    grade: 12,
+    groupCode: '',
     gradePercentile: 0,
     certificates: [],
     competitions: [],
     hasProject: false,
   });
-
-  // Step 3: 結果
-  const [actionPlan, setActionPlan] = useState<ConsolidatedActionPlan | null>(null);
-  const [animatedProbs, setAnimatedProbs] = useState<Record<string, { current: number; potential: number }>>({});
+  // Multi-choice local state
+  const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
+  const [compPlacings, setCompPlacings] = useState<Record<string, string>>({});
+  const [specialText, setSpecialText] = useState('');
 
   // 觸控
   const [touchStart, setTouchStart] = useState(0);
 
+  // Computed
+  const subSteps = getSubSteps(profile.grade);
+  const currentSub = subSteps[currentSubStep] || 'percentile';
+  const groupCerts = selectedGroup ? getCertificatesByGroup(selectedGroup) : [];
+  const groupComps = selectedGroup ? getCompetitionsByGroup(selectedGroup) : [];
+
   // ── Restore state ──
   useEffect(() => {
-    const saved = localStorage.getItem('discovery_state_v3');
+    const saved = localStorage.getItem('discovery_state_v4');
     if (saved) {
       try {
         const s = JSON.parse(saved);
@@ -138,6 +137,7 @@ export default function FirstDiscoveryPage() {
         if (s.groupName) setSelectedGroupName(s.groupName);
         if (s.targets) setTargetDepartments(s.targets);
         if (s.profile) setProfile(s.profile);
+        if (s.groupConfirmed) setGroupConfirmed(true);
       } catch { /* ignore corrupt data */ }
     }
     trackPageView('first_discovery');
@@ -146,14 +146,15 @@ export default function FirstDiscoveryPage() {
 
   // ── Save state ──
   const saveState = useCallback(() => {
-    localStorage.setItem('discovery_state_v3', JSON.stringify({
+    localStorage.setItem('discovery_state_v4', JSON.stringify({
       step: currentStep,
       group: selectedGroup,
       groupName: selectedGroupName,
       targets: targetDepartments,
       profile,
+      groupConfirmed,
     }));
-  }, [currentStep, selectedGroup, selectedGroupName, targetDepartments, profile]);
+  }, [currentStep, selectedGroup, selectedGroupName, targetDepartments, profile, groupConfirmed]);
 
   useEffect(() => { if (!loading) saveState(); }, [currentStep, loading, saveState]);
 
@@ -161,6 +162,14 @@ export default function FirstDiscoveryPage() {
   const goToStep = (step: number) => {
     if (step === currentStep) return;
     setDirection(step > currentStep ? 'forward' : 'backward');
+    if (step === 2) {
+      setCurrentSubStep(0);
+      setSelectedCerts(profile.certificates || []);
+      setCompPlacings(
+        (profile.competitions || []).reduce((acc, c) => ({ ...acc, [c.competitionId]: c.placing }), {} as Record<string, string>)
+      );
+      setSpecialText(profile.specialExperiences || '');
+    }
     setCurrentStep(step);
   };
 
@@ -186,52 +195,42 @@ export default function FirstDiscoveryPage() {
     });
   };
 
-  // ── Sub-step answer ──
-  const handleSubAnswer = (field: keyof UserProfile, value: any) => {
-    const updated = { ...profile, [field]: value };
-    setProfile(updated);
-    const nextIndex = currentSubStep + 1;
-    if (nextIndex < SUB_STEPS.length) {
-      setTimeout(() => setCurrentSubStep(nextIndex), 600);
-    } else {
-      // All sub-steps done → calculate and go to Step 3
-      setTimeout(() => {
-        const targets = targetDepartments.map(dept => {
-          const best = findBestPathway(dept, updated);
-          return best ? { dept, analysis: best.analysis } : null;
-        }).filter(Boolean) as { dept: DepartmentInfo; analysis: import('@/types/department').GapAnalysis }[];
+  // ── Sub-step handlers ──
+  const handleSingleChoice = (field: string, value: any) => {
+    setProfile(prev => ({ ...prev, [field]: value }));
+    advanceSubStep();
+  };
 
-        const plan = consolidateActionPlan(targets);
-        setActionPlan(plan);
-        setAnimatedProbs(Object.fromEntries(plan.targets.map(t => [t.departmentName, { current: 0, potential: 0 }])));
-        autoAdvance(3);
-      }, 600);
+  const confirmMultiChoice = (field: string, value: any) => {
+    setProfile(prev => ({ ...prev, [field]: value }));
+    advanceSubStep();
+  };
+
+  const advanceSubStep = () => {
+    const nextIdx = currentSubStep + 1;
+    if (nextIdx < subSteps.length) {
+      setTimeout(() => setCurrentSubStep(nextIdx), 600);
+    } else {
+      setTimeout(() => autoAdvance(3), 600);
     }
   };
 
-  // ── Probability animation ──
-  useEffect(() => {
-    if (currentStep !== 3 || !actionPlan) return;
-    const timer = setInterval(() => {
-      setAnimatedProbs(prev => {
-        let changed = false;
-        const next = { ...prev };
-        for (const t of actionPlan.targets) {
-          const key = t.departmentName;
-          const cur = next[key] || { current: 0, potential: 0 };
-          if (cur.current < t.currentProbability || cur.potential < t.potentialProbability) {
-            next[key] = {
-              current: Math.min(cur.current + 2, t.currentProbability),
-              potential: Math.min(cur.potential + 2, t.potentialProbability),
-            };
-            changed = true;
-          }
-        }
-        return changed ? next : prev;
-      });
-    }, 25);
-    return () => clearInterval(timer);
-  }, [currentStep, actionPlan]);
+  // ── Save/Share handlers ──
+  const handleSave = () => {
+    localStorage.setItem('saved_discovery_plan_v4', JSON.stringify({
+      targets: targetDepartments,
+      profile,
+      createdAt: new Date().toISOString(),
+    }));
+    trackFeatureUsage('save_discovery_plan', {});
+  };
+
+  const handleShare = () => {
+    const deptNames = targetDepartments.map(d => d.departmentName).join('、');
+    const text = `我用升學大師發現，${deptNames} 都在我的能力範圍內！你也來試試：https://admission-master.vercel.app`;
+    navigator.clipboard.writeText(text);
+    trackFeatureUsage('share_discovery_plan', {});
+  };
 
   // ── Available departments for Step 1 ──
   const groupDepts = selectedGroup ? getDepartmentsByGroup(selectedGroup) : [];
@@ -244,7 +243,7 @@ export default function FirstDiscoveryPage() {
   });
 
   // ════════════════════════════════════════════════════
-  // Step 0: 你現在念什麼？（選職群）
+  // Step 0: 選職群 + 年級（兩階段）
   // ════════════════════════════════════════════════════
   const renderStep0 = () => (
     <div className="text-center w-full max-w-3xl mx-auto">
@@ -252,36 +251,65 @@ export default function FirstDiscoveryPage() {
         你現在念什麼？
       </motion.h1>
       <motion.p {...fadeUp} transition={{ delay: 0.15 }} className="text-xl text-gray-500 mb-10">
-        選擇你的職群，開始你的發現旅程
+        {!groupConfirmed ? '選擇你的職群，開始你的發現旅程' : '你是幾年級？'}
       </motion.p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-        {GROUPS.map((g, i) => (
-          <motion.button
-            key={`${g.code}-${g.name}`}
-            {...stagger(i)}
-            onClick={() => {
-              setSelectedGroup(g.code);
-              setSelectedGroupName(g.name);
-              trackFeatureUsage('discovery_group_selected', { group: g.code });
-              autoAdvance(1);
-            }}
-            className={`p-5 rounded-2xl text-center transition-all duration-300 ${
-              selectedGroup === g.code
-                ? 'bg-blue-600 text-white shadow-lg scale-[1.02]'
-                : 'bg-white/70 hover:bg-white shadow-sm hover:shadow'
-            }`}
-          >
-            <span className="text-2xl block mb-1">{g.emoji}</span>
-            <span className="text-lg font-medium">{g.name}</span>
-          </motion.button>
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        {!groupConfirmed ? (
+          <motion.div key="groups" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -100 }}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {GROUPS.map((g, i) => (
+                <motion.button
+                  key={`${g.code}-${g.name}`}
+                  {...stagger(i)}
+                  onClick={() => {
+                    setSelectedGroup(g.code);
+                    setSelectedGroupName(g.name);
+                    setGroupConfirmed(true);
+                    trackFeatureUsage('discovery_group_selected', { group: g.code });
+                  }}
+                  className={`p-5 rounded-2xl text-center transition-all duration-300 ${
+                    selectedGroup === g.code
+                      ? 'bg-blue-600 text-white shadow-lg scale-[1.02]'
+                      : 'bg-white/70 hover:bg-white shadow-sm hover:shadow'
+                  }`}
+                >
+                  <span className="text-2xl block mb-1">{g.emoji}</span>
+                  <span className="text-lg font-medium">{g.name}</span>
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div key="grades" initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
+            <p className="text-lg text-gray-500 mb-2">你選了：<span className="font-bold text-indigo-600">{selectedGroupName}</span></p>
+            <div className="space-y-4 max-w-lg mx-auto">
+              {GRADE_OPTIONS.map((opt, i) => (
+                <motion.button key={opt.value} {...stagger(i)}
+                  onClick={() => {
+                    setProfile(prev => ({ ...prev, grade: opt.value, groupCode: selectedGroup }));
+                    trackFeatureUsage('discovery_grade_selected', { grade: opt.value });
+                    autoAdvance(1);
+                  }}
+                  className="w-full p-6 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300 whitespace-nowrap"
+                >
+                  {opt.label}
+                </motion.button>
+              ))}
+            </div>
+            <button onClick={() => setGroupConfirmed(false)}
+              className="mt-6 text-sm text-gray-400 hover:text-gray-600 transition"
+            >
+              ← 重新選擇職群
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 
   // ════════════════════════════════════════════════════
-  // Step 1: 探索科系（可跨群探索，選 1-3 個目標）
+  // Step 1: 探索科系（選 1-3 個目標）
   // ════════════════════════════════════════════════════
   const renderStep1 = () => (
     <div className="w-full max-w-4xl mx-auto text-center">
@@ -292,9 +320,7 @@ export default function FirstDiscoveryPage() {
         選 1-3 個你想了解的科系（已選 {targetDepartments.length}/3）
       </motion.p>
 
-      {/* School dropdown + keyword search */}
       <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex gap-3 mb-6">
-        {/* School dropdown */}
         <div className="relative w-64 shrink-0">
           <button
             onClick={() => setSchoolDropdownOpen(!schoolDropdownOpen)}
@@ -338,7 +364,6 @@ export default function FirstDiscoveryPage() {
           </AnimatePresence>
         </div>
 
-        {/* Keyword search */}
         <div className="flex-1">
           <input
             type="text"
@@ -350,7 +375,6 @@ export default function FirstDiscoveryPage() {
         </div>
       </motion.div>
 
-      {/* Department cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[35vh] overflow-y-auto pr-1">
         {displayDepts.map((dept, i) => {
           const isSelected = targetDepartments.some(d => d.id === dept.id);
@@ -383,6 +407,13 @@ export default function FirstDiscoveryPage() {
                     isSelected ? 'bg-purple-500 text-purple-100' : 'bg-purple-100 text-purple-700'
                   }`}>{f}</span>
                 ))}
+                {dept.careerOutcomes && dept.careerOutcomes.avgSalary > 0 && (
+                  <span className={`px-2 py-0.5 text-xs rounded-full ${
+                    isSelected ? 'bg-amber-400 text-amber-900' : 'bg-amber-100 text-amber-700'
+                  }`}>
+                    {(dept.careerOutcomes.avgSalary / 1000).toFixed(1)}K/月
+                  </span>
+                )}
               </div>
               <button
                 onClick={e => { e.stopPropagation(); setDetailModalDept(dept); }}
@@ -395,7 +426,6 @@ export default function FirstDiscoveryPage() {
         })}
       </div>
 
-      {/* ── 已選目標展示區（固定在下方） ── */}
       <AnimatePresence>
         {targetDepartments.length > 0 && (
           <motion.div
@@ -410,31 +440,25 @@ export default function FirstDiscoveryPage() {
                 {targetDepartments.map(dept => (
                   <span key={dept.id} className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium">
                     {dept.departmentName}
-                    <button
-                      onClick={() => toggleTarget(dept)}
-                      className="ml-1 text-purple-200 hover:text-white transition"
-                    >
-                      &times;
-                    </button>
+                    <button onClick={() => toggleTarget(dept)} className="ml-1 text-purple-200 hover:text-white transition">&times;</button>
                   </span>
                 ))}
               </div>
               <button
                 onClick={() => {
                   trackFeatureUsage('discovery_targets_confirmed', { count: targetDepartments.length });
-                  setCurrentSubStep(0);
-                  autoAdvance(2);
+                  goToStep(2);
                 }}
                 className="px-8 py-3 bg-purple-600 text-white rounded-2xl font-medium text-lg hover:bg-purple-700 transition shadow-lg"
               >
-                選好了，開始盤點我的條件 →
+                選好了，開始盤點我的武器 →
               </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* ── 科系介紹 Modal（橫式三欄） ── */}
+      {/* 科系介紹 Modal */}
       <AnimatePresence>
         {detailModalDept && (
           <motion.div
@@ -451,7 +475,6 @@ export default function FirstDiscoveryPage() {
               className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[80vh] overflow-y-auto"
               onClick={e => e.stopPropagation()}
             >
-              {/* Header */}
               <div className="flex justify-between items-start mb-5">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">{detailModalDept.departmentName}</h2>
@@ -461,25 +484,19 @@ export default function FirstDiscoveryPage() {
               </div>
               <p className="text-gray-700 mb-4">{detailModalDept.description}</p>
               {detailModalDept.website && (
-                <a
-                  href={detailModalDept.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <a href={detailModalDept.website} target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-800 underline mb-6"
                 >
                   前往科系官網 ↗
                 </a>
               )}
-
-              {/* Three columns: 教學特色 | 研究方向 | 畢業出路 */}
               <div className="grid grid-cols-3 gap-6 mb-6">
                 <div className="bg-purple-50 rounded-2xl p-5">
                   <h3 className="font-bold text-purple-700 mb-3 text-base">教學特色</h3>
                   <div className="space-y-2">
                     {detailModalDept.features.map((f, i) => (
                       <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="text-purple-400 mt-0.5 shrink-0">•</span>
-                        <span>{f}</span>
+                        <span className="text-purple-400 mt-0.5 shrink-0">•</span><span>{f}</span>
                       </div>
                     ))}
                   </div>
@@ -487,10 +504,9 @@ export default function FirstDiscoveryPage() {
                 <div className="bg-blue-50 rounded-2xl p-5">
                   <h3 className="font-bold text-blue-700 mb-3 text-base">研究方向</h3>
                   <div className="space-y-2">
-                    {detailModalDept.researchAreas.map((r, i) => (
+                    {detailModalDept.researchAreas.slice(0, 5).map((r, i) => (
                       <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="text-blue-400 mt-0.5 shrink-0">•</span>
-                        <span>{r}</span>
+                        <span className="text-blue-400 mt-0.5 shrink-0">•</span><span>{r}</span>
                       </div>
                     ))}
                   </div>
@@ -498,16 +514,95 @@ export default function FirstDiscoveryPage() {
                 <div className="bg-green-50 rounded-2xl p-5">
                   <h3 className="font-bold text-green-700 mb-3 text-base">畢業出路</h3>
                   <div className="space-y-2">
-                    {detailModalDept.careerPaths.map((c, i) => (
+                    {detailModalDept.careerPaths.slice(0, 5).map((c, i) => (
                       <div key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                        <span className="text-green-400 mt-0.5 shrink-0">•</span>
-                        <span>{c}</span>
+                        <span className="text-green-400 mt-0.5 shrink-0">•</span><span>{c}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
 
+              {/* 護城河：職涯出路資料 */}
+              {detailModalDept.careerOutcomes && (
+                <div className="space-y-4 mb-6">
+                  {/* 薪資 */}
+                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-5">
+                    <h3 className="font-bold text-amber-700 mb-3 text-base">薪資行情</h3>
+                    <div className="flex gap-4 mb-3">
+                      <div className="flex-1 text-center">
+                        <div className="text-2xl font-bold text-amber-600">
+                          {detailModalDept.careerOutcomes.freshAvgSalary > 0
+                            ? `${(detailModalDept.careerOutcomes.freshAvgSalary / 1000).toFixed(1)}K`
+                            : '--'}
+                        </div>
+                        <div className="text-xs text-gray-500">新鮮人月薪</div>
+                      </div>
+                      <div className="flex-1 text-center">
+                        <div className="text-2xl font-bold text-orange-600">
+                          {detailModalDept.careerOutcomes.avgSalary > 0
+                            ? `${(detailModalDept.careerOutcomes.avgSalary / 1000).toFixed(1)}K`
+                            : '--'}
+                        </div>
+                        <div className="text-xs text-gray-500">平均月薪</div>
+                      </div>
+                    </div>
+                    {/* Top jobs */}
+                    <div className="space-y-1.5">
+                      {detailModalDept.careerOutcomes.topJobs.slice(0, 3).map((j, i) => (
+                        <div key={i} className="flex justify-between items-center text-sm">
+                          <span className="text-gray-700">{j.title}</span>
+                          <span className="text-amber-600 font-medium">
+                            {j.avgSalary > 0 ? `${(j.avgSalary / 1000).toFixed(1)}K/月` : ''}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 工具 + 技能 */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-indigo-50 rounded-2xl p-5">
+                      <h3 className="font-bold text-indigo-700 mb-3 text-sm">必備工具</h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {detailModalDept.careerOutcomes.requiredTools.length > 0
+                          ? detailModalDept.careerOutcomes.requiredTools.map((t, i) => (
+                            <span key={i} className="px-2 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-full">{t}</span>
+                          ))
+                          : <span className="text-xs text-gray-400">暫無資料</span>
+                        }
+                      </div>
+                    </div>
+                    <div className="bg-teal-50 rounded-2xl p-5">
+                      <h3 className="font-bold text-teal-700 mb-3 text-sm">必備技能</h3>
+                      <div className="flex flex-wrap gap-1.5">
+                        {detailModalDept.careerOutcomes.requiredSkills.slice(0, 5).map((s, i) => (
+                          <span key={i} className="px-2 py-1 text-xs bg-teal-100 text-teal-700 rounded-full">{s}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 熱門產業 */}
+                  {detailModalDept.careerOutcomes.topIndustries.length > 0 && (
+                    <div className="bg-gray-50 rounded-2xl p-5">
+                      <h3 className="font-bold text-gray-700 mb-3 text-sm">主要就業產業</h3>
+                      <div className="space-y-1.5">
+                        {detailModalDept.careerOutcomes.topIndustries.slice(0, 4).map((ind, i) => (
+                          <div key={i} className="flex justify-between items-center text-sm">
+                            <span className="text-gray-700">{ind.name}</span>
+                            <span className="text-gray-500">{(ind.salary / 1000).toFixed(1)}K/月</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <p className="text-xs text-gray-400 text-right">
+                    資料來源：{detailModalDept.careerOutcomes.source} · {detailModalDept.careerOutcomes.fetchedAt}
+                  </p>
+                </div>
+              )}
               <button
                 onClick={() => { toggleTarget(detailModalDept); setDetailModalDept(null); }}
                 className={`w-full py-3 rounded-2xl font-medium text-lg transition ${
@@ -526,11 +621,11 @@ export default function FirstDiscoveryPage() {
   );
 
   // ════════════════════════════════════════════════════
-  // Step 2: 盤點現況（5 子步驟全螢幕逐題，自動前進）
+  // Step 2: 盤點你的武器（年級分流）
   // ════════════════════════════════════════════════════
   const renderStep2 = () => {
-    const sub = SUB_STEPS[currentSubStep];
-    const subProgress = ((currentSubStep + 1) / SUB_STEPS.length) * 100;
+    const subProgress = ((currentSubStep + 1) / subSteps.length) * 100;
+    const gradeLabel = profile.grade === 10 ? '高一' : profile.grade === 11 ? '高二' : '高三';
 
     return (
       <div className="w-full max-w-2xl mx-auto text-center">
@@ -538,33 +633,18 @@ export default function FirstDiscoveryPage() {
           <div className="w-full h-1 bg-gray-200 rounded-full mb-6">
             <div className="h-full bg-emerald-400 rounded-full transition-all duration-500" style={{ width: `${subProgress}%` }} />
           </div>
-          <p className="text-sm text-gray-400">問題 {currentSubStep + 1} / {SUB_STEPS.length}</p>
+          <p className="text-sm text-gray-400">問題 {currentSubStep + 1} / {subSteps.length} · {gradeLabel}</p>
         </div>
 
         <AnimatePresence mode="wait">
-          {sub === 'grade' && (
-            <motion.div key="grade" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
-              <h1 className="text-4xl font-bold text-gray-900 mb-10">你的年級？</h1>
-              <div className="space-y-4">
-                {GRADE_OPTIONS.map((opt, i) => (
-                  <motion.button key={opt.value} {...stagger(i)}
-                    onClick={() => handleSubAnswer('grade', opt.value)}
-                    className="w-full p-6 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
-                  >
-                    {opt.label}
-                  </motion.button>
-                ))}
-              </div>
-            </motion.div>
-          )}
-
-          {sub === 'percentile' && (
+          {/* ── 在校成績百分比 ── */}
+          {currentSub === 'percentile' && (
             <motion.div key="percentile" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
               <h1 className="text-4xl font-bold text-gray-900 mb-10">在校成績大約在多少百分比？</h1>
               <div className="grid grid-cols-2 gap-3">
                 {PERCENTILE_OPTIONS.map((opt, i) => (
                   <motion.button key={opt.value} {...stagger(i)}
-                    onClick={() => handleSubAnswer('gradePercentile', opt.value)}
+                    onClick={() => handleSingleChoice('gradePercentile', opt.value)}
                     className="p-5 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
                   >
                     {opt.label}
@@ -574,29 +654,79 @@ export default function FirstDiscoveryPage() {
             </motion.div>
           )}
 
-          {sub === 'certificate' && (
+          {/* ── 證照（從證照資料庫載入該職群的證照） ── */}
+          {currentSub === 'certificate' && (
             <motion.div key="certificate" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
-              <h1 className="text-4xl font-bold text-gray-900 mb-10">你有技術士證照嗎？</h1>
-              <div className="space-y-4">
-                {CERTIFICATE_OPTIONS.map((opt, i) => (
-                  <motion.button key={opt.value} {...stagger(i)}
-                    onClick={() => handleSubAnswer('certificates', opt.value ? [opt.value] : [])}
-                    className="w-full p-6 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">你有哪些證照？</h1>
+              <p className="text-gray-500 mb-8">勾選你已經取得的證照</p>
+
+              {groupCerts.length === 0 ? (
+                <div>
+                  <p className="text-gray-400 mb-6">目前沒有對應的證照資料</p>
+                  <button onClick={() => confirmMultiChoice('certificates', [])}
+                    className="px-8 py-3 bg-emerald-600 text-white rounded-2xl font-medium hover:bg-emerald-700 transition"
                   >
-                    {opt.label}
-                  </motion.button>
-                ))}
-              </div>
+                    下一步 →
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="space-y-6 mb-8">
+                    {(['丙', '乙'] as const).map(level => {
+                      const certs = groupCerts.filter(c => c.level === level);
+                      if (certs.length === 0) return null;
+                      return (
+                        <div key={level}>
+                          <div className="text-sm font-bold text-gray-400 mb-2 uppercase">{level}級證照</div>
+                          <div className="space-y-2">
+                            {certs.map(cert => (
+                              <label key={cert.id}
+                                className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition ${
+                                  selectedCerts.includes(cert.name)
+                                    ? 'bg-emerald-100 border-2 border-emerald-400'
+                                    : 'bg-white/80 hover:bg-white border-2 border-transparent'
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  className="w-5 h-5 accent-emerald-600"
+                                  checked={selectedCerts.includes(cert.name)}
+                                  onChange={e => {
+                                    if (e.target.checked) setSelectedCerts(prev => [...prev, cert.name]);
+                                    else setSelectedCerts(prev => prev.filter(c => c !== cert.name));
+                                  }}
+                                />
+                                <span className="font-medium">{cert.name}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <button onClick={() => confirmMultiChoice('certificates', selectedCerts)}
+                    className="px-8 py-3 bg-emerald-600 text-white rounded-2xl font-medium hover:bg-emerald-700 transition text-lg shadow-lg"
+                  >
+                    選好了{selectedCerts.length > 0 ? ` (${selectedCerts.length} 張)` : ''} →
+                  </button>
+                </div>
+              )}
             </motion.div>
           )}
 
-          {sub === 'competition' && (
-            <motion.div key="competition" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
+          {/* ── 競賽（高一: 簡易版；高二/高三: 詳細版） ── */}
+          {currentSub === 'competition' && profile.grade === 10 && (
+            <motion.div key="comp-simple" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
               <h1 className="text-4xl font-bold text-gray-900 mb-10">你有參加過技藝競賽嗎？</h1>
               <div className="space-y-4">
-                {COMPETITION_OPTIONS.map((opt, i) => (
-                  <motion.button key={opt.value} {...stagger(i)}
-                    onClick={() => handleSubAnswer('competitions', opt.value ? [opt.value] : [])}
+                {[
+                  { value: true, label: '有參加過' },
+                  { value: false, label: '還沒有' },
+                ].map((opt, i) => (
+                  <motion.button key={String(opt.value)} {...stagger(i)}
+                    onClick={() => handleSingleChoice('competitions',
+                      opt.value ? [{ competitionId: 'school-competition', placing: '' }] : []
+                    )}
                     className="w-full p-6 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
                   >
                     {opt.label}
@@ -606,7 +736,53 @@ export default function FirstDiscoveryPage() {
             </motion.div>
           )}
 
-          {sub === 'project' && (
+          {currentSub === 'competition' && profile.grade !== 10 && (
+            <motion.div key="comp-detail" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">你有參加過這些競賽嗎？</h1>
+              <p className="text-gray-500 mb-8">選擇你獲得的名次，沒參加就不用選</p>
+
+              <div className="space-y-3 max-h-[40vh] overflow-y-auto pr-1 mb-8">
+                {groupComps.map(comp => (
+                  <div key={comp.id} className="p-4 bg-white/80 rounded-xl text-left">
+                    <div className="flex justify-between items-start mb-2">
+                      <div>
+                        <div className="font-medium">{comp.name}</div>
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          comp.level === '全國' ? 'bg-blue-100 text-blue-700' :
+                          comp.level === '國際' ? 'bg-purple-100 text-purple-700' :
+                          comp.level === '縣市' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
+                        }`}>{comp.level}</span>
+                      </div>
+                    </div>
+                    <select
+                      value={compPlacings[comp.id] || ''}
+                      onChange={e => setCompPlacings(prev => ({ ...prev, [comp.id]: e.target.value }))}
+                      className="w-full p-2.5 border border-gray-200 rounded-lg bg-white text-sm focus:ring-2 focus:ring-emerald-300 outline-none"
+                    >
+                      <option value="">沒參加</option>
+                      {PLACING_OPTIONS.map(p => <option key={p} value={p}>{p}</option>)}
+                    </select>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => {
+                  const records: CompetitionRecord[] = Object.entries(compPlacings)
+                    .filter(([_, p]) => p !== '')
+                    .map(([id, p]) => ({ competitionId: id, placing: p }));
+                  confirmMultiChoice('competitions', records);
+                }}
+                className="px-8 py-3 bg-emerald-600 text-white rounded-2xl font-medium hover:bg-emerald-700 transition text-lg shadow-lg"
+              >
+                選好了{Object.values(compPlacings).filter(v => v).length > 0
+                  ? ` (${Object.values(compPlacings).filter(v => v).length} 項)`
+                  : ''} →
+              </button>
+            </motion.div>
+          )}
+
+          {/* ── 專題作品 ── */}
+          {currentSub === 'project' && (
             <motion.div key="project" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
               <h1 className="text-4xl font-bold text-gray-900 mb-10">你有做過專題或研究嗎？</h1>
               <div className="space-y-4">
@@ -615,7 +791,7 @@ export default function FirstDiscoveryPage() {
                   { value: false, label: '還沒有' },
                 ].map((opt, i) => (
                   <motion.button key={String(opt.value)} {...stagger(i)}
-                    onClick={() => handleSubAnswer('hasProject', opt.value)}
+                    onClick={() => handleSingleChoice('hasProject', opt.value)}
                     className="w-full p-6 rounded-2xl bg-white/80 text-xl font-medium hover:bg-white shadow-sm hover:shadow-lg transition-all duration-300"
                   >
                     {opt.label}
@@ -624,137 +800,45 @@ export default function FirstDiscoveryPage() {
               </div>
             </motion.div>
           )}
+
+          {/* ── 特殊經歷（高三限定） ── */}
+          {currentSub === 'specialExperiences' && (
+            <motion.div key="special" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">你有什麼特殊經歷嗎？</h1>
+              <p className="text-gray-500 mb-8">例如：開源貢獻、創業經驗、特殊才藝、社會服務...</p>
+              <textarea
+                value={specialText}
+                onChange={e => setSpecialText(e.target.value)}
+                placeholder="描述你的特殊經歷（選填）"
+                className="w-full p-4 rounded-2xl bg-white/80 shadow-lg border-0 outline-none focus:ring-2 focus:ring-emerald-300 text-lg min-h-[120px] resize-none mb-6"
+              />
+              <button onClick={() => confirmMultiChoice('specialExperiences', specialText)}
+                className="px-8 py-3 bg-emerald-600 text-white rounded-2xl font-medium hover:bg-emerald-700 transition text-lg shadow-lg"
+              >
+                {specialText.trim() ? '完成 →' : '跳過 →'}
+              </button>
+            </motion.div>
+          )}
         </AnimatePresence>
       </div>
     );
   };
 
   // ════════════════════════════════════════════════════
-  // Step 3: 發現結果 + 行動計畫（合併）
+  // Step 3: PathwayResults component
   // ════════════════════════════════════════════════════
-  const renderStep3 = () => {
-    if (!actionPlan) return null;
-
-    return (
-      <div className="w-full max-w-3xl mx-auto text-center">
-        <motion.h1 {...fadeUp} className="text-4xl font-bold text-gray-900 mb-2">
-          你的發現結果
-        </motion.h1>
-        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-8">
-          每個目標科系各自算機率，合併行動計畫一次搞定
-        </motion.p>
-
-        {/* Multi-target probability cards */}
-        <div className="space-y-4 mb-8">
-          {actionPlan.targets.map((t, i) => {
-            const anim = animatedProbs[t.departmentName] || { current: 0, potential: 0 };
-            return (
-              <motion.div key={t.departmentName} {...stagger(i)}
-                className="bg-white/80 rounded-2xl p-5 shadow-sm text-left"
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <div>
-                    <div className="font-bold text-lg">{t.departmentName}</div>
-                    <div className="text-sm text-gray-500">{t.schoolName} · {t.bestPathway}</div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center p-3 rounded-xl bg-gray-50">
-                    <div className="text-sm text-gray-500 mb-1">目前錄取機率</div>
-                    <div className="text-3xl font-bold text-indigo-600">{anim.current}%</div>
-                  </div>
-                  <div className="text-center p-3 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white">
-                    <div className="text-sm opacity-80 mb-1">如果你完成這些</div>
-                    <div className="text-3xl font-bold">{anim.potential}%</div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Consolidated action plan */}
-        <motion.div {...fadeUp} transition={{ delay: 0.8 }}>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-left">你的行動計畫</h2>
-          <div className="space-y-3 mb-8">
-            {actionPlan.actionItems.map((item, i) => (
-              <motion.div key={i} {...stagger(i + 3)}
-                className="flex items-start gap-4 p-5 rounded-2xl bg-white/80 shadow-sm text-left"
-              >
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-white text-sm font-bold ${
-                  item.priority === 'high' ? 'bg-red-400' : item.priority === 'medium' ? 'bg-yellow-400' : 'bg-green-400'
-                }`}>
-                  {i + 1}
-                </div>
-                <div className="flex-1">
-                  <div className="font-medium text-lg">{item.title}</div>
-                  <div className="text-sm text-gray-500">{item.deadline}（還有 {item.daysLeft} 天）</div>
-                  {item.forDepartments.length > 1 && (
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {item.forDepartments.map(d => (
-                        <span key={d} className="px-2 py-0.5 bg-purple-100 text-purple-700 text-xs rounded-full">{d}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <span className={`px-3 py-1 rounded-full text-xs font-medium shrink-0 ${
-                  item.priority === 'high' ? 'bg-red-100 text-red-700' :
-                  item.priority === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'
-                }`}>
-                  {item.priority === 'high' ? '重要' : item.priority === 'medium' ? '中等' : '一般'}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Encouragement */}
-        <motion.div {...fadeUp} transition={{ delay: 1.5 }}
-          className="rounded-2xl p-6 bg-gradient-to-br from-indigo-500 to-purple-600 text-white text-center mb-8"
-        >
-          <p className="text-lg font-medium">
-            {actionPlan.targets.some(t => t.currentProbability < 30)
-              ? '別擔心！一步一步完成上面的行動計畫，你會越來越接近目標。'
-              : '你的條件已經不錯了！完成行動計畫讓你更有把握。'
-            }
-          </p>
-        </motion.div>
-
-        {/* Action buttons */}
-        <motion.div {...fadeUp} transition={{ delay: 2 }} className="flex flex-wrap justify-center gap-3">
-          <button
-            onClick={() => {
-              localStorage.setItem('saved_discovery_plan', JSON.stringify({
-                ...actionPlan,
-                createdAt: new Date().toISOString(),
-              }));
-              trackFeatureUsage('save_discovery_plan', {});
-            }}
-            className="px-6 py-4 bg-indigo-600 text-white rounded-2xl font-medium hover:bg-indigo-700 transition text-lg"
-          >
-            儲存我的計畫
-          </button>
-          <button
-            onClick={() => {
-              const deptNames = actionPlan.targets.map(t => t.departmentName).join('、');
-              const text = `我用升學大師發現，${deptNames} 都在我的能力範圍內！完成準備後錄取機率可以大幅提升。你也來試試：https://admission-master.vercel.app`;
-              navigator.clipboard.writeText(text);
-              trackFeatureUsage('share_discovery_plan', {});
-            }}
-            className="px-6 py-4 bg-green-600 text-white rounded-2xl font-medium hover:bg-green-700 transition text-lg"
-          >
-            分享給朋友
-          </button>
-          <button
-            onClick={() => { trackFeatureUsage('start_planning_from_discovery', {}); router.push('/ability-account'); }}
-            className="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-medium hover:from-blue-700 hover:to-indigo-700 transition text-lg"
-          >
-            開始完整規劃 →
-          </button>
-        </motion.div>
-      </div>
-    );
-  };
+  const renderStep3 = () => (
+    <PathwayResults
+      targets={targetDepartments}
+      profile={profile}
+      onSave={handleSave}
+      onShare={handleShare}
+      onStartPlanning={() => {
+        trackFeatureUsage('start_planning_from_discovery', {});
+        router.push('/ability-account');
+      }}
+    />
+  );
 
   // ── Loading ──
   if (loading) {
@@ -783,7 +867,6 @@ export default function FirstDiscoveryPage() {
         </StepTransition>
       </main>
 
-      {/* Back button */}
       {currentStep > 0 && (
         <motion.div
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}

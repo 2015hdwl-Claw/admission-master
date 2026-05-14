@@ -1,0 +1,9 @@
+{
+  "departments": [],
+  "processed_schools": [],
+  "failed_schools": [
+    "yuntech",
+    "ntust",
+    "ntut"
+  ]
+}
