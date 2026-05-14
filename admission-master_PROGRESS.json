@@ -2,12 +2,12 @@
   "project_name": "admission-master",
   "project_title": "升學大師 - 武器庫導向的高職升學路徑發現引擎 → 生涯導航平台",
   "last_updated": "2026-05-14",
-  "current_phase": "Phase 3 - 電機群 MVP 閉環完成 (v4.0)",
-  "overall_progress": 90,
+  "current_phase": "Phase 4 - 成長與驗證 (Production Deployed)",
+  "overall_progress": 95,
   "core_philosophy": "先盤點武器庫，再推薦最有利的管道。從升學工具升級為生涯導航平台。",
   "strategy_pivot": "v4.0: 入學條件 + 畢業出路 + 薪資行情 三合一",
 
-  "major_update": "2026-05-14: v4.0 電機群 MVP 完成 — 181 科系完整資料 + 104 職涯薪資 + UI 展示，已部署生產環境",
+  "major_update": "2026-05-14: v4.0 生產環境部署完成 ✅ — 181 科系完整資料 + 104 職涯薪資 + 時程行事曆，https://admission-master-ecru.vercel.app",
 
   "phases": {
     "phase_1": {
@@ -26,8 +26,8 @@
     },
     "phase_3": {
       "name": "開發執行",
-      "status": "in_progress",
-      "progress": 90,
+      "status": "completed",
+      "progress": 100,
       "start_date": "2026-05-12",
       "tasks": {
         "completed": {
@@ -40,7 +40,9 @@
           "step1_scraper": "✅ Step 1: 爬蟲抓取 181 電機群科系 — warehouse.js 解析，68 校，publicPrivate/region 正確",
           "step2_tags": "✅ Step 2: 50+ regex 標籤規則 — 181/181 科系標記，20 features, 167 researchAreas, 89 careerPaths",
           "step3_career": "✅ Step 3: 104 升學就業地圖 API — 181/181 careerOutcomes, 180/181 薪資，平均 57,363 NTD/month",
-          "step4_ui": "✅ Step 4: UI 展示 — 薪資標籤卡片 + 詳情 Modal（薪資行情/必備工具/必備技能/就業產業）"
+          "step4_ui": "✅ Step 4: UI 展示 — 薪資標籤卡片 + 詳情 Modal（薪資行情/必備工具/必備技能/就業產業）",
+          "unified_pipeline": "✅ 統一管線完成 — pipeline.py 一鍵執行 departments + schedules，含驗證機制",
+          "schedules_pipeline": "✅ 時程爬蟲完成 — 證照考試 + 競賽行事曆 + 升學管道時程，72+23+6 筆資料"
         },
         "pipeline_tools": {
           "scrape": "tools/scrape_electrical_departments.py --year 114 --group 03",
@@ -57,9 +59,11 @@
     },
     "phase_4": {
       "name": "成長與驗證",
-      "status": "pending",
-      "progress": 0,
-      "next_milestone": "用戶兒子（控制科二年級）實際測試"
+      "status": "in_progress",
+      "progress": 10,
+      "next_milestone": "10 個真實用戶完成 116 選考流程",
+      "deployed_at": "2026-05-14",
+      "production_url": "https://admission-master-ecru.vercel.app"
     },
     "phase_5": {
       "name": "擴展與規模",
@@ -131,9 +135,10 @@
     "build_status": "pass",
     "production_url": "https://admission-master-ecru.vercel.app/",
     "production_deployed": true,
-    "last_commit": "c09186e",
+    "last_commit": "7b1f994",
     "deployment_date": "2026-05-14",
-    "mvp_validation_user": "用戶兒子（控制科二年級）"
+    "mvp_validation_user": "用戶兒子（控制科二年級）",
+    "data_freshness": "2026-05-14 (115 年度最新資料)"
   },
 
   "next_actions": [
