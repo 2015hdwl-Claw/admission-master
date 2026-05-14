@@ -11,24 +11,14 @@
         "description": "招生簡章公告"
       },
       {
-        "name": "報名",
-        "date": "2025-12-01",
-        "description": "向就讀學校提出申請"
-      },
-      {
         "name": "報名截止",
         "date": "2025-12-12",
         "description": "學校上傳推薦名單截止"
       },
       {
-        "name": "第一輪分發",
+        "name": "第一輪放榜",
         "date": "2026-01-05",
-        "description": "第一輪分發放榜"
-      },
-      {
-        "name": "第二輪分發",
-        "date": "2026-01-12",
-        "description": "第二輪分發放榜"
+        "description": "第一輪分發結果"
       },
       {
         "name": "最終放榜",
@@ -37,7 +27,7 @@
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   },
   {
     "id": "115-selection",
@@ -46,11 +36,6 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章公告",
-        "date": "2025-11-15",
-        "description": "招生簡章公告"
-      },
-      {
         "name": "統測報名",
         "date": "2026-01-05",
         "description": "統一入學測驗報名開始"
@@ -58,20 +43,15 @@
       {
         "name": "統測報名截止",
         "date": "2026-01-19",
-        "description": "統測報名截止"
+        "description": "報名截止"
       },
       {
         "name": "統測考試",
         "date": "2026-05-02",
-        "description": "統一入學測驗（連續2天）"
+        "description": "統一入學測驗"
       },
       {
-        "name": "統測結束",
-        "date": "2026-05-03",
-        "description": "統測第二天"
-      },
-      {
-        "name": "統測成績公告",
+        "name": "成績公告",
         "date": "2026-05-22",
         "description": "成績查詢"
       },
@@ -81,24 +61,19 @@
         "description": "甄選入學網路報名"
       },
       {
-        "name": "甄選報名截止",
+        "name": "報名截止",
         "date": "2026-06-10",
         "description": "報名截止"
       },
       {
         "name": "第一階段篩選",
         "date": "2026-06-20",
-        "description": "統測成績篩選結果公告"
+        "description": "統測成績篩選"
       },
       {
-        "name": "備審資料上傳",
+        "name": "備審上傳截止",
         "date": "2026-06-25",
         "description": "備審資料上傳截止"
-      },
-      {
-        "name": "面試/指定項目",
-        "date": "2026-07-05",
-        "description": "面試或指定項目甄試"
       },
       {
         "name": "放榜",
@@ -107,7 +82,7 @@
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   },
   {
     "id": "115-distribution",
@@ -121,12 +96,12 @@
         "description": "統一入學測驗"
       },
       {
-        "name": "統測成績公告",
+        "name": "成績公告",
         "date": "2026-05-22",
         "description": "成績查詢"
       },
       {
-        "name": "登記分發報名",
+        "name": "登記志願",
         "date": "2026-07-20",
         "description": "網路登記志願開始"
       },
@@ -142,7 +117,7 @@
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   },
   {
     "id": "115-skills",
@@ -151,14 +126,9 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章下載",
+        "name": "簡章公告",
         "date": "2025-12-04",
-        "description": "簡章公告"
-      },
-      {
-        "name": "報名練習系統",
-        "date": "2026-01-12",
-        "description": "報名系統開放練習"
+        "description": "簡章下載"
       },
       {
         "name": "報名",
@@ -173,10 +143,10 @@
       {
         "name": "資格審查",
         "date": "2026-03-20",
-        "description": "資格審查結果公告"
+        "description": "資格審查結果"
       },
       {
-        "name": "備審上傳",
+        "name": "備審上傳截止",
         "date": "2026-04-01",
         "description": "備審資料上傳截止"
       },
@@ -187,7 +157,7 @@
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/enter42/skill/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   },
   {
     "id": "115-guarantee",
@@ -196,14 +166,9 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章下載",
+        "name": "簡章公告",
         "date": "2025-12-04",
-        "description": "簡章公告"
-      },
-      {
-        "name": "報名練習系統",
-        "date": "2026-01-12",
-        "description": "報名系統開放練習"
+        "description": "簡章下載"
       },
       {
         "name": "報名",
@@ -218,16 +183,16 @@
       {
         "name": "資格審查",
         "date": "2026-03-20",
-        "description": "資格審查結果公告"
+        "description": "資格審查結果"
       },
       {
-        "name": "分發放榜",
+        "name": "放榜",
         "date": "2026-04-15",
-        "description": "保送分發結果公告"
+        "description": "保送分發結果"
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/enter42/skill/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   },
   {
     "id": "115-special",
@@ -248,12 +213,7 @@
       {
         "name": "報名截止",
         "date": "2025-11-30",
-        "description": "報名截止（各校不一）"
-      },
-      {
-        "name": "面試/審查",
-        "date": "2025-12-15",
-        "description": "面試或書面審查"
+        "description": "報名截止"
       },
       {
         "name": "放榜",
@@ -262,6 +222,6 @@
       }
     ],
     "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T14:04:48.000054"
+    "fetchedAt": "2026-05-14T15:50:02.115407"
   }
 ]
