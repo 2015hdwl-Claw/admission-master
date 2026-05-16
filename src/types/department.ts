@@ -37,7 +37,10 @@ export interface DepartmentInfo {
   groupName: string
 
   description: string
+  fullDescription?: string  // 完整科系介紹
   website: string
+  techadmiUrl?: string      // techadmi 詳細頁
+  youtubeUrl?: string       // YouTube 介紹影片
   features: string[]
   researchAreas: string[]
   careerPaths: string[]
@@ -55,6 +58,13 @@ export interface DepartmentInfo {
     requiredCerts: string[]
     source: string
     fetchedAt: string
+  }
+
+  // 來源資訊
+  source?: {
+    year: number
+    deptCode: string
+    crawledAt: string
   }
 
   // 6 種管道的錄取條件

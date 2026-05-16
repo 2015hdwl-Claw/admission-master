@@ -45,6 +45,7 @@ const GROUPS = [
 ];
 
 const SCHOOLS = getSchools();
+const REGIONS = ['北區', '中區', '南區', '東區', '離島'];
 
 const GRADE_OPTIONS = [
   { value: 10 as const, label: '高一（十年級）' },
@@ -98,6 +99,8 @@ export default function FirstDiscoveryPage() {
   // Step 1: 探索科系
   const [targetDepartments, setTargetDepartments] = useState<DepartmentInfo[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [regionDropdownOpen, setRegionDropdownOpen] = useState(false);
   const [selectedSchoolId, setSelectedSchoolId] = useState('');
   const [schoolDropdownOpen, setSchoolDropdownOpen] = useState(false);
   const [detailModalDept, setDetailModalDept] = useState<DepartmentInfo | null>(null);
@@ -119,6 +122,7 @@ export default function FirstDiscoveryPage() {
 
   // 觸控
   const [touchStart, setTouchStart] = useState(0);
+  const [touchStartX, setTouchStartX] = useState(0);
 
   // Computed
   const subSteps = getSubSteps(profile.grade);
@@ -178,11 +182,37 @@ export default function FirstDiscoveryPage() {
   };
 
   // ── Touch ──
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientY);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientY);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
   const handleTouchEnd = (e: React.TouchEvent) => {
-    const diff = touchStart - e.changedTouches[0].clientY;
-    if (diff > 60 && currentStep < 3) goToStep(currentStep + 1);
-    if (diff < -60 && currentStep > 0) goToStep(currentStep - 1);
+    const diffY = touchStart - e.changedTouches[0].clientY;
+    const diffX = touchStartX - e.changedTouches[0].clientX;
+
+    // 防呆：只有垂直滑動為主、且位移超過 120px 才觸發（避免滾動誤觸）
+    if (Math.abs(diffX) > Math.abs(diffY) * 0.5) return;
+
+    // 檢查是否點擊在互動元素上（按鈕、輸入框、可滾動區域）
+    const target = e.target as HTMLElement;
+    if (
+      target.tagName === 'BUTTON' ||
+      target.tagName === 'INPUT' ||
+      target.tagName === 'SELECT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.closest('button') ||
+      target.closest('input') ||
+      target.closest('select') ||
+      target.closest('textarea') ||
+      target.closest('[role="button"]') ||
+      target.closest('.overflow-y-auto') // 正在滾動列表
+    ) {
+      return;
+    }
+
+    // 提高閾值從 60px → 120px，大幅減少誤觸
+    if (diffY > 120 && currentStep < 3) goToStep(currentStep + 1);
+    if (diffY < -120 && currentStep > 0) goToStep(currentStep - 1);
   };
 
   // ── Toggle target department ──
@@ -235,12 +265,33 @@ export default function FirstDiscoveryPage() {
   // ── Available departments for Step 1 ──
   const groupDepts = selectedGroup ? getDepartmentsByGroup(selectedGroup) : [];
   const searchResults = searchQuery.length >= 1 ? searchDepartments(searchQuery) : [];
-  const schoolFiltered = selectedSchoolId ? departments.filter(d => d.schoolId === selectedSchoolId) : groupDepts;
-  const displayDepts = searchQuery.length >= 1 ? searchResults : schoolFiltered;
-  const filteredSchools = SCHOOLS.filter(s => {
+
+  // 地區 + 學校 雙重過濾
+  let filteredDepts = groupDepts;
+  if (selectedRegion) {
+    filteredDepts = filteredDepts.filter(d => d.region === selectedRegion);
+  }
+  if (selectedSchoolId) {
+    filteredDepts = departments.filter(d => d.schoolId === selectedSchoolId);
+  }
+
+  const displayDepts = searchQuery.length >= 1 ? searchResults : filteredDepts;
+
+  // 過濾學校：先過濾地區，再過濾搜尋
+  const filteredSchoolsByRegion = SCHOOLS.filter(s => {
+    // 先根據選取的地區過濾
+    if (selectedRegion) {
+      const schoolDepts = departments.filter(d => d.schoolId === s.id);
+      if (!schoolDepts.some(d => d.region === selectedRegion)) {
+        return false;
+      }
+    }
+    // 再過濾搜尋
     const q = searchQuery.toLowerCase();
     return !q || s.name.toLowerCase().includes(q) || s.aliases.some(a => a.toLowerCase().includes(q));
   });
+
+  const filteredSchools = filteredSchoolsByRegion;
 
   // ════════════════════════════════════════════════════
   // Step 0: 選職群 + 年級（兩階段）
@@ -320,8 +371,48 @@ export default function FirstDiscoveryPage() {
         選 1-3 個你想了解的科系（已選 {targetDepartments.length}/3）
       </motion.p>
 
-      <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex gap-3 mb-6">
-        <div className="relative w-64 shrink-0">
+      <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex flex-col md:flex-row gap-3 mb-6">
+        <div className="relative w-full md:w-48 shrink-0">
+          <button
+            onClick={() => setRegionDropdownOpen(!regionDropdownOpen)}
+            className="w-full px-4 py-4 text-left text-lg rounded-2xl border-0 bg-white/80 shadow-lg flex justify-between items-center"
+          >
+            <span className={selectedRegion ? 'text-gray-900' : 'text-gray-400'}>
+              {selectedRegion || '選擇地區'}
+            </span>
+            <span className="text-gray-400 text-sm">{regionDropdownOpen ? '▲' : '▼'}</span>
+          </button>
+          <AnimatePresence>
+            {regionDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl z-30 overflow-y-auto"
+              >
+                <button
+                  onClick={() => { setSelectedRegion(''); setRegionDropdownOpen(false); }}
+                  className="w-full px-4 py-3 text-left text-gray-500 hover:bg-purple-50 transition"
+                >
+                  全部地區
+                </button>
+                {REGIONS.map(r => (
+                  <button
+                    key={r}
+                    onClick={() => { setSelectedRegion(r); setRegionDropdownOpen(false); }}
+                    className={`w-full px-4 py-3 text-left hover:bg-purple-50 transition ${
+                      selectedRegion === r ? 'bg-purple-100 text-purple-700 font-medium' : 'text-gray-700'
+                    }`}
+                  >
+                    {r}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="relative w-full md:w-48 shrink-0">
           <button
             onClick={() => setSchoolDropdownOpen(!schoolDropdownOpen)}
             className="w-full px-4 py-4 text-left text-lg rounded-2xl border-0 bg-white/80 shadow-lg flex justify-between items-center"
@@ -345,7 +436,7 @@ export default function FirstDiscoveryPage() {
                 >
                   全部學校
                 </button>
-                {SCHOOLS.map(s => (
+                {filteredSchoolsByRegion.map(s => (
                   <button
                     key={s.id}
                     onClick={() => { setSelectedSchoolId(s.id); setSchoolDropdownOpen(false); }}
@@ -364,7 +455,7 @@ export default function FirstDiscoveryPage() {
           </AnimatePresence>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <input
             type="text"
             value={searchQuery}
@@ -417,7 +508,8 @@ export default function FirstDiscoveryPage() {
               </div>
               <button
                 onClick={e => { e.stopPropagation(); setDetailModalDept(dept); }}
-                className={`text-xs underline ${isSelected ? 'text-purple-200' : 'text-purple-500'}`}
+                onTouchEnd={e => { e.preventDefault(); e.stopPropagation(); setDetailModalDept(dept); }}
+                className={`text-sm underline py-2 px-1 -mx-1 touch-manipulation ${isSelected ? 'text-purple-200' : 'text-purple-500'}`}
               >
                 查看教學特色、研究、職涯 →
               </button>
@@ -472,7 +564,7 @@ export default function FirstDiscoveryPage() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[80vh] overflow-y-auto"
+              className="bg-white rounded-3xl p-6 md:p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto mb-12"
               onClick={e => e.stopPropagation()}
             >
               <div className="flex justify-between items-start mb-5">
@@ -482,15 +574,37 @@ export default function FirstDiscoveryPage() {
                 </div>
                 <button onClick={() => setDetailModalDept(null)} className="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
               </div>
-              <p className="text-gray-700 mb-4">{detailModalDept.description}</p>
-              {detailModalDept.website && (
-                <a href={detailModalDept.website} target="_blank" rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-800 underline mb-6"
-                >
-                  前往科系官網 ↗
-                </a>
-              )}
-              <div className="grid grid-cols-3 gap-6 mb-6">
+              <p className="text-gray-700 mb-4">{detailModalDept.fullDescription || detailModalDept.description || '暫無詳細介紹'}</p>
+              <div className="flex flex-wrap gap-3 mb-6">
+                {detailModalDept.website && (
+                  <a href={detailModalDept.website} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-purple-600 hover:text-purple-800 underline"
+                  >
+                    🌐 科系官網 ↗
+                  </a>
+                )}
+                {detailModalDept.techadmiUrl ? (
+                  <a href={detailModalDept.techadmiUrl} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 underline"
+                  >
+                    📋 招生簡章 ↗
+                  </a>
+                ) : (
+                  <a href={`https://www.techadmi.edu.tw/schools_detail.php?sch_id=${detailModalDept.schoolId}`} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 underline"
+                  >
+                    📋 學校招生資訊 ↗
+                  </a>
+                )}
+                {detailModalDept.youtubeUrl && (
+                  <a href={detailModalDept.youtubeUrl} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-red-600 hover:text-red-800 underline"
+                  >
+                    🎬 科系介紹影片 ↗
+                  </a>
+                )}
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="bg-purple-50 rounded-2xl p-5">
                   <h3 className="font-bold text-purple-700 mb-3 text-base">教學特色</h3>
                   <div className="space-y-2">
@@ -561,7 +675,7 @@ export default function FirstDiscoveryPage() {
                   </div>
 
                   {/* 工具 + 技能 */}
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-indigo-50 rounded-2xl p-5">
                       <h3 className="font-bold text-indigo-700 mb-3 text-sm">必備工具</h3>
                       <div className="flex flex-wrap gap-1.5">

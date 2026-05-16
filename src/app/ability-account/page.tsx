@@ -65,8 +65,7 @@ export default function AbilityAccountPage() {
   const [plan, setPlan] = useState<SavedPlan | null>(null)
   const [analyses, setAnalyses] = useState<DepartmentAnalysis[]>([])
   const [consolidated, setConsolidated] = useState<ConsolidatedActionPlan | null>(null)
-  const [advice, setAdvice] = useState<GradeAdvice | null>(null)
-  const [strategy, setStrategy] = useState<StrategyAdvice | null>(null)
+  const [selectedDepartmentIndex, setSelectedDepartmentIndex] = useState(0)
   const [expandedPathway, setExpandedPathway] = useState<string | null>(null)
 
   useEffect(() => {
@@ -120,12 +119,12 @@ export default function AbilityAccountPage() {
     const a = resolved.map(d => analyzeDepartment(d, saved.profile))
     setAnalyses(a)
     setConsolidated(consolidateActionPlan(a))
-    if (resolved.length > 0) {
-      setAdvice(generateGradeAdvice(resolved[0], saved.profile))
-      setStrategy(generateStrategy(saved.profile, resolved))
-    }
     setLoading(false)
   }
+
+  const currentAnalysis = analyses[selectedDepartmentIndex]
+  const currentAdvice = currentAnalysis?.gradeAdvice
+  const currentStrategy = plan && currentAnalysis ? generateStrategy(plan.profile, [currentAnalysis.department]) : null
 
   if (loading) {
     return (
@@ -162,71 +161,92 @@ export default function AbilityAccountPage() {
   const profile = plan.profile
   const gradeLabel = GRADE_LABELS[profile.grade] || '高三'
   const groupName = GROUP_NAMES[profile.groupCode] || profile.groupCode
-  const allMatches = analyses[0]?.pathwayMatches || []
+  const allMatches = currentAnalysis?.pathwayMatches || []
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       {/* Header */}
       <div className="bg-white/90 border-b border-indigo-100 py-3">
         <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
-          <p className="text-indigo-600 font-semibold text-sm">能力中心</p>
+          <p className="text-indigo-600 font-semibold text-sm">目標科系規劃中心</p>
           <span className="text-xs text-gray-500">{groupName} · {gradeLabel}</span>
         </div>
       </div>
 
       <main className="max-w-5xl mx-auto px-4 py-8">
-        {/* ── Target Summary ── */}
-        <motion.div {...fadeUp} className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">你的能力中心</h1>
-          <p className="text-gray-500">基於你的武器庫和 {analyses.length} 個目標科系，即時計算的升學管道準備度。</p>
+        {/* ── Department Selector ── */}
+        <motion.div {...fadeUp} className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">目標科系專屬規劃</h1>
+          <p className="text-gray-500 mb-6">選擇你想要規劃的目標科系，查看詳細的升級指南與準備時程。</p>
+
+          {/* Department Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {analyses.map((a, i) => (
+              <button
+                key={a.department.id}
+                onClick={() => setSelectedDepartmentIndex(i)}
+                className={`px-4 py-3 rounded-xl font-medium transition-all ${
+                  selectedDepartmentIndex === i
+                    ? 'bg-purple-600 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+                }`}
+              >
+                <div className="text-left">
+                  <div className="font-medium">{a.department.departmentName}</div>
+                  <div className="text-xs opacity-80">{a.department.schoolName}</div>
+                </div>
+              </button>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Quick stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-          <motion.div {...stagger(0)} className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="text-sm text-gray-500 mb-1">目標科系</div>
-            <div className="text-2xl font-bold text-gray-900">{analyses.length} 個</div>
-          </motion.div>
-          <motion.div {...stagger(1)} className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="text-sm text-gray-500 mb-1">最高錄取率</div>
-            <div className="text-2xl font-bold text-indigo-600">
-              {consolidated ? Math.max(...consolidated.targets.map(t => t.potentialProbability)) : 0}%
+        {currentAnalysis && (
+          <>
+            {/* Quick stats for selected department */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+              <motion.div {...stagger(0)} className="bg-white rounded-2xl p-5 shadow-sm">
+                <div className="text-sm text-gray-500 mb-1">目前匹配度</div>
+                <div className="text-2xl font-bold text-indigo-600">{currentAnalysis.bestPathway.acceptanceEstimate}%</div>
+              </motion.div>
+              <motion.div {...stagger(1)} className="bg-white rounded-2xl p-5 shadow-sm">
+                <div className="text-sm text-gray-500 mb-1">最佳管道</div>
+                <div className="text-2xl font-bold text-purple-600">{currentAnalysis.bestPathway.pathwayName}</div>
+              </motion.div>
+              <motion.div {...stagger(2)} className="bg-white rounded-2xl p-5 shadow-sm">
+                <div className="text-sm text-gray-500 mb-1">目標科系</div>
+                <div className="text-2xl font-bold text-gray-900">{currentAnalysis.department.schoolName}</div>
+              </motion.div>
             </div>
-          </motion.div>
-          <motion.div {...stagger(2)} className="bg-white rounded-2xl p-5 shadow-sm">
-            <div className="text-sm text-gray-500 mb-1">待完成行動</div>
-            <div className="text-2xl font-bold text-gray-900">{consolidated?.actionItems.length || 0} 項</div>
-          </motion.div>
-        </div>
 
-        {/* ── Target Department Cards ── */}
-        <div className="space-y-4 mb-10">
-          <h2 className="text-xl font-bold text-gray-900">目標科系</h2>
-          {analyses.map((a, i) => (
-            <motion.div key={a.department.id} {...stagger(i)}
-              className="bg-white rounded-2xl p-5 shadow-sm"
-            >
+            {/* Department Header */}
+            <motion.div {...stagger(0)} className="bg-white rounded-2xl p-6 shadow-sm mb-8">
               <div className="flex justify-between items-start">
                 <div>
-                  <div className="font-bold text-lg">{a.department.departmentName}</div>
-                  <div className="text-sm text-gray-500">{a.department.schoolName}</div>
+                  <h2 className="text-xl font-bold text-gray-900">{currentAnalysis.department.departmentName}</h2>
+                  <p className="text-gray-500 mb-3">{currentAnalysis.department.schoolName}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {currentAnalysis.department.features.slice(0, 3).map((f, i) => (
+                      <span key={i} className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded-full">{f}</span>
+                    ))}
+                    {currentAnalysis.department.careerOutcomes?.avgSalary > 0 && (
+                      <span className="px-2 py-1 text-xs bg-amber-100 text-amber-700 rounded-full">
+                        平均起薪 {(currentAnalysis.department.careerOutcomes.avgSalary / 1000).toFixed(1)}K
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-xs text-gray-400">最佳管道</div>
-                  <div className="text-sm font-bold text-indigo-600">{a.bestPathway.pathwayName}</div>
-                  <div className="text-2xl font-bold text-indigo-700">{a.bestPathway.acceptanceEstimate}%</div>
+                  <div className="text-4xl font-bold text-indigo-600">{currentAnalysis.bestPathway.acceptanceEstimate}%</div>
+                  <div className="text-xs text-gray-400">預估錄取機率</div>
                 </div>
               </div>
             </motion.div>
-          ))}
-        </div>
 
         {/* ── 6-Pathway Readiness ── */}
         <div className="mb-10">
           <h2 className="text-xl font-bold text-gray-900 mb-4">6 大升學管道準備度</h2>
           <p className="text-sm text-gray-500 mb-4">
-            以下顯示 <strong>{analyses[0]?.department.departmentName}</strong> 的 6 種管道分析。
-            {analyses.length > 1 && '其他科系的數據可在目標科系卡片中查看。'}
+            以下顯示 <strong>{currentAnalysis.department.departmentName}</strong> 的 6 種管道分析。
           </p>
 
           <div className="space-y-3">
@@ -318,21 +338,21 @@ export default function AbilityAccountPage() {
         </div>
 
         {/* ── Grade-Specific Advice ── */}
-        {advice && (
+        {currentAdvice && (
           <div className="mb-10">
             <h2 className="text-xl font-bold text-gray-900 mb-4">
-              {gradeLabel}專屬建議 · {advice.phase}
+              {gradeLabel}專屬建議 · {currentAdvice.phase}
             </h2>
 
             {/* High 1: Roadmap */}
-            {profile.grade === 10 && advice.roadmap && advice.roadmap.length > 0 && (
+            {profile.grade === 10 && currentAdvice.roadmap && currentAdvice.roadmap.length > 0 && (
               <div className="bg-white rounded-2xl p-5 shadow-sm">
                 <div className="space-y-0">
-                  {advice.roadmap.map((item, j) => (
+                  {currentAdvice.roadmap.map((item, j) => (
                     <div key={j} className="flex gap-3">
                       <div className="flex flex-col items-center">
                         <div className={`w-3 h-3 rounded-full shrink-0 mt-1 ${j === 0 ? 'bg-indigo-500' : 'bg-gray-300'}`} />
-                        {j < advice.roadmap!.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 min-h-[1.5rem]" />}
+                        {j < currentAdvice.roadmap!.length - 1 && <div className="w-0.5 flex-1 bg-gray-200 min-h-[1.5rem]" />}
                       </div>
                       <div className="flex-1 pb-3">
                         <div className="font-medium text-sm text-gray-800">{item.period}</div>
@@ -350,9 +370,9 @@ export default function AbilityAccountPage() {
             )}
 
             {/* High 2: Upgrade guide */}
-            {profile.grade === 11 && advice.upgradeGuide && advice.upgradeGuide.length > 0 && (
+            {profile.grade === 11 && currentAdvice.upgradeGuide && currentAdvice.upgradeGuide.length > 0 && (
               <div className="space-y-2">
-                {advice.upgradeGuide.map((item, j) => (
+                {currentAdvice.upgradeGuide.map((item, j) => (
                   <div key={j} className="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4">
                     <div className={`w-3 h-3 rounded-full shrink-0 ${
                       item.effort === 'high' ? 'bg-red-400' :
@@ -378,9 +398,9 @@ export default function AbilityAccountPage() {
             )}
 
             {/* High 3: Sprint plan */}
-            {profile.grade === 12 && advice.sprintPlan && advice.sprintPlan.length > 0 && (
+            {profile.grade === 12 && currentAdvice.sprintPlan && currentAdvice.sprintPlan.length > 0 && (
               <div className="space-y-2">
-                {advice.sprintPlan.map((item, j) => (
+                {currentAdvice.sprintPlan.map((item, j) => (
                   <div key={j} className="bg-white rounded-2xl p-4 shadow-sm">
                     <div className="flex justify-between items-center mb-2">
                       <div className="font-medium">{item.pathway}</div>
@@ -401,12 +421,12 @@ export default function AbilityAccountPage() {
           </div>
         )}
 
-        {/* ── Consolidated Action Plan ── */}
-        {consolidated && consolidated.actionItems.length > 0 && (
+        {/* ── Action Plan for this Department ── */}
+        {currentAnalysis && (
           <div className="mb-10">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">優先行動計畫</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">進入這個科系的優先行動計畫</h2>
             <div className="space-y-2">
-              {consolidated.actionItems.map((item, i) => (
+              {currentAnalysis.bestPathway.actionItems.map((item, i) => (
                 <motion.div key={i} {...stagger(i)}
                   className="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4"
                 >
@@ -419,13 +439,7 @@ export default function AbilityAccountPage() {
                   <div className="flex-1 min-w-0">
                     <div className="font-medium">{item.title}</div>
                     <div className="text-xs text-gray-500">{item.deadline}</div>
-                    {item.forDepartments.length > 1 && (
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {item.forDepartments.map(d => (
-                          <span key={d} className="px-1.5 py-0.5 text-[10px] bg-purple-100 text-purple-700 rounded-full">{d}</span>
-                        ))}
-                      </div>
-                    )}
+                    <div className="text-xs text-purple-600 mt-1">針對管道：{item.forPathway}</div>
                   </div>
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium shrink-0 ${
                     item.priority === 'high' ? 'bg-red-100 text-red-700' :
@@ -440,21 +454,21 @@ export default function AbilityAccountPage() {
         )}
 
         {/* ── Strategy: Upgrade Paths ── */}
-        {strategy && strategy.upgradePaths.length > 0 && (
+        {currentStrategy && currentStrategy.upgradePaths.length > 0 && (
           <div className="mb-10">
             <h2 className="text-xl font-bold text-gray-900 mb-2">
-              {gradeLabel}策略 · {strategy.phase}
+              {gradeLabel}升級策略 · {currentStrategy.phase}
             </h2>
             <p className="text-sm text-gray-500 mb-4">
-              {strategy.phase === '鍛造期'
-                ? '你還有時間鍛造新武器，以下是 CP 值最高的升級路線'
-                : strategy.phase === '衝刺期'
+              {currentStrategy.phase === '鍛造期'
+                ? '你還有時間鍛造新武器，以下是針對這個科系 CP 值最高的升級路線'
+                : currentStrategy.phase === '衝刺期'
                 ? '時間有限，專注在還來得及的行動'
                 : '三年養成路線，現在開始累積'}
             </p>
 
             <div className="space-y-3">
-              {strategy.upgradePaths.filter(p => p.canStillMakeIt).map((path, i) => (
+              {currentStrategy.upgradePaths.filter(p => p.canStillMakeIt).map((path, i) => (
                 <motion.div key={path.id} {...stagger(i)}
                   className={`bg-white rounded-2xl p-5 shadow-sm border-l-4 ${
                     path.roi === 'high' ? 'border-l-amber-400' :
@@ -515,11 +529,11 @@ export default function AbilityAccountPage() {
         )}
 
         {/* ── Strategy: Critical Deadlines ── */}
-        {strategy && strategy.criticalDeadlines.length > 0 && (
+        {currentStrategy && currentStrategy.criticalDeadlines.length > 0 && (
           <div className="mb-10">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">不可錯過的截止日</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">這個科系的重要截止日</h2>
             <div className="space-y-2">
-              {strategy.criticalDeadlines.filter(d => d.daysLeft > 0).slice(0, 8).map((dl, i) => (
+              {currentStrategy.criticalDeadlines.filter(d => d.daysLeft > 0).slice(0, 8).map((dl, i) => (
                 <motion.div key={`${dl.date}-${dl.title}`} {...stagger(i)}
                   className="bg-white rounded-2xl p-4 shadow-sm flex items-center gap-4"
                 >
@@ -548,7 +562,7 @@ export default function AbilityAccountPage() {
         {/* ── Quick Actions ── */}
         <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white mb-8">
           <h3 className="text-lg font-bold mb-4">快速行動</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             <button
               onClick={() => {
                 trackFeatureUsage('ability_rediscover_click', {})
@@ -556,7 +570,7 @@ export default function AbilityAccountPage() {
               }}
               className="bg-white/20 hover:bg-white/30 transition rounded-xl p-4 text-left"
             >
-              <div className="font-semibold mb-1">重新發現路徑</div>
+              <div className="font-semibold mb-1">🔄 重新發現路徑</div>
               <div className="text-sm opacity-80">重新選擇科系或更新武器庫</div>
             </button>
             <button
@@ -566,7 +580,7 @@ export default function AbilityAccountPage() {
               }}
               className="bg-white/20 hover:bg-white/30 transition rounded-xl p-4 text-left"
             >
-              <div className="font-semibold mb-1">準備申請材料</div>
+              <div className="font-semibold mb-1">📑 準備申請材料</div>
               <div className="text-sm opacity-80">管理學習歷程和申請文件</div>
             </button>
             <button
@@ -576,11 +590,23 @@ export default function AbilityAccountPage() {
               }}
               className="bg-white/20 hover:bg-white/30 transition rounded-xl p-4 text-left"
             >
-              <div className="font-semibold mb-1">升學時間線</div>
+              <div className="font-semibold mb-1">🗓️ 升學時間線</div>
               <div className="text-sm opacity-80">查看各階段重要時程</div>
+            </button>
+            <button
+              onClick={() => {
+                trackFeatureUsage('ability_interview_click', {})
+                router.push('/interview')
+              }}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-4 text-left"
+            >
+              <div className="font-semibold mb-1">🎤 申請準備</div>
+              <div className="text-sm opacity-80">自傳、讀書計畫、面試準備</div>
             </button>
           </div>
         </div>
+        </>
+        )}
 
         {/* Saved at */}
         {plan.createdAt && (
