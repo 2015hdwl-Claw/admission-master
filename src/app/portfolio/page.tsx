@@ -1,807 +1,289 @@
-// 路徑準備材料頁面 - Planner 準備工具
-// 目標：從學習歷程記錄轉變為路徑準備材料管理，幫助學生準備升學申請材料
+// 準備材料頁面 — 基於學生選擇的活動，按事件分類
+// 讀取 chosen_activities_v1，產生分類準備事項
 
 'use client'
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
+import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/analytics'
+import { getChosenActivities, generateEventBasedPrepItems } from '@/lib/activity-plan'
+import type { ChosenActivitiesData, PrepItem } from '@/types/activity-plan'
+import type { StudentProfile, DepartmentInfo } from '@/types/department'
+import { departments } from '@/lib/department-data'
 
-interface StudentProfile {
-  user_id: string
-  group_code: string
-  grade?: string
-  total_bonus_percent?: number
+interface SavedPlan {
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  createdAt: string
 }
 
-interface PathwayMaterials {
-  pathway: string
-  pathwayCode: string
-  requiredMaterials: MaterialItem[]
-  optionalMaterials: MaterialItem[]
-  priority: 'high' | 'medium' | 'low'
-  status: 'not_started' | 'in_progress' | 'ready'
+interface SavedState {
+  step: number
+  group: string
+  groupName: string
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  groupConfirmed: boolean
 }
 
-interface MaterialItem {
-  id: string
-  name: string
-  description: string
-  required: boolean
-  completed: boolean
-  notes?: string
+const CATEGORY_CONFIG: Record<string, { icon: string; label: string; color: string; bg: string }> = {
+  exam: { icon: '📝', label: '段考/期末考', color: 'text-purple-600', bg: 'bg-purple-50' },
+  certificate: { icon: '📜', label: '證照考試', color: 'text-amber-600', bg: 'bg-amber-50' },
+  competition: { icon: '🏆', label: '競賽', color: 'text-blue-600', bg: 'bg-blue-50' },
+  application: { icon: '📋', label: '申請材料', color: 'text-indigo-600', bg: 'bg-indigo-50' },
 }
+
+const PRIORITY_CONFIG: Record<string, { color: string; bg: string; label: string }> = {
+  high: { color: 'text-red-700', bg: 'bg-red-100', label: '緊急' },
+  medium: { color: 'text-amber-700', bg: 'bg-amber-100', label: '中等' },
+  low: { color: 'text-green-700', bg: 'bg-green-100', label: '一般' },
+}
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 },
+}
+
+const stagger = (i: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay: i * 0.05, duration: 0.3 },
+})
 
 export default function PortfolioPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<StudentProfile | null>(null)
-  const [pathwayMaterials, setPathwayMaterials] = useState<PathwayMaterials[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [selectedPathway, setSelectedPathway] = useState<PathwayMaterials | null>(null)
+  const [items, setItems] = useState<PrepItem[]>([])
+  const [plan, setPlan] = useState<SavedPlan | null>(null)
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
+  const [activeTab, setActiveTab] = useState<string>('all')
 
-  // 頁面載入時追蹤
   useEffect(() => {
-    trackPageView('planner_preparation_materials')
-    loadUserData()
+    trackPageView('portfolio_v2')
+    loadData()
   }, [])
 
-  const loadUserData = async () => {
-    try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+  function loadData() {
+    let profile: StudentProfile | null = null
+    let targets: DepartmentInfo[] = []
 
-      if (user) {
-        setUser(user)
-
-        const { data: profileData, error } = await supabase
-          .from('student_profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single()
-
-        if (!error && profileData) {
-          setProfile(profileData)
-          generatePathwayMaterials(profileData)
-        } else {
-          const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-          setProfile(defaultProfile)
-          generatePathwayMaterials(defaultProfile)
+    const raw = localStorage.getItem('saved_discovery_plan_v4')
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as SavedPlan
+        if (parsed.targets?.length > 0 && parsed.profile) {
+          profile = parsed.profile
+          targets = parsed.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
         }
-      } else {
-        const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-        setProfile(defaultProfile)
-        generatePathwayMaterials(defaultProfile)
-      }
-    } catch (err) {
-      console.error('Error loading user data:', err)
-      setError(err instanceof Error ? err.message : '載入資料失敗')
-    } finally {
-      setLoading(false)
+      } catch {}
     }
-  }
 
-  // 根據用戶職群，生成各個升學管道的準備材料清單
-  const generatePathwayMaterials = (profile: StudentProfile) => {
-    const pathways: PathwayMaterials[] = []
-
-    // 繁星推薦
-    pathways.push({
-      pathway: '繁星推薦',
-      pathwayCode: 'xingxing',
-      requiredMaterials: [
-        {
-          id: 'transcript',
-          name: '在校成績單',
-          description: '包含高一至高三的所有成績，需學校蓋章認證',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'learning_portfolio',
-          name: '學習歷程檔案',
-          description: '記錄課堂學習、專題製作、實習經驗等學習成果',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'performance_record',
-          name: '在校表現紀錄',
-          description: '包含社團參與、競賽成績、服務學習等表現',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'teacher_recommendation',
-          name: '教師推薦函',
-          description: '至少需要 2-3 位任課教師的推薦信',
-          required: true,
-          completed: false
-        }
-      ],
-      optionalMaterials: [
-        {
-          id: 'competition_awards',
-          name: '競賽獲獎證明',
-          description: '技能競賽、專題競賽等獲獎紀錄',
-          required: false,
-          completed: false
-        },
-        {
-          id: 'certification',
-          name: '技術士證照',
-          description: '相關領域的技術士證照複本',
-          required: false,
-          completed: false
-        }
-      ],
-      priority: 'high',
-      status: 'not_started'
-    })
-
-    // 甄選入學
-    pathways.push({
-      pathway: '甄選入學',
-      pathwayCode: 'individual',
-      requiredMaterials: [
-        {
-          id: 'transcript_individual',
-          name: '在校成績單',
-          description: '高一至高三的完整成績單',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'learning_portfolio_individual',
-          name: '學習歷程檔案',
-          description: '詳細記錄學習過程與成果',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'performance_record_individual',
-          name: '在校表現紀錄',
-          description: '課外活動、社團、競賽等綜合表現',
-          required: true,
-          completed: false
-        }
-      ],
-      optionalMaterials: [
-        {
-          id: 'self_introduction',
-          name: '自傳 / 學習計畫',
-          description: '個人背景、學習動機、未來規劃說明',
-          required: false,
-          completed: false
-        },
-        {
-          id: 'portfolio_works',
-          name: '作品集',
-          description: '專題製作、實習成果等作品展示',
-          required: false,
-          completed: false
-        }
-      ],
-      priority: 'high',
-      status: 'not_started'
-    })
-
-    // 技優甄審
-    if (profile.total_bonus_percent && profile.total_bonus_percent > 10) {
-      pathways.push({
-        pathway: '技優甄審',
-        pathwayCode: 'technical',
-        requiredMaterials: [
-          {
-            id: 'transcript_technical',
-            name: '在校成績單',
-            description: '完整學業成績紀錄',
-            required: true,
-            completed: false
-          },
-          {
-            id: 'technical_proof',
-            name: '技優證明文件',
-            description: '技能競賽獲獎、技優加分等證明文件',
-            required: true,
-            completed: false
-          },
-          {
-            id: 'learning_portfolio_technical',
-            name: '學習歷程檔案',
-            description: '專業學習與技能發展紀錄',
-            required: true,
-            completed: false
+    if (!profile) {
+      const stateRaw = localStorage.getItem('discovery_state_v4')
+      if (stateRaw) {
+        try {
+          const s = JSON.parse(stateRaw) as SavedState
+          if (s.targets?.length > 0 && s.profile) {
+            profile = s.profile
+            targets = s.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
           }
-        ],
-        optionalMaterials: [
-          {
-            id: 'works_collection',
-            name: '技優作品集',
-            description: '技能競賽作品、實作成果等展示',
-            required: false,
-            completed: false
-          },
-          {
-            id: 'recommendation_technical',
-            name: '指導老師推薦函',
-            description: '專業能力與技優表現推薦',
-            required: false,
-            completed: false
-          }
-        ],
-        priority: 'medium',
-        status: 'not_started'
-      })
-    }
-
-    // 聯合登記分發
-    pathways.push({
-      pathway: '聯合登記分發',
-      pathwayCode: 'distribution',
-      requiredMaterials: [
-        {
-          id: 'exam_scores',
-          name: '統測成績',
-          description: '國文、英文、數學、社會、自然等科目成績',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'entrance_exam_scores',
-          name: '統測成績',
-          description: '統測成績單',
-          required: true,
-          completed: false
-        }
-      ],
-      optionalMaterials: [
-        {
-          id: 'exam_preparation_record',
-          name: '考試準備紀錄',
-          description: '模擬考成績、複習計畫等準備過程',
-          required: false,
-          completed: false
-        }
-      ],
-      priority: 'medium',
-      status: 'not_started'
-    })
-
-    // 技優保送
-    pathways.push({
-      pathway: '技優保送',
-      pathwayCode: 'guarantee',
-      requiredMaterials: [
-        {
-          id: 'transcript_community',
-          name: '在校成績單',
-          description: '基本學業成績紀錄',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'service_record',
-          name: '社區服務紀錄',
-          description: '服務時數、服務內容、服務成果等詳細紀錄',
-          required: true,
-          completed: false
-        }
-      ],
-      optionalMaterials: [
-        {
-          id: 'community_reflection',
-          name: '服務心得紀錄',
-          description: '社區服務過程中的心得與成長',
-          required: false,
-          completed: false
-        },
-        {
-          id: 'recommendation_community',
-          name: '服務單位推薦函',
-          description: '服務機構或指導老師的推薦信',
-          required: false,
-          completed: false
-        }
-      ],
-      priority: 'low',
-      status: 'not_started'
-    })
-
-    // 特殊選才
-    pathways.push({
-      pathway: '特殊選才',
-      pathwayCode: 'special',
-      requiredMaterials: [
-        {
-          id: 'special_talent_proof',
-          name: '特殊才能證明',
-          description: '專業領域的才能展示與證明文件',
-          required: true,
-          completed: false
-        },
-        {
-          id: 'learning_portfolio_special',
-          name: '學習歷程檔案',
-          description: '專業學習與才能發展紀錄',
-          required: true,
-          completed: false
-        }
-      ],
-      optionalMaterials: [
-        {
-          id: 'talent_works',
-          name: '專業作品集',
-          description: '代表作品、表演紀錄、創作成果等',
-          required: false,
-          completed: false
-        },
-        {
-          id: 'recommendation_special',
-          name: '專業推薦函',
-          description: '專業領域老師或專家的推薦信',
-          required: false,
-          completed: false
-        }
-      ],
-      priority: 'low',
-      status: 'not_started'
-    })
-
-    setPathwayMaterials(pathways)
-  }
-
-  const handleToggleMaterial = (pathwayIndex: number, materialId: string) => {
-    const updatedPathways = [...pathwayMaterials]
-    const pathway = updatedPathways[pathwayIndex]
-
-    // Find and toggle the material
-    const allMaterials = [...pathway.requiredMaterials, ...pathway.optionalMaterials]
-    const material = allMaterials.find(m => m.id === materialId)
-    if (material) {
-      material.completed = !material.completed
-
-      // Update pathway status
-      const requiredCompleted = pathway.requiredMaterials.filter(m => m.completed).length
-      const requiredTotal = pathway.requiredMaterials.length
-
-      if (requiredCompleted === 0) {
-        pathway.status = 'not_started'
-      } else if (requiredCompleted < requiredTotal) {
-        pathway.status = 'in_progress'
-      } else {
-        pathway.status = 'ready'
+        } catch {}
       }
-
-      setPathwayMaterials(updatedPathways)
-      trackFeatureUsage('toggle_material_completion')
     }
+
+    if (profile) {
+      setPlan({ targets, profile, createdAt: new Date().toISOString() })
+
+      const chosenData = getChosenActivities()
+      const prepItems = generateEventBasedPrepItems(chosenData.activities, profile, targets)
+      setItems(prepItems)
+    }
+
+    const completedRaw = localStorage.getItem('portfolio_completed_v2')
+    if (completedRaw) {
+      try { setCompletedIds(new Set(JSON.parse(completedRaw))) } catch {}
+    }
+
+    setLoading(false)
   }
 
-  const handleViewPathwayDetails = (pathway: PathwayMaterials) => {
-    setSelectedPathway(pathway)
-    trackFeatureUsage('view_pathway_materials_details')
-  }
-
-  const handleCloseModal = () => {
-    setSelectedPathway(null)
-  }
-
-  const handleGoToAbilityCenter = () => {
-    trackFeatureUsage('go_to_ability_center_from_portfolio')
-    router.push('/ability-account')
-  }
-
-  const handleGoToRoadmap = () => {
-    trackFeatureUsage('go_to_roadmap_from_portfolio')
-    router.push('/roadmap')
+  function toggleComplete(id: string) {
+    const next = new Set(completedIds)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    setCompletedIds(next)
+    localStorage.setItem('portfolio_completed_v2', JSON.stringify([...next]))
   }
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <p className="ml-4 text-gray-600">載入中...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
       </div>
     )
   }
 
-  if (error) {
+  if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">載入失敗</h2>
-          <p className="text-gray-600">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center px-4">
+        <motion.div {...fadeUp} className="text-center max-w-md">
+          <div className="text-6xl mb-6">📑</div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">準備材料</h1>
+          <p className="text-lg text-gray-500 mb-4">
+            {plan ? '前往能力中心選擇活動，這裡會自動產生準備事項。' : '先完成發現流程，開始規劃你的升學準備。'}
+          </p>
           <button
-            onClick={() => router.push('/')}
-            className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+            onClick={() => router.push(plan ? '/ability-account' : '/first-discovery')}
+            className="px-8 py-4 bg-indigo-600 text-white rounded-2xl text-lg font-medium hover:bg-indigo-700 transition"
           >
-            返回首頁
+            {plan ? '前往能力中心 →' : '開始探索 →'}
           </button>
-        </div>
+        </motion.div>
       </div>
     )
   }
+
+  const filteredItems = activeTab === 'all' ? items : items.filter(i => i.category === activeTab)
+  const urgentCount = items.filter(i => i.priority === 'high' && !completedIds.has(i.id)).length
+  const completedCount = items.filter(i => completedIds.has(i.id)).length
+
+  const categories = ['all', ...Array.from(new Set(items.map(i => i.category)))]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Page title bar */}
+      {/* Header */}
       <div className="bg-white/90 border-b border-indigo-100 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <p className="text-indigo-600 font-semibold text-sm">路徑準備材料</p>
-          {profile?.group_code && (
-            <span className="text-xs text-gray-500">
-              {profile.group_code === '06' ? '商管群' : profile.group_code} · {profile.grade || '高三'}
-            </span>
-          )}
+        <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+          <p className="text-indigo-600 font-semibold text-sm">準備材料</p>
+          <span className="text-xs text-gray-500">{items.length} 項準備 · {completedCount} 已完成</span>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <div className="inline-block mb-8 px-4 py-2 bg-green-100 rounded-full">
-            <p className="text-green-700 font-semibold text-sm">
-              📋 Planner 準備工具 - 路徑準備材料管理
-            </p>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            升學申請材料準備清單
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            根據你的職群，為各個升學管道準備所需的申請材料，
-            <br />
-            <strong>追蹤準備進度，確保不遺漏任何重要文件。</strong>
-          </p>
-        </div>
-
+      <main className="max-w-3xl mx-auto px-4 py-6">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white mr-4">
-                📋
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">準備管道數</h3>
-                <p className="text-blue-600 font-medium text-2xl">{pathwayMaterials.length}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ✅
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">準備完成</h3>
-                <p className="text-green-600 font-medium text-2xl">
-                  {pathwayMaterials.filter(p => p.status === 'ready').length}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ⏳
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">準備中</h3>
-                <p className="text-orange-600 font-medium text-2xl">
-                  {pathwayMaterials.filter(p => p.status === 'in_progress').length}
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <motion.div {...stagger(0)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">準備項目</div>
+            <div className="text-2xl font-bold text-indigo-600">{items.length}</div>
+          </motion.div>
+          <motion.div {...stagger(1)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">緊急</div>
+            <div className="text-2xl font-bold text-red-500">{urgentCount}</div>
+          </motion.div>
+          <motion.div {...stagger(2)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">已完成</div>
+            <div className="text-2xl font-bold text-green-500">{completedCount}</div>
+          </motion.div>
         </div>
 
-        {/* Pathway Materials List */}
-        <div className="space-y-6 mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
-              各管道準備材料清單
-            </h2>
-            <p className="text-gray-600">
-              點擊查看詳細材料項目與準備進度
-            </p>
-          </div>
+        {/* Category tabs */}
+        <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+          {categories.map(cat => {
+            const config = cat === 'all' ? { icon: '📊', label: '全部', color: 'text-gray-600', bg: 'bg-gray-50' } : CATEGORY_CONFIG[cat]
+            const count = cat === 'all' ? items.length : items.filter(i => i.category === cat).length
+            return (
+              <button key={cat}
+                onClick={() => setActiveTab(cat)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition ${
+                  activeTab === cat ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                {config.icon} {config.label} ({count})
+              </button>
+            )
+          })}
+        </div>
 
-          {pathwayMaterials.map((pathway, index) => {
-            const requiredCompleted = pathway.requiredMaterials.filter(m => m.completed).length
-            const requiredTotal = pathway.requiredMaterials.length
-            const progressPercent = requiredTotal > 0 ? Math.round((requiredCompleted / requiredTotal) * 100) : 0
+        {/* Items list */}
+        <div className="space-y-3">
+          {filteredItems.map((item, i) => {
+            const config = CATEGORY_CONFIG[item.category] || CATEGORY_CONFIG.application
+            const pConfig = PRIORITY_CONFIG[item.priority]
+            const isCompleted = completedIds.has(item.id)
 
             return (
-              <div key={index} className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100 hover:shadow-md transition-shadow">
-                {/* Pathway Header */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">{pathway.pathway}</h3>
-                      <p className="text-sm text-gray-600">準備進度：{requiredCompleted}/{requiredTotal} 項 ({progressPercent}%)</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    {pathway.priority === 'high' && (
-                      <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">高優先級</span>
-                    )}
-                    {pathway.priority === 'medium' && (
-                      <span className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-medium">中優先級</span>
-                    )}
-                    {pathway.priority === 'low' && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">低優先級</span>
-                    )}
-                    {pathway.status === 'ready' && (
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">準備完成</span>
-                    )}
-                    {pathway.status === 'in_progress' && (
-                      <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">準備中</span>
-                    )}
-                    {pathway.status === 'not_started' && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">未開始</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Progress Bar */}
-                <div className="mb-4">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-gradient-to-r from-green-500 to-emerald-600 h-2 rounded-full transition-all"
-                      style={{ width: `${progressPercent}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                {/* Materials Preview */}
-                <div className="mb-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Required Materials */}
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center">
-                        <span className="text-red-500 mr-2">*</span>
-                        必要材料 ({requiredCompleted}/{requiredTotal})
-                      </h4>
-                      <div className="space-y-2">
-                        {pathway.requiredMaterials.slice(0, 3).map((material) => (
-                          <div key={material.id} className="flex items-center space-x-2 text-sm">
-                            <div className={`w-4 h-4 rounded border ${material.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                              {material.completed && (
-                                <svg className="w-3 h-3 text-white ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                              )}
-                            </div>
-                            <span className={material.completed ? 'text-gray-900 line-through' : 'text-gray-700'}>
-                              {material.name}
-                            </span>
-                          </div>
-                        ))}
-                        {pathway.requiredMaterials.length > 3 && (
-                          <p className="text-xs text-gray-500">... 還有 {pathway.requiredMaterials.length - 3} 項</p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Optional Materials */}
-                    <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-3">選填材料</h4>
-                      <div className="space-y-2">
-                        {pathway.optionalMaterials.slice(0, 2).map((material) => (
-                          <div key={material.id} className="flex items-center space-x-2 text-sm">
-                            <div className={`w-4 h-4 rounded border ${material.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                              {material.completed && (
-                                <svg className="w-3 h-3 text-white ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                </svg>
-                              )}
-                            </div>
-                            <span className={material.completed ? 'text-gray-900 line-through' : 'text-gray-700'}>
-                              {material.name}
-                            </span>
-                          </div>
-                        ))}
-                        {pathway.optionalMaterials.length > 2 && (
-                          <p className="text-xs text-gray-500">... 還有 {pathway.optionalMaterials.length - 2} 項</p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Action Button */}
-                <div className="flex justify-end">
+              <motion.div key={item.id} {...stagger(i)}
+                className={`bg-white rounded-2xl p-4 shadow-sm ${isCompleted ? 'opacity-60' : ''}`}
+              >
+                <div className="flex items-start gap-3">
+                  {/* Checkbox */}
                   <button
-                    onClick={() => handleViewPathwayDetails(pathway)}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center space-x-2"
+                    onClick={() => toggleComplete(item.id)}
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition ${
+                      isCompleted ? 'bg-green-500 border-green-500 text-white' : 'border-gray-300 hover:border-indigo-400'
+                    }`}
                   >
-                    <span>查看詳細材料清單</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    {isCompleted && <span className="text-xs">✓</span>}
                   </button>
+
+                  <div className="flex-1 min-w-0">
+                    {/* Category + Priority badges */}
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.color}`}>
+                        {config.icon} {config.label}
+                      </span>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${pConfig.bg} ${pConfig.color}`}>
+                        {pConfig.label}
+                      </span>
+                      {item.daysLeft < 999 && !isCompleted && (
+                        <span className={`text-xs font-bold ${
+                          item.daysLeft < 14 ? 'text-red-500' : item.daysLeft < 30 ? 'text-amber-500' : 'text-gray-500'
+                        }`}>
+                          {item.daysLeft <= 0 ? '已到期' : `${item.daysLeft}天後`}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Title */}
+                    <div className={`font-medium ${isCompleted ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                      {item.title}
+                    </div>
+
+                    {/* Description */}
+                    <div className="text-sm text-gray-500 mt-0.5">{item.description}</div>
+
+                    {/* Deadline */}
+                    {item.deadline && (
+                      <div className="text-xs text-gray-400 mt-1">
+                        截止：{new Date(item.deadline).toLocaleDateString('zh-TW')}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-8 mb-12 text-white">
-          <h3 className="text-2xl font-bold mb-6">快速行動</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-              onClick={handleGoToAbilityCenter}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <span className="font-semibold">查看能力中心</span>
-              </div>
-              <p className="text-sm opacity-90">了解適合你的升學管道和準備進度</p>
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white mt-8 mb-6">
+          <h3 className="text-lg font-bold mb-4">快速導航</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => router.push('/ability-account')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">🎯 能力中心</div>
+              <div className="text-xs opacity-80">管理你的活動計畫</div>
             </button>
-
-            <button
-              onClick={handleGoToRoadmap}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <span className="font-semibold">查看升學時間線</span>
-              </div>
-              <p className="text-sm opacity-90">了解各階段的重要時間點和準備工作</p>
+            <button onClick={() => router.push('/roadmap')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">🗓️ 時間線</div>
+              <div className="text-xs opacity-80">查看所有重要日期</div>
+            </button>
+            <button onClick={() => router.push('/interview')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">📁 申請準備</div>
+              <div className="text-xs opacity-80">管理上傳文件</div>
+            </button>
+            <button onClick={() => router.push('/first-discovery')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">🔍 重新探索</div>
+              <div className="text-xs opacity-80">調整目標科系</div>
             </button>
           </div>
-        </div>
-
-        {/* Help & Guidance */}
-        <div className="text-center text-gray-600 text-sm">
-          <p className="mb-2">
-            <strong>路徑準備材料</strong>幫助你系統化準備升學申請
-            <br />• 根據不同的升學管道，提供<strong>個人化的材料清單</strong>
-            <br />• 追蹤每份材料的準備進度，確保不遺漏重要文件
-            <br />• 提供<strong>準備建議和時間安排</strong>
-          </p>
-          <p className="text-xs text-gray-500 mt-4">
-            建議優先準備高優先級管道的必要材料，再逐步補充選填材料
-          </p>
         </div>
       </main>
-
-      {/* Modal for Pathway Details */}
-      {selectedPathway && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 z-10">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900">{selectedPathway.pathway}</h2>
-                  <p className="text-gray-600 mt-1">申請材料詳細清單</p>
-                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
-                >
-                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-6">
-              {/* Required Materials */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center">
-                  <span className="text-red-500 mr-2">*</span>
-                  必要材料
-                </h3>
-                <div className="space-y-3">
-                  {selectedPathway.requiredMaterials.map((material) => (
-                    <div
-                      key={material.id}
-                      className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 transition cursor-pointer"
-                      onClick={() => handleToggleMaterial(pathwayMaterials.indexOf(selectedPathway), material.id)}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <div className={`w-6 h-6 rounded border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${material.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                          {material.completed && (
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className={`font-semibold text-gray-900 ${material.completed ? 'line-through' : ''}`}>
-                            {material.name}
-                          </h4>
-                          <p className="text-sm text-gray-600 mt-1">{material.description}</p>
-                        </div>
-                        <span className={`text-xs px-2 py-1 rounded ${material.completed ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
-                          {material.completed ? '已完成' : '待準備'}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Optional Materials */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">選填材料 (建議準備)</h3>
-                <div className="space-y-3">
-                  {selectedPathway.optionalMaterials.map((material) => (
-                    <div
-                      key={material.id}
-                      className="p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-indigo-300 transition cursor-pointer"
-                      onClick={() => handleToggleMaterial(pathwayMaterials.indexOf(selectedPathway), material.id)}
-                    >
-                      <div className="flex items-start space-x-3">
-                        <div className={`w-6 h-6 rounded border-2 flex-shrink-0 mt-0.5 flex items-center justify-center ${material.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                          {material.completed && (
-                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className={`font-semibold text-gray-900 ${material.completed ? 'line-through' : ''}`}>
-                            {material.name}
-                          </h4>
-                          <p className="text-sm text-gray-600 mt-1">{material.description}</p>
-                        </div>
-                        <span className={`text-xs px-2 py-1 rounded ${material.completed ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'}`}>
-                          {material.completed ? '已完成' : '選填'}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                  <strong>準備進度：</strong>
-                  {selectedPathway.requiredMaterials.filter(m => m.completed).length} / {selectedPathway.requiredMaterials.length} 項必要材料
-                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-                >
-                  關閉
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-600 text-sm">
-            <p>© 2026 升學大師 v2.0 • 讓每個高職生都找到最適合的升學路徑</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }

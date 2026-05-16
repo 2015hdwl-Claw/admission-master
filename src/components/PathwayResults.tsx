@@ -75,21 +75,130 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
   const grade = profile.grade
   const gradeLabel = GRADE_LABELS[grade] || '高三'
 
-  if (grade === 10) return renderGrade10()
-  if (grade === 11) return renderGrade11()
-  return renderGrade12()
+  return (
+    <div className="w-full max-w-3xl mx-auto text-center">
+      {renderGapSnapshot()}
+      {grade === 10 && renderGrade10()}
+      {grade === 11 && renderGrade11()}
+      {grade === 12 && renderGrade12()}
+      {renderCTA()}
+      {renderButtons(grade)}
+    </div>
+  )
+
+  // ═══ 差距快照（所有年級共用） ═══
+  function renderGapSnapshot() {
+    return (
+      <motion.div {...fadeUp} className="mb-8">
+        <motion.h1 {...fadeUp} className="text-4xl font-bold text-gray-900 mb-2">
+          {grade === 10 ? '你的三年升學路線圖' : grade === 11 ? '你的武器庫升級指南' : '你的最佳升學路線'}
+        </motion.h1>
+        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-6">
+          {grade === 10 ? '距離申請還有 2 年，現在開始準備剛好！' : grade === 11 ? '專注升級關鍵武器，打通更多升學管道！' : '申請季來了，衝刺最有把握的管道！'}
+        </motion.p>
+
+        <div className="space-y-4">
+          {analyses.map((analysis, i) => {
+            const bp = analysis.bestPathway
+            const matched = bp.matchedItems
+            const missing = bp.missingItems
+            const t = plan?.targets.find(t => t.departmentName === analysis.department.departmentName)
+            const current = t?.currentProbability ?? 0
+            const potential = t?.potentialProbability ?? 0
+
+            return (
+              <motion.div key={analysis.department.id} {...stagger(i)}
+                className="bg-white/80 rounded-2xl p-5 shadow-sm text-left"
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <div className="font-bold text-lg">{analysis.department.departmentName}</div>
+                    <div className="text-sm text-gray-500">{analysis.department.schoolName}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs text-gray-400">最佳推薦管道</div>
+                    <div className="text-sm font-bold text-indigo-600">{bp.pathwayName}</div>
+                  </div>
+                </div>
+
+                {/* Progress bar */}
+                <div className="mb-3">
+                  <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <span>目前匹配度</span>
+                    <span>預估上限</span>
+                  </div>
+                  <div className="h-3 bg-gray-100 rounded-full overflow-hidden relative">
+                    <div className="h-full bg-indigo-400 rounded-full transition-all duration-1000"
+                      style={{ width: `${current}%` }} />
+                    <div className="absolute top-0 left-0 h-full border-r-2 border-indigo-700 border-dashed"
+                      style={{ width: `${potential}%` }} />
+                  </div>
+                  <div className="flex justify-between text-xs mt-1">
+                    <span className="text-indigo-600 font-bold">{current}%</span>
+                    <span className="text-purple-600 font-bold">{potential}%</span>
+                  </div>
+                </div>
+
+                {/* Matched vs Missing */}
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 bg-green-50 rounded-xl">
+                    <div className="text-xs font-bold text-green-700 mb-2">✓ 已具備</div>
+                    {matched.length > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {matched.map((item, j) => (
+                          <span key={j} className="px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded-full">{item}</span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-green-400">尚無匹配項</p>
+                    )}
+                  </div>
+                  <div className="p-3 bg-red-50 rounded-xl">
+                    <div className="text-xs font-bold text-red-700 mb-2">✗ 還需要</div>
+                    {missing.length > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {missing.slice(0, 4).map((item, j) => (
+                          <span key={j} className="px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded-full">{item}</span>
+                        ))}
+                        {missing.length > 4 && (
+                          <span className="px-2 py-0.5 text-xs text-red-400">+{missing.length - 4} 項</span>
+                        )}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-green-500">條件都具備了！</p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
+      </motion.div>
+    )
+  }
+
+  // ═══ CTA：前往能力中心 ═══
+  function renderCTA() {
+    return (
+      <motion.div {...fadeUp} transition={{ delay: 0.6 }} className="mb-8">
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white text-center">
+          <h3 className="text-xl font-bold mb-2">建立你的行動計畫</h3>
+          <p className="text-sm opacity-90 mb-4">前往能力中心，選擇要參加的證照考試、競賽和學習活動</p>
+          <button onClick={onStartPlanning}
+            className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-bold hover:bg-indigo-50 transition text-lg"
+          >
+            前往能力中心 →
+          </button>
+        </div>
+      </motion.div>
+    )
+  }
 
   // ═══ 高一：三年路線圖 ═══
   function renderGrade10() {
     return (
-      <div className="w-full max-w-3xl mx-auto text-center">
-        <motion.h1 {...fadeUp} className="text-4xl font-bold text-gray-900 mb-2">
-          你的三年升學路線圖
-        </motion.h1>
-        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-8">
-          距離申請還有 2 年，現在開始準備剛好！
-        </motion.p>
-
+      <>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-left">三年準備路線圖</h2>
         {analyses.map((analysis, i) => {
           const roadmap = analysis.gradeAdvice.roadmap || []
           return (
@@ -131,22 +240,15 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
         })}
 
         {renderActionPlan('現在可以開始做的事')}
-        {renderButtons(grade)}
-      </div>
+      </>
     )
   }
 
   // ═══ 高二：武器升級指南 ═══
   function renderGrade11() {
     return (
-      <div className="w-full max-w-3xl mx-auto text-center">
-        <motion.h1 {...fadeUp} className="text-4xl font-bold text-gray-900 mb-2">
-          你的武器庫升級指南
-        </motion.h1>
-        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-8">
-          專注升級關鍵武器，打通更多升學管道！
-        </motion.p>
-
+      <>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4 text-left">武器升級建議</h2>
         {analyses.map((analysis, i) => {
           const upgrades = analysis.gradeAdvice.upgradeGuide || []
           const eligible = analysis.pathwayMatches.filter(m => m.eligible && m.acceptanceEstimate > 0)
@@ -161,7 +263,7 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
 
               {upgrades.length > 0 && (
                 <div className="mb-5">
-                  <h3 className="font-bold text-sm text-gray-700 mb-3">武器升級建議</h3>
+                  <h3 className="font-bold text-sm text-gray-700 mb-3">升級項目</h3>
                   <div className="space-y-2">
                     {upgrades.map((item, j) => (
                       <div key={j} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
@@ -208,23 +310,15 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
         })}
 
         {renderActionPlan('優先升級順序')}
-        {renderButtons(grade)}
-      </div>
+      </>
     )
   }
 
   // ═══ 高三：管道匹配 + 衝刺計畫 ═══
   function renderGrade12() {
     return (
-      <div className="w-full max-w-3xl mx-auto text-center">
-        <motion.h1 {...fadeUp} className="text-4xl font-bold text-gray-900 mb-2">
-          你的最佳升學路線
-        </motion.h1>
-        <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-8">
-          申請季來了，衝刺最有把握的管道！
-        </motion.p>
-
-        {/* Summary cards */}
+      <>
+        {/* Summary score cards */}
         <div className="space-y-4 mb-6">
           {plan.targets.map((t, i) => {
             const anim = animatedScores[t.departmentName] || { current: 0, potential: 0 }
@@ -293,16 +387,6 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
                       </div>
                     ))}
                   </div>
-                  {analysis.bestPathway.matchedItems.length > 0 && (
-                    <div className="text-xs text-gray-500">
-                      已具備: {analysis.bestPathway.matchedItems.slice(0, 3).join('、')}
-                    </div>
-                  )}
-                  {analysis.bestPathway.missingItems.length > 0 && (
-                    <div className="text-xs text-gray-400 mt-1">
-                      還需要: {analysis.bestPathway.missingItems.slice(0, 3).join('、')}
-                    </div>
-                  )}
                 </motion.div>
               )}
             </motion.div>
@@ -310,8 +394,7 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
         })}
 
         {renderActionPlan('你的行動計畫')}
-        {renderButtons(grade)}
-      </div>
+      </>
     )
   }
 
@@ -380,10 +463,23 @@ export default function PathwayResults({ targets, profile, onSave, onShare, onSt
           >
             分享給朋友
           </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
           <button onClick={onStartPlanning}
             className="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl font-medium hover:from-blue-700 hover:to-indigo-700 transition text-lg"
           >
-            開始完整規劃 →
+            📊 能力中心分析
+          </button>
+          <button onClick={() => window.location.href = '/portfolio'}
+            className="px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-2xl font-medium hover:from-purple-700 hover:to-pink-700 transition text-lg"
+          >
+            📑 準備申請材料
+          </button>
+          <button onClick={() => window.location.href = '/roadmap'}
+            className="px-6 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-2xl font-medium hover:from-emerald-700 hover:to-teal-700 transition text-lg"
+          >
+            🗓️ 升學時間線
           </button>
         </div>
       </motion.div>

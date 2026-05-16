@@ -1,718 +1,489 @@
-// 個人申請準備頁面 - 個人申請準備工具
-// 目標：從面試準備轉變為個人申請準備，幫助學生準備申請資料和面試
+// 申請準備頁面 — 4 區塊文件管理 + Supabase Storage
+// 成績/證照/競賽/備審資料，支援上傳與下載
 
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
+import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/analytics'
+import { getChosenActivities } from '@/lib/activity-plan'
+import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
+import type { StudentProfile, DepartmentInfo } from '@/types/department'
+import { departments } from '@/lib/department-data'
+import { uploadFile, listStudentFiles, deleteFiles, checkFileSize, checkFileType, getPublicUrl, downloadFile } from '@/lib/supabase/storage'
+import type { StorageBucket } from '@/lib/supabase/storage'
 
-interface StudentProfile {
-  user_id: string
-  group_code: string
-  grade?: string
-  total_bonus_percent?: number
+interface SavedPlan {
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  createdAt: string
 }
 
-interface ApplicationDocument {
-  id: string
+interface SavedState {
+  step: number
+  group: string
+  groupName: string
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  groupConfirmed: boolean
+}
+
+interface StoredFile {
   name: string
-  description: string
-  required: boolean
-  completed: boolean
-  tips: string[]
+  id: string
+  created_at: string
+  metadata?: { size?: number }
 }
 
-interface ApplicationStep {
-  id: string
-  title: string
-  description: string
-  documents: ApplicationDocument[]
-  timeline: string
-  status: 'not_started' | 'in_progress' | 'completed'
+const SECTIONS = [
+  { id: 'grades', icon: '📊', label: '成績', bucket: 'evidence-files' as StorageBucket, color: 'text-purple-600', bg: 'bg-purple-50' },
+  { id: 'certificates', icon: '📜', label: '證照', bucket: 'evidence-files' as StorageBucket, color: 'text-amber-600', bg: 'bg-amber-50' },
+  { id: 'competitions', icon: '🏆', label: '競賽', bucket: 'evidence-files' as StorageBucket, color: 'text-blue-600', bg: 'bg-blue-50' },
+  { id: 'portfolio', icon: '📋', label: '備審資料', bucket: 'portfolio-docs' as StorageBucket, color: 'text-indigo-600', bg: 'bg-indigo-50' },
+] as const
+
+type SectionId = typeof SECTIONS[number]['id']
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 },
 }
+
+const stagger = (i: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay: i * 0.05, duration: 0.3 },
+})
+
+const PORTFOLIO_TEMPLATES = [
+  { id: 'autobiography', name: '自傳大綱', description: '500-1000字，涵蓋家庭背景、學習經歷、興趣發展、未來規劃' },
+  { id: 'study_plan', name: '讀書計畫', description: '近程（入學前）、中程（大一至大三）、遠程（畢業後）規劃' },
+  { id: 'project_report', name: '專題實作報告', description: '動機、方法、過程、成果、心得反思，附照片與數據' },
+  { id: 'learning_portfolio', name: '學習歷程摘述', description: '課程學習成果 + 多元表現，每項100字核心摘述' },
+]
 
 export default function InterviewPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<StudentProfile | null>(null)
-  const [applicationSteps, setApplicationSteps] = useState<ApplicationStep[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [selectedStep, setSelectedStep] = useState<ApplicationStep | null>(null)
+  const [plan, setPlan] = useState<{ profile: StudentProfile; targets: DepartmentInfo[] } | null>(null)
+  const [chosenActivities, setChosenActivities] = useState<ChosenActivity[]>([])
+  const [activeSection, setActiveSection] = useState<SectionId>('grades')
+  const [files, setFiles] = useState<Record<SectionId, StoredFile[]>>({
+    grades: [], certificates: [], competitions: [], portfolio: [],
+  })
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // 頁面載入時追蹤
   useEffect(() => {
-    trackPageView('personal_application_preparation')
-    loadUserData()
+    trackPageView('interview_v2')
+    loadData()
   }, [])
 
-  const loadUserData = async () => {
+  async function loadData() {
+    let profile: StudentProfile | null = null
+    let targets: DepartmentInfo[] = []
+
+    const raw = localStorage.getItem('saved_discovery_plan_v4')
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as SavedPlan
+        if (parsed.targets?.length > 0 && parsed.profile) {
+          profile = parsed.profile
+          targets = parsed.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
+        }
+      } catch {}
+    }
+
+    if (!profile) {
+      const stateRaw = localStorage.getItem('discovery_state_v4')
+      if (stateRaw) {
+        try {
+          const s = JSON.parse(stateRaw) as SavedState
+          if (s.targets?.length > 0 && s.profile) {
+            profile = s.profile
+            targets = s.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
+          }
+        } catch {}
+      }
+    }
+
+    if (profile) {
+      setPlan({ profile, targets })
+      const chosenData = getChosenActivities()
+      setChosenActivities(chosenData.activities)
+    }
+
+    setLoading(false)
+  }
+
+  async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadError(null)
+
+    const section = SECTIONS.find(s => s.id === activeSection)!
+    const studentId = `local_${plan?.profile?.groupCode || 'demo'}`
+
+    if (!checkFileSize(file, section.bucket)) {
+      setUploadError('檔案太大，請確認大小限制')
+      return
+    }
+    if (!checkFileType(file, section.bucket)) {
+      setUploadError('不支援的檔案格式')
+      return
+    }
+
+    setUploading(true)
     try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
-
-      if (user) {
-        setUser(user)
-
-        const { data: profileData, error } = await supabase
-          .from('student_profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single()
-
-        if (!error && profileData) {
-          setProfile(profileData)
-          generateApplicationSteps(profileData)
-        } else {
-          const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-          setProfile(defaultProfile)
-          generateApplicationSteps(defaultProfile)
-        }
-      } else {
-        const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-        setProfile(defaultProfile)
-        generateApplicationSteps(defaultProfile)
-      }
+      const path = `${activeSection}/${Date.now()}_${file.name}`
+      await uploadFile({
+        bucket: section.bucket,
+        studentId,
+        file,
+      })
+      // Refresh file list
+      const updated = await listStudentFiles(section.bucket, studentId)
+      setFiles(prev => ({ ...prev, [activeSection]: updated || [] }))
     } catch (err) {
-      console.error('Error loading user data:', err)
-      setError(err instanceof Error ? err.message : '載入資料失敗')
+      setUploadError(err instanceof Error ? err.message : '上傳失敗')
     } finally {
-      setLoading(false)
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
     }
   }
 
-  // 根據用戶職群，生成個人申請準備步驟
-  const generateApplicationSteps = (profile: StudentProfile) => {
-    const steps: ApplicationStep[] = []
-
-    // 步驟 1: 自傳與學習計畫
-    steps.push({
-      id: 'autobiography',
-      title: '自傳與學習計畫',
-      description: '撰寫個人背景、學習動機與未來規劃，展現你的特色與潛力',
-      timeline: '建議提前 2-3 個月開始準備',
-      status: 'not_started',
-      documents: [
-        {
-          id: 'autobiography_basic',
-          name: '個人自傳',
-          description: '包括家庭背景、成長過程、興趣發展等個人故事',
-          required: true,
-          completed: false,
-          tips: [
-            '從個人成長經歷切入，展現真實的自己',
-            '重點突出與申請科系相關的經歷',
-            '避免流水帳，要有具體案例和心得',
-            '控制在 800-1200 字'
-          ]
-        },
-        {
-          id: 'learning_plan',
-          name: '學習計畫',
-          description: '說明在大學期間的學習目標與規劃',
-          required: true,
-          completed: false,
-          tips: [
-            '具體說明想學什麼、為什麼想學',
-            '展現對科系的了解與熱情',
-            '說明未來的職業發展規劃',
-            '與個人自傳相互呼應'
-          ]
-        },
-        {
-          id: 'motivation_letter',
-          name: '讀書計畫',
-          description: '詳細的學術研究興趣與學習路徑規劃',
-          required: false,
-          completed: false,
-          tips: [
-            '針對特定科系或學術領域深入探討',
-            '展現學術潛力與研究興趣',
-            '說明選擇該科系的原因',
-            '可參考科系官網的師資與研究方向'
-          ]
-        }
-      ]
-    })
-
-    // 步驟 2: 學習歷程檔案
-    steps.push({
-      id: 'learning_portfolio',
-      title: '學習歷程檔案',
-      description: '系統化整理你的學習成果，包括課堂學習、專題製作、實習經驗等',
-      timeline: '持續累積，申請前 1 個月完成整理',
-      status: 'not_started',
-      documents: [
-        {
-          id: 'course_learning',
-          name: '課堂學習成果',
-          description: '重要課程的學習筆記、作業、專案報告等',
-          required: true,
-          completed: false,
-          tips: [
-            '選擇與申請科系相關的課程作品',
-            '展示學習過程與成果',
-            '可包括小組專題、實驗報告等',
-            '最好有指導老師的評語或成績'
-          ]
-        },
-        {
-          id: 'project_works',
-          name: '專題製作記錄',
-          description: '專題實作、畢業專題、課外專案等完整記錄',
-          required: true,
-          completed: false,
-          tips: [
-            '詳細記錄專題目標、過程、成果',
-            '強調個人的貢獻與學習',
-            '包含遇到的困難與解決方案',
-            '附上照片、圖表、成果展示'
-          ]
-        },
-        {
-          id: 'internship_experience',
-          name: '實習與校外學習',
-          description: '企業實習、校外參訪、產學合作等經驗',
-          required: false,
-          completed: false,
-          tips: [
-            '記錄實習單位、工作內容、學習心得',
-            '強調實務技能的學習與應用',
-            '可請實習指導老師提供評語',
-            '展示職場素養與專業態度'
-          ]
-        }
-      ]
-    })
-
-    // 步驟 3: 面試準備
-    steps.push({
-      id: 'interview_prep',
-      title: '面試準備',
-      description: '準備面試常見問題、模擬面試練習、了解面試技巧',
-      timeline: '面試前 2-4 週開始準備',
-      status: 'not_started',
-      documents: [
-        {
-          id: 'common_questions',
-          name: '常見面試問題準備',
-          description: '準備自我介紹、申請動機、未來規劃等常見問題的回答',
-          required: true,
-          completed: false,
-          tips: [
-            '準備 1-2 分鐘的自我介紹',
-            '針對「為什麼選這個科系」準備充分答案',
-            '思考個人優缺點',
-            '準備具體的例子來支持你的說法'
-          ]
-        },
-        {
-          id: 'mock_interview',
-          name: '模擬面試練習',
-          description: '與老師或同學進行模擬面試，熟悉面試流程',
-          required: true,
-          completed: false,
-          tips: [
-            '至少進行 2-3 次模擬面試',
-            '錄影練習，觀察自己的肢體語言',
-            '請練習伙伴提供回饋意見',
-            '練習回答問題的時間控制'
-          ]
-        },
-        {
-          id: 'interview_etiquette',
-          name: '面試禮儀與技巧',
-          description: '了解面試注意事項、穿著建議、禮儀規範',
-          required: false,
-          completed: false,
-          tips: [
-            '提前到達面試地點，熟悉環境',
-            '穿著整潔得體，展現專業形象',
-            '注意眼神交流與肢體語言',
-            '準備好要問面試官的問題'
-          ]
-        }
-      ]
-    })
-
-    // 步驟 4: 推薦函與證明文件
-    steps.push({
-      id: 'recommendation_docs',
-      title: '推薦函與證明文件',
-      description: '蒐集推薦信、成績單、獲獎證書等支持文件',
-      timeline: '申請前 1 個月完成準備',
-      status: 'not_started',
-      documents: [
-        {
-          id: 'teacher_recommendation',
-          name: '教師推薦函',
-          description: '請任課教師或導師撰寫推薦信',
-          required: true,
-          completed: false,
-          tips: [
-            '選擇熟悉你的老師撰寫推薦函',
-            '提前至少 2-3 週邀請老師',
-            '提供個人資料、申計畫等參考材料',
-            '感謝老師的協助與時間'
-          ]
-        },
-        {
-          id: 'transcript',
-          name: '成績單',
-          description: '官方在校成績單，需要學校蓋章認證',
-          required: true,
-          completed: false,
-          tips: [
-            '向學校申請官方成績單',
-            '確認成績單包含所有必要學期',
-            '檢查成績單資料是否正確',
-            '提前申請，避免截止日前後申請'
-          ]
-        },
-        {
-          id: 'certificates',
-          name: '獲獎與證照證明',
-          description: '競賽獲獎、技能檢定、語言測驗等證書複本',
-          required: false,
-          completed: false,
-          tips: [
-            '整理所有相關證書文件',
-            '確認證書在有效期限內',
-            '準備正本供驗證',
-            '按重要程度排序整理'
-          ]
-        }
-      ]
-    })
-
-    setApplicationSteps(steps)
+  async function handleDownload(path: string) {
+    const section = SECTIONS.find(s => s.id === activeSection)!
+    try {
+      const blob = await downloadFile(section.bucket, path)
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = path.split('/').pop() || 'download'
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch {}
   }
 
-  const handleToggleDocument = (stepIndex: number, documentId: string) => {
-    const updatedSteps = [...applicationSteps]
-    const step = updatedSteps[stepIndex]
-
-    // Find and toggle the document
-    const document = step.documents.find(d => d.id === documentId)
-    if (document) {
-      document.completed = !document.completed
-
-      // Update step status
-      const completedDocs = step.documents.filter(d => d.completed).length
-      const totalRequiredDocs = step.documents.filter(d => d.required).length
-
-      if (completedDocs === 0) {
-        step.status = 'not_started'
-      } else if (completedDocs < totalRequiredDocs) {
-        step.status = 'in_progress'
-      } else {
-        step.status = 'completed'
-      }
-
-      setApplicationSteps(updatedSteps)
-      trackFeatureUsage('toggle_application_document')
-    }
-  }
-
-  const handleViewStepDetails = (step: ApplicationStep) => {
-    setSelectedStep(step)
-    trackFeatureUsage('view_application_step_details')
-  }
-
-  const handleCloseModal = () => {
-    setSelectedStep(null)
-  }
-
-  const handleGoToPortfolio = () => {
-    trackFeatureUsage('go_to_portfolio_from_interview')
-    router.push('/portfolio')
-  }
-
-  const handleGoToRoadmap = () => {
-    trackFeatureUsage('go_to_roadmap_from_interview')
-    router.push('/roadmap')
+  async function handleDelete(path: string) {
+    const section = SECTIONS.find(s => s.id === activeSection)!
+    const studentId = `local_${plan?.profile?.groupCode || 'demo'}`
+    try {
+      await deleteFiles(section.bucket, [path])
+      const updated = await listStudentFiles(section.bucket, studentId)
+      setFiles(prev => ({ ...prev, [activeSection]: updated || [] }))
+    } catch {}
   }
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <p className="ml-4 text-gray-600">載入中...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
       </div>
     )
   }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">載入失敗</h2>
-          <p className="text-gray-600">{error}</p>
-          <button
-            onClick={() => router.push('/')}
-            className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-          >
-            返回首頁
-          </button>
-        </div>
-      </div>
-    )
-  }
+  const certActivities = chosenActivities.filter(a => a.type === 'certificate')
+  const compActivities = chosenActivities.filter(a => a.type === 'competition')
+  const sectionFiles = files[activeSection]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Page title bar */}
+      {/* Header */}
       <div className="bg-white/90 border-b border-indigo-100 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <p className="text-indigo-600 font-semibold text-sm">個人申請準備</p>
-          {profile?.group_code && (
-            <span className="text-xs text-gray-500">
-              {profile.group_code === '06' ? '商管群' : profile.group_code} · {profile.grade || '高三'}
-            </span>
-          )}
+        <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+          <p className="text-indigo-600 font-semibold text-sm">申請準備</p>
+          <span className="text-xs text-gray-500">管理你的申請文件</span>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <div className="inline-block mb-8 px-4 py-2 bg-orange-100 rounded-full">
-            <p className="text-orange-700 font-semibold text-sm">
-              📝 個人申請準備 - 申請文件與面試準備指南
-            </p>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            個人申請完整準備
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            系統化準備個人申請所需的各項文件與面試技巧，
-            <br />
-            <strong>從自傳到面試，一步步引導你完成申請準備。</strong>
-          </p>
-        </div>
-
-        {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white mr-4">
-                📝
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">準備步驟</h3>
-                <p className="text-blue-600 font-medium text-2xl">{applicationSteps.length}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ✅
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">已完成步驟</h3>
-                <p className="text-green-600 font-medium text-2xl">
-                  {applicationSteps.filter(s => s.status === 'completed').length}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ⏳
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">準備中</h3>
-                <p className="text-orange-600 font-medium text-2xl">
-                  {applicationSteps.filter(s => s.status === 'in_progress').length}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white mr-4">
-                📄
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">必要文件</h3>
-                <p className="text-purple-600 font-medium text-2xl">
-                  {applicationSteps.reduce((count, step) =>
-                    count + step.documents.filter(d => d.required).length, 0)}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Application Steps */}
-        <div className="space-y-6 mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
-              申請準備步驟
-            </h2>
-            <p className="text-gray-600">
-              按順序完成各項準備工作，確保申請資料完整
-            </p>
-          </div>
-
-          {applicationSteps.map((step, stepIndex) => {
-            const completedDocs = step.documents.filter(d => d.completed).length
-            const totalDocs = step.documents.length
-            const progressPercent = totalDocs > 0 ? Math.round((completedDocs / totalDocs) * 100) : 0
-
+      <main className="max-w-3xl mx-auto px-4 py-6">
+        {/* Section tabs */}
+        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+          {SECTIONS.map(s => {
+            const count = s.id === 'certificates' ? certActivities.length
+              : s.id === 'competitions' ? compActivities.length
+              : sectionFiles.length
             return (
-              <div key={stepIndex} className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100 hover:shadow-md transition-shadow">
-                {/* Step Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-                      {stepIndex + 1}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">{step.title}</h3>
-                      <p className="text-gray-600 mt-1">{step.description}</p>
-                      <p className="text-sm text-gray-500 mt-2 flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        {step.timeline}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    {step.status === 'completed' && (
-                      <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">已完成</span>
-                    )}
-                    {step.status === 'in_progress' && (
-                      <span className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-medium">準備中</span>
-                    )}
-                    {step.status === 'not_started' && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">未開始</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Progress Bar */}
-                <div className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm text-gray-600">準備進度</span>
-                    <span className="text-sm font-medium text-gray-900">{completedDocs}/{totalDocs} 項 ({progressPercent}%)</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-gradient-to-r from-indigo-500 to-purple-600 h-2 rounded-full transition-all"
-                      style={{ width: `${progressPercent}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                {/* Documents Preview */}
-                <div className="mb-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {step.documents.slice(0, 4).map((doc) => (
-                      <div key={doc.id} className="flex items-center space-x-2 text-sm p-2 bg-gray-50 rounded">
-                        <div className={`w-4 h-4 rounded border ${doc.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                          {doc.completed && (
-                            <svg className="w-3 h-3 text-white ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                        <span className={doc.completed ? 'text-gray-900 line-through' : 'text-gray-700'}>
-                          {doc.name}
-                          {doc.required && <span className="text-red-500 ml-1">*</span>}
-                        </span>
-                      </div>
-                    ))}
-                    {step.documents.length > 4 && (
-                      <p className="text-xs text-gray-500 col-span-2">... 還有 {step.documents.length - 4} 項文件</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Action Button */}
-                <div className="flex justify-end">
-                  <button
-                    onClick={() => handleViewStepDetails(step)}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center space-x-2"
-                  >
-                    <span>查看詳細準備指南</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              <button key={s.id}
+                onClick={() => setActiveSection(s.id)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition flex items-center gap-1.5 ${
+                  activeSection === s.id ? 'bg-indigo-600 text-white shadow-sm' : 'bg-white text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <span>{s.icon}</span>
+                <span>{s.label}</span>
+              </button>
             )
           })}
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-gradient-to-r from-orange-500 to-red-600 rounded-xl p-8 mb-12 text-white">
-          <h3 className="text-2xl font-bold mb-6">快速行動</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-              onClick={handleGoToPortfolio}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="font-semibold">準備申請材料</span>
-              </div>
-              <p className="text-sm opacity-90">管理你的學習歷程和申請文件</p>
-            </button>
+        {/* Grades Section */}
+        {activeSection === 'grades' && (
+          <motion.div {...fadeUp} className="space-y-4">
+            <div className="bg-white rounded-2xl p-5 shadow-sm">
+              <h2 className="font-bold text-lg text-gray-900 mb-4">📊 成績管理</h2>
 
-            <button
-              onClick={handleGoToRoadmap}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <span className="font-semibold">查看申請時間線</span>
-              </div>
-              <p className="text-sm opacity-90">了解各階段的重要時間點和準備工作</p>
-            </button>
-          </div>
-        </div>
-
-        {/* Help & Guidance */}
-        <div className="text-center text-gray-600 text-sm">
-          <p className="mb-2">
-            <strong>個人申請準備</strong>幫助你系統化準備申請資料
-            <br />• 從自傳到面試，<strong>完整的準備流程指南</strong>
-            <br />• 每項文件都有詳細的撰寫建議與技巧
-            <br />• 提供申請時間規劃與進度追蹤
-          </p>
-          <p className="text-xs text-gray-500 mt-4">
-            建議提前 2-3 個月開始準備，確保各項文件品質
-          </p>
-        </div>
-      </main>
-
-      {/* Modal for Step Details */}
-      {selectedStep && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 z-10">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900">{selectedStep.title}</h2>
-                  <p className="text-gray-600 mt-1">{selectedStep.description}</p>
-                  <p className="text-sm text-gray-500 mt-2 flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    {selectedStep.timeline}
-                  </p>
+              {/* Current stats */}
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="p-3 bg-purple-50 rounded-xl text-center">
+                  <div className="text-xs text-purple-500">在校排名百分位</div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {plan?.profile?.gradePercentile ? `${plan.profile.gradePercentile}%` : '未填寫'}
+                  </div>
                 </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
-                >
-                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+                <div className="p-3 bg-gray-50 rounded-xl text-center">
+                  <div className="text-xs text-gray-500">目標科系數</div>
+                  <div className="text-2xl font-bold text-gray-700">{plan?.targets?.length || 0}</div>
+                </div>
               </div>
-            </div>
 
-            {/* Modal Content */}
-            <div className="p-6">
-              <div className="space-y-6">
-                {selectedStep.documents.map((doc) => (
-                  <div key={doc.id} className="bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition">
-                    <div className="flex items-start space-x-4">
-                      {/* Completion Toggle */}
-                      <div
-                        onClick={() => handleToggleDocument(applicationSteps.indexOf(selectedStep), doc.id)}
-                        className={`w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center cursor-pointer ${doc.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}
-                      >
-                        {doc.completed && (
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                          </svg>
+              {/* Upload area */}
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center">
+                <input ref={fileInputRef} type="file" accept=".pdf,.jpg,.png" onChange={handleUpload} className="hidden" id="grade-upload" />
+                <label htmlFor="grade-upload" className="cursor-pointer">
+                  <div className="text-3xl mb-2">📄</div>
+                  <div className="text-sm text-gray-600 font-medium">上傳成績單</div>
+                  <div className="text-xs text-gray-400 mt-1">PDF、JPG、PNG，最大 5MB</div>
+                </label>
+              </div>
+
+              {uploadError && <div className="text-red-500 text-sm mt-2">{uploadError}</div>}
+              {uploading && <div className="text-indigo-500 text-sm mt-2 animate-pulse">上傳中...</div>}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Certificates Section */}
+        {activeSection === 'certificates' && (
+          <motion.div {...fadeUp} className="space-y-4">
+            <div className="bg-white rounded-2xl p-5 shadow-sm">
+              <h2 className="font-bold text-lg text-gray-900 mb-4">📜 證照管理</h2>
+
+              {/* Existing certificates */}
+              {plan?.profile?.certificates && plan.profile.certificates.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-700 mb-2">已取得</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {plan.profile.certificates.map((cert, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-green-100 text-green-700 text-sm rounded-full font-medium">
+                        ✓ {cert}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Planned certificates from chosen activities */}
+              {certActivities.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-700 mb-2">計畫中</h3>
+                  <div className="space-y-2">
+                    {certActivities.map(act => (
+                      <div key={act.id} className="flex items-center gap-3 p-3 bg-amber-50 rounded-xl">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          act.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          act.status === 'preparing' ? 'bg-blue-100 text-blue-700' :
+                          act.status === 'registered' ? 'bg-purple-100 text-purple-700' :
+                          'bg-gray-100 text-gray-600'
+                        }`}>
+                          {act.status === 'completed' ? '已完成' : act.status === 'preparing' ? '準備中' : act.status === 'registered' ? '已報名' : '計畫中'}
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-medium text-sm">{act.targetItemName}</div>
+                          {act.eventDate && (
+                            <div className="text-xs text-gray-500">
+                              考試日期：{new Date(act.eventDate).toLocaleDateString('zh-TW')}
+                            </div>
+                          )}
+                        </div>
+                        {act.probabilityBoost > 0 && (
+                          <span className="text-xs text-amber-600 font-bold">+{act.probabilityBoost}%</span>
                         )}
                       </div>
-
-                      {/* Document Details */}
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <h4 className={`text-lg font-semibold text-gray-900 ${doc.completed ? 'line-through' : ''}`}>
-                            {doc.name}
-                          </h4>
-                          {doc.required && (
-                            <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-medium">必要</span>
-                          )}
-                          {doc.completed && (
-                            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-medium">已完成</span>
-                          )}
-                        </div>
-                        <p className="text-gray-600 mb-4">{doc.description}</p>
-
-                        {/* Tips */}
-                        <div className="bg-white rounded-lg p-4 border border-indigo-100">
-                          <h5 className="text-sm font-semibold text-gray-900 mb-2 flex items-center">
-                            <svg className="w-4 h-4 mr-1 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                            </svg>
-                            準備建議
-                          </h5>
-                          <ul className="space-y-1">
-                            {doc.tips.map((tip, tipIndex) => (
-                              <li key={tipIndex} className="text-sm text-gray-700 flex items-start">
-                                <span className="text-indigo-600 mr-2">•</span>
-                                <span>{tip}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                  <strong>準備進度：</strong>
-                  {selectedStep.documents.filter(d => d.completed).length} / {selectedStep.documents.length} 項文件
                 </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-                >
-                  關閉
-                </button>
+              )}
+
+              {certActivities.length === 0 && (!plan?.profile?.certificates || plan.profile.certificates.length === 0) && (
+                <div className="text-center py-6 text-gray-400">
+                  <div className="text-3xl mb-2">📜</div>
+                  <p className="text-sm">尚未有證照紀錄</p>
+                  <p className="text-xs mt-1">前往能力中心規劃證照考試</p>
+                </div>
+              )}
+
+              {/* Upload */}
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center mt-4">
+                <input ref={fileInputRef} type="file" accept=".pdf,.jpg,.png" onChange={handleUpload} className="hidden" id="cert-upload" />
+                <label htmlFor="cert-upload" className="cursor-pointer">
+                  <div className="text-3xl mb-2">📎</div>
+                  <div className="text-sm text-gray-600 font-medium">上傳證照副本</div>
+                  <div className="text-xs text-gray-400 mt-1">PDF、JPG、PNG，最大 5MB</div>
+                </label>
               </div>
+              {uploadError && <div className="text-red-500 text-sm mt-2">{uploadError}</div>}
+              {uploading && <div className="text-indigo-500 text-sm mt-2 animate-pulse">上傳中...</div>}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Competitions Section */}
+        {activeSection === 'competitions' && (
+          <motion.div {...fadeUp} className="space-y-4">
+            <div className="bg-white rounded-2xl p-5 shadow-sm">
+              <h2 className="font-bold text-lg text-gray-900 mb-4">🏆 競賽管理</h2>
+
+              {/* Existing competitions */}
+              {plan?.profile?.competitions && plan.profile.competitions.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-700 mb-2">已參加</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {plan.profile.competitions.map((comp, i) => (
+                      <span key={i} className="px-3 py-1.5 bg-blue-100 text-blue-700 text-sm rounded-full font-medium">
+                        🏆 {comp.competitionId} {comp.placing}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Planned competitions */}
+              {compActivities.length > 0 && (
+                <div className="mb-4">
+                  <h3 className="text-sm font-bold text-gray-700 mb-2">計畫中</h3>
+                  <div className="space-y-2">
+                    {compActivities.map(act => (
+                      <div key={act.id} className="flex items-center gap-3 p-3 bg-blue-50 rounded-xl">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                          act.status === 'completed' ? 'bg-green-100 text-green-700' :
+                          act.status === 'preparing' ? 'bg-blue-100 text-blue-700' :
+                          act.status === 'registered' ? 'bg-purple-100 text-purple-700' :
+                          'bg-gray-100 text-gray-600'
+                        }`}>
+                          {act.status === 'completed' ? '已完成' : act.status === 'preparing' ? '準備中' : act.status === 'registered' ? '已報名' : '計畫中'}
+                        </span>
+                        <div className="flex-1">
+                          <div className="font-medium text-sm">{act.targetItemName}</div>
+                          {act.eventDate && (
+                            <div className="text-xs text-gray-500">
+                              競賽日期：{new Date(act.eventDate).toLocaleDateString('zh-TW')}
+                            </div>
+                          )}
+                        </div>
+                        {act.probabilityBoost > 0 && (
+                          <span className="text-xs text-blue-600 font-bold">+{act.probabilityBoost}%</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {compActivities.length === 0 && (!plan?.profile?.competitions || plan.profile.competitions.length === 0) && (
+                <div className="text-center py-6 text-gray-400">
+                  <div className="text-3xl mb-2">🏆</div>
+                  <p className="text-sm">尚未有競賽紀錄</p>
+                  <p className="text-xs mt-1">前往能力中心規劃競賽參加</p>
+                </div>
+              )}
+
+              {/* Upload */}
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center mt-4">
+                <input ref={fileInputRef} type="file" accept=".pdf,.jpg,.png" onChange={handleUpload} className="hidden" id="comp-upload" />
+                <label htmlFor="comp-upload" className="cursor-pointer">
+                  <div className="text-3xl mb-2">🏅</div>
+                  <div className="text-sm text-gray-600 font-medium">上傳獎狀/證明</div>
+                  <div className="text-xs text-gray-400 mt-1">PDF、JPG、PNG，最大 5MB</div>
+                </label>
+              </div>
+              {uploadError && <div className="text-red-500 text-sm mt-2">{uploadError}</div>}
+              {uploading && <div className="text-indigo-500 text-sm mt-2 animate-pulse">上傳中...</div>}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Portfolio Section */}
+        {activeSection === 'portfolio' && (
+          <motion.div {...fadeUp} className="space-y-4">
+            <div className="bg-white rounded-2xl p-5 shadow-sm">
+              <h2 className="font-bold text-lg text-gray-900 mb-4">📋 備審資料</h2>
+
+              {/* Templates */}
+              <div className="mb-4">
+                <h3 className="text-sm font-bold text-gray-700 mb-2">參考範本</h3>
+                <div className="grid grid-cols-1 gap-2">
+                  {PORTFOLIO_TEMPLATES.map(tpl => (
+                    <div key={tpl.id} className="p-3 bg-indigo-50 rounded-xl">
+                      <div className="font-medium text-sm text-indigo-700">{tpl.name}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{tpl.description}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Upload */}
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center">
+                <input ref={fileInputRef} type="file" accept=".pdf,.doc,.docx" onChange={handleUpload} className="hidden" id="portfolio-upload" />
+                <label htmlFor="portfolio-upload" className="cursor-pointer">
+                  <div className="text-3xl mb-2">📁</div>
+                  <div className="text-sm text-gray-600 font-medium">上傳備審文件</div>
+                  <div className="text-xs text-gray-400 mt-1">PDF、Word，最大 10MB</div>
+                </label>
+              </div>
+              {uploadError && <div className="text-red-500 text-sm mt-2">{uploadError}</div>}
+              {uploading && <div className="text-indigo-500 text-sm mt-2 animate-pulse">上傳中...</div>}
+            </div>
+          </motion.div>
+        )}
+
+        {/* File list */}
+        {sectionFiles.length > 0 && (
+          <div className="bg-white rounded-2xl p-4 shadow-sm mt-4">
+            <h3 className="text-sm font-bold text-gray-700 mb-3">已上傳文件</h3>
+            <div className="space-y-2">
+              {sectionFiles.map(file => (
+                <div key={file.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                  <span className="text-xl">📄</span>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-gray-800 truncate">{file.name}</div>
+                    <div className="text-xs text-gray-400">{new Date(file.created_at).toLocaleDateString('zh-TW')}</div>
+                  </div>
+                  <button onClick={() => handleDownload(`${file.name}`)}
+                    className="px-3 py-1.5 bg-indigo-100 text-indigo-600 rounded-lg text-xs font-medium hover:bg-indigo-200 transition">
+                    下載
+                  </button>
+                  <button onClick={() => handleDelete(`${file.name}`)}
+                    className="px-3 py-1.5 bg-red-100 text-red-600 rounded-lg text-xs font-medium hover:bg-red-200 transition">
+                    刪除
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-600 text-sm">
-            <p>© 2026 升學大師 v2.0 • 讓每個高職生都找到最適合的升學路徑</p>
+        {/* Quick Actions */}
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white mt-8 mb-6">
+          <h3 className="text-lg font-bold mb-4">快速導航</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => router.push('/ability-account')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">🎯 能力中心</div>
+              <div className="text-xs opacity-80">管理活動計畫</div>
+            </button>
+            <button onClick={() => router.push('/portfolio')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">📑 準備材料</div>
+              <div className="text-xs opacity-80">查看準備事項</div>
+            </button>
           </div>
         </div>
-      </footer>
+      </main>
     </div>
   )
 }

@@ -1,798 +1,284 @@
-// 升學路徑時間線頁面 - Planner 規劃工具
-// 目標：從個人歷程時間線轉變為升學路徑時間線，幫助學生掌握重要時間點
+// 時間線 — 基於學生選擇的活動 + 升學管道里程碑
+// 讀取 chosen_activities_v1，合併所有時間事件
 
 'use client'
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
+import { motion } from 'framer-motion'
 import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
+import { getChosenActivities, generateUnifiedTimeline } from '@/lib/activity-plan'
+import type { ChosenActivitiesData, UnifiedTimelineEvent } from '@/types/activity-plan'
+import type { StudentProfile, DepartmentInfo } from '@/types/department'
+import { departments } from '@/lib/department-data'
 
-interface StudentProfile {
-  user_id: string
-  group_code: string
-  grade?: string
-  total_bonus_percent?: number
+interface SavedPlan {
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  createdAt: string
 }
 
-interface TimelineEvent {
-  id: string
-  date: string
-  title: string
-  description: string
-  pathway: string
-  importance: 'critical' | 'high' | 'medium' | 'low'
-  completed: boolean
-  category: 'deadline' | 'preparation' | 'milestone' | 'opportunity'
+interface SavedState {
+  step: number
+  group: string
+  groupName: string
+  targets: DepartmentInfo[]
+  profile: StudentProfile
+  groupConfirmed: boolean
 }
 
-interface PathwayTimeline {
-  pathway: string
-  pathwayCode: string
-  events: TimelineEvent[]
-  color: string
-  active: boolean
+const EVENT_TYPE_CONFIG: Record<string, { icon: string; color: string; bg: string }> = {
+  certificate: { icon: '📜', color: 'text-amber-600', bg: 'bg-amber-50' },
+  competition: { icon: '🏆', color: 'text-blue-600', bg: 'bg-blue-50' },
+  pathway: { icon: '🎓', color: 'text-indigo-600', bg: 'bg-indigo-50' },
+  exam: { icon: '📝', color: 'text-purple-600', bg: 'bg-purple-50' },
 }
+
+const fadeUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.4 },
+}
+
+const stagger = (i: number) => ({
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { delay: i * 0.05, duration: 0.3 },
+})
 
 export default function RoadmapPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<StudentProfile | null>(null)
-  const [pathwayTimelines, setPathwayTimelines] = useState<PathwayTimeline[]>([])
-  const [error, setError] = useState<string | null>(null)
-  const [selectedPathway, setSelectedPathway] = useState<PathwayTimeline | null>(null)
+  const [timeline, setTimeline] = useState<UnifiedTimelineEvent[]>([])
+  const [plan, setPlan] = useState<SavedPlan | null>(null)
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
 
-  // 頁面載入時追蹤
   useEffect(() => {
-    trackPageView('planner_admission_timeline')
-    loadUserData()
+    trackPageView('roadmap_v2')
+    loadData()
   }, [])
 
-  const loadUserData = async () => {
-    try {
-      const supabase = createClient()
-      const { data: { user } } = await supabase.auth.getUser()
+  function loadData() {
+    let profile: StudentProfile | null = null
+    let targets: DepartmentInfo[] = []
 
-      if (user) {
-        setUser(user)
-
-        const { data: profileData, error } = await supabase
-          .from('student_profiles')
-          .select('*')
-          .eq('user_id', user.id)
-          .single()
-
-        if (!error && profileData) {
-          setProfile(profileData)
-          generateAdmissionTimelines(profileData)
-        } else {
-          const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-          setProfile(defaultProfile)
-          generateAdmissionTimelines(defaultProfile)
+    const raw = localStorage.getItem('saved_discovery_plan_v4')
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as SavedPlan
+        if (parsed.targets?.length > 0 && parsed.profile) {
+          profile = parsed.profile
+          targets = parsed.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
         }
-      } else {
-        const defaultProfile = { user_id: 'demo', group_code: '06', grade: '高三' }
-        setProfile(defaultProfile)
-        generateAdmissionTimelines(defaultProfile)
-      }
-    } catch (err) {
-      console.error('Error loading user data:', err)
-      setError(err instanceof Error ? err.message : '載入資料失敗')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // 根據用戶年級和職群，生成升學路徑時間線
-  const generateAdmissionTimelines = (profile: StudentProfile) => {
-    const currentYear = new Date().getFullYear()
-    const timelines: PathwayTimeline[] = []
-
-    // 繁星推薦時間線
-    const xingxingEvents: TimelineEvent[] = [
-      {
-        id: 'xingxing_1',
-        date: `${currentYear}-09`,
-        title: '9月：開始準備',
-        description: '與導師討論申請策略，確認目標科系，開始整理學習歷程資料',
-        pathway: '繁星推薦',
-        importance: 'high',
-        completed: false,
-        category: 'preparation'
-      },
-      {
-        id: 'xingxing_2',
-        date: `${currentYear}-10`,
-        title: '10月：完成推薦',
-        description: '取得導師推薦函，完成在校成績與表現紀錄整理',
-        pathway: '繁星推薦',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'xingxing_3',
-        date: `${currentYear}-11`,
-        title: '11月：提交申請',
-        description: '提交繁星推薦申請，系統開始進行資格審查與分發',
-        pathway: '繁星推薦',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'xingxing_4',
-        date: `${currentYear}-12`,
-        title: '12月：結果公布',
-        description: '繁星推薦錄取結果公布，確認錄取學校與科系',
-        pathway: '繁星推薦',
-        importance: 'critical',
-        completed: false,
-        category: 'milestone'
-      }
-    ]
-
-    timelines.push({
-      pathway: '繁星推薦',
-      pathwayCode: 'xingxing',
-      events: xingxingEvents,
-      color: 'from-blue-500 to-indigo-600',
-      active: true
-    })
-
-    // 個人申請時間線
-    const individualEvents: TimelineEvent[] = [
-      {
-        id: 'individual_1',
-        date: `${currentYear}-09`,
-        title: '9月：資料準備',
-        description: '開始準備學習歷程、在校成績、表現紀錄等申請資料',
-        pathway: '個人申請',
-        importance: 'high',
-        completed: false,
-        category: 'preparation'
-      },
-      {
-        id: 'individual_2',
-        date: `${currentYear}-11`,
-        title: '11月：第一階段申請',
-        description: '個人申請第一階段開始，提交基本資料與學習歷程',
-        pathway: '個人申請',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'individual_3',
-        date: `${currentYear}-12`,
-        title: '12月：第一階段結果',
-        description: '個人申請第一階段結果公布，了解分發情況',
-        pathway: '個人申請',
-        importance: 'high',
-        completed: false,
-        category: 'milestone'
-      },
-      {
-        id: 'individual_4',
-        date: `${currentYear + 1}-01`,
-        title: '1月：第二階段申請',
-        description: '個人申請第二階段，針對未錄取的科系進行補申請',
-        pathway: '個人申請',
-        importance: 'medium',
-        completed: false,
-        category: 'opportunity'
-      }
-    ]
-
-    timelines.push({
-      pathway: '個人申請',
-      pathwayCode: 'individual',
-      events: individualEvents,
-      color: 'from-green-500 to-emerald-600',
-      active: true
-    })
-
-    // 技優甄審時間線
-    if (profile.total_bonus_percent && profile.total_bonus_percent > 10) {
-      const technicalEvents: TimelineEvent[] = [
-        {
-          id: 'technical_1',
-          date: `${currentYear}-09`,
-          title: '9月：技優文件整理',
-          description: '整理技優加分證明、技能競賽獲獎紀錄等相關文件',
-          pathway: '技優甄審',
-          importance: 'high',
-          completed: false,
-          category: 'preparation'
-        },
-        {
-          id: 'technical_2',
-          date: `${currentYear}-11`,
-          title: '11月：技優申請',
-          description: '提交技優甄審申請，上傳技優相關證明文件',
-          pathway: '技優甄審',
-          importance: 'critical',
-          completed: false,
-          category: 'deadline'
-        },
-        {
-          id: 'technical_3',
-          date: `${currentYear}-12`,
-          title: '12月：技優面試',
-          description: '參加技優甄審面試，展示專業技能與作品',
-          pathway: '技優甄審',
-          importance: 'high',
-          completed: false,
-          category: 'milestone'
-        }
-      ]
-
-      timelines.push({
-        pathway: '技優甄審',
-        pathwayCode: 'technical',
-        events: technicalEvents,
-        color: 'from-purple-500 to-pink-600',
-        active: true
-      })
+      } catch {}
     }
 
-    // 聯合登記分發時間線
-    const zhikaoEvents: TimelineEvent[] = [
-      {
-        id: 'zhikao_1',
-        date: `${currentYear}-09`,
-        title: '9月：開始準備統測',
-        description: '制定統測準備計畫，開始系統化複習統測科目',
-        pathway: '聯合登記分發',
-        importance: 'high',
-        completed: false,
-        category: 'preparation'
-      },
-      {
-        id: 'zhikao_2',
-        date: `${currentYear}-12`,
-        title: '12月：統測報名',
-        description: '完成統測報名手續，確認考試科目與時間',
-        pathway: '聯合登記分發',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'zhikao_3',
-        date: `${currentYear + 1}-01`,
-        title: '1月：統測報名截止',
-        description: '確認統測報名完成，了解統測科目採計方式',
-        pathway: '聯合登記分發',
-        importance: 'high',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'zhikao_4',
-        date: `${currentYear + 1}-04`,
-        title: '4月-5月：統測考試',
-        description: '參加統測考試，發揮最佳水準',
-        pathway: '聯合登記分發',
-        importance: 'critical',
-        completed: false,
-        category: 'milestone'
-      },
-      {
-        id: 'zhikao_5',
-        date: `${currentYear + 1}-07`,
-        title: '7月-8月：聯合登記分發選填志願',
-        description: '依統測成績選填志願，進行聯合登記分發',
-        pathway: '聯合登記分發',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'zhikao_6',
-        date: `${currentYear + 1}-08`,
-        title: '8月：分發結果公布',
-        description: '聯合登記分發結果公布，確認錄取學校與科系',
-        pathway: '聯合登記分發',
-        importance: 'critical',
-        completed: false,
-        category: 'milestone'
+    if (!profile) {
+      const stateRaw = localStorage.getItem('discovery_state_v4')
+      if (stateRaw) {
+        try {
+          const s = JSON.parse(stateRaw) as SavedState
+          if (s.targets?.length > 0 && s.profile) {
+            profile = s.profile
+            targets = s.targets.map(t => departments.find(d => d.id === t.id) || t).filter(t => t.schoolName) as DepartmentInfo[]
+          }
+        } catch {}
       }
-    ]
-
-    timelines.push({
-      pathway: '聯合登記分發',
-      pathwayCode: 'zhikao',
-      events: zhikaoEvents,
-      color: 'from-orange-500 to-red-600',
-      active: true
-    })
-
-    // 技優保送時間線
-    const communityEvents: TimelineEvent[] = [
-      {
-        id: 'community_1',
-        date: `${currentYear + 1}-02`,
-        title: '2月-3月：報名技優保送',
-        description: '技能競賽獲獎者報名技優保送，準備相關證明文件',
-        pathway: '技優保送',
-        importance: 'critical',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'community_2',
-        date: `${currentYear + 1}-03`,
-        title: '3月-4月：審查與分發',
-        description: '技優保送資格審查，進行分發作業',
-        pathway: '技優保送',
-        importance: 'high',
-        completed: false,
-        category: 'milestone'
-      },
-      {
-        id: 'community_3',
-        date: `${currentYear + 1}-04`,
-        title: '4月-5月：錄取結果公布',
-        description: '技優保送錄取結果公布，確認錄取學校與科系',
-        pathway: '技優保送',
-        importance: 'critical',
-        completed: false,
-        category: 'milestone'
-      }
-    ]
-
-    timelines.push({
-      pathway: '技優保送',
-      pathwayCode: 'community',
-      events: communityEvents,
-      color: 'from-teal-500 to-cyan-600',
-      active: false
-    })
-
-    // 特殊選才時間線
-    const specialEvents: TimelineEvent[] = [
-      {
-        id: 'special_1',
-        date: `${currentYear}-09`,
-        title: '9月：專長發展',
-        description: '持續發展個人專長或特殊才能，準備相關作品或成果',
-        pathway: '特殊選才',
-        importance: 'medium',
-        completed: false,
-        category: 'preparation'
-      },
-      {
-        id: 'special_2',
-        date: `${currentYear}-11`,
-        title: '11月：特殊選才申請',
-        description: '提交特殊選才申請，準備作品展示與說明',
-        pathway: '特殊選才',
-        importance: 'medium',
-        completed: false,
-        category: 'deadline'
-      },
-      {
-        id: 'special_3',
-        date: `${currentYear}-12`,
-        title: '12月：特殊選才甄試',
-        description: '參加特殊選才甄試，展示特殊才能',
-        pathway: '特殊選才',
-        importance: 'medium',
-        completed: false,
-        category: 'milestone'
-      }
-    ]
-
-    timelines.push({
-      pathway: '特殊選才',
-      pathwayCode: 'special',
-      events: specialEvents,
-      color: 'from-yellow-500 to-amber-600',
-      active: false
-    })
-
-    setPathwayTimelines(timelines)
-  }
-
-  const handleToggleEvent = (pathwayIndex: number, eventId: string) => {
-    const updatedTimelines = [...pathwayTimelines]
-    const timeline = updatedTimelines[pathwayIndex]
-    const event = timeline.events.find(e => e.id === eventId)
-    if (event) {
-      event.completed = !event.completed
-      setPathwayTimelines(updatedTimelines)
-      trackFeatureUsage('toggle_timeline_event_completion')
     }
-  }
 
-  const handleViewPathwayDetails = (pathway: PathwayTimeline) => {
-    setSelectedPathway(pathway)
-    trackFeatureUsage('view_pathway_timeline_details')
-  }
+    if (profile) {
+      setPlan({ targets, profile, createdAt: new Date().toISOString() })
 
-  const handleCloseModal = () => {
-    setSelectedPathway(null)
-  }
+      const chosenData = getChosenActivities()
 
-  const handleGoToAbilityCenter = () => {
-    trackFeatureUsage('go_to_ability_center_from_roadmap')
-    router.push('/ability-account')
-  }
+      let targetPathways: string[] = []
+      try {
+        const tp = localStorage.getItem('user_target_pathways')
+        if (tp) targetPathways = Object.entries(JSON.parse(tp)).filter(([, v]: [string, any]) => v.selected).map(([k]) => k)
+      } catch {}
 
-  const handleGoToPortfolio = () => {
-    trackFeatureUsage('go_to_portfolio_from_roadmap')
-    router.push('/portfolio')
-  }
-
-  const getImportanceColor = (importance: string) => {
-    switch (importance) {
-      case 'critical': return 'bg-red-100 text-red-700 border-red-300'
-      case 'high': return 'bg-orange-100 text-orange-700 border-orange-300'
-      case 'medium': return 'bg-yellow-100 text-yellow-700 border-yellow-300'
-      case 'low': return 'bg-gray-100 text-gray-700 border-gray-300'
-      default: return 'bg-gray-100 text-gray-700 border-gray-300'
+      const events = generateUnifiedTimeline(chosenData.activities, targetPathways)
+      setTimeline(events)
     }
+
+    // Load completed state
+    const completedRaw = localStorage.getItem('roadmap_completed_v2')
+    if (completedRaw) {
+      try { setCompletedIds(new Set(JSON.parse(completedRaw))) } catch {}
+    }
+
+    setLoading(false)
   }
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'deadline': return '⏰'
-      case 'preparation': return '📝'
-      case 'milestone': return '🎯'
-      case 'opportunity': return '💡'
-      default: return '📌'
-    }
+  function toggleComplete(id: string) {
+    const next = new Set(completedIds)
+    if (next.has(id)) next.delete(id)
+    else next.add(id)
+    setCompletedIds(next)
+    localStorage.setItem('roadmap_completed_v2', JSON.stringify([...next]))
   }
 
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <p className="ml-4 text-gray-600">載入中...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600" />
       </div>
     )
   }
 
-  if (error) {
+  if (timeline.length === 0) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">載入失敗</h2>
-          <p className="text-gray-600">{error}</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center px-4">
+        <motion.div {...fadeUp} className="text-center max-w-md">
+          <div className="text-6xl mb-6">🗓️</div>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">你的時間線</h1>
+          <p className="text-lg text-gray-500 mb-4">
+            {plan ? '前往能力中心選擇你要參加的活動，時間線會自動更新。' : '先完成發現流程，開始規劃你的升學準備。'}
+          </p>
           <button
-            onClick={() => router.push('/')}
-            className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
+            onClick={() => router.push(plan ? '/ability-account' : '/first-discovery')}
+            className="px-8 py-4 bg-indigo-600 text-white rounded-2xl text-lg font-medium hover:bg-indigo-700 transition"
           >
-            返回首頁
+            {plan ? '前往能力中心 →' : '開始探索 →'}
           </button>
-        </div>
+        </motion.div>
       </div>
     )
   }
+
+  const completedCount = timeline.filter(e => completedIds.has(e.id) || e.status === 'completed').length
+  const urgentCount = timeline.filter(e => e.status === 'urgent').length
+  const upcomingEvents = timeline.filter(e => !completedIds.has(e.id) && e.status !== 'completed')
+  const pastEvents = timeline.filter(e => completedIds.has(e.id) || e.status === 'completed')
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      {/* Page title bar */}
+      {/* Header */}
       <div className="bg-white/90 border-b border-indigo-100 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <p className="text-indigo-600 font-semibold text-sm">升學路徑時間線</p>
-          {profile?.group_code && (
-            <span className="text-xs text-gray-500">
-              {profile.group_code === '06' ? '商管群' : profile.group_code} · {profile.grade || '高三'}
-            </span>
-          )}
+        <div className="max-w-5xl mx-auto px-4 flex items-center justify-between">
+          <p className="text-indigo-600 font-semibold text-sm">我的時間線</p>
+          <span className="text-xs text-gray-500">{timeline.length} 個事件 · {completedCount} 已完成</span>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Welcome Section */}
-        <div className="text-center mb-12">
-          <div className="inline-block mb-8 px-4 py-2 bg-purple-100 rounded-full">
-            <p className="text-purple-700 font-semibold text-sm">
-              📅 Planner 規劃工具 - 升學路徑時間線
-            </p>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">
-            升學重要時間點
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            掌握各個升學管道的重要截止日期和準備時間點，
-            <br />
-            <strong>規劃你的升學時程，確保不漏掉任何關鍵時刻。</strong>
-          </p>
-        </div>
-
+      <main className="max-w-3xl mx-auto px-4 py-6">
         {/* Quick Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white mr-4">
-                📅
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">追蹤管道</h3>
-                <p className="text-blue-600 font-medium text-2xl">{pathwayTimelines.length}</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ⏰
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">關鍵截止日</h3>
-                <p className="text-red-600 font-medium text-2xl">
-                  {pathwayTimelines.reduce((count, timeline) =>
-                    count + timeline.events.filter(e => e.importance === 'critical' && !e.completed).length, 0)}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-indigo-100">
-            <div className="flex items-center mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center text-white mr-4">
-                ✅
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-gray-900">已完成</h3>
-                <p className="text-green-600 font-medium text-2xl">
-                  {pathwayTimelines.reduce((count, timeline) =>
-                    count + timeline.events.filter(e => e.completed).length, 0)}
-                </p>
-              </div>
-            </div>
-          </div>
+        <div className="grid grid-cols-3 gap-3 mb-6">
+          <motion.div {...stagger(0)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">即將到來</div>
+            <div className="text-2xl font-bold text-indigo-600">{upcomingEvents.length}</div>
+          </motion.div>
+          <motion.div {...stagger(1)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">緊急</div>
+            <div className="text-2xl font-bold text-red-500">{urgentCount}</div>
+          </motion.div>
+          <motion.div {...stagger(2)} className="bg-white rounded-2xl p-4 shadow-sm">
+            <div className="text-xs text-gray-500">已完成</div>
+            <div className="text-2xl font-bold text-green-500">{completedCount}</div>
+          </motion.div>
         </div>
 
-        {/* Pathway Timelines */}
-        <div className="space-y-8 mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold text-gray-900">
-              各管道時間線
-            </h2>
-            <p className="text-gray-600">
-              點擊查看各升學管道的詳細時間線與重要事件
-            </p>
-          </div>
-
-          {pathwayTimelines.map((timeline, timelineIndex) => {
-            const completedEvents = timeline.events.filter(e => e.completed).length
-            const totalEvents = timeline.events.length
-            const progressPercent = totalEvents > 0 ? Math.round((completedEvents / totalEvents) * 100) : 0
+        {/* Timeline */}
+        <div className="space-y-0">
+          {timeline.map((event, i) => {
+            const isCompleted = completedIds.has(event.id) || event.status === 'completed'
+            const config = EVENT_TYPE_CONFIG[event.eventType] || EVENT_TYPE_CONFIG.exam
+            const daysLeft = Math.ceil((new Date(event.date).getTime() - Date.now()) / 86400000)
+            const isPast = daysLeft < 0
 
             return (
-              <div key={timelineIndex} className={`bg-white rounded-xl p-6 shadow-sm border ${timeline.active ? 'border-indigo-100' : 'border-gray-200'} hover:shadow-md transition-shadow`}>
-                {/* Timeline Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-4">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${timeline.color} rounded-lg flex items-center justify-center text-white font-bold text-lg`}>
-                      {timelineIndex + 1}
-                    </div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-gray-900">{timeline.pathway}</h3>
-                      <p className="text-sm text-gray-600">進度：{completedEvents}/{totalEvents} 事件 ({progressPercent}%)</p>
-                    </div>
-                  </div>
-                  {!timeline.active && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium">非主要管道</span>
-                  )}
-                </div>
-
-                {/* Progress Bar */}
-                <div className="mb-6">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className={`bg-gradient-to-r ${timeline.color} h-2 rounded-full transition-all`}
-                      style={{ width: `${progressPercent}%` }}
-                    ></div>
-                  </div>
-                </div>
-
-                {/* Events Preview */}
-                <div className="mb-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {timeline.events.slice(0, 4).map((event) => (
-                      <div key={event.id} className="flex items-start space-x-3 p-3 bg-gray-50 rounded-lg">
-                        <div className="text-2xl">{getCategoryIcon(event.category)}</div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center space-x-2 mb-1">
-                            <span className="text-sm font-medium text-gray-900">{event.title}</span>
-                            <span className={`text-xs px-2 py-0.5 rounded border ${getImportanceColor(event.importance)}`}>
-                              {event.importance === 'critical' ? '關鍵' :
-                               event.importance === 'high' ? '重要' :
-                               event.importance === 'medium' ? '中等' : '一般'}
-                            </span>
-                          </div>
-                          <p className="text-xs text-gray-600 truncate">{event.description}</p>
-                        </div>
-                        <div className={`w-5 h-5 rounded border-2 flex-shrink-0 flex items-center justify-center ${event.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                          {event.completed && (
-                            <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                            </svg>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  {timeline.events.length > 4 && (
-                    <p className="text-sm text-gray-500 mt-3 text-center">... 還有 {timeline.events.length - 4} 個事件</p>
-                  )}
-                </div>
-
-                {/* Action Button */}
-                <div className="flex justify-end">
+              <motion.div key={event.id} {...stagger(i)} className="flex gap-3">
+                {/* Timeline connector */}
+                <div className="flex flex-col items-center">
                   <button
-                    onClick={() => handleViewPathwayDetails(timeline)}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center space-x-2"
+                    onClick={() => toggleComplete(event.id)}
+                    className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-1.5 transition ${
+                      isCompleted
+                        ? 'bg-green-500 border-green-500 text-white'
+                        : event.status === 'urgent'
+                        ? 'border-red-400 bg-red-50'
+                        : 'border-gray-300 bg-white hover:border-indigo-400'
+                    }`}
                   >
-                    <span>查看完整時間線</span>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
+                    {isCompleted && <span className="text-xs">✓</span>}
                   </button>
+                  {i < timeline.length - 1 && (
+                    <div className={`w-0.5 flex-1 min-h-[2rem] ${isCompleted ? 'bg-green-200' : 'bg-gray-200'}`} />
+                  )}
                 </div>
-              </div>
+
+                {/* Event card */}
+                <div className={`flex-1 pb-4 ${isCompleted ? 'opacity-60' : ''}`}>
+                  <div className={`bg-white rounded-2xl p-4 shadow-sm ${event.status === 'urgent' ? 'ring-2 ring-red-200' : ''}`}>
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.color}`}>
+                          {config.icon} {event.category}
+                        </span>
+                        {event.pathways.length > 0 && (
+                          <div className="flex gap-1">
+                            {event.pathways.slice(0, 2).map(p => (
+                              <span key={p} className="px-1.5 py-0.5 text-[10px] bg-indigo-50 text-indigo-600 rounded-full">
+                                {PATHWAY_SHORT[p] || p}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      {!isPast && !isCompleted && (
+                        <span className={`text-xs font-bold shrink-0 ${
+                          daysLeft < 14 ? 'text-red-500' : daysLeft < 30 ? 'text-amber-500' : 'text-gray-500'
+                        }`}>
+                          {daysLeft <= 0 ? '今天' : `${daysLeft}天後`}
+                        </span>
+                      )}
+                      {isPast && !isCompleted && (
+                        <span className="text-xs text-gray-400 shrink-0">
+                          {new Date(event.date).toLocaleDateString('zh-TW')}
+                        </span>
+                      )}
+                    </div>
+                    <div className={`font-medium mt-1 ${isCompleted ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                      {event.title}
+                    </div>
+                    <div className="text-sm text-gray-500 mt-0.5">{event.description}</div>
+                  </div>
+                </div>
+              </motion.div>
             )
           })}
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl p-8 mb-12 text-white">
-          <h3 className="text-2xl font-bold mb-6">快速行動</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button
-              onClick={handleGoToAbilityCenter}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                <span className="font-semibold">查看能力中心</span>
-              </div>
-              <p className="text-sm opacity-90">了解適合你的升學管道和準備進度</p>
-            </button>
+        {/* Empty state for no upcoming */}
+        {upcomingEvents.length === 0 && (
+          <div className="bg-white rounded-2xl p-8 shadow-sm text-center mt-6">
+            <div className="text-4xl mb-3">🎊</div>
+            <p className="text-gray-600">所有事件都已完成！幹得好！</p>
+          </div>
+        )}
 
-            <button
-              onClick={handleGoToPortfolio}
-              className="bg-white/20 hover:bg-white/30 transition rounded-lg p-4 text-left"
-            >
-              <div className="flex items-center space-x-3 mb-2">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span className="font-semibold">準備申請材料</span>
-              </div>
-              <p className="text-sm opacity-90">管理你的申請文件和準備進度</p>
+        {/* Quick Actions */}
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-6 text-white mt-8 mb-6">
+          <h3 className="text-lg font-bold mb-4">快速導航</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <button onClick={() => router.push('/ability-account')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">🎯 能力中心</div>
+              <div className="text-xs opacity-80">管理你的活動計畫</div>
+            </button>
+            <button onClick={() => router.push('/portfolio')}
+              className="bg-white/20 hover:bg-white/30 transition rounded-xl p-3 text-left">
+              <div className="font-semibold text-sm">📑 準備材料</div>
+              <div className="text-xs opacity-80">考前賽前準備</div>
             </button>
           </div>
-        </div>
-
-        {/* Help & Guidance */}
-        <div className="text-center text-gray-600 text-sm">
-          <p className="mb-2">
-            <strong>升學路徑時間線</strong>幫助你掌握升學節奏
-            <br />• 各個升學管道的重要截止日期與準備時間點
-            <br />• 關鍵事件提醒與進度追蹤
-            <br />• 根據你的職群和年級，<strong>個人化的時間安排建議</strong>
-          </p>
-          <p className="text-xs text-gray-500 mt-4">
-            建議優先關注關鍵截止日，提前準備相關材料
-          </p>
         </div>
       </main>
-
-      {/* Modal for Pathway Timeline Details */}
-      {selectedPathway && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-6 z-10">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900">{selectedPathway.pathway}</h2>
-                  <p className="text-gray-600 mt-1">完整時間線與重要事件</p>
-                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition"
-                >
-                  <svg className="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-6">
-              <div className="space-y-4">
-                {selectedPathway.events.map((event, index) => (
-                  <div
-                    key={event.id}
-                    className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition cursor-pointer"
-                    onClick={() => handleToggleEvent(pathwayTimelines.indexOf(selectedPathway), event.id)}
-                  >
-                    {/* Timeline Connector */}
-                    <div className="flex flex-col items-center">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${event.completed ? 'bg-green-500' : `bg-gradient-to-br ${selectedPathway.color}`} text-white font-bold text-sm`}>
-                        {index + 1}
-                      </div>
-                      {index < selectedPathway.events.length - 1 && (
-                        <div className="w-0.5 h-full bg-gray-300 mt-2"></div>
-                      )}
-                    </div>
-
-                    {/* Event Content */}
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-2">
-                        <span className="text-lg">{getCategoryIcon(event.category)}</span>
-                        <h4 className={`font-semibold text-gray-900 ${event.completed ? 'line-through' : ''}`}>
-                          {event.title}
-                        </h4>
-                        <span className={`text-xs px-2 py-1 rounded border ${getImportanceColor(event.importance)}`}>
-                          {event.importance === 'critical' ? '關鍵' :
-                           event.importance === 'high' ? '重要' :
-                           event.importance === 'medium' ? '中等' : '一般'}
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600 mb-2">{event.description}</p>
-                      <div className="flex items-center space-x-2 text-xs text-gray-500">
-                        <span>📅 {event.date}</span>
-                        <span>•</span>
-                        <span>{event.category === 'deadline' ? '截止日期' :
-                               event.category === 'preparation' ? '準備階段' :
-                               event.category === 'milestone' ? '重要里程碑' : '機會'}</span>
-                      </div>
-                    </div>
-
-                    {/* Completion Toggle */}
-                    <div className={`w-6 h-6 rounded border-2 flex-shrink-0 flex items-center justify-center ${event.completed ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
-                      {event.completed && (
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Modal Footer */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-6">
-              <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                  <strong>完成進度：</strong>
-                  {selectedPathway.events.filter(e => e.completed).length} / {selectedPathway.events.length} 事件
-                </div>
-                <button
-                  onClick={handleCloseModal}
-                  className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-                >
-                  關閉
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center text-gray-600 text-sm">
-            <p>© 2026 升學大師 v2.0 • 讓每個高職生都找到最適合的升學路徑</p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
+}
+
+const PATHWAY_SHORT: Record<string, string> = {
+  stars: '繁星', selection: '甄選', distribution: '分發',
+  skills: '技優', guarantee: '保送', special: '特殊',
 }
