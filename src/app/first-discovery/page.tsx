@@ -587,13 +587,13 @@ export default function FirstDiscoveryPage() {
                   <a href={detailModalDept.techadmiUrl} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 underline"
                   >
-                    📋 招生簡章 ↗
+                    📋 科系簡介 ↗
                   </a>
                 ) : (
                   <a href={`https://www.techadmi.edu.tw/schools_detail.php?sch_id=${detailModalDept.schoolId}`} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 underline"
                   >
-                    📋 學校招生資訊 ↗
+                    📋 科系簡介 ↗
                   </a>
                 )}
                 {detailModalDept.youtubeUrl && (
