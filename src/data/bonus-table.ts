@@ -5,6 +5,8 @@
 // 計算公式：甄審總成績 = 指定項目甄審成績 × (1 + 優待加分比率)
 // 重要：同時持有 2 種以上符合加分優待之技藝技能競賽或證照者，限選 1 項優待加分
 
+import certAdmissionMap from './cert-admission-map.json'
+
 // ── 證照相關性等級 ──
 export type RelevanceLevel = '高度相關' | '中度相關' | '低度相關'
 
@@ -94,7 +96,6 @@ export function getCompBonus(category: CompetitionCategory, placing: string): nu
   for (const tier of tiers) {
     if (tier.placings.includes(placing)) return tier.bonusPercent
   }
-  // Fallback：取該分類最低加分
   const minBonus = tiers.length > 0 ? Math.min(...tiers.map(t => t.bonusPercent)) : 0
   return minBonus
 }
@@ -103,56 +104,134 @@ export function getCompBonus(category: CompetitionCategory, placing: string): nu
 export function estimateCompBonus(competitionName: string, placingThresholds: string[]): number {
   const category = classifyCompetition(competitionName)
   if (category === '其他') return 0
-
-  // 用最高門檻名次查加分
   for (const placing of placingThresholds) {
     const bonus = getCompBonus(category, placing)
     if (bonus > 0) return bonus
   }
-
-  // 如果門檻名次不匹配，取該分類的最高加分
   return getCompMaxBonus(category)
 }
 
-// ── 證照相關性估算（簡化模型） ──
-// TODO: 未來替換為完整 PDF 對照表的數位化資料
-
-/** 跨群機會列表（從 group-knowledge.ts 簡化而來） */
-const CROSS_GROUP_MAP: Record<string, string[]> = {
-  '01': ['02', '09'],      // 機械群 ↔ 動力機械群、工程管理群
-  '02': ['01', '09'],      // 動力機械群 ↔ 機械群
-  '03': ['04', '19'],      // 電機與電子群 ↔ 化工群、資電
-  '04': ['03', '09'],      // 化工群 ↔ 電機群
-  '05': ['01', '09'],      // 土木建築群 ↔ 機械群
-  '06': ['07', '08'],      // 商業管理群 ↔ 外語群、設計群
-  '07': ['06'],            // 外語群 ↔ 商業管理群
-  '08': ['06', '18'],      // 設計群 ↔ 商業管理群、藝術群
-  '09': ['01', '03'],      // 工程管理群 ↔ 機械群、電機群
-  '10': ['11'],            // 海事群 ↔ 水產群
-  '11': ['10'],            // 水產群 ↔ 海事群
-  '12': ['13', '17'],      // 農業群 ↔ 食品群、農業森林
-  '13': ['12', '16'],      // 食品群 ↔ 農業群、餐旅群
-  '14': ['06', '15'],      // 家政群 ↔ 商業管理群
-  '15': ['14'],            // 商業管理幼保 ↔ 家政群
-  '16': ['13'],            // 餐旅群 ↔ 食品群
-  '17': ['12'],            // 農業森林 ↔ 農業群
-  '18': ['08', '20'],      // 藝術群 ↔ 設計群、影視
-  '19': ['03'],            // 資電 ↔ 電機與電子群
-  '20': ['18'],            // 影視 ↔ 藝術群
+// ── 群代碼 ↔ 招生類別對照 ──
+// 高職群代碼 (01-20) → 招生類別代碼 (10-96)
+export const GROUP_TO_CATEGORIES: Record<string, string[]> = {
+  '01': ['10'],
+  '02': ['15', '12'],
+  '03': ['20', '25', '26'],
+  '04': ['30', '33', '34'],
+  '05': ['40', '41'],
+  '06': ['56', '60', '65', '62'],
+  '07': ['62'],
+  '08': ['80', '85'],
+  '09': ['55', '56'],
+  '10': ['44', '45'],
+  '11': ['46', '91'],
+  '12': ['70', '12'],
+  '13': ['90'],
+  '14': ['76', '77', '78', '95'],
+  '16': ['79'],
+  '17': ['74'],
+  '18': ['80', '85'],
+  '19': ['20', '25', '26', '96'],
+  '20': ['80', '85'],
 }
 
-/** 估算證照對目標科系的相關性 */
+export function getAdmissionCategoriesForGroup(groupCode: string): string[] {
+  return GROUP_TO_CATEGORIES[groupCode] || []
+}
+
+// ── 真實 PDF 對照表查詢 ──
+
+// ── 真實 PDF 對照表查詢 ──
+
+type CertMapCategories = typeof certAdmissionMap.categories
+
+/** 從 cert-admission-map.json 查詢證照對招生類別的相關性 */
+export function getCertRelevanceFromMap(
+  certCode: string,
+  categoryCode: string,
+): RelevanceLevel | null {
+  const categories = certAdmissionMap.categories
+  const category = categories[categoryCode as keyof CertMapCategories]
+  if (!category) return null
+
+  for (const cert of category.certificates.high) {
+    if (cert.code === certCode) return '高度相關'
+  }
+  for (const cert of category.certificates.medium) {
+    if (cert.code === certCode) return '中度相關'
+  }
+  for (const cert of category.certificates.low) {
+    if (cert.code === certCode) return '低度相關'
+  }
+
+  return null
+}
+
+/** 取得某招生類別的所有證照（含相關性與加分） */
+export function getAllCertsForCategory(categoryCode: string): Array<{
+  code: string
+  name: string
+  relevance: RelevanceLevel
+  bonus甲: number
+  bonus乙: number
+}> {
+  const categories = certAdmissionMap.categories
+  const category = categories[categoryCode as keyof CertMapCategories]
+  if (!category) return []
+
+  const result: Array<{
+    code: string
+    name: string
+    relevance: RelevanceLevel
+    bonus甲: number
+    bonus乙: number
+  }> = []
+
+  const levels: Array<{ key: 'high' | 'medium' | 'low'; rel: RelevanceLevel }> = [
+    { key: 'high', rel: '高度相關' },
+    { key: 'medium', rel: '中度相關' },
+    { key: 'low', rel: '低度相關' },
+  ]
+
+  for (const { key, rel } of levels) {
+    const certs = category.certificates[key] || []
+    for (const cert of certs) {
+      result.push({
+        code: cert.code,
+        name: cert.name,
+        relevance: rel,
+        bonus甲: getCertBonus('甲', rel),
+        bonus乙: getCertBonus('乙', rel),
+      })
+    }
+  }
+
+  return result
+}
+
+/** 取得招生類別名稱 */
+export function getCategoryName(categoryCode: string): string {
+  const categories = certAdmissionMap.categories
+  const category = categories[categoryCode as keyof CertMapCategories]
+  return category?.name || ''
+}
+
+// ── 舊版簡化相關性估算（fallback） ──
+
 export function estimateRelevance(
   certGroupCode: string,
   targetGroupCode: string,
 ): RelevanceLevel {
   if (certGroupCode === targetGroupCode) return '高度相關'
-  const crossGroups = CROSS_GROUP_MAP[certGroupCode] ?? []
-  if (crossGroups.includes(targetGroupCode)) return '中度相關'
+  // Try real PDF mapping first
+  const categories = getAdmissionCategoriesForGroup(targetGroupCode)
+  for (const catCode of categories) {
+    const rel = getCertRelevanceFromMap(certGroupCode, catCode)
+    if (rel) return rel
+  }
   return '低度相關'
 }
 
-/** 計算證照對目標科系群的技優甄審加分 */
 export function calcCertBonusPercent(
   certLevel: string,
   certGroupCode: string,

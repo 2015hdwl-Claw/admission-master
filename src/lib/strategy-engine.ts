@@ -15,7 +15,14 @@ import type { StudentProfile, DepartmentInfo } from '@/types/department'
 import examSchedules from '@/data/exam-schedules.json'
 import competitionEvents from '@/data/competition-events.json'
 import pathwayDeadlines from '@/data/pathway-deadlines.json'
-import { getCertBonus, estimateRelevance, estimateCompBonus, type RelevanceLevel } from '@/data/bonus-table'
+import {
+  getCertBonus,
+  estimateCompBonus,
+  getAdmissionCategoriesForGroup,
+  getAllCertsForCategory,
+  getCertRelevanceFromMap,
+  type RelevanceLevel,
+} from '@/data/bonus-table'
 
 // ── helpers ──
 function daysBetween(a: string, b: string): number {
@@ -63,7 +70,7 @@ function generateUpgradePaths(
   const paths: UpgradePath[] = []
   const now = new Date().toISOString().slice(0, 10)
 
-  // 1. Certificate upgrade paths
+  // 1. Certificate upgrade paths (from real PDF mapping)
   const certPaths = generateCertPaths(profile, targets, now)
   paths.push(...certPaths)
 
@@ -91,105 +98,165 @@ function generateCertPaths(
 ): UpgradePath[] {
   const paths: UpgradePath[] = []
   const existingCerts = new Set(profile.certificates)
-
-  // Collect all target groupCodes for relevance calculation
-  const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
-
-  // Find what certificates targets need for 技優甄審
-  const neededCerts = new Map<string, Set<string>>() // certName → Set<pathway>
-  for (const dept of targets) {
-    for (const [ptype, req] of Object.entries(dept.pathways)) {
-      if (!req.available) continue
-      if (req.requiredCertificates) {
-        for (const cert of req.requiredCertificates) {
-          if (!existingCerts.has(cert)) {
-            if (!neededCerts.has(cert)) neededCerts.set(cert, new Set())
-            neededCerts.get(cert)!.add(ptype)
-          }
-        }
-      }
-    }
-  }
-
-  // Match needed certs to exam schedules
   const schedules = examSchedules as ExamSchedule[]
 
-  for (const [certName, pathways] of neededCerts) {
-    // Find matching exam schedule
-    const matching = schedules.filter(s =>
-      certName.includes(s.certName.split('(')[0]) ||
-      s.certName.includes(certName.split('級')[1] || certName)
-    )
+  // Collect all target groupCodes
+  const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
 
-    // Find next opportunity
-    const futureExams = matching.filter(s =>
-      s.registrationEnd && isFuture(s.registrationEnd)
-    ).sort((a, b) =>
-      (a.registrationEnd || '').localeCompare(b.registrationEnd || '')
-    )
-
-    const nextExam = futureExams[0]
-
-    if (nextExam) {
-      const regDeadline = nextExam.registrationEnd!
-      const daysToReg = daysFromNow(regDeadline)
-      const daysToResult = nextExam.resultDate ? daysFromNow(nextExam.resultDate) : 0
-
-      // Check if result comes before 技優甄審 deadline (usually March)
-      const canMakeIt = daysToResult > 0 && nextExam.resultDate
-        ? nextExam.resultDate < '2027-03-05'  // 技優甄審 報名截止約 3月初
-        : true
-
-      // Calculate real bonus from official table (best across all target groups)
-      const examGroupCodes = nextExam.groupCodes || [nextExam.groupCode]
-      let bestBonus = 0
-      for (const egc of examGroupCodes) {
-        for (const tgc of targetGroupCodes) {
-          const relevance = estimateRelevance(egc, tgc)
-          const bonus = getCertBonus(nextExam.level, relevance)
-          if (bonus > bestBonus) bestBonus = bonus
-        }
+  // Get all admission categories for target groups
+  const targetCategories = new Map<string, string>() // categoryCode → groupCode
+  for (const gc of targetGroupCodes) {
+    for (const catCode of getAdmissionCategoriesForGroup(gc)) {
+      if (!targetCategories.has(catCode)) {
+        targetCategories.set(catCode, gc)
       }
-
-      paths.push({
-        id: `cert-${nextExam.id}`,
-        type: 'certificate',
-        title: `考取 ${certName}`,
-        description: `下一次考試：${nextExam.writtenTestDate}，報名截止 ${regDeadline}`,
-        targetItem: certName,
-        nextOpportunity: nextExam.writtenTestDate || null,
-        registrationDeadline: regDeadline,
-        estimatedPrepDays: nextExam.level === '甲' ? 120 : nextExam.level === '乙' ? 60 : 30,
-        canStillMakeIt: canMakeIt && daysToReg > 0,
-        effortLevel: nextExam.level === '甲' ? 'high' : nextExam.level === '乙' ? 'medium' : 'low',
-        probabilityBoost: bestBonus,
-        pathwaysOpened: Array.from(pathways),
-        departmentsAffected: targets.map(d => d.departmentName),
-        roi: nextExam.level === '乙' ? 'high' : nextExam.level === '甲' ? 'medium' : 'medium',
-        groupCodes: nextExam.groupCodes || [nextExam.groupCode],
-        category: nextExam.certName,
-        level: nextExam.level,
-      })
     }
   }
 
-  // If no specific certs needed, suggest common 乙級
-  if (neededCerts.size === 0 && !profile.certificates.some(c => c.includes('乙級'))) {
+  // Build a lookup: certCode → all exam schedule entries
+  const examByCertCode = new Map<string, ExamSchedule[]>()
+  for (const s of schedules) {
+    const code = s.certCode
+    if (!examByCertCode.has(code)) examByCertCode.set(code, [])
+    examByCertCode.get(code)!.push(s)
+  }
+
+  // Track which cert codes we've already added (avoid duplicates)
+  const seenCertCodes = new Set<string>()
+
+  // For each admission category, get ALL certs from PDF mapping
+  for (const [categoryCode] of targetCategories) {
+    const allCerts = getAllCertsForCategory(categoryCode)
+
+    for (const certInfo of allCerts) {
+      // Skip if already seen
+      if (seenCertCodes.has(certInfo.code)) continue
+
+      // Skip if student already has this cert
+      const alreadyHas = existingCerts.has(`乙級${certInfo.name}技術士`) ||
+        existingCerts.has(`甲級${certInfo.name}技術士`) ||
+        existingCerts.has(`丙級${certInfo.name}技術士`)
+      if (alreadyHas) {
+        seenCertCodes.add(certInfo.code)
+        continue
+      }
+
+      seenCertCodes.add(certInfo.code)
+
+      // Find matching exam schedule
+      const matchingExams = examByCertCode.get(certInfo.code) || []
+
+      // Find next 乙級 exam opportunity
+      const future乙級 = matchingExams
+        .filter(s => s.level === '乙' && s.registrationEnd && isFuture(s.registrationEnd))
+        .sort((a, b) => (a.registrationEnd || '').localeCompare(b.registrationEnd || ''))
+
+      // Find next 甲級 exam opportunity
+      const future甲級 = matchingExams
+        .filter(s => s.level === '甲' && s.registrationEnd && isFuture(s.registrationEnd))
+        .sort((a, b) => (a.registrationEnd || '').localeCompare(b.registrationEnd || ''))
+
+      // Add 乙級 path (most common for high school students)
+      if (future乙級.length > 0) {
+        const exam = future乙級[0]
+        const regDeadline = exam.registrationEnd!
+        const daysToReg = daysFromNow(regDeadline)
+        const daysToResult = exam.resultDate ? daysFromNow(exam.resultDate) : 0
+
+        const canMakeIt = exam.resultDate
+          ? exam.resultDate < '2027-03-05'
+          : true
+
+        const bonus = certInfo.bonus乙
+
+        paths.push({
+          id: `cert-${exam.id}`,
+          type: 'certificate',
+          title: `考取 ${certInfo.name}（乙級）`,
+          description: `下一次考試：${exam.writtenTestDate}，報名截止 ${regDeadline}`,
+          targetItem: `乙級${certInfo.name}`,
+          nextOpportunity: exam.writtenTestDate || null,
+          registrationDeadline: regDeadline,
+          estimatedPrepDays: 60,
+          canStillMakeIt: canMakeIt && daysToReg > 0,
+          effortLevel: 'medium',
+          probabilityBoost: bonus,
+          pathwaysOpened: ['skills'],
+          departmentsAffected: targets.map(d => d.departmentName),
+          roi: bonus >= 15 ? 'high' : bonus >= 8 ? 'medium' : 'low',
+          groupCodes: exam.groupCodes || [exam.groupCode],
+          category: certInfo.name,
+          level: '乙',
+          relevance: certInfo.relevance,
+          admissionCategory: categoryCode,
+        })
+      }
+
+      // Add 甲級 path if available (higher bonus, more effort)
+      if (future甲級.length > 0) {
+        const exam = future甲級[0]
+        const regDeadline = exam.registrationEnd!
+        const daysToReg = daysFromNow(regDeadline)
+
+        paths.push({
+          id: `cert-${exam.id}`,
+          type: 'certificate',
+          title: `考取 ${certInfo.name}（甲級）`,
+          description: `下一次考試：${exam.writtenTestDate}，報名截止 ${regDeadline}`,
+          targetItem: `甲級${certInfo.name}`,
+          nextOpportunity: exam.writtenTestDate || null,
+          registrationDeadline: regDeadline,
+          estimatedPrepDays: 120,
+          canStillMakeIt: isFuture(regDeadline),
+          effortLevel: 'high',
+          probabilityBoost: 25, // 甲級一律 +25%
+          pathwaysOpened: ['skills'],
+          departmentsAffected: targets.map(d => d.departmentName),
+          roi: 'medium',
+          groupCodes: exam.groupCodes || [exam.groupCode],
+          category: certInfo.name,
+          level: '甲',
+          relevance: certInfo.relevance,
+          admissionCategory: categoryCode,
+        })
+      }
+
+      // Add cert even without exam schedule (still show it for reference)
+      if (future乙級.length === 0 && future甲級.length === 0) {
+        const bonus = certInfo.bonus乙
+        paths.push({
+          id: `cert-map-${certInfo.code}`,
+          type: 'certificate',
+          title: `考取 ${certInfo.name}（乙級）`,
+          description: `技優甄審適用證照，考試時程待公告`,
+          targetItem: `乙級${certInfo.name}`,
+          nextOpportunity: null,
+          registrationDeadline: null,
+          estimatedPrepDays: 60,
+          canStillMakeIt: true,
+          effortLevel: 'medium',
+          probabilityBoost: bonus,
+          pathwaysOpened: ['skills'],
+          departmentsAffected: targets.map(d => d.departmentName),
+          roi: bonus >= 15 ? 'high' : bonus >= 8 ? 'medium' : 'low',
+          groupCodes: targetGroupCodes,
+          category: certInfo.name,
+          level: '乙',
+          relevance: certInfo.relevance,
+          admissionCategory: categoryCode,
+        })
+      }
+    }
+  }
+
+  // Fallback: if no categories found, suggest common 乙級
+  if (targetCategories.size === 0 && !profile.certificates.some(c => c.includes('乙級'))) {
     const nextExams = schedules
       .filter(s => s.level === '乙' && s.registrationEnd && isFuture(s.registrationEnd))
       .sort((a, b) => (a.registrationEnd || '').localeCompare(b.registrationEnd || ''))
 
     if (nextExams.length > 0) {
       const exam = nextExams[0]
-      const examGroupCodes = exam.groupCodes || [exam.groupCode]
-      let bestBonus = 0
-      for (const egc of examGroupCodes) {
-        for (const tgc of targetGroupCodes) {
-          const bonus = getCertBonus('乙', estimateRelevance(egc, tgc))
-          if (bonus > bestBonus) bestBonus = bonus
-        }
-      }
-
       paths.push({
         id: `cert-suggest-${exam.id}`,
         type: 'certificate',
@@ -201,7 +268,7 @@ function generateCertPaths(
         estimatedPrepDays: 60,
         canStillMakeIt: isFuture(exam.registrationEnd || ''),
         effortLevel: 'medium',
-        probabilityBoost: bestBonus,
+        probabilityBoost: 15,
         pathwaysOpened: ['skills'],
         departmentsAffected: [],
         roi: 'high',
@@ -219,7 +286,6 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
   const paths: UpgradePath[] = []
   const events = competitionEvents as CompetitionEvent[]
 
-  // Filter events that haven't passed
   const futureEvents = events.filter(e => {
     if (!e.registrationEnd && !e.eventDate) return false
     const deadline = e.registrationEnd || e.eventDate
@@ -232,11 +298,9 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
 
     if (daysToReg <= 0) continue
 
-    // Determine effort and ROI based on competition level
     const isNational = event.level === '全國'
     const isRegional = event.level === '分區'
 
-    // Calculate real bonus from official table
     const bonus = estimateCompBonus(
       event.competitionName,
       event.placingThreshold || [],
@@ -285,7 +349,6 @@ function generatePathwayTimelines(
         : 'upcoming' as const,
     }))
 
-    // Check if student is eligible (basic check)
     const eligible = checkBasicEligibility(pd.pathwayType, profile)
 
     timelines.push({
@@ -306,9 +369,9 @@ function checkBasicEligibility(pathwayType: string, profile: StudentProfile): bo
     case 'stars':
       return profile.gradePercentile > 0 && profile.gradePercentile <= 25
     case 'selection':
-      return true // Everyone can apply
+      return true
     case 'distribution':
-      return true // Based on test scores
+      return true
     case 'skills':
       return profile.certificates.some(c => c.includes('乙級')) ||
              profile.competitions.some(c => c.placing.includes('第') || c.placing.includes('金手'))
@@ -325,7 +388,6 @@ function checkBasicEligibility(pathwayType: string, profile: StudentProfile): bo
 function generateCriticalDeadlines(profile: StudentProfile): CriticalDeadline[] {
   const deadlines: CriticalDeadline[] = []
 
-  // From exam schedules
   const schedules = examSchedules as ExamSchedule[]
   const futureExams = schedules
     .filter(s => s.registrationEnd && isFuture(s.registrationEnd))
@@ -343,7 +405,6 @@ function generateCriticalDeadlines(profile: StudentProfile): CriticalDeadline[] 
     })
   }
 
-  // From competition events
   const events = competitionEvents as CompetitionEvent[]
   const futureComps = events
     .filter(e => e.registrationEnd && isFuture(e.registrationEnd))
@@ -361,7 +422,6 @@ function generateCriticalDeadlines(profile: StudentProfile): CriticalDeadline[] 
     })
   }
 
-  // From pathway deadlines
   const pathways = pathwayDeadlines as PathwayDeadline[]
   for (const pd of pathways) {
     const upcoming = pd.milestones
@@ -382,7 +442,6 @@ function generateCriticalDeadlines(profile: StudentProfile): CriticalDeadline[] 
     }
   }
 
-  // Sort by urgency then date
   deadlines.sort((a, b) => {
     const urgencyOrder = { critical: 0, warning: 1, info: 2 }
     if (urgencyOrder[a.urgency] !== urgencyOrder[b.urgency])

@@ -101,6 +101,8 @@ export interface UpgradePath {
   groupCodes: string[]                // 適用職群代碼，如 ["03"]
   category: string                    // 職種名稱，如 "冷凍空調裝修"
   level: string                       // 等級，如 "乙" / "全國"
+  relevance?: string                  // 證照相關性：高度相關/中度相關/低度相關
+  admissionCategory?: string          // 招生類別代碼，如 "20"
 }
 
 export interface PathwayTimeline {

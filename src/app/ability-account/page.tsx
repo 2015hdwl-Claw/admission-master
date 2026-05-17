@@ -33,7 +33,7 @@ import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/stra
 import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
 import { GROUP_INFO, getGroupName } from '@/types/v4'
 import type { GroupCode } from '@/types/v4'
-import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus } from '@/data/bonus-table'
+import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName } from '@/data/bonus-table'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -627,6 +627,13 @@ function resolveGroupIcon(code: string): string {
 
 // ── 分組渲染元件 ──
 
+const RELEVANCE_ORDER = ['高度相關', '中度相關', '低度相關']
+const RELEVANCE_STYLE: Record<string, { border: string; bg: string; text: string; badge: string }> = {
+  '高度相關': { border: 'border-l-amber-400', bg: 'bg-amber-50/30', text: 'text-amber-700', badge: 'bg-amber-100 text-amber-700' },
+  '中度相關': { border: 'border-l-blue-400', bg: 'bg-blue-50/30', text: 'text-blue-600', badge: 'bg-blue-100 text-blue-700' },
+  '低度相關': { border: 'border-l-gray-400', bg: 'bg-gray-50/30', text: 'text-gray-500', badge: 'bg-gray-100 text-gray-600' },
+}
+
 function GroupedUpgradePaths({
   paths,
   expandedGroups,
@@ -644,21 +651,52 @@ function GroupedUpgradePaths({
   targetPathways: string[]
   targetGroupCode?: string
 }) {
-  // Split into certificates and competitions
   const certs = paths.filter(p => p.type === 'certificate')
   const comps = paths.filter(p => p.type === 'competition')
 
-  // Group by groupCode
-  function groupByCode(items: UpgradePath[]): Map<string, UpgradePath[]> {
+  function toggleGroup(key: string) {
+    setExpandedGroups(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  // Group certs by relevance level (高度相關 → 中度相關 → 低度相關)
+  function groupCertsByRelevance(items: UpgradePath[]): Map<string, UpgradePath[]> {
     const map = new Map<string, UpgradePath[]>()
     for (const item of items) {
-      const codes = item.groupCodes.length > 0 ? item.groupCodes : ['unknown']
-      for (const code of codes) {
-        if (!map.has(code)) map.set(code, [])
-        map.get(code)!.push(item)
-      }
+      const rel = item.relevance || '低度相關'
+      if (!map.has(rel)) map.set(rel, [])
+      map.get(rel)!.push(item)
     }
-    // Sort within each group by bonus% descending, then deadline ascending
+    // Sort within each group by bonus% desc, then deadline asc
+    for (const [, items] of map) {
+      items.sort((a, b) => {
+        if (b.probabilityBoost !== a.probabilityBoost) return b.probabilityBoost - a.probabilityBoost
+        const da = a.registrationDeadline ? daysFromNowLocal(a.registrationDeadline) : 999
+        const db = b.registrationDeadline ? daysFromNowLocal(b.registrationDeadline) : 999
+        return da - db
+      })
+    }
+    // Sort groups: 高度 → 中度 → 低度
+    const sorted = new Map<string, UpgradePath[]>()
+    for (const rel of RELEVANCE_ORDER) {
+      const group = map.get(rel)
+      if (group) sorted.set(rel, group)
+    }
+    return sorted
+  }
+
+  // Group competitions by category
+  function groupCompsByCategory(items: UpgradePath[]): Map<string, UpgradePath[]> {
+    const map = new Map<string, UpgradePath[]>()
+    for (const item of items) {
+      const cat = classifyCompetition(item.category)
+      if (!map.has(cat)) map.set(cat, [])
+      map.get(cat)!.push(item)
+    }
     for (const [, items] of map) {
       items.sort((a, b) => {
         if (b.probabilityBoost !== a.probabilityBoost) return b.probabilityBoost - a.probabilityBoost
@@ -670,87 +708,72 @@ function GroupedUpgradePaths({
     return map
   }
 
-  function toggleGroup(key: string) {
-    setExpandedGroups(prev => {
-      const next = new Set(prev)
-      if (next.has(key)) next.delete(key)
-      else next.add(key)
-      return next
-    })
-  }
-
-  function renderSection(
-    title: string,
-    icon: string,
-    items: UpgradePath[],
-    sectionKey: string,
-  ) {
-    if (items.length === 0) return null
-    const grouped = groupByCode(items)
-    // Sort groups: student's own group first, then alphabetical
-    const sortedCodes = Array.from(grouped.keys()).sort((a, b) => {
-      const na = resolveGroupName(a)
-      const nb = resolveGroupName(b)
-      return na.localeCompare(nb, 'zh-TW')
-    })
+  function renderCertSection() {
+    if (certs.length === 0) return null
+    const grouped = groupCertsByRelevance(certs)
+    const totalHigh = grouped.get('高度相關')?.length || 0
+    const totalMed = grouped.get('中度相關')?.length || 0
+    const totalLow = grouped.get('低度相關')?.length || 0
 
     return (
       <div className="mb-8">
-        <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-          <span className="text-2xl">{icon}</span>
-          {title}
-          <span className="text-sm font-normal text-gray-400">({items.length})</span>
+        <h3 className="text-lg font-bold text-gray-900 mb-1 flex items-center gap-2">
+          <span className="text-2xl">📜</span>
+          證照考試
+          <span className="text-sm font-normal text-gray-400">({certs.length})</span>
         </h3>
+        <p className="text-xs text-gray-400 mb-3">
+          高度相關 {totalHigh} 個（乙級 +15%）· 中度相關 {totalMed} 個（乙級 +8%）· 低度相關 {totalLow} 個（乙級 +4%）
+        </p>
         <div className="space-y-3">
-          {sortedCodes.map(code => {
-            const groupItems = grouped.get(code) || []
-            const groupKey = `${sectionKey}-${code}`
+          {Array.from(grouped.entries()).map(([relevance, items]) => {
+            const style = RELEVANCE_STYLE[relevance] || RELEVANCE_STYLE['低度相關']
+            const groupKey = `cert-${relevance}`
             const isExpanded = expandedGroups.has(groupKey)
+            const bestBonus = items[0]?.probabilityBoost || 0
 
             return (
-              <div key={code} className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                {/* Group header — clickable */}
+              <div key={relevance} className="bg-white rounded-2xl shadow-sm overflow-hidden">
                 <button
                   onClick={() => toggleGroup(groupKey)}
                   className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl">{resolveGroupIcon(code)}</span>
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${style.badge}`}>
+                      {relevance === '高度相關' ? '++' : relevance === '中度相關' ? '+' : '-'}
+                    </div>
                     <div className="text-left">
-                      <div className="font-bold text-gray-900">{resolveGroupName(code)}</div>
-                      <div className="text-xs text-gray-400">{code} · {groupItems.length} 個項目</div>
+                      <div className="font-bold text-gray-900">{relevance}</div>
+                      <div className="text-xs text-gray-400">
+                        {items.length} 張證照 · 乙級最高 +{bestBonus}%
+                      </div>
                     </div>
                   </div>
                   <span className="text-gray-400 text-sm">{isExpanded ? '▲' : '▼'}</span>
                 </button>
 
-                {/* Expanded items */}
                 {isExpanded && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-2">
-                    {groupItems.map(path => {
+                    {items.map(path => {
                       const added = isAlreadyAdded(path)
-                      const isRelevant = targetPathways.length === 0 || path.pathwaysOpened.some(p => targetPathways.includes(p))
                       const levelLabel = LEVEL_LABELS[path.level] || path.level
 
                       return (
                         <div key={path.id}
-                          className={`rounded-xl p-4 border-l-4 relative ${
+                          className={`rounded-xl p-4 border-l-4 ${
                             added ? 'border-l-green-400 bg-green-50/50' :
-                            path.roi === 'high' ? 'border-l-amber-400 bg-amber-50/30' :
-                            path.roi === 'medium' ? 'border-l-blue-400 bg-blue-50/30' : 'border-l-gray-300 bg-gray-50/30'
+                            `${style.border} ${style.bg}`
                           }`}
                         >
                           <div className="flex items-start gap-3">
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1 flex-wrap">
                                 <span className="font-bold">{path.category}</span>
-                                {levelLabel && (
-                                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                                    path.type === 'certificate' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
-                                  }`}>
-                                    {levelLabel}
-                                  </span>
-                                )}
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                  path.type === 'certificate' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                                }`}>
+                                  {levelLabel}
+                                </span>
                                 {path.roi === 'high' && (
                                   <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
                                     高 CP 值
@@ -759,13 +782,7 @@ function GroupedUpgradePaths({
                               </div>
                               <div className="text-sm text-gray-500">{path.description}</div>
 
-                              {/* Impact tags */}
                               <div className="flex flex-wrap gap-1 mt-2">
-                                {isRelevant && path.pathwaysOpened.length > 0 && (
-                                  <span className="px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded-full font-medium">
-                                    ✓ {path.pathwaysOpened.map(p => PATHWAY_SHORT[p]).join('+')}
-                                  </span>
-                                )}
                                 {path.probabilityBoost > 0 && (
                                   <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${
                                     path.probabilityBoost >= 25 ? 'bg-green-100 text-green-700' :
@@ -774,31 +791,126 @@ function GroupedUpgradePaths({
                                     技優甄審 +{path.probabilityBoost}%
                                   </span>
                                 )}
-                                {path.type === 'certificate' && path.groupCodes.length > 0 && (() => {
-                                  const targetGC = targetGroupCode
-                                  if (!targetGC) return null
-                                  const relevance = estimateRelevance(path.groupCodes[0], targetGC)
-                                  const colorClass = relevance === '高度相關' ? 'bg-amber-50 text-amber-700' :
-                                    relevance === '中度相關' ? 'bg-blue-50 text-blue-600' : 'bg-gray-50 text-gray-500'
-                                  return (
-                                    <span className={`px-2 py-0.5 text-xs rounded-full ${colorClass}`}>
-                                      {relevance}
-                                    </span>
-                                  )
-                                })()}
-                                {path.type === 'competition' && (() => {
-                                  const category = classifyCompetition(path.category)
-                                  if (category === '其他') return null
-                                  return (
-                                    <span className="px-2 py-0.5 text-xs bg-purple-50 text-purple-600 rounded-full">
-                                      {category}
-                                    </span>
-                                  )
-                                })()}
+                                <span className={`px-2 py-0.5 text-xs rounded-full ${style.badge}`}>
+                                  {relevance}
+                                </span>
                               </div>
                             </div>
 
-                            {/* Timeline + Action */}
+                            <div className="text-right shrink-0 flex flex-col items-end gap-2">
+                              {path.registrationDeadline && (
+                                <div>
+                                  <div className="text-xs text-gray-400">報名截止</div>
+                                  <div className={`text-sm font-bold ${
+                                    daysFromNowLocal(path.registrationDeadline) < 14 ? 'text-red-500' :
+                                    daysFromNowLocal(path.registrationDeadline) < 30 ? 'text-amber-500' : 'text-gray-700'
+                                  }`}>
+                                    {formatDaysLeft(path.registrationDeadline)}
+                                  </div>
+                                </div>
+                              )}
+                              <button
+                                onClick={() => handleAddToPlan(path)}
+                                disabled={added}
+                                className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
+                                  added
+                                    ? 'bg-green-100 text-green-700 cursor-default'
+                                    : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
+                                }`}
+                              >
+                                {added ? '✓ 已加入' : '加入計畫'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </motion.div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  function renderCompSection() {
+    if (comps.length === 0) return null
+    const grouped = groupCompsByCategory(comps)
+
+    return (
+      <div className="mb-8">
+        <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <span className="text-2xl">🏆</span>
+          競賽機會
+          <span className="text-sm font-normal text-gray-400">({comps.length})</span>
+        </h3>
+        <div className="space-y-3">
+          {Array.from(grouped.entries()).map(([category, items]) => {
+            const groupKey = `comp-${category}`
+            const isExpanded = expandedGroups.has(groupKey)
+            const maxBonus = getCompMaxBonus(category as any)
+
+            return (
+              <div key={category} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                <button
+                  onClick={() => toggleGroup(groupKey)}
+                  className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold bg-purple-100 text-purple-700">
+                      {category === '技藝競賽' ? '技' : category === '全國技能競賽' ? '全' : category === '科展' ? '科' : '賽'}
+                    </div>
+                    <div className="text-left">
+                      <div className="font-bold text-gray-900">{category}</div>
+                      <div className="text-xs text-gray-400">
+                        {items.length} 個比賽 · 最高 +{maxBonus}%
+                      </div>
+                    </div>
+                  </div>
+                  <span className="text-gray-400 text-sm">{isExpanded ? '▲' : '▼'}</span>
+                </button>
+
+                {isExpanded && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-2">
+                    {items.map(path => {
+                      const added = isAlreadyAdded(path)
+                      const levelLabel = LEVEL_LABELS[path.level] || path.level
+
+                      return (
+                        <div key={path.id}
+                          className={`rounded-xl p-4 border-l-4 ${
+                            added ? 'border-l-green-400 bg-green-50/50' :
+                            path.roi === 'high' ? 'border-l-amber-400 bg-amber-50/30' :
+                            'border-l-blue-400 bg-blue-50/30'
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                <span className="font-bold">{path.title.split(' — ')[0]}</span>
+                                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                                  {levelLabel}
+                                </span>
+                              </div>
+                              <div className="text-sm text-gray-500">{path.description}</div>
+
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {path.probabilityBoost > 0 && (
+                                  <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${
+                                    path.probabilityBoost >= 30 ? 'bg-green-100 text-green-700' :
+                                    path.probabilityBoost >= 15 ? 'bg-indigo-50 text-indigo-600' : 'bg-gray-100 text-gray-600'
+                                  }`}>
+                                    技優甄審 +{path.probabilityBoost}%
+                                  </span>
+                                )}
+                                <span className="px-2 py-0.5 text-xs bg-purple-50 text-purple-600 rounded-full">
+                                  {category}
+                                </span>
+                              </div>
+                            </div>
+
                             <div className="text-right shrink-0 flex flex-col items-end gap-2">
                               {path.registrationDeadline && (
                                 <div>
@@ -840,12 +952,10 @@ function GroupedUpgradePaths({
   return (
     <div>
       <p className="text-sm text-gray-500 mb-4">
-        依技優甄審加分比例排序（高的在前），點擊群別展開查看詳細項目。
+        證照按相關性分組（高度相關加分最多），點擊展開查看詳細項目。
       </p>
-      {renderSection('證照考試', '📜', certs, 'cert')}
-      {renderSection('競賽機會', '🏆', comps, 'comp')}
-
-      {/* Critical Deadlines */}
+      {renderCertSection()}
+      {renderCompSection()}
     </div>
   )
 }
