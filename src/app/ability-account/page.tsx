@@ -192,7 +192,7 @@ export default function AbilityAccountPage() {
   const profile = plan.profile
   const gradeLabel = GRADE_LABELS[profile.grade] || '高三'
   const currentAnalysis = analyses[selectedDepartmentIndex]
-  const currentStrategy = plan && currentAnalysis ? generateStrategy(plan.profile, [currentAnalysis.department]) : null
+  const currentStrategy = plan ? generateStrategy(plan.profile, plan.targets) : null
   const allMatches = currentAnalysis?.pathwayMatches || []
   const totalBoost = myPlan.activities.reduce((sum, a) => sum + a.probabilityBoost, 0)
   const maxBoost = myPlan.activities.length > 0 ? Math.max(...myPlan.activities.map(a => a.probabilityBoost)) : 0
@@ -263,31 +263,54 @@ export default function AbilityAccountPage() {
               </motion.div>
             </div>
 
-            {/* Upgrade Guide Summary */}
-            {currentAnalysis.gradeAdvice?.upgradeGuide && currentAnalysis.gradeAdvice.upgradeGuide.length > 0 && (
-              <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-5 mb-6 border border-amber-200/50">
-                <h3 className="text-sm font-bold text-amber-800 mb-3 flex items-center gap-2">
-                  <span>⚔️</span> 武器庫升級指南 — {currentAnalysis.department.departmentName}
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                  {currentAnalysis.gradeAdvice.upgradeGuide.map((item, i) => (
-                    <div key={i} className="bg-white/80 rounded-xl p-3">
-                      <div className="text-xs text-gray-500">{item.weapon}</div>
-                      <div className="text-sm font-medium text-gray-900">{item.current} → {item.target}</div>
-                      {item.bonusPreview && (
-                        <div className="text-xs text-green-600 font-medium mt-1">{item.bonusPreview}</div>
-                      )}
-                      <div className={`mt-1 text-xs ${
-                        item.effort === 'low' ? 'text-green-500' :
-                        item.effort === 'medium' ? 'text-amber-500' : 'text-red-500'
-                      }`}>
-                        {item.effort === 'low' ? '低' : item.effort === 'medium' ? '中' : '高'}投入
+            {/* Upgrade Guide Summary — per selected department */}
+            {currentStrategy && (() => {
+              const dept = currentAnalysis.department
+              const certPaths = currentStrategy.upgradePaths.filter(p => p.type === 'certificate' && p.canStillMakeIt)
+              const compPaths = currentStrategy.upgradePaths.filter(p => p.type === 'competition' && p.canStillMakeIt)
+              const bestCert = certPaths.length > 0 ? certPaths.reduce((a, b) => a.probabilityBoost > b.probabilityBoost ? a : b) : null
+              const bestComp = compPaths.length > 0 ? compPaths.reduce((a, b) => a.probabilityBoost > b.probabilityBoost ? a : b) : null
+
+              return (
+                <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-5 mb-6 border border-amber-200/50">
+                  <h3 className="text-sm font-bold text-amber-800 mb-3 flex items-center gap-2">
+                    <span>⚔️</span> 武器庫升級指南 — {dept.departmentName}
+                    <span className="text-xs font-normal text-amber-600">{dept.schoolName}</span>
+                  </h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {bestCert && (
+                      <div className="bg-white/80 rounded-xl p-3">
+                        <div className="text-xs text-gray-500">最佳證照加分</div>
+                        <div className="text-sm font-medium text-gray-900">{bestCert.category}</div>
+                        <div className="text-xs text-green-600 font-medium mt-1">技優甄審 +{bestCert.probabilityBoost}%</div>
+                        <div className={`mt-1 text-xs ${
+                          bestCert.relevance === '高度相關' ? 'text-amber-500' :
+                          bestCert.relevance === '中度相關' ? 'text-blue-500' : 'text-gray-400'
+                        }`}>{bestCert.relevance}</div>
                       </div>
+                    )}
+                    {bestComp && (
+                      <div className="bg-white/80 rounded-xl p-3">
+                        <div className="text-xs text-gray-500">最佳競賽加分</div>
+                        <div className="text-sm font-medium text-gray-900">{bestComp.category}</div>
+                        <div className="text-xs text-green-600 font-medium mt-1">技優甄審 +{bestComp.probabilityBoost}%</div>
+                        <div className="text-xs text-gray-400 mt-1">{LEVEL_LABELS[bestComp.level] || bestComp.level}</div>
+                      </div>
+                    )}
+                    <div className="bg-white/80 rounded-xl p-3">
+                      <div className="text-xs text-gray-500">可考證照</div>
+                      <div className="text-sm font-medium text-gray-900">{certPaths.length} 張</div>
+                      <div className="text-xs text-gray-400 mt-1">含考試時程</div>
                     </div>
-                  ))}
+                    <div className="bg-white/80 rounded-xl p-3">
+                      <div className="text-xs text-gray-500">可報名競賽</div>
+                      <div className="text-sm font-medium text-gray-900">{compPaths.length} 個</div>
+                      <div className="text-xs text-gray-400 mt-1">尚在報名期內</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
+              )
+            })()}
 
             {/* Tab Navigation */}
             <div className="flex gap-1 bg-white rounded-2xl p-1 shadow-sm mb-6">
@@ -889,7 +912,7 @@ function GroupedUpgradePaths({
                           <div className="flex items-start gap-3">
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                <span className="font-bold">{path.title.split(' — ')[0]}</span>
+                                <span className="font-bold">{path.category}</span>
                                 <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
                                   {levelLabel}
                                 </span>

@@ -75,7 +75,8 @@ function generateUpgradePaths(
   paths.push(...certPaths)
 
   // 2. Competition opportunities
-  const compPaths = generateCompPaths(profile, now)
+  const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
+  const compPaths = generateCompPaths(profile, targetGroupCodes, now)
   paths.push(...compPaths)
 
   // Sort by: canStillMakeIt desc, roi desc, bonus desc, deadline asc
@@ -282,14 +283,17 @@ function generateCertPaths(
   return paths
 }
 
-function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] {
+function generateCompPaths(profile: StudentProfile, targetGroupCodes: string[], now: string): UpgradePath[] {
   const paths: UpgradePath[] = []
   const events = competitionEvents as CompetitionEvent[]
 
   const futureEvents = events.filter(e => {
     if (!e.registrationEnd && !e.eventDate) return false
     const deadline = e.registrationEnd || e.eventDate
-    return deadline && isFuture(deadline)
+    if (!deadline || !isFuture(deadline)) return false
+    // Only include competitions relevant to target groups
+    const eventGroups = e.groupCodes || []
+    return eventGroups.some((g: string) => targetGroupCodes.includes(g))
   })
 
   for (const event of futureEvents) {
