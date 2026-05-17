@@ -220,7 +220,7 @@ export default function FirstDiscoveryPage() {
     setTargetDepartments(prev => {
       const exists = prev.find(d => d.id === dept.id);
       if (exists) return prev.filter(d => d.id !== dept.id);
-      if (prev.length >= 3) return prev;
+      if (prev.length >= 5) return prev;
       return [...prev, dept];
     });
   };
@@ -368,7 +368,7 @@ export default function FirstDiscoveryPage() {
         探索你感興趣的科系
       </motion.h1>
       <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-gray-500 mb-6">
-        選 1-3 個你想了解的科系（已選 {targetDepartments.length}/3）
+        選 1-5 個你想了解的科系（已選 {targetDepartments.length}/5）
       </motion.p>
 
       <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="flex flex-col md:flex-row gap-3 mb-6">

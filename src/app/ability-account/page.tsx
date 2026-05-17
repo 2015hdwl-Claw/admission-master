@@ -33,6 +33,7 @@ import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/stra
 import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
 import { GROUP_INFO, getGroupName } from '@/types/v4'
 import type { GroupCode } from '@/types/v4'
+import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus } from '@/data/bonus-table'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -194,6 +195,7 @@ export default function AbilityAccountPage() {
   const currentStrategy = plan && currentAnalysis ? generateStrategy(plan.profile, [currentAnalysis.department]) : null
   const allMatches = currentAnalysis?.pathwayMatches || []
   const totalBoost = myPlan.activities.reduce((sum, a) => sum + a.probabilityBoost, 0)
+  const maxBoost = myPlan.activities.length > 0 ? Math.max(...myPlan.activities.map(a => a.probabilityBoost)) : 0
 
   // Get target pathways from portfolio selection
   let targetPathways: string[] = []
@@ -211,7 +213,7 @@ export default function AbilityAccountPage() {
             <p className="text-indigo-600 font-semibold text-sm">互動武器庫</p>
             <p className="text-xs text-gray-400">
               {plan.targets.length} 個目標科系 · {gradeLabel}
-              {totalBoost > 0 && <span className="text-green-600 ml-2">預估 +{totalBoost}% 提升</span>}
+              {maxBoost > 0 && <span className="text-green-600 ml-2">技優甄審最高 +{maxBoost}%（擇一計算）</span>}
             </p>
           </div>
         </div>
@@ -255,10 +257,37 @@ export default function AbilityAccountPage() {
                 <div className="text-2xl font-bold text-emerald-600">{myPlan.activities.length}</div>
               </motion.div>
               <motion.div {...stagger(3)} className="bg-white rounded-2xl p-4 shadow-sm">
-                <div className="text-xs text-gray-500">預估提升</div>
-                <div className="text-2xl font-bold text-green-600">+{totalBoost}%</div>
+                <div className="text-xs text-gray-500">技優甄審加分</div>
+                <div className="text-2xl font-bold text-green-600">+{maxBoost}%</div>
+                <div className="text-xs text-gray-400">擇一最高</div>
               </motion.div>
             </div>
+
+            {/* Upgrade Guide Summary */}
+            {currentAnalysis.gradeAdvice?.upgradeGuide && currentAnalysis.gradeAdvice.upgradeGuide.length > 0 && (
+              <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-5 mb-6 border border-amber-200/50">
+                <h3 className="text-sm font-bold text-amber-800 mb-3 flex items-center gap-2">
+                  <span>⚔️</span> 武器庫升級指南 — {currentAnalysis.department.departmentName}
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {currentAnalysis.gradeAdvice.upgradeGuide.map((item, i) => (
+                    <div key={i} className="bg-white/80 rounded-xl p-3">
+                      <div className="text-xs text-gray-500">{item.weapon}</div>
+                      <div className="text-sm font-medium text-gray-900">{item.current} → {item.target}</div>
+                      {item.bonusPreview && (
+                        <div className="text-xs text-green-600 font-medium mt-1">{item.bonusPreview}</div>
+                      )}
+                      <div className={`mt-1 text-xs ${
+                        item.effort === 'low' ? 'text-green-500' :
+                        item.effort === 'medium' ? 'text-amber-500' : 'text-red-500'
+                      }`}>
+                        {item.effort === 'low' ? '低' : item.effort === 'medium' ? '中' : '高'}投入
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Tab Navigation */}
             <div className="flex gap-1 bg-white rounded-2xl p-1 shadow-sm mb-6">
@@ -286,6 +315,18 @@ export default function AbilityAccountPage() {
             {/* ── Tab A: Opportunities ── */}
             {activeTab === 'opportunities' && currentStrategy && (
               <div>
+                {/* 技優甄審擇一加分提示 */}
+                <div className="bg-indigo-50 border border-indigo-200/50 rounded-2xl p-4 mb-4 flex items-start gap-3">
+                  <span className="text-2xl shrink-0">ℹ️</span>
+                  <div>
+                    <div className="text-sm font-medium text-indigo-800">技優甄審加分規則</div>
+                    <div className="text-xs text-indigo-600 mt-1">
+                      持有多項資格者僅能<strong>擇一項目</strong>計算加分。建議優先選擇加分百分比最高的項目。
+                      公式：甄審總成績 = 指定項目甄審成績 × (1 + 優待加分比率)
+                    </div>
+                  </div>
+                </div>
+
                 {currentStrategy.upgradePaths.filter(p => p.canStillMakeIt).length > 0 ? (
                   <GroupedUpgradePaths
                     paths={currentStrategy.upgradePaths.filter(p => p.canStillMakeIt)}
@@ -294,6 +335,7 @@ export default function AbilityAccountPage() {
                     isAlreadyAdded={isAlreadyAdded}
                     handleAddToPlan={handleAddToPlan}
                     targetPathways={targetPathways}
+                    targetGroupCode={currentAnalysis.department.groupCode}
                   />
                 ) : (
                   <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
@@ -356,10 +398,10 @@ export default function AbilityAccountPage() {
                       <div className="text-2xl">📈</div>
                       <div>
                         <div className="font-medium text-green-800">
-                          {myPlan.activities.length} 個活動計畫中，預估可提升 {totalBoost}% 錄取率
+                          {myPlan.activities.length} 個活動計畫中，技優甄審最高可加 {maxBoost}%
                         </div>
                         <div className="text-sm text-green-600">
-                          完成這些活動後，你的升學競爭力將大幅提升
+                          技優甄審僅能擇一項目加分，建議選擇加分最高的項目
                         </div>
                       </div>
                     </div>
@@ -592,6 +634,7 @@ function GroupedUpgradePaths({
   isAlreadyAdded,
   handleAddToPlan,
   targetPathways,
+  targetGroupCode,
 }: {
   paths: UpgradePath[]
   expandedGroups: Set<string>
@@ -599,6 +642,7 @@ function GroupedUpgradePaths({
   isAlreadyAdded: (p: UpgradePath) => boolean
   handleAddToPlan: (p: UpgradePath) => void
   targetPathways: string[]
+  targetGroupCode?: string
 }) {
   // Split into certificates and competitions
   const certs = paths.filter(p => p.type === 'certificate')
@@ -614,9 +658,10 @@ function GroupedUpgradePaths({
         map.get(code)!.push(item)
       }
     }
-    // Sort within each group by deadline
+    // Sort within each group by bonus% descending, then deadline ascending
     for (const [, items] of map) {
       items.sort((a, b) => {
+        if (b.probabilityBoost !== a.probabilityBoost) return b.probabilityBoost - a.probabilityBoost
         const da = a.registrationDeadline ? daysFromNowLocal(a.registrationDeadline) : 999
         const db = b.registrationDeadline ? daysFromNowLocal(b.registrationDeadline) : 999
         return da - db
@@ -722,10 +767,34 @@ function GroupedUpgradePaths({
                                   </span>
                                 )}
                                 {path.probabilityBoost > 0 && (
-                                  <span className="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-600 rounded-full">
-                                    +{path.probabilityBoost}%
+                                  <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${
+                                    path.probabilityBoost >= 25 ? 'bg-green-100 text-green-700' :
+                                    path.probabilityBoost >= 10 ? 'bg-indigo-50 text-indigo-600' : 'bg-gray-100 text-gray-600'
+                                  }`}>
+                                    技優甄審 +{path.probabilityBoost}%
                                   </span>
                                 )}
+                                {path.type === 'certificate' && path.groupCodes.length > 0 && (() => {
+                                  const targetGC = targetGroupCode
+                                  if (!targetGC) return null
+                                  const relevance = estimateRelevance(path.groupCodes[0], targetGC)
+                                  const colorClass = relevance === '高度相關' ? 'bg-amber-50 text-amber-700' :
+                                    relevance === '中度相關' ? 'bg-blue-50 text-blue-600' : 'bg-gray-50 text-gray-500'
+                                  return (
+                                    <span className={`px-2 py-0.5 text-xs rounded-full ${colorClass}`}>
+                                      {relevance}
+                                    </span>
+                                  )
+                                })()}
+                                {path.type === 'competition' && (() => {
+                                  const category = classifyCompetition(path.category)
+                                  if (category === '其他') return null
+                                  return (
+                                    <span className="px-2 py-0.5 text-xs bg-purple-50 text-purple-600 rounded-full">
+                                      {category}
+                                    </span>
+                                  )
+                                })()}
                               </div>
                             </div>
 
@@ -771,7 +840,7 @@ function GroupedUpgradePaths({
   return (
     <div>
       <p className="text-sm text-gray-500 mb-4">
-        依職群與職種分類，點擊群別展開查看詳細項目。
+        依技優甄審加分比例排序（高的在前），點擊群別展開查看詳細項目。
       </p>
       {renderSection('證照考試', '📜', certs, 'cert')}
       {renderSection('競賽機會', '🏆', comps, 'comp')}

@@ -15,6 +15,7 @@ import type { StudentProfile, DepartmentInfo } from '@/types/department'
 import examSchedules from '@/data/exam-schedules.json'
 import competitionEvents from '@/data/competition-events.json'
 import pathwayDeadlines from '@/data/pathway-deadlines.json'
+import { getCertBonus, estimateRelevance, estimateCompBonus, type RelevanceLevel } from '@/data/bonus-table'
 
 // ── helpers ──
 function daysBetween(a: string, b: string): number {
@@ -70,11 +71,12 @@ function generateUpgradePaths(
   const compPaths = generateCompPaths(profile, now)
   paths.push(...compPaths)
 
-  // Sort by: canStillMakeIt desc, then roi desc, then daysLeft asc
+  // Sort by: canStillMakeIt desc, roi desc, bonus desc, deadline asc
   paths.sort((a, b) => {
     if (a.canStillMakeIt !== b.canStillMakeIt) return a.canStillMakeIt ? -1 : 1
     const roiOrder = { high: 0, medium: 1, low: 2 }
     if (roiOrder[a.roi] !== roiOrder[b.roi]) return roiOrder[a.roi] - roiOrder[b.roi]
+    if (a.probabilityBoost !== b.probabilityBoost) return b.probabilityBoost - a.probabilityBoost
     return (a.registrationDeadline ? daysFromNow(a.registrationDeadline) : 999) -
            (b.registrationDeadline ? daysFromNow(b.registrationDeadline) : 999)
   })
@@ -89,6 +91,9 @@ function generateCertPaths(
 ): UpgradePath[] {
   const paths: UpgradePath[] = []
   const existingCerts = new Set(profile.certificates)
+
+  // Collect all target groupCodes for relevance calculation
+  const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
 
   // Find what certificates targets need for 技優甄審
   const neededCerts = new Map<string, Set<string>>() // certName → Set<pathway>
@@ -135,6 +140,17 @@ function generateCertPaths(
         ? nextExam.resultDate < '2027-03-05'  // 技優甄審 報名截止約 3月初
         : true
 
+      // Calculate real bonus from official table (best across all target groups)
+      const examGroupCodes = nextExam.groupCodes || [nextExam.groupCode]
+      let bestBonus = 0
+      for (const egc of examGroupCodes) {
+        for (const tgc of targetGroupCodes) {
+          const relevance = estimateRelevance(egc, tgc)
+          const bonus = getCertBonus(nextExam.level, relevance)
+          if (bonus > bestBonus) bestBonus = bonus
+        }
+      }
+
       paths.push({
         id: `cert-${nextExam.id}`,
         type: 'certificate',
@@ -146,7 +162,7 @@ function generateCertPaths(
         estimatedPrepDays: nextExam.level === '甲' ? 120 : nextExam.level === '乙' ? 60 : 30,
         canStillMakeIt: canMakeIt && daysToReg > 0,
         effortLevel: nextExam.level === '甲' ? 'high' : nextExam.level === '乙' ? 'medium' : 'low',
-        probabilityBoost: nextExam.level === '乙' ? 25 : nextExam.level === '甲' ? 35 : 10,
+        probabilityBoost: bestBonus,
         pathwaysOpened: Array.from(pathways),
         departmentsAffected: targets.map(d => d.departmentName),
         roi: nextExam.level === '乙' ? 'high' : nextExam.level === '甲' ? 'medium' : 'medium',
@@ -157,7 +173,7 @@ function generateCertPaths(
     }
   }
 
-  // If no specific certs needed, suggest common 乙級 for 電機群
+  // If no specific certs needed, suggest common 乙級
   if (neededCerts.size === 0 && !profile.certificates.some(c => c.includes('乙級'))) {
     const nextExams = schedules
       .filter(s => s.level === '乙' && s.registrationEnd && isFuture(s.registrationEnd))
@@ -165,6 +181,15 @@ function generateCertPaths(
 
     if (nextExams.length > 0) {
       const exam = nextExams[0]
+      const examGroupCodes = exam.groupCodes || [exam.groupCode]
+      let bestBonus = 0
+      for (const egc of examGroupCodes) {
+        for (const tgc of targetGroupCodes) {
+          const bonus = getCertBonus('乙', estimateRelevance(egc, tgc))
+          if (bonus > bestBonus) bestBonus = bonus
+        }
+      }
+
       paths.push({
         id: `cert-suggest-${exam.id}`,
         type: 'certificate',
@@ -176,7 +201,7 @@ function generateCertPaths(
         estimatedPrepDays: 60,
         canStillMakeIt: isFuture(exam.registrationEnd || ''),
         effortLevel: 'medium',
-        probabilityBoost: 25,
+        probabilityBoost: bestBonus,
         pathwaysOpened: ['skills'],
         departmentsAffected: [],
         roi: 'high',
@@ -194,7 +219,7 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
   const paths: UpgradePath[] = []
   const events = competitionEvents as CompetitionEvent[]
 
-  // Filter to 電機群 events that haven't passed
+  // Filter events that haven't passed
   const futureEvents = events.filter(e => {
     if (!e.registrationEnd && !e.eventDate) return false
     const deadline = e.registrationEnd || e.eventDate
@@ -211,6 +236,12 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
     const isNational = event.level === '全國'
     const isRegional = event.level === '分區'
 
+    // Calculate real bonus from official table
+    const bonus = estimateCompBonus(
+      event.competitionName,
+      event.placingThreshold || [],
+    )
+
     paths.push({
       id: `comp-${event.id}`,
       type: 'competition',
@@ -223,7 +254,7 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
       estimatedPrepDays: isNational ? 90 : isRegional ? 45 : 30,
       canStillMakeIt: true,
       effortLevel: isNational ? 'high' : 'medium',
-      probabilityBoost: isNational ? 30 : isRegional ? 15 : 10,
+      probabilityBoost: bonus,
       pathwaysOpened: event.pathwayUseful,
       departmentsAffected: [],
       roi: isNational ? 'high' : isRegional ? 'medium' : 'low',

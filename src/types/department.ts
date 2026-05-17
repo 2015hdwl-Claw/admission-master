@@ -153,6 +153,8 @@ export interface UpgradeItem {
   effort: 'low' | 'medium' | 'high'
   impact: string                // 完成後打通哪個管道
   pathwayOpened: string[]       // 打通的管道
+  bonusPreview?: string         // e.g. "技優甄審 +15%"
+  bonusPercent?: number         // 數值，用於排序
 }
 
 export interface SprintItem {
