@@ -2,32 +2,46 @@
   {
     "id": "115-stars",
     "pathwayType": "stars",
-    "pathwayName": "繁星推薦",
+    "pathwayName": "繁星計畫",
     "year": 115,
     "milestones": [
       {
-        "name": "簡章公告",
-        "date": "2025-11-15",
-        "description": "招生簡章公告"
+        "name": "推薦學校登錄被推薦考生基本資料",
+        "date": "2026-02-23",
+        "description": "推薦學校登錄被推薦考生基本資料",
+        "endDate": "2026-03-10"
       },
       {
-        "name": "報名截止",
-        "date": "2025-12-12",
-        "description": "學校上傳推薦名單截止"
+        "name": "被推薦考生進行網路報名",
+        "date": "2026-03-11",
+        "description": "被推薦考生進行網路報名",
+        "endDate": "2026-03-18"
       },
       {
-        "name": "第一輪放榜",
-        "date": "2026-01-05",
-        "description": "第一輪分發結果"
+        "name": "就讀學校統一郵寄報名表件",
+        "date": "2026-03-11",
+        "description": "就讀學校統一郵寄報名表件",
+        "endDate": "2026-03-19"
       },
       {
-        "name": "最終放榜",
-        "date": "2026-01-19",
-        "description": "最終錄取公告"
+        "name": "網路查詢考生排名",
+        "date": "2026-04-14",
+        "description": "網路查詢考生排名"
+      },
+      {
+        "name": "網路選填志願",
+        "date": "2026-04-22",
+        "description": "網路選填志願",
+        "endDate": "2026-04-28"
+      },
+      {
+        "name": "放榜",
+        "date": "2026-05-05",
+        "description": "放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc07",
+    "fetchedAt": "2026-05-17T10:51:05.539816"
   },
   {
     "id": "115-selection",
@@ -36,53 +50,64 @@
     "year": 115,
     "milestones": [
       {
-        "name": "統測報名",
-        "date": "2026-01-05",
-        "description": "統一入學測驗報名開始"
+        "name": "學習歷程檔案查看及疑義處理",
+        "date": "2026-04-10",
+        "description": "學習歷程檔案查看及疑義處理",
+        "endDate": "2026-04-15"
       },
       {
-        "name": "統測報名截止",
-        "date": "2026-01-19",
-        "description": "報名截止"
+        "name": "資格審查登錄及繳件",
+        "date": "2026-04-16",
+        "description": "資格審查登錄及繳件",
+        "endDate": "2026-04-29"
       },
       {
-        "name": "統測考試",
-        "date": "2026-05-02",
-        "description": "統一入學測驗"
+        "name": "資格審查結果公告",
+        "date": "2026-05-12",
+        "description": "資格審查結果公告"
       },
       {
-        "name": "成績公告",
-        "date": "2026-05-22",
-        "description": "成績查詢"
+        "name": "第一階段報名",
+        "date": "2026-05-15",
+        "description": "第一階段報名",
+        "endDate": "2026-05-21"
       },
       {
-        "name": "甄選報名",
+        "name": "第一階段篩選結果查詢",
         "date": "2026-06-01",
-        "description": "甄選入學網路報名"
+        "description": "第一階段篩選結果查詢"
       },
       {
-        "name": "報名截止",
-        "date": "2026-06-10",
-        "description": "報名截止"
+        "name": "第二階段報名",
+        "date": "2026-06-05",
+        "description": "第二階段報名（各校自訂）",
+        "endDate": "2026-06-12"
       },
       {
-        "name": "第一階段篩選",
-        "date": "2026-06-20",
-        "description": "統測成績篩選"
+        "name": "第二階段各校指定項目甄試",
+        "date": "2026-06-13",
+        "description": "第二階段各校指定項目甄試（各校自訂）",
+        "endDate": "2026-06-28"
       },
       {
-        "name": "備審上傳截止",
-        "date": "2026-06-25",
-        "description": "備審資料上傳截止"
+        "name": "公告正備取名單",
+        "date": "2026-07-01",
+        "description": "公告正備取名單（各校自訂）"
       },
       {
-        "name": "放榜",
-        "date": "2026-07-15",
-        "description": "錄取公告"
+        "name": "正取生及備取生上網登記就讀志願序",
+        "date": "2026-07-08",
+        "description": "正取生及備取生上網登記就讀志願序",
+        "endDate": "2026-07-10"
+      },
+      {
+        "name": "就讀志願序統一分發放榜",
+        "date": "2026-07-14",
+        "description": "就讀志願序統一分發放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc01",
+    "fetchedAt": "2026-05-17T10:51:05.656488"
   },
   {
     "id": "115-distribution",
@@ -91,33 +116,58 @@
     "year": 115,
     "milestones": [
       {
-        "name": "統測考試",
-        "date": "2026-05-02",
-        "description": "統一入學測驗"
+        "name": "集體資格審查登錄",
+        "date": "2026-05-04",
+        "description": "集體資格審查登錄（由高中辦理）",
+        "endDate": "2026-05-08"
       },
       {
-        "name": "成績公告",
-        "date": "2026-05-22",
-        "description": "成績查詢"
+        "name": "個別資格審查登錄及繳件",
+        "date": "2026-05-14",
+        "description": "個別資格審查登錄及繳件",
+        "endDate": "2026-06-03"
       },
       {
-        "name": "登記志願",
-        "date": "2026-07-20",
-        "description": "網路登記志願開始"
+        "name": "資格審查結果查詢",
+        "date": "2026-06-23",
+        "description": "資格審查結果查詢"
       },
       {
-        "name": "登記截止",
-        "date": "2026-07-30",
-        "description": "志願登記截止"
+        "name": "集體報名繳費",
+        "date": "2026-07-14",
+        "description": "集體報名繳費（由高中辦理）",
+        "endDate": "2026-07-16"
+      },
+      {
+        "name": "個別報名繳費",
+        "date": "2026-07-17",
+        "description": "個別報名繳費",
+        "endDate": "2026-07-22"
+      },
+      {
+        "name": "公告實際招生名額",
+        "date": "2026-07-27",
+        "description": "公告實際招生名額"
+      },
+      {
+        "name": "個人總成績查詢、公告考科成績權重組合人數累計表",
+        "date": "2026-07-28",
+        "description": "個人總成績查詢、公告考科成績權重組合人數累計表"
+      },
+      {
+        "name": "網路選填志願",
+        "date": "2026-07-28",
+        "description": "網路選填志願",
+        "endDate": "2026-07-31"
       },
       {
         "name": "放榜",
-        "date": "2026-08-08",
-        "description": "分發結果公告"
+        "date": "2026-08-06",
+        "description": "放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc03",
+    "fetchedAt": "2026-05-17T10:51:05.764065"
   },
   {
     "id": "115-skills",
@@ -126,38 +176,59 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章公告",
-        "date": "2025-12-04",
-        "description": "簡章下載"
+        "name": "學習歷程檔案查看及疑義處理",
+        "date": "2026-04-10",
+        "description": "學習歷程檔案查看及疑義處理",
+        "endDate": "2026-04-15"
       },
       {
-        "name": "報名",
-        "date": "2026-02-20",
-        "description": "正式報名開始"
+        "name": "繳交報名費、資格審查登錄及繳件",
+        "date": "2026-04-29",
+        "description": "繳交報名費、資格審查登錄及繳件",
+        "endDate": "2026-05-06"
       },
       {
-        "name": "報名截止",
-        "date": "2026-03-05",
-        "description": "報名截止"
-      },
-      {
-        "name": "資格審查",
-        "date": "2026-03-20",
-        "description": "資格審查結果"
-      },
-      {
-        "name": "備審上傳截止",
-        "date": "2026-04-01",
-        "description": "備審資料上傳截止"
-      },
-      {
-        "name": "放榜",
+        "name": "資格審查結果查詢",
         "date": "2026-05-15",
-        "description": "錄取公告"
+        "description": "資格審查結果查詢"
+      },
+      {
+        "name": "網路報名",
+        "date": "2026-05-18",
+        "description": "網路報名",
+        "endDate": "2026-05-22"
+      },
+      {
+        "name": "向各校繳費、網路上傳(或勾選)學習歷程備審資料",
+        "date": "2026-06-04",
+        "description": "向各校繳費、網路上傳(或勾選)學習歷程備審資料（各校自訂）",
+        "endDate": "2026-06-09"
+      },
+      {
+        "name": "各校指定項目甄審",
+        "date": "2026-06-12",
+        "description": "各校指定項目甄審（各校自訂）",
+        "endDate": "2026-06-21"
+      },
+      {
+        "name": "各校公告正備取名單",
+        "date": "2026-06-25",
+        "description": "各校公告正備取名單（各校自訂）"
+      },
+      {
+        "name": "正取生及備取生上網登記就讀志願序",
+        "date": "2026-07-01",
+        "description": "正取生及備取生上網登記就讀志願序",
+        "endDate": "2026-07-03"
+      },
+      {
+        "name": "就讀志願序統一分發放榜",
+        "date": "2026-07-07",
+        "description": "就讀志願序統一分發放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/enter42/skill/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc06",
+    "fetchedAt": "2026-05-17T10:51:05.882390"
   },
   {
     "id": "115-guarantee",
@@ -166,33 +237,36 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章公告",
-        "date": "2025-12-04",
-        "description": "簡章下載"
+        "name": "網路報名（含繳寄資格審查資料）",
+        "date": "2026-02-02",
+        "description": "網路報名（含繳寄資格審查資料）",
+        "endDate": "2026-02-05"
       },
       {
-        "name": "報名",
-        "date": "2026-02-20",
-        "description": "正式報名開始"
+        "name": "資格審查結果查詢、查詢個人排名",
+        "date": "2026-02-25",
+        "description": "資格審查結果查詢、查詢個人排名"
       },
       {
-        "name": "報名截止",
-        "date": "2026-03-05",
-        "description": "報名截止"
+        "name": "繳交報名費",
+        "date": "2026-03-04",
+        "description": "繳交報名費",
+        "endDate": "2026-03-06"
       },
       {
-        "name": "資格審查",
-        "date": "2026-03-20",
-        "description": "資格審查結果"
+        "name": "網路選填志願",
+        "date": "2026-03-09",
+        "description": "網路選填志願",
+        "endDate": "2026-03-11"
       },
       {
         "name": "放榜",
-        "date": "2026-04-15",
-        "description": "保送分發結果"
+        "date": "2026-03-17",
+        "description": "放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/enter42/skill/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc05",
+    "fetchedAt": "2026-05-17T10:51:05.974210"
   },
   {
     "id": "115-special",
@@ -201,27 +275,46 @@
     "year": 115,
     "milestones": [
       {
-        "name": "簡章公告",
-        "date": "2025-10-01",
-        "description": "各校簡章陸續公告"
+        "name": "報名繳費及上傳資格審查資料",
+        "date": "2025-12-15",
+        "description": "報名繳費及上傳資格審查資料",
+        "endDate": "2025-12-19"
       },
       {
-        "name": "報名",
-        "date": "2025-11-01",
-        "description": "報名開始（各校不一）"
+        "name": "資格審查結果查詢",
+        "date": "2026-01-08",
+        "description": "資格審查結果查詢"
       },
       {
-        "name": "報名截止",
-        "date": "2025-11-30",
-        "description": "報名截止"
+        "name": "向各校繳交指定項目甄審費及上傳備審資料",
+        "date": "2026-01-12",
+        "description": "向各校繳交指定項目甄審費及上傳備審資料（各校自訂）",
+        "endDate": "2026-01-16"
       },
       {
-        "name": "放榜",
-        "date": "2026-01-05",
-        "description": "錄取公告"
+        "name": "各校指定項目甄審",
+        "date": "2026-01-23",
+        "description": "各校指定項目甄審（各校自訂）",
+        "endDate": "2026-01-31"
+      },
+      {
+        "name": "各校公告正備取名單",
+        "date": "2026-02-04",
+        "description": "各校公告正備取名單"
+      },
+      {
+        "name": "正取生及備取生上網登記就讀志願序",
+        "date": "2026-02-04",
+        "description": "正取生及備取生上網登記就讀志願序",
+        "endDate": "2026-02-06"
+      },
+      {
+        "name": "就讀志願序統一分發放榜",
+        "date": "2026-02-11",
+        "description": "就讀志願序統一分發放榜"
       }
     ],
-    "source": "https://www.jctv.ntut.edu.tw/",
-    "fetchedAt": "2026-05-14T16:26:19.724974"
+    "source": "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc08",
+    "fetchedAt": "2026-05-17T10:51:06.088347"
   }
 ]

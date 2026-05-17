@@ -1,10 +1,13 @@
 [
   {
-    "id": "115-1-乙-00700",
-    "certCode": "00700",
-    "certName": "室內配線(屋內線路裝修)",
-    "level": "乙",
+    "id": "115-1-甲-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "甲",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 1,
     "registrationStart": "2026-01-02",
@@ -12,7 +15,133 @@
     "writtenTestDate": "2026-03-15",
     "resultDate": "2026-04-10",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-00100",
+    "certCode": "00100",
+    "certName": "冷凍空調裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-1-甲-00700",
@@ -20,6 +149,9 @@
     "certName": "室內配線(屋內線路裝修)",
     "level": "甲",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 1,
     "registrationStart": "2026-01-02",
@@ -27,524 +159,17 @@
     "writtenTestDate": "2026-03-15",
     "resultDate": "2026-04-10",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-1-乙-01000",
-    "certCode": "01000",
-    "certName": "電器修護",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-01000",
-    "certCode": "01000",
-    "certName": "電器修護",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-01300",
-    "certCode": "01300",
-    "certName": "工業配線",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-01300",
-    "certCode": "01300",
-    "certName": "工業配線",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-02900",
-    "certCode": "02900",
-    "certName": "視聽電子",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-02900",
-    "certCode": "02900",
-    "certName": "視聽電子",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-04000",
-    "certCode": "04000",
-    "certName": "配電線路裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-04000",
-    "certCode": "04000",
-    "certName": "配電線路裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-07400",
-    "certCode": "07400",
-    "certName": "配電電纜裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-07400",
-    "certCode": "07400",
-    "certName": "配電電纜裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-11500",
-    "certCode": "11500",
-    "certName": "儀表電子",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-11500",
-    "certCode": "11500",
-    "certName": "儀表電子",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-11600",
-    "certCode": "11600",
-    "certName": "電力電子",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-11600",
-    "certCode": "11600",
-    "certName": "電力電子",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-11700",
-    "certCode": "11700",
-    "certName": "數位電子",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-11700",
-    "certCode": "11700",
-    "certName": "數位電子",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-12000",
-    "certCode": "12000",
-    "certName": "電腦硬體裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-12000",
-    "certCode": "12000",
-    "certName": "電腦硬體裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-15600",
-    "certCode": "15600",
-    "certName": "通信技術(電信線路)",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-15600",
-    "certCode": "15600",
-    "certName": "通信技術(電信線路)",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-16600",
-    "certCode": "16600",
-    "certName": "用電設備檢驗",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-16600",
-    "certCode": "16600",
-    "certName": "用電設備檢驗",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-16700",
-    "certCode": "16700",
-    "certName": "變電設備裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-16700",
-    "certCode": "16700",
-    "certName": "變電設備裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-16800",
-    "certCode": "16800",
-    "certName": "輸電地下電纜裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-16800",
-    "certCode": "16800",
-    "certName": "輸電地下電纜裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-16900",
-    "certCode": "16900",
-    "certName": "輸電架空線路裝修",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-16900",
-    "certCode": "16900",
-    "certName": "輸電架空線路裝修",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-17000",
-    "certCode": "17000",
-    "certName": "機電整合",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-17000",
-    "certCode": "17000",
-    "certName": "機電整合",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-17200",
-    "certCode": "17200",
-    "certName": "網路架設",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-17200",
-    "certCode": "17200",
-    "certName": "網路架設",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-乙-21000",
-    "certCode": "21000",
-    "certName": "太陽光電設置",
-    "level": "乙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-1-甲-21000",
-    "certCode": "21000",
-    "certName": "太陽光電設置",
-    "level": "甲",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 1,
-    "registrationStart": "2026-01-02",
-    "registrationEnd": "2026-01-13",
-    "writtenTestDate": "2026-03-15",
-    "resultDate": "2026-04-10",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-00700",
+    "id": "115-2-甲-00700",
     "certCode": "00700",
     "certName": "室內配線(屋內線路裝修)",
-    "level": "丙",
+    "level": "甲",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 2,
     "registrationStart": "2026-04-24",
@@ -552,262 +177,43 @@
     "writtenTestDate": "2026-07-05",
     "resultDate": "2026-07-31",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-2-丙-01000",
-    "certCode": "01000",
-    "certName": "電器修護",
-    "level": "丙",
+    "id": "115-3-甲-00700",
+    "certCode": "00700",
+    "certName": "室內配線(屋內線路裝修)",
+    "level": "甲",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-2-丙-01300",
-    "certCode": "01300",
-    "certName": "工業配線",
-    "level": "丙",
+    "id": "115-1-乙-00700",
+    "certCode": "00700",
+    "certName": "室內配線(屋內線路裝修)",
+    "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-02900",
-    "certCode": "02900",
-    "certName": "視聽電子",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-04000",
-    "certCode": "04000",
-    "certName": "配電線路裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-07400",
-    "certCode": "07400",
-    "certName": "配電電纜裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-11500",
-    "certCode": "11500",
-    "certName": "儀表電子",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-11600",
-    "certCode": "11600",
-    "certName": "電力電子",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-11700",
-    "certCode": "11700",
-    "certName": "數位電子",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-12000",
-    "certCode": "12000",
-    "certName": "電腦硬體裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-15600",
-    "certCode": "15600",
-    "certName": "通信技術(電信線路)",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-16600",
-    "certCode": "16600",
-    "certName": "用電設備檢驗",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-16700",
-    "certCode": "16700",
-    "certName": "變電設備裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-16800",
-    "certCode": "16800",
-    "certName": "輸電地下電纜裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-16900",
-    "certCode": "16900",
-    "certName": "輸電架空線路裝修",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-17000",
-    "certCode": "17000",
-    "certName": "機電整合",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-17200",
-    "certCode": "17200",
-    "certName": "網路架設",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
-  },
-  {
-    "id": "115-2-丙-21000",
-    "certCode": "21000",
-    "certName": "太陽光電設置",
-    "level": "丙",
-    "groupCode": "03",
-    "year": 115,
-    "batch": 2,
-    "registrationStart": "2026-04-24",
-    "registrationEnd": "2026-05-05",
-    "writtenTestDate": "2026-07-05",
-    "resultDate": "2026-07-31",
-    "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-00700",
@@ -815,6 +221,9 @@
     "certName": "室內配線(屋內線路裝修)",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -822,7 +231,295 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-00700",
+    "certCode": "00700",
+    "certName": "室內配線(屋內線路裝修)",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-00900",
+    "certCode": "00900",
+    "certName": "泥水",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-00900",
+    "certCode": "00900",
+    "certName": "泥水",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-00900",
+    "certCode": "00900",
+    "certName": "泥水",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-00901",
+    "certCode": "00901",
+    "certName": "泥水 - 砌磚",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-00901",
+    "certCode": "00901",
+    "certName": "泥水 - 砌磚",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-00901",
+    "certCode": "00901",
+    "certName": "泥水 - 砌磚",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-00901",
+    "certCode": "00901",
+    "certName": "泥水 - 砌磚",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-00902",
+    "certCode": "00902",
+    "certName": "泥水 - 粉刷",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-00902",
+    "certCode": "00902",
+    "certName": "泥水 - 粉刷",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-00902",
+    "certCode": "00902",
+    "certName": "泥水 - 粉刷",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-00902",
+    "certCode": "00902",
+    "certName": "泥水 - 粉刷",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-00903",
+    "certCode": "00903",
+    "certName": "泥水 - 面材舖貼",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-00903",
+    "certCode": "00903",
+    "certName": "泥水 - 面材舖貼",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-00903",
+    "certCode": "00903",
+    "certName": "泥水 - 面材舖貼",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-00903",
+    "certCode": "00903",
+    "certName": "泥水 - 面材舖貼",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-01000",
@@ -830,6 +527,9 @@
     "certName": "電器修護",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -837,7 +537,151 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01000",
+    "certCode": "01000",
+    "certName": "電器修護",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-01100",
+    "certCode": "01100",
+    "certName": "鑄造",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01100",
+    "certCode": "01100",
+    "certName": "鑄造",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-01200",
+    "certCode": "01200",
+    "certName": "家具木工",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-01200",
+    "certCode": "01200",
+    "certName": "家具木工",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-01200",
+    "certCode": "01200",
+    "certName": "家具木工",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-01200",
+    "certCode": "01200",
+    "certName": "家具木工",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01200",
+    "certCode": "01200",
+    "certName": "家具木工",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-01300",
@@ -845,6 +689,9 @@
     "certName": "工業配線",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -852,14 +699,521 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-01500",
+    "certCode": "01500",
+    "certName": "冷作",
+    "level": "甲",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-01500",
+    "certCode": "01500",
+    "certName": "冷作",
+    "level": "甲",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-01500",
+    "certCode": "01500",
+    "certName": "冷作",
+    "level": "甲",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-01500",
+    "certCode": "01500",
+    "certName": "冷作",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-01500",
+    "certCode": "01500",
+    "certName": "冷作",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-01600",
+    "certCode": "01600",
+    "certName": "自來水管配管",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-01600",
+    "certCode": "01600",
+    "certName": "自來水管配管",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-01600",
+    "certCode": "01600",
+    "certName": "自來水管配管",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01600",
+    "certCode": "01600",
+    "certName": "自來水管配管",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-01800",
+    "certCode": "01800",
+    "certName": "鋼筋",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-01800",
+    "certCode": "01800",
+    "certName": "鋼筋",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01800",
+    "certCode": "01800",
+    "certName": "鋼筋",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-01900",
+    "certCode": "01900",
+    "certName": "模板",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-02000",
+    "certCode": "02000",
+    "certName": "汽車修護",
+    "level": "乙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-02000",
+    "certCode": "02000",
+    "certName": "汽車修護",
+    "level": "乙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-02000",
+    "certCode": "02000",
+    "certName": "汽車修護",
+    "level": "丙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-02100",
+    "certCode": "02100",
+    "certName": "熱處理",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-02102",
+    "certCode": "02102",
+    "certName": "熱處理 - 一般鹽浴熱處理",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-02103",
+    "certCode": "02103",
+    "certName": "熱處理 - 滲碳滲氮熱處理",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-02104",
+    "certCode": "02104",
+    "certName": "熱處理 - 高週波熱處理",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-02702",
+    "certCode": "02702",
+    "certName": "重機械修護 - 引擎",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-02702",
+    "certCode": "02702",
+    "certName": "重機械修護 - 引擎",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-02900",
     "certCode": "02900",
     "certName": "視聽電子",
     "level": "乙",
-    "groupCode": "03",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -867,7 +1221,403 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-02900",
+    "certCode": "02900",
+    "certName": "視聽電子",
+    "level": "丙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-03000",
+    "certCode": "03000",
+    "certName": "化學",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-03000",
+    "certCode": "03000",
+    "certName": "化學",
+    "level": "丙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-03100",
+    "certCode": "03100",
+    "certName": "鍋爐操作",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-03100",
+    "certCode": "03100",
+    "certName": "鍋爐操作",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-03100",
+    "certCode": "03100",
+    "certName": "鍋爐操作",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-03100",
+    "certCode": "03100",
+    "certName": "鍋爐操作",
+    "level": "丙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-03100",
+    "certCode": "03100",
+    "certName": "鍋爐操作",
+    "level": "丙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-03101",
+    "certCode": "03101",
+    "certName": "鍋爐操作(模擬機具)",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-03101",
+    "certCode": "03101",
+    "certName": "鍋爐操作(模擬機具)",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-03200",
+    "certCode": "03200",
+    "certName": "變壓器裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-03200",
+    "certCode": "03200",
+    "certName": "變壓器裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-03600",
+    "certCode": "03600",
+    "certName": "工業儀器",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-03900",
+    "certCode": "03900",
+    "certName": "門窗木工",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-03900",
+    "certCode": "03900",
+    "certName": "門窗木工",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-03900",
+    "certCode": "03900",
+    "certName": "門窗木工",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-03900",
+    "certCode": "03900",
+    "certName": "門窗木工",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-03900",
+    "certCode": "03900",
+    "certName": "門窗木工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-04000",
@@ -875,6 +1625,9 @@
     "certName": "配電線路裝修",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -882,14 +1635,809 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-07400",
+    "id": "115-1-丙-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-04000",
+    "certCode": "04000",
+    "certName": "配電線路裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-04200",
+    "certCode": "04200",
+    "certName": "測量",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-04202",
+    "certCode": "04202",
+    "certName": "測量 - 工程測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-04202",
+    "certCode": "04202",
+    "certName": "測量 - 工程測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-04202",
+    "certCode": "04202",
+    "certName": "測量 - 工程測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-04202",
+    "certCode": "04202",
+    "certName": "測量 - 工程測量",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-04203",
+    "certCode": "04203",
+    "certName": "測量 - 地籍測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-04203",
+    "certCode": "04203",
+    "certName": "測量 - 地籍測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-04203",
+    "certCode": "04203",
+    "certName": "測量 - 地籍測量",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-04203",
+    "certCode": "04203",
+    "certName": "測量 - 地籍測量",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-04800",
+    "certCode": "04800",
+    "certName": "女裝",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-04800",
+    "certCode": "04800",
+    "certName": "女裝",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-04800",
+    "certCode": "04800",
+    "certName": "女裝",
+    "level": "甲",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-04800",
+    "certCode": "04800",
+    "certName": "女裝",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-04800",
+    "certCode": "04800",
+    "certName": "女裝",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-05200",
+    "certCode": "05200",
+    "certName": "農業機械修護",
+    "level": "乙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-05200",
+    "certCode": "05200",
+    "certName": "農業機械修護",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-05400",
+    "certCode": "05400",
+    "certName": "陶瓷 - 石膏模",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-06000",
+    "certCode": "06000",
+    "certName": "男子理髮",
+    "level": "乙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-06000",
+    "certCode": "06000",
+    "certName": "男子理髮",
+    "level": "乙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-06000",
+    "certCode": "06000",
+    "certName": "男子理髮",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-06000",
+    "certCode": "06000",
+    "certName": "男子理髮",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-06400",
+    "certCode": "06400",
+    "certName": "升降機裝修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-06400",
+    "certCode": "06400",
+    "certName": "升降機裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-06400",
+    "certCode": "06400",
+    "certName": "升降機裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-06700",
+    "certCode": "06700",
+    "certName": "女子美髮",
+    "level": "乙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-06700",
+    "certCode": "06700",
+    "certName": "女子美髮",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-06700",
+    "certCode": "06700",
+    "certName": "女子美髮",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-06900",
+    "certCode": "06900",
+    "certName": "建築工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-06900",
+    "certCode": "06900",
+    "certName": "建築工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-06900",
+    "certCode": "06900",
+    "certName": "建築工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-06900",
+    "certCode": "06900",
+    "certName": "建築工程管理",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-07100",
+    "certCode": "07100",
+    "certName": "製鞋",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-07101",
+    "certCode": "07101",
+    "certName": "製鞋 - 製面",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-07102",
+    "certCode": "07102",
+    "certName": "製鞋 - 製配底",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "丙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "丙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07200",
+    "certCode": "07200",
+    "certName": "按摩",
+    "level": "丙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-07400",
     "certCode": "07400",
     "certName": "配電電纜裝修",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07400",
+    "certCode": "07400",
+    "certName": "配電電纜裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07400",
+    "certCode": "07400",
+    "certName": "配電電纜裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -897,14 +2445,971 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-07601",
+    "certCode": "07601",
+    "certName": "中餐烹調 - 素食",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07601",
+    "certCode": "07601",
+    "certName": "中餐烹調 - 素食",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07601",
+    "certCode": "07601",
+    "certName": "中餐烹調 - 素食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-07601",
+    "certCode": "07601",
+    "certName": "中餐烹調 - 素食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07601",
+    "certCode": "07601",
+    "certName": "中餐烹調 - 素食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-07602",
+    "certCode": "07602",
+    "certName": "中餐烹調 - 葷食",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07602",
+    "certCode": "07602",
+    "certName": "中餐烹調 - 葷食",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07602",
+    "certCode": "07602",
+    "certName": "中餐烹調 - 葷食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-07602",
+    "certCode": "07602",
+    "certName": "中餐烹調 - 葷食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07602",
+    "certCode": "07602",
+    "certName": "中餐烹調 - 葷食",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07704",
+    "certCode": "07704",
+    "certName": "烘焙食品 - 麵包、餅乾",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07705",
+    "certCode": "07705",
+    "certName": "烘焙食品 - 西點蛋糕",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07711",
+    "certCode": "07711",
+    "certName": "烘焙食品 - 西點蛋糕、麵包",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07715",
+    "certCode": "07715",
+    "certName": "烘焙食品 - 西點蛋糕、餅乾",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07721",
+    "certCode": "07721",
+    "certName": "烘焙食品 - 麵包",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-07725",
+    "certCode": "07725",
+    "certName": "烘焙食品 - 餅乾",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07726",
+    "certCode": "07726",
+    "certName": "烘焙食品 - 麵包、烘焙伴手禮",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07727",
+    "certCode": "07727",
+    "certName": "烘焙食品 - 西點蛋糕、烘焙伴手禮",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-07728",
+    "certCode": "07728",
+    "certName": "烘焙食品 - 餅乾、烘焙伴手禮",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07800",
+    "certCode": "07800",
+    "certName": "眼鏡鏡片製作",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-07900",
+    "certCode": "07900",
+    "certName": "油壓",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-07900",
+    "certCode": "07900",
+    "certName": "油壓",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-08000",
+    "certCode": "08000",
+    "certName": "氣壓",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-08000",
+    "certCode": "08000",
+    "certName": "氣壓",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-08101",
+    "certCode": "08101",
+    "certName": "下水道設施操作維護 - 管渠系統",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-08102",
+    "certCode": "08102",
+    "certName": "下水道設施操作維護 - 機電設備",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-08103",
+    "certCode": "08103",
+    "certName": "下水道設施操作維護 - 處理系統",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-08104",
+    "certCode": "08104",
+    "certName": "下水道設施操作維護 - 水質檢驗",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-08700",
+    "certCode": "08700",
+    "certName": "平版印刷",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-09200",
+    "certCode": "09200",
+    "certName": "食品檢驗分析",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09200",
+    "certCode": "09200",
+    "certName": "食品檢驗分析",
+    "level": "丙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-09403",
+    "certCode": "09403",
+    "certName": "肉製品加工 - 乾燥類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-09405",
+    "certCode": "09405",
+    "certName": "肉製品加工 - 調理類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-09407",
+    "certCode": "09407",
+    "certName": "肉製品加工 - 乳化類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-09408",
+    "certCode": "09408",
+    "certName": "肉製品加工 - 顆粒香腸、醃漬類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09503",
+    "certCode": "09503",
+    "certName": "中式米食加工 - 熟粉類、一般膨發類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09506",
+    "certCode": "09506",
+    "certName": "中式米食加工 - 米粒類、米漿型",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09507",
+    "certCode": "09507",
+    "certName": "中式米食加工 - 米粒類、一般漿糰",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-09601",
+    "certCode": "09601",
+    "certName": "中式麵食加工 - 水調（和）麵類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-09601",
+    "certCode": "09601",
+    "certName": "中式麵食加工 - 水調（和）麵類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09601",
+    "certCode": "09601",
+    "certName": "中式麵食加工 - 水調（和）麵類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-09602",
+    "certCode": "09602",
+    "certName": "中式麵食加工 - 發麵類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-09602",
+    "certCode": "09602",
+    "certName": "中式麵食加工 - 發麵類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09602",
+    "certCode": "09602",
+    "certName": "中式麵食加工 - 發麵類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-09603",
+    "certCode": "09603",
+    "certName": "中式麵食加工 - 酥（油）皮、糕（漿）皮類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-09603",
+    "certCode": "09603",
+    "certName": "中式麵食加工 - 酥（油）皮、糕（漿）皮類",
+    "level": "乙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-09603",
+    "certCode": "09603",
+    "certName": "中式麵食加工 - 酥（油）皮、糕（漿）皮類",
+    "level": "丙",
+    "groupCode": "11",
+    "groupCodes": [
+      "11"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-09800",
+    "certCode": "09800",
+    "certName": "職業潛水",
+    "level": "乙",
+    "groupCode": "18",
+    "groupCodes": [
+      "18"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-09800",
+    "certCode": "09800",
+    "certName": "職業潛水",
+    "level": "丙",
+    "groupCode": "18",
+    "groupCodes": [
+      "18"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-10000",
+    "certCode": "10000",
+    "certName": "美容",
+    "level": "乙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-10000",
+    "certCode": "10000",
+    "certName": "美容",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-10000",
+    "certCode": "10000",
+    "certName": "美容",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-10000",
+    "certCode": "10000",
+    "certName": "美容",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-11500",
     "certCode": "11500",
     "certName": "儀表電子",
     "level": "乙",
-    "groupCode": "03",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -912,14 +3417,17 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-11600",
     "certCode": "11600",
     "certName": "電力電子",
     "level": "乙",
-    "groupCode": "03",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -927,14 +3435,71 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-11700",
+    "certCode": "11700",
+    "certName": "數位電子",
+    "level": "甲",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-11700",
+    "certCode": "11700",
+    "certName": "數位電子",
+    "level": "甲",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-11700",
+    "certCode": "11700",
+    "certName": "數位電子",
+    "level": "甲",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-11700",
     "certCode": "11700",
     "certName": "數位電子",
     "level": "乙",
-    "groupCode": "03",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -942,14 +3507,71 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-11800",
+    "certCode": "11800",
+    "certName": "電腦軟體應用",
+    "level": "乙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-11800",
+    "certCode": "11800",
+    "certName": "電腦軟體應用",
+    "level": "丙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-11900",
+    "certCode": "11900",
+    "certName": "電腦軟體設計",
+    "level": "丙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-12000",
     "certCode": "12000",
     "certName": "電腦硬體裝修",
     "level": "乙",
-    "groupCode": "03",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -957,7 +3579,781 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-12000",
+    "certCode": "12000",
+    "certName": "電腦硬體裝修",
+    "level": "丙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-12100",
+    "certCode": "12100",
+    "certName": "工業用管配管",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-12100",
+    "certCode": "12100",
+    "certName": "工業用管配管",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-12100",
+    "certCode": "12100",
+    "certName": "工業用管配管",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-12100",
+    "certCode": "12100",
+    "certName": "工業用管配管",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-12100",
+    "certCode": "12100",
+    "certName": "工業用管配管",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-12200",
+    "certCode": "12200",
+    "certName": "氣體燃料導管配管",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-12200",
+    "certCode": "12200",
+    "certName": "氣體燃料導管配管",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-12200",
+    "certCode": "12200",
+    "certName": "氣體燃料導管配管",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-12300",
+    "certCode": "12300",
+    "certName": "化工",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-12300",
+    "certCode": "12300",
+    "certName": "化工",
+    "level": "丙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-12500",
+    "certCode": "12500",
+    "certName": "建築物室內設計",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-12600",
+    "certCode": "12600",
+    "certName": "建築物室內裝修工程管理",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-12700",
+    "certCode": "12700",
+    "certName": "機械停車設備裝修",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-12700",
+    "certCode": "12700",
+    "certName": "機械停車設備裝修",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-13000",
+    "certCode": "13000",
+    "certName": "水族養殖",
+    "level": "丙",
+    "groupCode": "19",
+    "groupCodes": [
+      "19"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-13201",
+    "certCode": "13201",
+    "certName": "水產食品加工 - 乾製、調味品類",
+    "level": "丙",
+    "groupCode": "19",
+    "groupCodes": [
+      "19"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-13204",
+    "certCode": "13204",
+    "certName": "水產食品加工 - 煉製品類",
+    "level": "丙",
+    "groupCode": "19",
+    "groupCodes": [
+      "19"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-13207",
+    "certCode": "13207",
+    "certName": "水產食品加工 - 燻製、醃漬品類",
+    "level": "丙",
+    "groupCode": "19",
+    "groupCodes": [
+      "19"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-13300",
+    "certCode": "13300",
+    "certName": "園藝",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-13400",
+    "certCode": "13400",
+    "certName": "農藝",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-13600",
+    "certCode": "13600",
+    "certName": "造園景觀",
+    "level": "乙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-13600",
+    "certCode": "13600",
+    "certName": "造園景觀",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-13900",
+    "certCode": "13900",
+    "certName": "寵物美容",
+    "level": "丙",
+    "groupCode": "13",
+    "groupCodes": [
+      "13"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-14000",
+    "certCode": "14000",
+    "certName": "西餐烹調",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-14000",
+    "certCode": "14000",
+    "certName": "西餐烹調",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-14500",
+    "certCode": "14500",
+    "certName": "機器腳踏車修護",
+    "level": "乙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-14500",
+    "certCode": "14500",
+    "certName": "機器腳踏車修護",
+    "level": "丙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-14600",
+    "certCode": "14600",
+    "certName": "金銀珠寶飾品加工",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-14600",
+    "certCode": "14600",
+    "certName": "金銀珠寶飾品加工",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-14800",
+    "certCode": "14800",
+    "certName": "建築塗裝",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-14800",
+    "certCode": "14800",
+    "certName": "建築塗裝",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-14901",
+    "certCode": "14901",
+    "certName": "會計事務 - 人工記帳",
+    "level": "丙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-14902",
+    "certCode": "14902",
+    "certName": "會計事務 - 資訊",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-14902",
+    "certCode": "14902",
+    "certName": "會計事務 - 資訊",
+    "level": "丙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-15200",
+    "certCode": "15200",
+    "certName": "電腦輔助立體製圖",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-15300",
+    "certCode": "15300",
+    "certName": "汽車車體板金",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-15300",
+    "certCode": "15300",
+    "certName": "汽車車體板金",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-15500",
+    "certCode": "15500",
+    "certName": "特定瓦斯器具裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "甲",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-15600",
@@ -965,6 +4361,9 @@
     "certName": "通信技術(電信線路)",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -972,22 +4371,205 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-16600",
+    "id": "115-1-丙-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-15600",
+    "certCode": "15600",
+    "certName": "通信技術(電信線路)",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-15702",
+    "certCode": "15702",
+    "certName": "農田灌溉排水 - 設施維護管理(田間項)",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-15704",
+    "certCode": "15704",
+    "certName": "農田灌溉排水 - 灌溉水質管理及檢驗項",
+    "level": "乙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-15705",
+    "certCode": "15705",
+    "certName": "農田灌溉排水 - 管路灌溉項",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-16100",
+    "certCode": "16100",
+    "certName": "製茶技術",
+    "level": "丙",
+    "groupCode": "14",
+    "groupCodes": [
+      "14"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-16400",
+    "certCode": "16400",
+    "certName": "車輛塗裝",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-16400",
+    "certCode": "16400",
+    "certName": "車輛塗裝",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-16500",
+    "certCode": "16500",
+    "certName": "工程泵(幫浦)類檢修",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-16600",
     "certCode": "16600",
     "certName": "用電設備檢驗",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
-    "batch": 3,
-    "registrationStart": "2026-08-27",
-    "registrationEnd": "2026-09-07",
-    "writtenTestDate": "2026-11-08",
-    "resultDate": "2026-12-04",
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-16600",
+    "certCode": "16600",
+    "certName": "用電設備檢驗",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-16700",
@@ -995,6 +4577,9 @@
     "certName": "變電設備裝修",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -1002,44 +4587,143 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-16800",
+    "id": "115-2-乙-16800",
     "certCode": "16800",
     "certName": "輸電地下電纜裝修",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
-    "batch": 3,
-    "registrationStart": "2026-08-27",
-    "registrationEnd": "2026-09-07",
-    "writtenTestDate": "2026-11-08",
-    "resultDate": "2026-12-04",
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-16900",
+    "id": "115-2-丙-16800",
+    "certCode": "16800",
+    "certName": "輸電地下電纜裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-16900",
     "certCode": "16900",
     "certName": "輸電架空線路裝修",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
-    "batch": 3,
-    "registrationStart": "2026-08-27",
-    "registrationEnd": "2026-09-07",
-    "writtenTestDate": "2026-11-08",
-    "resultDate": "2026-12-04",
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-17000",
+    "id": "115-2-丙-16900",
+    "certCode": "16900",
+    "certName": "輸電架空線路裝修",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-17000",
     "certCode": "17000",
     "certName": "機電整合",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-17000",
+    "certCode": "17000",
+    "certName": "機電整合",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-17100",
+    "certCode": "17100",
+    "certName": "裝潢木工",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-17100",
+    "certCode": "17100",
+    "certName": "裝潢木工",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -1047,7 +4731,43 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-17100",
+    "certCode": "17100",
+    "certName": "裝潢木工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-17200",
+    "certCode": "17200",
+    "certName": "網路架設",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
     "id": "115-3-乙-17200",
@@ -1055,6 +4775,9 @@
     "certName": "網路架設",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -1062,14 +4785,1225 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   },
   {
-    "id": "115-3-乙-21000",
+    "id": "115-1-丙-17200",
+    "certCode": "17200",
+    "certName": "網路架設",
+    "level": "丙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-17300",
+    "certCode": "17300",
+    "certName": "網頁設計",
+    "level": "乙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04",
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-17300",
+    "certCode": "17300",
+    "certName": "網頁設計",
+    "level": "丙",
+    "groupCode": "04",
+    "groupCodes": [
+      "04",
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17401",
+    "certCode": "17401",
+    "certName": "營建防水 - 填縫系防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17402",
+    "certCode": "17402",
+    "certName": "營建防水 - 水泥系防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17403",
+    "certCode": "17403",
+    "certName": "營建防水 - 烘烤系防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17404",
+    "certCode": "17404",
+    "certName": "營建防水 - 薄片系防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17405",
+    "certCode": "17405",
+    "certName": "營建防水 - 塗膜系防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17406",
+    "certCode": "17406",
+    "certName": "營建防水 - 瀝青油毛氈系熱工法防水施工",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-17500",
+    "certCode": "17500",
+    "certName": "混凝土",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-17500",
+    "certCode": "17500",
+    "certName": "混凝土",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17500",
+    "certCode": "17500",
+    "certName": "混凝土",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-17600",
+    "certCode": "17600",
+    "certName": "飛機修護",
+    "level": "乙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-17600",
+    "certCode": "17600",
+    "certName": "飛機修護",
+    "level": "乙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17600",
+    "certCode": "17600",
+    "certName": "飛機修護",
+    "level": "丙",
+    "groupCode": "02",
+    "groupCodes": [
+      "02"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-17700",
+    "certCode": "17700",
+    "certName": "手語翻譯",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-17700",
+    "certCode": "17700",
+    "certName": "手語翻譯",
+    "level": "丙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-18000",
+    "certCode": "18000",
+    "certName": "營造工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-18000",
+    "certCode": "18000",
+    "certName": "營造工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-18000",
+    "certCode": "18000",
+    "certName": "營造工程管理",
+    "level": "甲",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-18000",
+    "certCode": "18000",
+    "certName": "營造工程管理",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-18100",
+    "certCode": "18100",
+    "certName": "門市服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-18100",
+    "certCode": "18100",
+    "certName": "門市服務",
+    "level": "丙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-18200",
+    "certCode": "18200",
+    "certName": "銑床 - 銑床",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-18201",
+    "certCode": "18201",
+    "certName": "銑床 - CNC銑床",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-18300",
+    "certCode": "18300",
+    "certName": "車床 - 車床",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-18301",
+    "certCode": "18301",
+    "certName": "車床 - CNC車床",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-18400",
+    "certCode": "18400",
+    "certName": "模具 - 模具",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-18401",
+    "certCode": "18401",
+    "certName": "模具 - 沖壓模具",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-18402",
+    "certCode": "18402",
+    "certName": "模具 - 塑膠射出模具",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-18500",
+    "certCode": "18500",
+    "certName": "機械加工",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-18500",
+    "certCode": "18500",
+    "certName": "機械加工",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-19102",
+    "certCode": "19102",
+    "certName": "印前製程 - PC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-19103",
+    "certCode": "19103",
+    "certName": "印前製程 - 圖文組版PC",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-19104",
+    "certCode": "19104",
+    "certName": "印前製程 - MAC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-19105",
+    "certCode": "19105",
+    "certName": "印前製程 - 圖文組版MAC",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-19200",
+    "certCode": "19200",
+    "certName": "網版製版印刷",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-19201",
+    "certCode": "19201",
+    "certName": "網版製版印刷 - 製版",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-19202",
+    "certCode": "19202",
+    "certName": "網版製版印刷 - 印刷",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-19500",
+    "certCode": "19500",
+    "certName": "就業服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-19500",
+    "certCode": "19500",
+    "certName": "就業服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-19500",
+    "certCode": "19500",
+    "certName": "就業服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-20000",
+    "certCode": "20000",
+    "certName": "國貿業務",
+    "level": "乙",
+    "groupCode": "15",
+    "groupCodes": [
+      "15"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-20000",
+    "certCode": "20000",
+    "certName": "國貿業務",
+    "level": "乙",
+    "groupCode": "15",
+    "groupCodes": [
+      "15"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-20000",
+    "certCode": "20000",
+    "certName": "國貿業務",
+    "level": "丙",
+    "groupCode": "15",
+    "groupCodes": [
+      "15"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-20000",
+    "certCode": "20000",
+    "certName": "國貿業務",
+    "level": "丙",
+    "groupCode": "15",
+    "groupCodes": [
+      "15"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-20100",
+    "certCode": "20100",
+    "certName": "視覺傳達設計",
+    "level": "丙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20101",
+    "certCode": "20101",
+    "certName": "視覺傳達設計 - 識別形象設計PC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20102",
+    "certCode": "20102",
+    "certName": "視覺傳達設計 - 平面設計PC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20103",
+    "certCode": "20103",
+    "certName": "視覺傳達設計 - 包裝設計PC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20104",
+    "certCode": "20104",
+    "certName": "視覺傳達設計 - 插畫PC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20105",
+    "certCode": "20105",
+    "certName": "視覺傳達設計 - 識別形象設計MAC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20106",
+    "certCode": "20106",
+    "certName": "視覺傳達設計 - 平面設計MAC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20107",
+    "certCode": "20107",
+    "certName": "視覺傳達設計 - 包裝設計MAC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20108",
+    "certCode": "20108",
+    "certName": "視覺傳達設計 - 插畫MAC",
+    "level": "乙",
+    "groupCode": "07",
+    "groupCodes": [
+      "07"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-20300",
+    "certCode": "20300",
+    "certName": "喪禮服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20300",
+    "certCode": "20300",
+    "certName": "喪禮服務",
+    "level": "乙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-20300",
+    "certCode": "20300",
+    "certName": "喪禮服務",
+    "level": "丙",
+    "groupCode": "08",
+    "groupCodes": [
+      "08"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-20400",
+    "certCode": "20400",
+    "certName": "攝影",
+    "level": "丙",
+    "groupCode": "20",
+    "groupCodes": [
+      "20"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-20500",
+    "certCode": "20500",
+    "certName": "下水道用戶排水設備配管",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20600",
+    "certCode": "20600",
+    "certName": "飲料調製",
+    "level": "乙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-20600",
+    "certCode": "20600",
+    "certName": "飲料調製",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-20701",
+    "certCode": "20701",
+    "certName": "金屬帷幕牆 - 帷幕牆項",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-20800",
+    "certCode": "20800",
+    "certName": "電腦輔助機械設計製圖",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-20800",
+    "certCode": "20800",
+    "certName": "電腦輔助機械設計製圖",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-21000",
     "certCode": "21000",
     "certName": "太陽光電設置",
     "level": "乙",
     "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-21000",
+    "certCode": "21000",
+    "certName": "太陽光電設置",
+    "level": "乙",
+    "groupCode": "03",
+    "groupCodes": [
+      "03"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-21100",
+    "certCode": "21100",
+    "certName": "建築製圖應用",
+    "level": "乙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
     "year": 115,
     "batch": 3,
     "registrationStart": "2026-08-27",
@@ -1077,6 +6011,474 @@
     "writtenTestDate": "2026-11-08",
     "resultDate": "2026-12-04",
     "source": "https://skill.tcte.edu.tw/schedule.php",
-    "fetchedAt": "2026-05-14T16:26:19.249574"
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-21101",
+    "certCode": "21101",
+    "certName": "建築製圖應用 - 電腦繪圖",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-21102",
+    "certCode": "21102",
+    "certName": "建築製圖應用 - 手繪圖",
+    "level": "丙",
+    "groupCode": "06",
+    "groupCodes": [
+      "06"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-21300",
+    "certCode": "21300",
+    "certName": "陶瓷手拉坯",
+    "level": "丙",
+    "groupCode": "20",
+    "groupCodes": [
+      "20"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-21400",
+    "certCode": "21400",
+    "certName": "金屬成形",
+    "level": "乙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-丙-21400",
+    "certCode": "21400",
+    "certName": "金屬成形",
+    "level": "丙",
+    "groupCode": "01",
+    "groupCodes": [
+      "01"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-21500",
+    "certCode": "21500",
+    "certName": "餐飲服務",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-21500",
+    "certCode": "21500",
+    "certName": "餐飲服務",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-丙-21600",
+    "certCode": "21600",
+    "certName": "旅館客房服務",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-丙-21600",
+    "certCode": "21600",
+    "certName": "旅館客房服務",
+    "level": "丙",
+    "groupCode": "17",
+    "groupCodes": [
+      "17"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-22000",
+    "certCode": "22000",
+    "certName": "職業安全管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-22000",
+    "certCode": "22000",
+    "certName": "職業安全管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-22000",
+    "certCode": "22000",
+    "certName": "職業安全管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-22100",
+    "certCode": "22100",
+    "certName": "職業衛生管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-22100",
+    "certCode": "22100",
+    "certName": "職業衛生管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-22100",
+    "certCode": "22100",
+    "certName": "職業衛生管理",
+    "level": "甲",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-22200",
+    "certCode": "22200",
+    "certName": "職業安全衛生管理",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-乙-22200",
+    "certCode": "22200",
+    "certName": "職業安全衛生管理",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-乙-22200",
+    "certCode": "22200",
+    "certName": "職業安全衛生管理",
+    "level": "乙",
+    "groupCode": "10",
+    "groupCodes": [
+      "10"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-22300",
+    "certCode": "22300",
+    "certName": "物理性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-22300",
+    "certCode": "22300",
+    "certName": "物理性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-22300",
+    "certCode": "22300",
+    "certName": "物理性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-22300",
+    "certCode": "22300",
+    "certName": "物理性因子作業環境監測",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-甲-22400",
+    "certCode": "22400",
+    "certName": "化學性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-2-甲-22400",
+    "certCode": "22400",
+    "certName": "化學性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 2,
+    "registrationStart": "2026-04-24",
+    "registrationEnd": "2026-05-05",
+    "writtenTestDate": "2026-07-05",
+    "resultDate": "2026-07-31",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-3-甲-22400",
+    "certCode": "22400",
+    "certName": "化學性因子作業環境監測",
+    "level": "甲",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 3,
+    "registrationStart": "2026-08-27",
+    "registrationEnd": "2026-09-07",
+    "writtenTestDate": "2026-11-08",
+    "resultDate": "2026-12-04",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
+  },
+  {
+    "id": "115-1-乙-22400",
+    "certCode": "22400",
+    "certName": "化學性因子作業環境監測",
+    "level": "乙",
+    "groupCode": "05",
+    "groupCodes": [
+      "05"
+    ],
+    "year": 115,
+    "batch": 1,
+    "registrationStart": "2026-01-02",
+    "registrationEnd": "2026-01-13",
+    "writtenTestDate": "2026-03-15",
+    "resultDate": "2026-04-10",
+    "source": "https://skill.tcte.edu.tw/schedule.php",
+    "fetchedAt": "2026-05-17T11:46:08.571876"
   }
 ]
