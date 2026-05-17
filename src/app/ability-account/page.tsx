@@ -31,6 +31,8 @@ import type {
 } from '@/types/department'
 import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/strategy'
 import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
+import { GROUP_INFO, getGroupName } from '@/types/v4'
+import type { GroupCode } from '@/types/v4'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -79,6 +81,7 @@ export default function AbilityAccountPage() {
   const [expandedPathway, setExpandedPathway] = useState<string | null>(null)
   const [myPlan, setMyPlan] = useState<ChosenActivitiesData>({ activities: [], updatedAt: '', groupCode: '', grade: 0 })
   const [activeTab, setActiveTab] = useState<'opportunities' | 'myplan' | 'readiness'>('opportunities')
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     trackPageView('ability_account_v4')
@@ -283,114 +286,15 @@ export default function AbilityAccountPage() {
             {/* ── Tab A: Opportunities ── */}
             {activeTab === 'opportunities' && currentStrategy && (
               <div>
-                {/* Upgrade Paths */}
                 {currentStrategy.upgradePaths.filter(p => p.canStillMakeIt).length > 0 ? (
-                  <div className="space-y-3">
-                    <p className="text-sm text-gray-500 mb-2">
-                      以下是你可以採取的行動，按時間緊迫度排序。選擇要加入你的計畫。
-                    </p>
-                    {currentStrategy.upgradePaths
-                      .filter(p => p.canStillMakeIt)
-                      .sort((a, b) => {
-                        const da = a.registrationDeadline ? daysFromNowLocal(a.registrationDeadline) : 999
-                        const db = b.registrationDeadline ? daysFromNowLocal(b.registrationDeadline) : 999
-                        return da - db
-                      })
-                      .map((path, i) => {
-                        const added = isAlreadyAdded(path)
-                        const isRelevant = targetPathways.length === 0 || path.pathwaysOpened.some(p => targetPathways.includes(p))
-                        return (
-                          <motion.div key={path.id} {...stagger(i)}
-                            className={`bg-white rounded-2xl p-5 shadow-sm border-l-4 relative ${
-                              added ? 'border-l-green-400 opacity-75' :
-                              path.roi === 'high' ? 'border-l-amber-400' :
-                              path.roi === 'medium' ? 'border-l-blue-400' : 'border-l-gray-300'
-                            }`}
-                          >
-                            {/* Match badge */}
-                            {isRelevant && path.pathwaysOpened.length > 0 && (
-                              <div className="absolute top-3 right-3">
-                                <span className="px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded-full font-medium">
-                                  ✓ 符合目標：{path.pathwaysOpened.map(p => PATHWAY_SHORT[p]).join('+')}
-                                </span>
-                              </div>
-                            )}
-                            {!isRelevant && targetPathways.length > 0 && (
-                              <div className="absolute top-3 right-3">
-                                <span className="px-2 py-0.5 text-xs bg-gray-100 text-gray-500 rounded-full">
-                                  非主要目標管道
-                                </span>
-                              </div>
-                            )}
-
-                            <div className="flex items-start gap-3">
-                              <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl shrink-0 ${
-                                path.type === 'certificate' ? 'bg-amber-50' : 'bg-blue-50'
-                              }`}>
-                                {path.type === 'certificate' ? '📜' : '🏆'}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
-                                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
-                                    path.type === 'certificate' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
-                                  }`}>
-                                    {path.type === 'certificate' ? '證照' : '競賽'}
-                                  </span>
-                                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${
-                                    path.roi === 'high' ? 'bg-green-100 text-green-700' :
-                                    path.roi === 'medium' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'
-                                  }`}>
-                                    {path.roi === 'high' ? '高 CP 值' : path.roi === 'medium' ? '中 CP 值' : '一般'}
-                                  </span>
-                                </div>
-                                <div className="font-bold text-lg">{path.title}</div>
-                                <div className="text-sm text-gray-500 mt-1">{path.description}</div>
-
-                                {/* Impact tags */}
-                                <div className="flex flex-wrap gap-1 mt-2">
-                                  {path.pathwaysOpened.map(pw => (
-                                    <span key={pw} className="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-600 rounded-full">
-                                      +{PATHWAY_SHORT[pw]}管道
-                                    </span>
-                                  ))}
-                                  {path.probabilityBoost > 0 && (
-                                    <span className="px-2 py-0.5 text-xs bg-green-50 text-green-600 rounded-full font-medium">
-                                      +{path.probabilityBoost}% 錄取率
-                                    </span>
-                                  )}
-                                </div>
-                              </div>
-
-                              {/* Timeline + Action */}
-                              <div className="text-right shrink-0 flex flex-col items-end gap-2">
-                                {path.registrationDeadline && (
-                                  <div>
-                                    <div className="text-xs text-gray-400">報名截止</div>
-                                    <div className={`text-sm font-bold ${
-                                      daysFromNowLocal(path.registrationDeadline) < 14 ? 'text-red-500' :
-                                      daysFromNowLocal(path.registrationDeadline) < 30 ? 'text-amber-500' : 'text-gray-700'
-                                    }`}>
-                                      {formatDaysLeft(path.registrationDeadline)}
-                                    </div>
-                                  </div>
-                                )}
-                                <button
-                                  onClick={() => handleAddToPlan(path)}
-                                  disabled={added}
-                                  className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
-                                    added
-                                      ? 'bg-green-100 text-green-700 cursor-default'
-                                      : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
-                                  }`}
-                                >
-                                  {added ? '✓ 已加入' : '加入我的計畫'}
-                                </button>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )
-                      })}
-                  </div>
+                  <GroupedUpgradePaths
+                    paths={currentStrategy.upgradePaths.filter(p => p.canStillMakeIt)}
+                    expandedGroups={expandedGroups}
+                    setExpandedGroups={setExpandedGroups}
+                    isAlreadyAdded={isAlreadyAdded}
+                    handleAddToPlan={handleAddToPlan}
+                    targetPathways={targetPathways}
+                  />
                 ) : (
                   <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
                     <div className="text-4xl mb-3">🎉</div>
@@ -664,4 +568,215 @@ function formatDaysLeft(date: string): string {
   if (d < 30) return `${Math.ceil(d / 7)} 週後`
   if (d < 365) return `${Math.ceil(d / 30)} 個月後`
   return `${Math.ceil(d / 365)} 年後`
+}
+
+const LEVEL_LABELS: Record<string, string> = {
+  '丙': '丙級', '乙': '乙級', '甲': '甲級', '單一': '單一級',
+  '全國': '全國賽', '分區': '分區賽', '校內': '校內賽', '縣市': '縣市賽', '國際': '國際賽',
+}
+
+function resolveGroupName(code: string): string {
+  return GROUP_INFO[code as GroupCode]?.name || `群 ${code}`
+}
+
+function resolveGroupIcon(code: string): string {
+  return GROUP_INFO[code as GroupCode]?.icon || '📚'
+}
+
+// ── 分組渲染元件 ──
+
+function GroupedUpgradePaths({
+  paths,
+  expandedGroups,
+  setExpandedGroups,
+  isAlreadyAdded,
+  handleAddToPlan,
+  targetPathways,
+}: {
+  paths: UpgradePath[]
+  expandedGroups: Set<string>
+  setExpandedGroups: React.Dispatch<React.SetStateAction<Set<string>>>
+  isAlreadyAdded: (p: UpgradePath) => boolean
+  handleAddToPlan: (p: UpgradePath) => void
+  targetPathways: string[]
+}) {
+  // Split into certificates and competitions
+  const certs = paths.filter(p => p.type === 'certificate')
+  const comps = paths.filter(p => p.type === 'competition')
+
+  // Group by groupCode
+  function groupByCode(items: UpgradePath[]): Map<string, UpgradePath[]> {
+    const map = new Map<string, UpgradePath[]>()
+    for (const item of items) {
+      const codes = item.groupCodes.length > 0 ? item.groupCodes : ['unknown']
+      for (const code of codes) {
+        if (!map.has(code)) map.set(code, [])
+        map.get(code)!.push(item)
+      }
+    }
+    // Sort within each group by deadline
+    for (const [, items] of map) {
+      items.sort((a, b) => {
+        const da = a.registrationDeadline ? daysFromNowLocal(a.registrationDeadline) : 999
+        const db = b.registrationDeadline ? daysFromNowLocal(b.registrationDeadline) : 999
+        return da - db
+      })
+    }
+    return map
+  }
+
+  function toggleGroup(key: string) {
+    setExpandedGroups(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key)
+      else next.add(key)
+      return next
+    })
+  }
+
+  function renderSection(
+    title: string,
+    icon: string,
+    items: UpgradePath[],
+    sectionKey: string,
+  ) {
+    if (items.length === 0) return null
+    const grouped = groupByCode(items)
+    // Sort groups: student's own group first, then alphabetical
+    const sortedCodes = Array.from(grouped.keys()).sort((a, b) => {
+      const na = resolveGroupName(a)
+      const nb = resolveGroupName(b)
+      return na.localeCompare(nb, 'zh-TW')
+    })
+
+    return (
+      <div className="mb-8">
+        <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+          <span className="text-2xl">{icon}</span>
+          {title}
+          <span className="text-sm font-normal text-gray-400">({items.length})</span>
+        </h3>
+        <div className="space-y-3">
+          {sortedCodes.map(code => {
+            const groupItems = grouped.get(code) || []
+            const groupKey = `${sectionKey}-${code}`
+            const isExpanded = expandedGroups.has(groupKey)
+
+            return (
+              <div key={code} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                {/* Group header — clickable */}
+                <button
+                  onClick={() => toggleGroup(groupKey)}
+                  className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl">{resolveGroupIcon(code)}</span>
+                    <div className="text-left">
+                      <div className="font-bold text-gray-900">{resolveGroupName(code)}</div>
+                      <div className="text-xs text-gray-400">{code} · {groupItems.length} 個項目</div>
+                    </div>
+                  </div>
+                  <span className="text-gray-400 text-sm">{isExpanded ? '▲' : '▼'}</span>
+                </button>
+
+                {/* Expanded items */}
+                {isExpanded && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-2">
+                    {groupItems.map(path => {
+                      const added = isAlreadyAdded(path)
+                      const isRelevant = targetPathways.length === 0 || path.pathwaysOpened.some(p => targetPathways.includes(p))
+                      const levelLabel = LEVEL_LABELS[path.level] || path.level
+
+                      return (
+                        <div key={path.id}
+                          className={`rounded-xl p-4 border-l-4 relative ${
+                            added ? 'border-l-green-400 bg-green-50/50' :
+                            path.roi === 'high' ? 'border-l-amber-400 bg-amber-50/30' :
+                            path.roi === 'medium' ? 'border-l-blue-400 bg-blue-50/30' : 'border-l-gray-300 bg-gray-50/30'
+                          }`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                <span className="font-bold">{path.category}</span>
+                                {levelLabel && (
+                                  <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                                    path.type === 'certificate' ? 'bg-amber-100 text-amber-700' : 'bg-blue-100 text-blue-700'
+                                  }`}>
+                                    {levelLabel}
+                                  </span>
+                                )}
+                                {path.roi === 'high' && (
+                                  <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                    高 CP 值
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-sm text-gray-500">{path.description}</div>
+
+                              {/* Impact tags */}
+                              <div className="flex flex-wrap gap-1 mt-2">
+                                {isRelevant && path.pathwaysOpened.length > 0 && (
+                                  <span className="px-2 py-0.5 text-xs bg-green-100 text-green-700 rounded-full font-medium">
+                                    ✓ {path.pathwaysOpened.map(p => PATHWAY_SHORT[p]).join('+')}
+                                  </span>
+                                )}
+                                {path.probabilityBoost > 0 && (
+                                  <span className="px-2 py-0.5 text-xs bg-indigo-50 text-indigo-600 rounded-full">
+                                    +{path.probabilityBoost}%
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+
+                            {/* Timeline + Action */}
+                            <div className="text-right shrink-0 flex flex-col items-end gap-2">
+                              {path.registrationDeadline && (
+                                <div>
+                                  <div className="text-xs text-gray-400">報名截止</div>
+                                  <div className={`text-sm font-bold ${
+                                    daysFromNowLocal(path.registrationDeadline) < 14 ? 'text-red-500' :
+                                    daysFromNowLocal(path.registrationDeadline) < 30 ? 'text-amber-500' : 'text-gray-700'
+                                  }`}>
+                                    {formatDaysLeft(path.registrationDeadline)}
+                                  </div>
+                                </div>
+                              )}
+                              <button
+                                onClick={() => handleAddToPlan(path)}
+                                disabled={added}
+                                className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
+                                  added
+                                    ? 'bg-green-100 text-green-700 cursor-default'
+                                    : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
+                                }`}
+                              >
+                                {added ? '✓ 已加入' : '加入計畫'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </motion.div>
+                )}
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      <p className="text-sm text-gray-500 mb-4">
+        依職群與職種分類，點擊群別展開查看詳細項目。
+      </p>
+      {renderSection('證照考試', '📜', certs, 'cert')}
+      {renderSection('競賽機會', '🏆', comps, 'comp')}
+
+      {/* Critical Deadlines */}
+    </div>
+  )
 }

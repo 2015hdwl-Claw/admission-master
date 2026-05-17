@@ -8,6 +8,7 @@ export interface ExamSchedule {
   certName: string                    // 室內配線(屋內線路裝修)
   level: string                       // 丙/乙/甲
   groupCode: string                   // 職群代碼
+  groupCodes: string[]                // 適用職群代碼
   year: number                        // 民國年
   batch: number                       // 梯次 (1/2/3)
   registrationStart: string           // 報名開始 (ISO date)
@@ -95,6 +96,11 @@ export interface UpgradePath {
 
   // ROI
   roi: 'high' | 'medium' | 'low'     // 投資報酬率
+
+  // 分類
+  groupCodes: string[]                // 適用職群代碼，如 ["03"]
+  category: string                    // 職種名稱，如 "冷凍空調裝修"
+  level: string                       // 等級，如 "乙" / "全國"
 }
 
 export interface PathwayTimeline {

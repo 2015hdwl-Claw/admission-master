@@ -150,6 +150,9 @@ function generateCertPaths(
         pathwaysOpened: Array.from(pathways),
         departmentsAffected: targets.map(d => d.departmentName),
         roi: nextExam.level === '乙' ? 'high' : nextExam.level === '甲' ? 'medium' : 'medium',
+        groupCodes: nextExam.groupCodes || [nextExam.groupCode],
+        category: nextExam.certName,
+        level: nextExam.level,
       })
     }
   }
@@ -177,6 +180,9 @@ function generateCertPaths(
         pathwaysOpened: ['skills'],
         departmentsAffected: [],
         roi: 'high',
+        groupCodes: exam.groupCodes || [exam.groupCode],
+        category: exam.certName,
+        level: exam.level,
       })
     }
   }
@@ -221,6 +227,9 @@ function generateCompPaths(profile: StudentProfile, now: string): UpgradePath[] 
       pathwaysOpened: event.pathwayUseful,
       departmentsAffected: [],
       roi: isNational ? 'high' : isRegional ? 'medium' : 'low',
+      groupCodes: event.groupCodes || [],
+      category: event.category,
+      level: event.level,
     })
   }
 
