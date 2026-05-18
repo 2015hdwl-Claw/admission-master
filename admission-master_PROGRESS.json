@@ -1,13 +1,13 @@
 {
   "project_name": "admission-master",
-  "project_title": "升學大師 - 武器庫導向的高職升學路徑發現引擎 → 生涯導航平台",
-  "last_updated": "2026-05-14",
+  "project_title": "升學大師 - 武器庫導向的高職升學路徑發現引擎",
+  "last_updated": "2026-05-18",
   "current_phase": "Phase 4 - 成長與驗證 (Production Deployed)",
-  "overall_progress": 95,
+  "overall_progress": 92,
   "core_philosophy": "先盤點武器庫，再推薦最有利的管道。從升學工具升級為生涯導航平台。",
-  "strategy_pivot": "v4.0: 入學條件 + 畢業出路 + 薪資行情 三合一",
+  "current_version": "v4.2.1-comp-fix",
 
-  "major_update": "2026-05-14: v4.0 生產環境部署完成 ✅ — 181 科系完整資料 + 104 職涯薪資 + 時程行事曆，https://admission-master-ecru.vercel.app",
+  "major_update": "2026-05-18: v4.2 競賽名稱修復 + 全科系策略整合 ✅ — 顯示具體職種名稱 + 策略覆蓋全部 5 科系，https://admission-master-ecru.vercel.app",
 
   "phases": {
     "phase_1": {
@@ -31,45 +31,40 @@
       "start_date": "2026-05-12",
       "tasks": {
         "completed": {
-          "engine": "✅ 管道匹配引擎 (pathway-matcher.ts) — 六管道獨立計算、findBestPathway tiebreaker、consolidateActionPlan 分數去重",
-          "first_discovery": "✅ first-discovery 頁面 — 年級分流 + 武器庫 + 科系選擇",
-          "ability_account": "✅ ability-account 頁面 — localStorage 串接 + 分析展示",
-          "bug_fixes": "✅ 3 個 bug 修復 — 重複分數/錯誤推薦/按鈕寬度",
-          "data_source_research": "✅ 官方資料來源研究 — jctv.ntut.edu.tw 結構分析",
-          "moat_research": "✅ 護城河資料來源研究 — 104/ColleGo!/教育部/國科會 可行性驗證",
-          "step1_scraper": "✅ Step 1: 爬蟲抓取 181 電機群科系 — warehouse.js 解析，68 校，publicPrivate/region 正確",
-          "step2_tags": "✅ Step 2: 50+ regex 標籤規則 — 181/181 科系標記，20 features, 167 researchAreas, 89 careerPaths",
-          "step3_career": "✅ Step 3: 104 升學就業地圖 API — 181/181 careerOutcomes, 180/181 薪資，平均 57,363 NTD/month",
-          "step4_ui": "✅ Step 4: UI 展示 — 薪資標籤卡片 + 詳情 Modal（薪資行情/必備工具/必備技能/就業產業）",
-          "unified_pipeline": "✅ 統一管線完成 — pipeline.py 一鍵執行 departments + schedules，含驗證機制",
-          "schedules_pipeline": "✅ 時程爬蟲完成 — 證照考試 + 競賽行事曆 + 升學管道時程，72+23+6 筆資料"
-        },
-        "pipeline_tools": {
-          "scrape": "tools/scrape_electrical_departments.py --year 114 --group 03",
-          "tags": "tools/enrich_tags.py",
-          "career": "tools/enrich_career_104.py（用 cache，秒完成）",
-          "test": "tools/test_pipeline.py（一鍵全跑 + 驗證）"
-        },
-        "remaining": [
-          "真實用戶測試（用戶兒子 — 控制科二年級）",
-          "其他 19 群科系資料擴展",
-          "光域風格 UI 重構（待定）"
-        ]
+          "engine": "✅ 管道匹配引擎 (pathway-matcher.ts) — 六管道獨立計算",
+          "first_discovery": "✅ first-discovery 頁面 — 年級分流 + 武器庫 + 科系選擇（上限5）",
+          "ability_account": "✅ ability-account 頁面 — 互動武器庫 + 職群分組 + 官方加分%",
+          "bonus_table": "✅ 技優甄審官方加分表 (bonus-table.ts) — 115學年度簡章表1，18個競賽等級 + 證照相關性三級",
+          "strategy_engine": "✅ 策略引擎更新 — 改用真實加分數據取代硬編碼",
+          "data_pipeline": "✅ 資料管線 — 證照考試360筆 + 競賽302筆 + 升學管道6筆",
+          "career_integration": "✅ 104 職涯薪資整合 — 181/181 careerOutcomes"
+        }
       }
     },
     "phase_4": {
       "name": "成長與驗證",
       "status": "in_progress",
-      "progress": 10,
-      "next_milestone": "10 個真實用戶完成 116 選考流程",
+      "progress": 20,
+      "next_milestone": "真實用戶測試 — 116 選考完整流程",
       "deployed_at": "2026-05-14",
-      "production_url": "https://admission-master-ecru.vercel.app"
+      "production_url": "https://admission-master-ecru.vercel.app",
+      "user_testing_feedback": [
+        "2026-05-18: ✅ 競賽名稱修復 — 顯示具體職種名稱 + 策略覆蓋全部 5 科系 + 競賽群組過濾",
+        "2026-05-17: ✅ 完整 PDF 證照對照表整合 — 38 類別、800+ 映射，電機類 3→33 張證照",
+        "2026-05-17: ✅ 技優甄審官方加分數據整合 — 115學年度簡章表1 完整導入",
+        "2026-05-17: ✅ 能力中心重構 — 武器庫升級指南 + 加分%排序 + 擇一提示",
+        "2026-05-17: ✅ 探索科系上限 3→5 個",
+        "2026-05-15: ✅ 目標設定系統完成 - portfolio 頁面智慧動態排序",
+        "2026-05-15: ✅ 時間軸同步 - roadmap 頁面只顯示使用者選擇的目標管道",
+        "2026-05-14: ✅ 手機 UX 問題修復",
+        "2026-05-14: ✅ 頁面連結整合完成 - first-discovery → portfolio/roadmap/interview"
+      ]
     },
     "phase_5": {
       "name": "擴展與規模",
       "status": "pending",
       "progress": 0,
-      "plan": "電機群 → 全部 20 群 (2,383 科系) + 課程地圖 + 目標反推"
+      "plan": "電機群 → 全部 20 群 (2,383 科系) + 證照精確相關性映射 + RPG 元宇宙"
     }
   },
 
@@ -77,44 +72,49 @@
     "departments_json": {
       "path": "src/data/departments.json",
       "current_records": 181,
-      "target_records": 181,
       "status": "COMPLETE",
       "note": "電機群 (group 03) 完整，含 careerOutcomes"
     },
+    "exam_schedules": {
+      "path": "src/data/exam-schedules.json",
+      "current_records": 360,
+      "status": "COMPLETE",
+      "note": "17 個職群證照考試時程，115學年度"
+    },
+    "competition_events": {
+      "path": "src/data/competition-events.json",
+      "current_records": 302,
+      "status": "COMPLETE",
+      "note": "11 個職群競賽行事曆，115學年度"
+    },
+    "bonus_table": {
+      "path": "src/data/bonus-table.ts",
+      "status": "COMPLETE",
+      "note": "115學年度技優甄審官方加分標準表 — 證照(甲25%/乙4-15%) + 競賽18等級(10-60%) + PDF對照表查詢 + 群↔類別對照",
+      "source": "科技校院四年制及專科學校二年制招收技藝技能優良學生甄審入學招生簡章 表1"
+    },
+    "cert_admission_map": {
+      "path": "src/data/cert-admission-map.json",
+      "status": "COMPLETE",
+      "note": "38 招生類別 × 800+ 證照映射（高度/中度/低度相關），取代簡化模型",
+      "source": "115學年度簡章 Category2.pdf 第3-25頁"
+    },
     "certificates_db": {
       "path": "src/data/certificates.ts",
-      "status": "CREATED",
+      "status": "COMPLETE",
       "note": "15 個職群的丙級/乙級證照清單"
     },
     "competitions_db": {
       "path": "src/data/competitions.ts",
-      "status": "CREATED",
+      "status": "COMPLETE",
       "note": "校內/全國/國際競賽清單"
-    },
-    "career_outcomes": {
-      "status": "COMPLETE",
-      "coverage": "181/181 departments",
-      "salary_coverage": "180/181",
-      "avg_fresh_salary": 57363,
-      "source": "104 be.guide.104.com.tw API",
-      "cache_files": [
-        "tools/_104_job_cache.json (89 career→job mappings)",
-        "tools/_104_detail_cache.json (40 job details)"
-      ]
-    },
-    "tags": {
-      "status": "COMPLETE",
-      "coverage": "181/181 departments",
-      "unique_features": 20,
-      "unique_research_areas": 167,
-      "unique_career_paths": 89
     }
   },
 
   "page_inventory": {
     "core_product": [
-      { "path": "/first-discovery", "name": "武器庫導向發現之旅", "status": "v3.0 + 職涯薪資展示" },
-      { "path": "/ability-account", "name": "能力中心", "status": "v3.0 完成，已串接 first-discovery" }
+      { "path": "/first-discovery", "name": "武器庫導向發現之旅", "status": "v4.1 — 科系上限5個 + 職涯薪資展示" },
+      { "path": "/ability-account", "name": "能力中心", "status": "v4.2.1 — 競賽具體職種 + 全科系策略 + 全年級升級指南" }
     ],
     "explorer_zone": [
       { "path": "/", "name": "首頁", "status": "live" },
@@ -135,70 +135,32 @@
     "build_status": "pass",
     "production_url": "https://admission-master-ecru.vercel.app/",
     "production_deployed": true,
-    "last_commit": "7b1f994",
-    "deployment_date": "2026-05-14",
+    "last_commit": "3b1d115",
+    "deployment_date": "2026-05-18",
     "mvp_validation_user": "用戶兒子（控制科二年級）",
-    "data_freshness": "2026-05-14 (115 年度最新資料)"
+    "data_freshness": "2026-05-18 (115 年度最新資料)"
   },
 
   "next_actions": [
     {
       "priority": 1,
-      "action": "真實用戶測試 — 用戶兒子用控制科二年級身份走完 first-discovery 流程",
+      "action": "真實用戶測試 — 用戶兒子走完 first-discovery → ability-account 完整流程",
       "effort": "1-2h"
     },
     {
       "priority": 2,
+      "action": "完整 PDF 對照表數位化 — 證照↔科系相關性精確映射（取代簡化模型）",
+      "effort": "4-8h"
+    },
+    {
+      "priority": 3,
       "action": "根據測試反饋迭代 UI/UX",
       "effort": "2-4h"
     },
     {
-      "priority": 3,
+      "priority": 4,
       "action": "擴展其他 19 群科系資料（爬蟲 pipeline 已可複用）",
       "effort": "8-16h"
     }
-  ],
-
-  "rpg_vision": {
-    "status": "PLANNED",
-    "target_version": "v5.0",
-    "core_philosophy": "成就極大化，目標極小化 — RPG 不是前端的皮，是系統的骨",
-    "world_map": {
-      "電力峽谷": "傳統電機系（台電、配電、電力設備）",
-      "自控晶塔": "自動化工程系（PLC、機械手臂、產線控制）",
-      "晶片秘境": "資工/微電子系（IC設計、韌體、Arduino）"
-    },
-    "data_models": [
-      "players (PlayerProfile) — 取代 StudentProfile，加 exp/quest/ability",
-      "player_abilities — 雷達圖（硬體配線/軟體控制/學科理論/跨域整合）",
-      "player_inventory — 背包（證照/競賽/專題），可裝備",
-      "guilds — 公會（科系），有據點位置和動態事件",
-      "guild_events — 據點動態（產學新聞）",
-      "quest_definitions — 任務定義（主線/支線/每日）",
-      "player_quests — 玩家任務進度",
-      "codex_items — 圖鑑（證照/競賽），含稀有度",
-      "player_achievements — 成就解鎖",
-      "player_action_logs — 冒險日誌（為 AI 專題精靈存子彈）"
-    ],
-    "event_trigger_engine": "動作寫入 → 觸發 exp/ability/quest 狀態改變 → 前端視覺反饋",
-    "monetization": [
-      "AI 專題精靈：平時上傳 → AI 生成專題報告（家長付親子關係維護費）",
-      "破關路線圖：目標科系評分比重 + 備審範本 + 教授偏好",
-      "產學直通車：合作企業面試攻略 + 學長姐證照配置",
-      "成長報告：各年級進度追蹤 + 出路趨勢"
-    ],
-    "v4_compatibility_checklist": [
-      "DepartmentInfo.id 用 UUID 格式（可對應 guild_id）",
-      "certificates.ts 需包含 rarity (丙=普通, 乙=稀有, 甲=傳說)",
-      "departments.json 需包含 map_region",
-      "pathway-matcher 計算結果需可轉為 exp 和 ability 變化",
-      "localStorage 結構需可遷移至 Supabase"
-    ],
-    "development_phases": {
-      "phase_5a": "Supabase 後端 + RPG 資料模型建表",
-      "phase_5b": "任務系統 + 事件觸發引擎",
-      "phase_5c": "AI 整合 + 付費功能（專題精靈、破關路線圖）",
-      "phase_5d": "全群擴展（20 群, 2,383 科系）+ 2.5D 地圖 UI"
-    }
-  }
+  ]
 }
