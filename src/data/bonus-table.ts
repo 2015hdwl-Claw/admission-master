@@ -30,8 +30,15 @@ export type CompetitionCategory =
   | '國手'
   | '全國技能競賽'
   | '技藝競賽'
+  | '分區技能競賽'
+  | '專題實作及創意競賽'
   | '科展'
-  | '中央機關競賽'
+  | '技術創造力競賽'
+  | '智慧鐵人競賽'
+  | '電腦鼠競賽'
+  | '美術比賽'
+  | '舞蹈比賽'
+  | '音樂比賽'
   | '其他'
 
 export interface CompetitionBonusTier {
@@ -54,6 +61,15 @@ export const COMPETITION_BONUS_TABLE: CompetitionBonusTier[] = [
   { category: '全國技能競賽', placings: ['第2名', '銀牌'], bonusPercent: 35 },
   { category: '全國技能競賽', placings: ['第3名', '銅牌'], bonusPercent: 30 },
   { category: '全國技能競賽', placings: ['第4名', '第5名'], bonusPercent: 25 },
+  // 全國技能競賽分區（北、中、南）技能競賽
+  { category: '分區技能競賽', placings: ['第1名', '金牌'], bonusPercent: 25 },
+  { category: '分區技能競賽', placings: ['第2名', '銀牌'], bonusPercent: 20 },
+  { category: '分區技能競賽', placings: ['第3名', '銅牌'], bonusPercent: 15 },
+  // 全國高級中等學校專業群科專題實作及創意競賽
+  { category: '專題實作及創意競賽', placings: ['第1名', '金牌'], bonusPercent: 30 },
+  { category: '專題實作及創意競賽', placings: ['第2名', '銀牌'], bonusPercent: 25 },
+  { category: '專題實作及創意競賽', placings: ['第3名', '銅牌'], bonusPercent: 20 },
+  { category: '專題實作及創意競賽', placings: ['佳作'], bonusPercent: 15 },
   // 全國高級中等學校技藝競賽
   { category: '技藝競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 30 },
   { category: '技藝競賽', placings: ['第4名', '第5名', '第6名', '第7名', '第8名', '第9名', '第10名', '第11名', '第12名', '第13名', '第14名', '第15名'], bonusPercent: 25 },
@@ -64,9 +80,19 @@ export const COMPETITION_BONUS_TABLE: CompetitionBonusTier[] = [
   { category: '科展', placings: ['第1名'], bonusPercent: 25 },
   { category: '科展', placings: ['第2名', '第3名'], bonusPercent: 20 },
   { category: '科展', placings: ['佳作'], bonusPercent: 15 },
-  // 中央各級機關全國性競賽
-  { category: '中央機關競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
-  { category: '中央機關競賽', placings: ['其餘'], bonusPercent: 15 },
+  // 中央各級機關全國性競賽 (PDF Table 2 — 細分類別)
+  { category: '技術創造力競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
+  { category: '技術創造力競賽', placings: ['第4名', '佳作'], bonusPercent: 15 },
+  { category: '智慧鐵人競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
+  { category: '智慧鐵人競賽', placings: ['第4名', '第5名', '第6名'], bonusPercent: 15 },
+  { category: '電腦鼠競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
+  { category: '電腦鼠競賽', placings: ['其餘得獎者'], bonusPercent: 15 },
+  { category: '美術比賽', placings: ['特優', '優等', '甲等'], bonusPercent: 20 },
+  { category: '美術比賽', placings: ['入選', '佳作'], bonusPercent: 15 },
+  { category: '舞蹈比賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
+  { category: '舞蹈比賽', placings: ['其餘得獎者'], bonusPercent: 15 },
+  { category: '音樂比賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 20 },
+  { category: '音樂比賽', placings: ['其餘得獎者'], bonusPercent: 15 },
 ]
 
 // ── 競賽加分查詢 ──
@@ -76,10 +102,17 @@ export function classifyCompetition(name: string): CompetitionCategory {
   if (name.includes('國際技能競賽') || name.includes('國際展能節') || name.includes('國際科技展覽')) return '國際技能競賽'
   if (name.includes('亞洲技能競賽')) return '亞洲技能競賽'
   if (name.includes('正取國手') || name.includes('備取國手') || name.includes('國手')) return '國手'
+  if (name.includes('分區技能競賽') || name.includes('技能競賽分區') || name.includes('北區技能競賽') || name.includes('中區技能競賽') || name.includes('南區技能競賽')) return '分區技能競賽'
   if (name.includes('全國技能競賽') || name.includes('全國身心障礙')) return '全國技能競賽'
+  if (name.includes('專題實作') || name.includes('創意競賽') || name.includes('專題暨創意')) return '專題實作及創意競賽'
   if (name.includes('技藝競賽')) return '技藝競賽'
   if (name.includes('科展') || name.includes('科學展覽')) return '科展'
-  if (name.includes('中央') || name.includes('全國性競賽')) return '中央機關競賽'
+  if (name.includes('技術創造力')) return '技術創造力競賽'
+  if (name.includes('智慧鐵人')) return '智慧鐵人競賽'
+  if (name.includes('電腦鼠') || name.includes('智慧輪形機器人')) return '電腦鼠競賽'
+  if (name.includes('美術比賽') || name.includes('學生美術')) return '美術比賽'
+  if (name.includes('舞蹈比賽') || name.includes('學生舞蹈')) return '舞蹈比賽'
+  if (name.includes('音樂比賽') || name.includes('學生音樂')) return '音樂比賽'
   return '其他'
 }
 
@@ -116,7 +149,7 @@ export function estimateCompBonus(competitionName: string, placingThresholds: st
 export const GROUP_TO_CATEGORIES: Record<string, string[]> = {
   '01': ['10'],
   '02': ['15', '12'],
-  '03': ['20', '25', '26'],
+  '03': ['20', '21', '25', '26'],
   '04': ['30', '33', '34'],
   '05': ['40', '41'],
   '06': ['56', '60', '65', '62'],

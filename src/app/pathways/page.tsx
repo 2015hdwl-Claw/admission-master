@@ -6,6 +6,77 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { trackPageView, trackFeatureUsage } from '@/lib/analytics'
+import {
+  GROUP_TO_CATEGORIES,
+  COMPETITION_BONUS_TABLE,
+  CERT_BONUS_TABLE,
+  getAllCertsForCategory,
+  getCategoryName,
+  getCompBonus,
+  getCompMaxBonus,
+  type CompetitionCategory,
+  type RelevanceLevel,
+} from '@/data/bonus-table'
+import COMPETITION_ADMISSION_MAP from '@/data/competition-admission-map.json'
+
+// 群別代碼 → 中文名稱
+const GROUP_NAMES: Record<string, string> = {
+  '01': '餐旅群',
+  '02': '機械群',
+  '03': '電機群',
+  '04': '電子群',
+  '05': '資訊群',
+  '06': '商業與管理群',
+  '07': '設計群',
+  '08': '土木與建築群',
+  '09': '農業群',
+  '10': '外語群',
+  '11': '食品群',
+  '12': '家政群',
+  '13': '海事群',
+  '14': '水產群',
+  '16': '藝術群',
+  '17': '動力機械群',
+  '18': '化工群',
+  '19': '工程與管理類',
+  '20': '衛生與護理類',
+}
+
+// 競賽類別中文名稱
+const COMP_CATEGORY_NAMES: Record<string, string> = {
+  '國際技能競賽': '國際技能競賽',
+  '亞洲技能競賽': '亞洲技能競賽（青年組）',
+  '國手': '國手（正/備取）',
+  '全國技能競賽': '全國技能競賽',
+  '分區技能競賽': '分區技能競賽（北、中、南）',
+  '專題實作及創意競賽': '專題實作及創意競賽',
+  '技藝競賽': '技藝競賽',
+  '科展': '科學展覽會',
+  '技術創造力競賽': '技術創造力競賽',
+  '智慧鐵人競賽': '智慧鐵人競賽',
+  '電腦鼠競賽': '電腦鼠競賽',
+  '美術比賽': '美術比賽',
+  '舞蹈比賽': '舞蹈比賽',
+  '音樂比賽': '音樂比賽',
+}
+
+// Competition category dropdown options
+const COMP_DROPDOWN_OPTIONS = [
+  { value: '', label: '-- 全部競賽 --' },
+  { value: 'internationalSkills', label: '國際技能競賽/國際展能節/國際科技展覽' },
+  { value: 'asianSkillsYouth', label: '亞洲技能競賽（青年組）' },
+  { value: 'national', label: '全國技能競賽/全國身心障礙者技能競賽' },
+  { value: 'hsVocational', label: '全國高級中等學校技藝競賽' },
+  { value: 'regional', label: '全國技能競賽分區（北、中、南）技能競賽' },
+  { value: 'projectCreativity', label: '專題實作及創意競賽' },
+  { value: 'scienceFair', label: '科學展覽會' },
+  { value: 'techCreativity', label: '技術創造力競賽' },
+  { value: 'smartIronman', label: '智慧鐵人競賽' },
+  { value: 'micromouse', label: '電腦鼠競賽' },
+  { value: 'artCompetition', label: '美術比賽' },
+  { value: 'danceCompetition', label: '舞蹈比賽' },
+  { value: 'musicCompetition', label: '音樂比賽' },
+]
 
 // 6 種主要升學管道的詳細資訊
 const SIX_PATHWAYS = {
@@ -224,10 +295,340 @@ const SIX_PATHWAYS = {
   }
 }
 
+// Map JSON competition keys to CompetitionCategory used in COMPETITION_BONUS_TABLE
+const TRADE_LIST_KEYS = ['internationalSkills', 'asianSkillsYouth', 'national', 'hsVocational', 'regional', 'projectCreativity'] as const
+const BOOLEAN_KEYS = ['scienceFair', 'techCreativity', 'smartIronman', 'micromouse', 'artCompetition', 'danceCompetition', 'musicCompetition'] as const
+const ALL_COMP_KEYS = [...TRADE_LIST_KEYS, ...BOOLEAN_KEYS] as const
+type JsonCompKey = (typeof ALL_COMP_KEYS)[number]
+const BOOLEAN_KEY_SET = new Set<string>(BOOLEAN_KEYS)
+
+const JSON_KEY_TO_CATEGORIES: Record<string, CompetitionCategory[]> = {
+  internationalSkills: ['國際技能競賽'],
+  asianSkillsYouth: ['亞洲技能競賽'],
+  national: ['全國技能競賽'],
+  hsVocational: ['技藝競賽'],
+  regional: ['分區技能競賽'],
+  projectCreativity: ['專題實作及創意競賽'],
+  scienceFair: ['科展'],
+  techCreativity: ['技術創造力競賽'],
+  smartIronman: ['智慧鐵人競賽'],
+  micromouse: ['電腦鼠競賽'],
+  artCompetition: ['美術比賽'],
+  danceCompetition: ['舞蹈比賽'],
+  musicCompetition: ['音樂比賽'],
+}
+
+const JSON_KEY_LABELS: Record<string, string> = {
+  internationalSkills: '國際技能競賽/國際展能節/國際科技展覽',
+  asianSkillsYouth: '亞洲技能競賽（青年組）',
+  national: '全國技能競賽/全國身心障礙者技能競賽',
+  hsVocational: '全國高級中等學校技藝競賽',
+  regional: '全國技能競賽分區（北、中、南）技能競賽',
+  projectCreativity: '專題實作及創意競賽',
+  scienceFair: '全國中小學科學展覽會/臺灣國際科學展覽會',
+  techCreativity: '技術創造力競賽',
+  smartIronman: '智慧鐵人競賽',
+  micromouse: '電腦鼠競賽',
+  artCompetition: '美術比賽',
+  danceCompetition: '舞蹈比賽',
+  musicCompetition: '音樂比賽',
+}
+
+// ── Competition Bonus Result Component ──
+function CompetitionBonusResult({
+  groupCode,
+  selectedCategory,
+}: {
+  groupCode: string
+  selectedCategory: string
+}) {
+  const categories = GROUP_TO_CATEGORIES[groupCode] || []
+  if (categories.length === 0) {
+    return (
+      <div className="text-center py-6 text-gray-500">
+        <p>此群別暫無對應的招生類別資料</p>
+      </div>
+    )
+  }
+
+  interface Section {
+    jsonKey: string
+    categoryLabel: string
+    trades: string[]
+    tiers: Array<{ placings: string[]; bonusPercent: number }>
+    isBoolean: boolean
+  }
+
+  const sections: Section[] = []
+
+  for (const jsonKey of ALL_COMP_KEYS) {
+    if (selectedCategory && jsonKey !== selectedCategory) continue
+
+    if (BOOLEAN_KEY_SET.has(jsonKey)) {
+      // Boolean key — check if any category in the group has this as true
+      const applicable = categories.some(catCode => {
+        const catData = (COMPETITION_ADMISSION_MAP.categories as Record<string, any>)[catCode]
+        return catData?.[jsonKey] === true
+      })
+      if (!applicable) continue
+
+      const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
+      const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
+      sections.push({ jsonKey, categoryLabel: JSON_KEY_LABELS[jsonKey], trades: [], tiers, isBoolean: true })
+    } else {
+      // Trade-list key — collect trades across all categories
+      for (const catCode of categories) {
+        const catData = (COMPETITION_ADMISSION_MAP.categories as Record<string, any>)[catCode]
+        if (!catData) continue
+        const trades: string[] = catData[jsonKey] || []
+        if (trades.length === 0) continue
+
+        let section = sections.find(s => s.jsonKey === jsonKey)
+        if (!section) {
+          const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
+          const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
+          section = { jsonKey, categoryLabel: JSON_KEY_LABELS[jsonKey], trades: [], tiers, isBoolean: false }
+          sections.push(section)
+        }
+        for (const t of trades) {
+          if (!section.trades.includes(t)) section.trades.push(t)
+        }
+      }
+    }
+  }
+
+  // Sort sections by max bonus descending
+  sections.sort((a, b) => {
+    const maxA = a.tiers.length > 0 ? Math.max(...a.tiers.map(t => t.bonusPercent)) : 0
+    const maxB = b.tiers.length > 0 ? Math.max(...b.tiers.map(t => t.bonusPercent)) : 0
+    return maxB - maxA
+  })
+
+  if (sections.length === 0 && selectedCategory) {
+    const compCategories = JSON_KEY_TO_CATEGORIES[selectedCategory] || []
+    const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
+    if (tiers.length > 0) {
+      return (
+        <div>
+          <h3 className="font-bold text-gray-900 mb-3 text-lg">
+            {JSON_KEY_LABELS[selectedCategory] || selectedCategory} — 加分標準
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="bg-indigo-50">
+                  <th className="p-3 text-left font-semibold text-gray-900">名次/等第</th>
+                  <th className="p-3 text-center font-semibold text-gray-900">加分比例</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tiers.map((tier, i) => (
+                  <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
+                    <td className="p-3 text-gray-700">{tier.placings.join('、')}</td>
+                    <td className="p-3 text-center">
+                      <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full font-medium">
+                        +{tier.bonusPercent}%
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  if (sections.length === 0) {
+    return (
+      <div className="text-center py-6 text-gray-500">
+        <p>此群別暫無對應的競賽職類資料</p>
+        <p className="text-sm mt-1">請嘗試選擇特定競賽類別查看加分標準</p>
+      </div>
+    )
+  }
+
+  return (
+    <div>
+      {sections.map((section) => (
+        <div key={section.jsonKey} className="mb-6">
+          <h3 className="font-bold text-gray-900 mb-3 text-lg">
+            {section.categoryLabel}
+          </h3>
+
+          {/* Bonus tiers table */}
+          <div className="overflow-x-auto mb-3">
+            <table className="w-full text-sm mb-4">
+              <thead>
+                <tr className="bg-indigo-50">
+                  <th className="p-3 text-left font-semibold text-gray-900">名次/等第</th>
+                  <th className="p-3 text-center font-semibold text-gray-900">加分比例</th>
+                </tr>
+              </thead>
+              <tbody>
+                {section.tiers.map((tier, i) => (
+                  <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
+                    <td className="p-3 text-gray-700">{tier.placings.join('、')}</td>
+                    <td className="p-3 text-center">
+                      <span className={`inline-block px-3 py-1 rounded-full font-medium ${
+                        tier.bonusPercent >= 30 ? 'bg-green-100 text-green-800' :
+                        tier.bonusPercent >= 20 ? 'bg-blue-100 text-blue-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        +{tier.bonusPercent}%
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Boolean: show applicability mark */}
+          {section.isBoolean ? (
+            <div className="mb-2">
+              <span className="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
+                ✓ 此群別適用
+              </span>
+            </div>
+          ) : section.trades.length > 0 ? (
+            /* Trade list: expandable */
+            <details className="border border-gray-200 rounded-lg">
+              <summary className="px-4 py-2 cursor-pointer text-sm font-medium text-indigo-700 hover:bg-indigo-50 rounded-lg">
+                適用職類（{section.trades.length} 項） 點擊展開
+              </summary>
+              <div className="px-4 pb-3 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
+                  {section.trades.map((trade, i) => (
+                    <div key={i} className="px-2 py-1 text-sm text-gray-700 border-l-2 border-indigo-200">
+                      {trade}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </details>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ── Certificate Bonus Result Component ──
+function CertificateBonusResult({
+  groupCode,
+  level,
+  relevance,
+}: {
+  groupCode: string
+  level: '乙' | '甲'
+  relevance: 'all' | RelevanceLevel
+}) {
+  const categories = GROUP_TO_CATEGORIES[groupCode] || []
+
+  const allCerts = categories.flatMap(catCode => {
+    const certs = getAllCertsForCategory(catCode)
+    const catName = getCategoryName(catCode)
+    return certs.map(c => ({ ...c, categoryCode: catCode, categoryName: catName }))
+  })
+
+  // Deduplicate by code
+  const seen = new Set<string>()
+  const uniqueCerts = allCerts.filter(c => {
+    if (seen.has(c.code)) return false
+    seen.add(c.code)
+    return true
+  })
+
+  // Filter by relevance
+  const filtered = relevance === 'all'
+    ? uniqueCerts
+    : uniqueCerts.filter(c => c.relevance === relevance)
+
+  // Sort by relevance then name
+  const relevanceOrder: Record<string, number> = { '高度相關': 0, '中度相關': 1, '低度相關': 2 }
+  filtered.sort((a, b) => {
+    const ra = relevanceOrder[a.relevance] ?? 9
+    const rb = relevanceOrder[b.relevance] ?? 9
+    if (ra !== rb) return ra - rb
+    return a.name.localeCompare(b.name, 'zh-TW')
+  })
+
+  const bonus = level === '甲' ? 25 : null
+  const bonusKey = level === '甲' ? 'bonus甲' : 'bonus乙'
+
+  if (filtered.length === 0) {
+    return (
+      <div className="text-center py-6 text-gray-500">
+        <p>此群別與相關度篩選條件下無對應證照</p>
+        <p className="text-sm mt-1">請嘗試調整相關度或選擇其他群別</p>
+      </div>
+    )
+  }
+
+  // Group by relevance for display
+  const grouped = new Map<string, typeof filtered>()
+  for (const cert of filtered) {
+    if (!grouped.has(cert.relevance)) grouped.set(cert.relevance, [])
+    grouped.get(cert.relevance)!.push(cert)
+  }
+
+  return (
+    <div>
+      <div className="mb-4 p-4 bg-indigo-50 rounded-lg text-sm">
+        <p className="font-medium text-indigo-900">
+          {level}級證照加分標準：
+          {level === '甲'
+            ? '一律 +25%（不分相關度）'
+            : '高度相關 +15%、中度相關 +8%、低度相關 +4%'}
+        </p>
+      </div>
+
+      {Array.from(grouped.entries()).map(([rel, certs]) => {
+        const certBonus = bonus ?? CERT_BONUS_TABLE[level]?.[rel as RelevanceLevel] ?? 0
+        const relColor = rel === '高度相關'
+          ? 'bg-green-100 text-green-800'
+          : rel === '中度相關'
+            ? 'bg-blue-100 text-blue-800'
+            : 'bg-gray-100 text-gray-700'
+
+        return (
+          <div key={rel} className="mb-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className={`px-3 py-1 rounded-full text-xs font-medium ${relColor}`}>
+                {rel}
+              </span>
+              <span className="text-sm font-medium text-gray-600">
+                加分：+{certBonus}%
+              </span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {certs.map(cert => (
+                <div key={cert.code} className="px-3 py-2 bg-white border border-gray-200 rounded-lg text-sm">
+                  <span className="text-gray-900">{cert.name}</span>
+                  <span className="ml-2 text-gray-400 text-xs">({cert.code})</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function PathwaysPage() {
   const router = useRouter()
   const [selectedPathway, setSelectedPathway] = useState<string | null>(null)
   const [showComparison, setShowComparison] = useState(false)
+
+  // Bonus lookup state
+  const [bonusGroup, setBonusGroup] = useState<string>('')
+  const [bonusCompCategory, setBonusCompCategory] = useState<string>('')
+  const [bonusCertLevel, setBonusCertLevel] = useState<'乙' | '甲'>('乙')
+  const [bonusRelevance, setBonusRelevance] = useState<'all' | RelevanceLevel>('all')
+  const [bonusTab, setBonusTab] = useState<'competition' | 'certificate'>('competition')
 
   // 按鈕點擊追蹤
   const handlePathwayClick = (pathwayId: string) => {
@@ -540,6 +941,131 @@ export default function PathwaysPage() {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        {/* Bonus Lookup Table */}
+        <div className="bg-white rounded-xl p-8 shadow-sm border border-indigo-100 mb-12">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">📊 技優甄審加分對照表</h2>
+            <p className="text-gray-600">查詢競賽名次或技術士證照可獲得的優待加分比例</p>
+          </div>
+
+          {/* Tab Switcher */}
+          <div className="flex justify-center mb-6">
+            <div className="inline-flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => setBonusTab('competition')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                  bonusTab === 'competition'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                🏆 競賽加分
+              </button>
+              <button
+                onClick={() => setBonusTab('certificate')}
+                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                  bonusTab === 'certificate'
+                    ? 'bg-indigo-600 text-white shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                📜 證照加分
+              </button>
+            </div>
+          </div>
+
+          {/* Selectors */}
+          <div className="flex flex-wrap gap-4 justify-center mb-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">選擇群別</label>
+              <select
+                value={bonusGroup}
+                onChange={e => {
+                  setBonusGroup(e.target.value)
+                  setBonusCompCategory('')
+                }}
+                className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[160px]"
+              >
+                <option value="">-- 請選擇 --</option>
+                {Object.entries(GROUP_NAMES).map(([code, name]) => (
+                  <option key={code} value={code}>{name}</option>
+                ))}
+              </select>
+            </div>
+
+            {bonusTab === 'competition' && bonusGroup && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">競賽類別</label>
+                <select
+                  value={bonusCompCategory}
+                  onChange={e => setBonusCompCategory(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[200px]"
+                >
+                  {COMP_DROPDOWN_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {bonusTab === 'certificate' && bonusGroup && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">證照等級</label>
+                  <select
+                    value={bonusCertLevel}
+                    onChange={e => setBonusCertLevel(e.target.value as '乙' | '甲')}
+                    className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <option value="乙">乙級</option>
+                    <option value="甲">甲級</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">相關度</label>
+                  <select
+                    value={bonusRelevance}
+                    onChange={e => setBonusRelevance(e.target.value as 'all' | RelevanceLevel)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <option value="all">全部</option>
+                    <option value="高度相關">高度相關</option>
+                    <option value="中度相關">中度相關</option>
+                    <option value="低度相關">低度相關</option>
+                  </select>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Results Table */}
+          {bonusGroup && bonusTab === 'competition' && (
+            <CompetitionBonusResult
+              groupCode={bonusGroup}
+              selectedCategory={bonusCompCategory}
+            />
+          )}
+
+          {bonusGroup && bonusTab === 'certificate' && (
+            <CertificateBonusResult
+              groupCode={bonusGroup}
+              level={bonusCertLevel}
+              relevance={bonusRelevance}
+            />
+          )}
+
+          {!bonusGroup && (
+            <div className="text-center py-8 text-gray-400">
+              <p className="text-4xl mb-2">👆</p>
+              <p>請先選擇群別以查詢加分資訊</p>
+            </div>
+          )}
+
+          <div className="mt-4 text-xs text-gray-500 text-center">
+            資料來源：115 學年度科技校院技藝技能優良學生甄審入學招生簡章 • 同時持有 2 種以上符合加分之競賽或證照者，限選 1 項優待加分
           </div>
         </div>
 
