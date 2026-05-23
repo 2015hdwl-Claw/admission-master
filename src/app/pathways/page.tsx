@@ -554,7 +554,6 @@ export default function PathwaysPage() {
   const [showComparison, setShowComparison] = useState(false)
 
   // Bonus lookup state
-  const [bonusGroup, setBonusGroup] = useState<string>('')
   const [bonusCategory, setBonusCategory] = useState<string>('')
   const [bonusCompCategory, setBonusCompCategory] = useState<string>('')
   const [bonusCertLevel, setBonusCertLevel] = useState<'乙' | '甲'>('乙')
@@ -911,41 +910,25 @@ export default function PathwaysPage() {
           {/* Selectors */}
           <div className="flex flex-wrap gap-4 justify-center mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">選擇群別</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">招生類別</label>
               <select
-                value={bonusGroup}
+                value={bonusCategory}
                 onChange={e => {
-                  setBonusGroup(e.target.value)
+                  setBonusCategory(e.target.value)
                   setBonusCompCategory('')
-                  const cats = GROUP_TO_CATEGORIES[e.target.value] || []
-                  setBonusCategory(cats[0] || '')
                 }}
                 className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[160px]"
               >
                 <option value="">-- 請選擇 --</option>
-                {Object.entries(GROUP_NAMES).map(([code, name]) => (
-                  <option key={code} value={code}>{name}</option>
+                {Object.entries(
+                  (COMPETITION_ADMISSION_MAP.categories as Record<string, { name: string }>)
+                ).sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true })).map(([code, cat]) => (
+                  <option key={code} value={code}>{code} {cat.name}</option>
                 ))}
               </select>
             </div>
 
-            {bonusGroup && (GROUP_TO_CATEGORIES[bonusGroup] || []).length > 1 && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">招生類別</label>
-                <select
-                  value={bonusCategory}
-                  onChange={e => setBonusCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[160px]"
-                >
-                  {(GROUP_TO_CATEGORIES[bonusGroup] || []).map(catCode => {
-                    const name = getCategoryName(catCode) || catCode
-                    return <option key={catCode} value={catCode}>{catCode} {name}</option>
-                  })}
-                </select>
-              </div>
-            )}
-
-            {bonusTab === 'competition' && bonusGroup && (
+            {bonusTab === 'competition' && bonusCategory && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">競賽類別</label>
                 <select
@@ -960,7 +943,7 @@ export default function PathwaysPage() {
               </div>
             )}
 
-            {bonusTab === 'certificate' && bonusGroup && (
+            {bonusTab === 'certificate' && bonusCategory && (
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">證照等級</label>
@@ -991,14 +974,14 @@ export default function PathwaysPage() {
           </div>
 
           {/* Results Table */}
-          {bonusGroup && bonusCategory && bonusTab === 'competition' && (
+          {bonusCategory && bonusTab === 'competition' && (
             <CompetitionBonusResult
               catCode={bonusCategory}
               selectedCategory={bonusCompCategory}
             />
           )}
 
-          {bonusGroup && bonusCategory && bonusTab === 'certificate' && (
+          {bonusCategory && bonusTab === 'certificate' && (
             <CertificateBonusResult
               catCode={bonusCategory}
               level={bonusCertLevel}
@@ -1006,7 +989,7 @@ export default function PathwaysPage() {
             />
           )}
 
-          {!bonusGroup && (
+          {!bonusCategory && (
             <div className="text-center py-8 text-gray-400">
               <p className="text-4xl mb-2">👆</p>
               <p>請先選擇群別以查詢加分資訊</p>
