@@ -1,0 +1,535 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hant-TW" xml:lang="zh-Hant-TW">
+
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="X-Content-Type-Options" content="nosniff" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="title" content="&lt;%= DocumentTitleFull %>" /><meta name="keywords" content="技藝競賽,競賽資訊平臺,全國高中競賽,全國高中技藝平臺,技藝競賽資訊平臺,高中技藝競賽" /><meta name="description" content="提供每年度全國高級中等學校學生一資訊平臺，供參與技藝競賽的人員所有相關資訊，包含競賽成果、相關辦法、歷屆考題等。" /><meta name="robots" content="index" /><meta http-equiv="Expires" content="0" /><meta http-equiv="Cache-Control" content="no-cache" /><meta http-equiv="Pragma" content="no-cache" /><title>
+
+	首頁－全國高級中等學校技藝競賽資訊平臺
+
+</title>
+
+    <link type="text/css" rel="Stylesheet" href="/Styles/index.css" />
+
+    <link href="Styles/page_1_1.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_2.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_3.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_4.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_5.css" rel="stylesheet" type="text/css" />
+
+    <link type="text/css" rel="Stylesheet" href="/Styles/reset.css" />
+
+    
+
+    
+
+    
+
+    
+
+    <link type="text/css" rel="Stylesheet" href="/JQuery/CSS/jquery-ui.custom.css" />
+
+    
+
+    
+
+    <script type="text/javascript" src="/JQuery/jquery.js"></script>
+
+    <script type="text/javascript" src="/JQuery/sweetalert2/dist/sweetalert2.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/JQuery/sweetalert2/dist/sweetalert2.css">
+
+    <script type="text/javascript" src="/JQuery/jquery-ui/jquery-ui.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="/JQuery/jquery-ui/jquery-ui.css">
+
+    <script type="text/javascript" src="/JQuery/JS/ui.datepicker-zh-TW.js"></script>
+
+    <script type="text/javascript" src="/JQuery/JS/JQueryCombobox.js"></script>
+
+    
+
+    <script type="text/javascript" src="/Scripts/mootools1_4_2.js"></script>  
+
+   
+
+    <script type="text/javascript" src="/Scripts/Master.js"></script>
+
+    
+
+    
+
+    <script type="text/javascript">
+
+     if (top != self) { top.location = encodeURI(self.location); }
+
+    $(function () {
+
+        var msg='';
+
+        var udr_typeM='';
+
+
+
+        
+
+        //msg = `<b>系統公告</b>
+
+		//	<ol>
+
+		//		<li>全國高級中等學校技藝競賽資訊平臺於112年5月8日至112年5月21日進行移機作業，平臺於此維護期間將會中斷服務，造成不便之處，敬請見諒！</li>
+
+		//		<li>「111學年度全國高級中等學校學生技藝競賽產學人才媒合」填報作業，請於5月22日至5月31日進行填報操作。</li>
+
+		//		<li>移機後，技藝競賽資訊平臺網址並無變更，與目前網址相同。</li>
+
+		//	</ol>
+
+		//`;
+
+       
+
+        if(msg.trim()!="" &&  msg!=null){
+
+			swal("訊息通知",msg)
+
+			//swal({ html:msg, title:"訊息通知"});
+
+		}
+
+
+
+        if(udr_typeM!=""){
+
+           $("#udr_typeM").val(udr_typeM);
+
+           }
+
+
+
+       $("#udr_typeM").change(function () {
+
+              var udr_type=$(this).val();
+
+
+
+              
+
+        
+
+              window.location.href = '/Default/Index?c_class=' + udr_type;
+
+            });
+
+            
+
+            // DatePicker 初始化由 Scripts/Master.js 統一處理（包含鍵盤可聚焦的觸發按鈕）
+
+            $('#udr_typeM').val('');
+
+
+
+
+
+            $(".gsc-control-cse").css("background", "none");
+
+
+
+            // $( ".JQueryDatePicker" ).datepicker(); // 由 Scripts/Master.js 初始化
+
+     });
+
+
+
+
+
+        function InsertSysLog(mnu_id, mnu_url) {
+
+            //使用者動作寫入記錄檔
+
+            //PageMethod('/SysLog/InsertSysLog', { 'mnu_id': mnu_id }, function () {
+
+
+
+            location.href = mnu_url;
+
+            //});
+
+        }
+
+   
+
+        function SearchWeb() {
+
+            var keyword = $("keyword").get("value");
+
+            var webSite = 'http://sci-me.k12ea.gov.tw/';
+
+            window.open("https://www.google.com/search?sitesearch=" + webSite + "&as_q=" + keyword, "_new");
+
+        }
+
+
+
+        //google站內搜尋
+
+        (function () {
+
+            var cx = '007698444463980975231:rke1zpkj-jk';
+
+            var gcse = document.createElement('script');
+
+            gcse.type = 'text/javascript';
+
+            gcse.async = true;
+
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+
+        '//www.google.com/cse/cse.js?cx=' + cx;
+
+            var s = document.getElementsByTagName('script')[0];
+
+            s.parentNode.insertBefore(gcse, s);
+
+        });
+
+      
+
+      
+
+    </script>
+
+    
+
+    <style type="text/css">
+
+        .style1
+
+        {
+
+            width: 7px;
+
+        }
+
+        .drop-down-menu ul
+
+        {
+
+            /*隱藏次選單*/
+
+            display: none;
+
+        }
+
+        
+
+        .drop-down-menu:hover > ul
+
+        {
+
+            /* 滑鼠滑入展開次選單*/
+
+            display: block;
+
+        }
+
+        .drop-down-category ul
+
+        {
+
+            display: none;
+
+        }
+
+        .drop-down-category:hover > ul
+
+        {
+
+            /* 滑鼠滑入展開次選單*/
+
+            display: block;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- GN1240100E／GN1240500E：跳過區塊、網站導覽（前幾個 Tab 順序可及） -->
+
+    <div class="skip-nav" role="navigation" aria-label="頁面捷徑">
+
+        <a href="#main-content" class="skip-link" accesskey="C" title="跳到中央主要內容區。快速鍵 C：Internet Explorer 為 Alt + C；Firefox／Chrome 多為 Alt + Shift + C（依瀏覽器而定）。">跳到主要內容</a>
+
+        <span class="skip-link-sep" aria-hidden="true">|</span>
+
+        <a href="/Default/SiteMap" class="skip-link" accesskey="S" title="網站導覽（Site Map）。快速鍵 S：Internet Explorer 為 Alt + S；Firefox／Chrome 多為 Alt + Shift + S（依瀏覽器而定）。">網站導覽（Site Map）</a>
+
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~~~Header~~~~~~~~~~~~~~~~~ -->
+
+    <div class="header" role="banner">
+
+        <div class="content header_BG">
+
+            <div class="logo">
+
+                <a href="/" title="回首頁">
+
+                    <img src="/images/LOGO.png" alt="回首頁" /></a>
+
+            </div>
+
+            <div class="bar">
+
+                <!--<input class="search-box" id="search-ICON" type="text" name="search-box" />
+
+                   <a href="/RegContest/Seminar" target="_self"
+
+                    title="109說明會報名" style="float: left; margin-top: -7%">
+
+                    <img title="109說明會報名" src="../../Images/icon_03.jpg" style="margin-right:10px;  border: 3px solid #666;"/></a> -->
+
+                <a href="/Download/115起_全國高級中等學校學生技藝競賽_成績複查申請表.pdf" target="_blank"
+
+                    rel="noopener noreferrer" title="下載：115起_全國高級中等學校學生技藝競賽_成績複查申請表（PDF，另開新視窗）" style="float: left; margin-top: -6.5%;padding-right: 5px;">
+
+                    <img alt="下載：115起_全國高級中等學校學生技藝競賽_成績複查申請表（PDF，另開新視窗）" src="../../images/Default/成績複查申請表按鈕.jpg" /></a>
+
+                <a href="/Download/115起_成績異議處理流程與申請表.pdf" target="_blank"
+
+                    rel="noopener noreferrer" title="下載：115起_成績異議處理流程與申請表（PDF，另開新視窗）" style="float: left; margin-top: -6.5%">
+
+                    <img alt="下載：115起_成績異議處理流程與申請表（PDF，另開新視窗）" src="../../images/Default/index_downpdf.jpg" /></a>
+
+                <a href="https://signupsci-me.k12ea.gov.tw/Login/Index" class="btn" target="_blank"
+
+                    rel="noopener noreferrer" title="報名及成績系統（另開新視窗）">報名及成績系統</a> 
+
+                    <a href="/"
+
+                        class="btn" title="回首頁">回首頁</a> 
+
+                      
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~Navigation~~~~~~~~~~~~~~~ -->
+
+    <div class="navigation" role="navigation" aria-label="主選單">
+
+        <div class="content">
+
+            <div class="content menu">
+
+                
+
+
+
+<ul>
+
+    
+
+    <li><a href="/Contest/ContestAnnounList" >
+
+        競賽資訊</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="/Contest/ContestIntroduce" >
+
+        競賽職種介紹</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="/Announcement/RelMeasures" >
+
+        相關辦法</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="/CollaMatch/ViewListAll" >
+
+        產學媒合</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="https://www.youtube.com/playlist?list=PLy9Ar7RX6A-0sYqg5eynZF4kPsrPipumt" >
+
+        技職教育宣導</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="/RegContest/ListView" >
+
+        服務調查</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li><a href="https://sci-me.k12ea.gov.tw/Study" >
+
+        海外研習成果</a>
+
+        <ul>
+
+            
+
+        </ul>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+    
+
+    <li>
+
+		<a href="https://forms.gle/6YdtdLtCGiEXAVhR9" target="_blank" rel="noopener noreferrer" title="114說明會報名（另開新視窗）">114說明會報名（另開新視窗）</a>
+
+    </li>
+
+    <div class="dividers">l</div>
+
+</ul>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ~~~~~~~~~~~~~~~Container~~~~~~~~~~~~~~~ -->
+
+    <div class="container">
+
+        <div class="content">
+
+            
+
+            <div id="main-content" role="main" tabindex="-1">
+
+            
+
+    <h1 class="main_title" style="margin:0 0 0.5em 0; font-size:1.25rem;">首頁</h1>
+
+
+
+            
+
+            
+
+            <div class="hr" style="width: 95%">
+
+            </div>
+
+            
+
+    <script type="text/javascript">       
+
+     $(document).ready(function () {
+
+          var msg='';
+
+           if(msg.trim()!="" && msg!=null){           
+
+           }else{
+
+            //swal("報名系統－停機公告","本系統預計於109/03/19～109/04/14進行安全維護作業，屆時本系統將無法提供服務，造成不便敬請見諒。");
+
+           }
+
+           
+
+           //DailogMsg_Show();
+
+        });
+
+        //Dailog面板
+
+    function DailogMsg_Show() {
+
+        $("#DialogMsg").css("dispaly", "");
+
+        $("#DialogMsg").dialog({
+
+            show: 'blind',
+
+            hide: 'blind',
+
+            title: '公告',
+
+            modal: true,
+
+            top: 20,
+
+            width: 800,
+
+            height: 450,
+
+   

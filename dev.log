@@ -1,0 +1,101 @@
+
+> admission-master@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.18.16:3000
+- Environments: .env.local
+✓ Ready in 522ms
+Creating turbopack project {
+  dir: 'C:\\Users\\ntpud\\.claude\\projects\\admission-master',
+  testMode: true
+}
+
+
+[2m[237.23ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[  0.07ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 31.79ms][22m  [2m ↳ [22mSetup compiler
+[2m[  0.90ms][22m    [2m ↳ [22mPostCSS AST -> Tailwind CSS AST
+[2m[ 30.82ms][22m    [2m ↳ [22mCreate compiler
+[2m[  0.29ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[  2.11ms][22m  [2m ↳ [22mSetup scanner
+[2m[ 96.99ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 19.02ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 73.12ms][22m  [2m ↳ [22mBuild utilities
+[2m[  7.87ms][22m  [2m ↳ [22mTransform Tailwind CSS AST into PostCSS AST
+[2m[  5.30ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+ GET /ability-account 200 in 761ms (next.js: 273ms, application-code: 488ms)
+
+[2m[142.93ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[  0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[  0.21ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[131.55ms][22m  [2m ↳ [22mScan for candidates
+[2m[  1.37ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[  3.43ms][22m  [2m ↳ [22mBuild utilities
+[2m[  5.83ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[38.38ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.16ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[32.82ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 1.28ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 1.25ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 2.69ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[40.13ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.22ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[34.58ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 1.07ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 1.28ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 2.80ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[54.82ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.00ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.15ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[37.54ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 1.47ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[12.47ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 3.00ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[53.25ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.18ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[45.11ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 1.07ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 4.17ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 2.50ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[61.62ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.11ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[46.21ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 0.96ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[12.27ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 1.87ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[39.10ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 0.15ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[32.84ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 1.08ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 1.34ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 3.55ms][22m  [2m ↳ [22mUpdate PostCSS AST
+
+
+[2m[48.79ms][22m [@tailwindcss/postcss] src\app\globals.css
+[2m[ 0.01ms][22m  [2m ↳ [22mQuick bail check
+[2m[ 4.50ms][22m  [2m ↳ [22mRegister full rebuild paths
+[2m[38.86ms][22m  [2m ↳ [22mScan for candidates
+[2m[ 0.74ms][22m  [2m ↳ [22mRegister dependency messages
+[2m[ 0.97ms][22m  [2m ↳ [22mBuild utilities
+[2m[ 3.33ms][22m  [2m ↳ [22mUpdate PostCSS AST
+

@@ -1,0 +1,1564 @@
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<title>技能競賽主題網站</title>
+<!-- favicons -->
+<link rel="apple-touch-icon" sizes="180x180" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/favicon-16x16.png">
+<link rel="manifest" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline' 'nonce-nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA' 210.71.232.197 html5shim.googlecode.com cdn.jsdelivr.net widget.taggbox.com connect.facebook.net googletagmanager.com widget.tagembed.com www.googletagmanager.com;">
+<link rel="icon" href="https://worldskillstw.wdasec.gov.tw/assets/frontend/favicon/favicon.ico">
+<!-- css -->
+<link href="https://worldskillstw.wdasec.gov.tw/assets/frontend/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC:100,300,400,500,700,900" rel="stylesheet"/>
+<link href="https://worldskillstw.wdasec.gov.tw/assets/frontend/css/style.css" rel="stylesheet">
+<link href="https://worldskillstw.wdasec.gov.tw/assets/public/css/style.css" rel="stylesheet">
+
+<style nonce="nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA">
+.pl-2{ padding-left: 2.5rem !important;}
+
+ .sidebar {  background-color: #7bbe1f !important; }
+
+#sidebar{       background-image: url(https://worldskillstw.wdasec.gov.tw/uploads/style/173267560819572.png);}
+
+
+
+
+          .offcanvas.main-menu {
+        background-color:
+          #ffff99
+          !important;
+      }
+
+     #MainMenu {
+      background-image: url(https://worldskillstw.wdasec.gov.tw/uploads/style/173019373434963.png);
+      /* 保持背景圖（吉祥物）在右下角，並依需求調整大小與位置 */
+      background-position: right bottom 20px !important;
+      background-repeat: no-repeat !important;
+      background-size: 30% auto !important;
+    }
+
+
+
+
+</style>
+ <link href="https://worldskillstw.wdasec.gov.tw/assets/frontend/flipdown/flipdown.min.css" rel="stylesheet">
+<style nonce="nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA">
+.flip-container {
+  display: flex;
+  justify-content: center;
+}
+
+@media(max-width: 550px) {
+  #flipdown {
+    transform: scale(0.8);
+    transform-origin: top center;
+  }
+}
+</style>
+
+</head>
+
+<body>
+<div class="skippy visually-hidden-focusable overflow-hidden">
+  <div class="container-xl text-center"> <small><a title="超連結" alt="超連結" class="d-inline-flex p-1 m-1" href="#main-content">開始網站內容</a></small> </div>
+</div>
+<!-- /skippy -->
+
+
+<header class="header-nav" id="header_nav">
+  <ul class="nav justify-content-end align-items-center">
+<li class="nav-item"><a alt="超連結" href="#U" class="nav-link acess-key" accesskey="U" title="右上方功能區，包含回首頁、網站導覽、語言切換，使用快捷鍵Alt+U" tabindex="-1">:::</a></li>
+    <li class="nav-item"><a alt="超連結" href="https://worldskillstw.wdasec.gov.tw" class="nav-link" title="回網站首頁">
+	<i class="bi bi-house-door-fill"></i><span class="visually-hidden-focusable">回網站首頁</span></a>
+	</a></li>
+    <li class="nav-item"><a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/album/first" class="nav-link" title="競賽花絮"><i class="bi bi-camera-fill"></i><span class="visually-hidden-focusable">競賽花絮</span></a></li>
+    <li class="nav-item"><a alt="超連結" href="https://www.youtube.com/user/LaborChanne/featured" class="nav-link" title="連結至Youtube (開新視窗)" target="_blank">
+        <i class="bi bi-youtube"></i><span class="visually-hidden-focusable">連結至Youtube (開新視窗)</span>
+   </a></li>
+   <li class="nav-item"><a alt="超連結" href="https://www.facebook.com/WDASEC/" class="nav-link" title="連結至Facebook (開新視窗)" target="_blank">
+        <i class="bi bi-facebook"></i><span class="visually-hidden-focusable">連結至Facebook (開新視窗)</span>
+    </a></li>
+    <li class="nav-item"><a alt="超連結" href="https://www.instagram.com/worldskillstw/" class="nav-link" title="連結至Instagram (開新視窗)" target="_blank">
+        <i class="bi bi-instagram"></i><span class="visually-hidden-focusable">連結至Instagram (開新視窗)</span>
+    </a></li>
+  <li class="nav-item">
+         <a alt="超連結" href="https://line.me/R/ti/p/@153dnycq" class="nav-link"
+                              title="分享至 Line" target="_blank">
+                              <i class="bi bi-line"></i>
+                              <span class="visually-hidden-focusable">分享至 Line</span>
+                            </a></li>
+    <li class="nav-item"><a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/service/navigation" class="nav-link" title="網站鍵盤使用說明與各單元導覽">網站導覽</a></li>
+    <li class="nav-item">
+            <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/lang/en" class="nav-link" title="切換網站語言為英文">English</a>
+
+        
+
+
+
+    </li>
+</ul>
+</header>
+<!-- /header nav -->
+
+<div class="sidebar" id="sidebar">
+  <div class="logo">
+    <h1><a alt="超連結" href="https://worldskillstw.wdasec.gov.tw" title="連結至網站首頁">
+	<img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/style/170900607674440.png" alt="第52屆全國技能競賽logo"/></a></h1>
+  </div>
+  <div class="toggle-btn">
+    <ul class="list-unstyled">
+      <li><a alt="超連結" class="acess-key" href="#M" accesskey="M" title="網站主選單，使用快捷鍵Alt+M" tabindex="-1">:::</a></li>
+      <li><a alt="超連結" class="btn btn-sm btn-outline-light border-3 rounded-4" data-bs-toggle="offcanvas" href="#MainMenu" role="button" aria-controls="MainMenu" title="開啟網站主選單">
+        <i class="bi bi-list m-0"></i><span>主選單</span></a></li>
+    </ul>
+  </div>
+  <!-- /toggle-btn -->
+  <div class="extra-links-wrapper" >
+    <ul class="list-unstyled p-0" id="extra_links">
+             <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/6"  data-bs-toggle="tooltip" data-bs-placement="right" title="亞洲賽資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/174287136624831.png" alt="亞洲賽"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/1"  data-bs-toggle="tooltip" data-bs-placement="right" title="全國賽資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/166676118392552.png" alt="全國賽"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/2"  data-bs-toggle="tooltip" data-bs-placement="right" title="身障賽資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/166676120398102.png
+" alt="身障賽"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/3"  data-bs-toggle="tooltip" data-bs-placement="right" title="國際賽資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/166676126112512.png" alt="國際賽"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/4"  data-bs-toggle="tooltip" data-bs-placement="right" title="展能節資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/166676125247542.png" alt="展能節"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/about/about/5"  data-bs-toggle="tooltip" data-bs-placement="right" title="達人盃資訊頁">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/166815946397042.png
+" alt="達人盃"/></a>
+    </li>
+                  <li class="mb-2 extra_links_li">
+		 <a alt="超連結" href="https://skillsweek.wdasec.gov.tw/skillsweek/#"  data-bs-toggle="tooltip" data-bs-placement="right" title="其它">
+
+        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/icon/173457127732571.png" alt="其它"/></a>
+    </li>
+            </ul>
+  </div>
+  <!-- /extra-links-wrapper -->
+</div>
+<!-- /sidebar -->
+
+  <div class="offcanvas offcanvas-start main-menu main-menu-expanded" data-bs-scroll="true" tabindex="-1" id="MainMenu"
+    aria-labelledby="MainMenuLabel">
+    <div class="offcanvas-header">
+      <div class="offcanvas-title fs-5 ms-3" id="MainMenuLabel">網站主選單</div>
+      <button type="button" class="btn-close text-reset tfs-14" data-bs-dismiss="offcanvas" title="關閉選單"
+        aria-label="關閉選單"></button>
+    </div>
+    <div class="offcanvas-body">
+      
+      <div class="mega-menu-wrapper">
+        
+        <div class="mega-menu-row">
+          
+          <div class="mega-menu-column">
+            <div class="mega-menu-category">
+              <h3 class="mega-menu-title">
+	<a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about">               
+ <i class="bi bi-lightbulb me-2"></i>認識競賽
+</a>             
+ </h3>
+              <ul class="mega-menu-list">
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news">最新消息</a></li>
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about">關於競賽</a></li>
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/profession">職類介紹</a></li>
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/adaptive-testing">適性測驗</a></li>
+                                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/page/6">技能競賽吉祥物</a></li>
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/page/4">主視覺</a></li>
+                                  <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/page/3">歷史簡介</a></li>
+                              </ul>
+            </div>
+          </div>
+
+          
+          <div class="mega-menu-column">
+            <div class="mega-menu-category">
+              <h3 class="mega-menu-title">
+	<a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information">     
+                        <i class="bi bi-calendar-event me-2"></i>
+                              競賽資訊
+</a>             
+ </h3>
+              <ul class="mega-menu-list">
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info1">
+		 競賽日程</a></li>
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info2">
+		 交通資訊與賽場平面圖</a></li>
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info4">
+		 選手接駁及住宿</a></li>
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info5">
+		 團體導覽</a></li>
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info6">
+		 戰情中心</a></li>
+                                  <li>
+             		 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/information/page/info7">
+		 技能體驗站</a></li>
+                              </ul>
+            </div>
+          </div>
+
+          
+          <div class="mega-menu-column">
+            <div class="mega-menu-category">
+              <h3 class="mega-menu-title">
+ <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/warmup">    
+                        <i class="bi bi-stopwatch me-2"></i>
+              
+               賽前暖身
+</a>             
+ </h3>
+              <ul class="mega-menu-list">
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/warmup/speech/first/1">國手校園演講</a></li>
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/warmup/cheer">為選手加油</a></li>
+                                              </ul>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="mega-menu-row mega-menu-row-bottom">
+          
+          <div class="mega-menu-column">
+            <div class="mega-menu-category">
+              <h3 class="mega-menu-title">
+<a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement">     
+                       <i class="bi bi-trophy me-2"></i>
+              
+                競賽成果
+</a>             
+ </h3>
+              <ul class="mega-menu-list">
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/hero/first">英雄榜</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/co-organiser/first">協辦單位</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/sponsor/first">贊助單位</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/review/first">賽事回顧</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/special/first">得獎選手特輯</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/showcase/first">得獎作品展示館</a></li>
+                                                      <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/achievement/interview/all/1/1">國手採訪</a></li>
+                              </ul>
+            </div>
+          </div>
+
+          
+          <div class="mega-menu-column">
+            <div class="mega-menu-category">
+              <h3 class="mega-menu-title">
+  <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/media">    
+                     <i class="bi bi-play-circle me-2"></i>
+              
+                影音專區
+</a>
+              </h3>
+              <ul class="mega-menu-list">
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/album/first">競賽花絮</a></li>
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/live/first">賽場直擊</a></li>
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/video/first/1">賽事影片</a></li>
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/theme/first">主題曲</a></li>
+                                                    <li><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/media_search">快速搜尋</a></li>
+                              </ul>
+            </div>
+          </div>
+
+          
+          <div class="mega-menu-column mega-menu-mascot-column">
+            
+          </div>
+        </div>
+
+        
+        <div class="mega-menu-footer-wrapper">
+          <div class="mega-menu-footer">
+            <a title="超連結" alt="超連結" href="#" target="_blank" class="mega-menu-btn hide">
+              前往技能光譜 <i class="bi bi-box-arrow-up-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+          </div>
+    <!-- /offcanvas-body -->
+  </div>
+<!-- /offcanvas main-menu -->
+
+<div class="main-content" id="main-content">
+  <div class="container-fluid">
+    <main>
+       
+    <main>
+      <div><a alt="超連結" class="acess-key" href="#C" accesskey="C" name="C" title="開始網站內容，使用快捷鍵Alt+C" tabindex="-1">:::</a></div>
+      <article>
+        <section class="mb-xl-5 mb-4">
+          <div class="card card-body shadow p-1">
+            <div id="carouselIndex" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                              <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="0" class=active aria-current=true
+                aria-label="Slide 1"></button>
+                             <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="1" 
+                aria-label="Slide 2"></button>
+                             <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="2" 
+                aria-label="Slide 3"></button>
+                             <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="3" 
+                aria-label="Slide 4"></button>
+                             <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="4" 
+                aria-label="Slide 5"></button>
+                             <button type="button" data-bs-target="#carouselIndex"
+                data-bs-slide-to="5" 
+                aria-label="Slide 6"></button>
+                            </div>
+              <div class="carousel-inner">
+                              <div class="carousel-item active" data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/503">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260420154917.png"
+                        class="d-block w-100" alt="第56屆全國技能競賽">
+                    </a>
+            </div>
+                              <div class="carousel-item " data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/504">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260421173717.png"
+                        class="d-block w-100" alt="2026第19屆身障賽">
+                    </a>
+            </div>
+                              <div class="carousel-item " data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/477">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260508091717.jpg"
+                        class="d-block w-100" alt="團導最後一波">
+                    </a>
+            </div>
+                              <div class="carousel-item " data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/494">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260328103527.png"
+                        class="d-block w-100" alt="分區賽英雄榜-青年組">
+                    </a>
+            </div>
+                              <div class="carousel-item " data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/486">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260325103834.png"
+                        class="d-block w-100" alt="56分區賽-英雄榜-青少年組">
+                    </a>
+            </div>
+                              <div class="carousel-item " data-bs-interval="5200">
+                    <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/473">
+                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260223114853.png"
+                        class="d-block w-100" alt="重點賽程all(更新完整時程)">
+                    </a>
+            </div>
+                            </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndex" data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> <span class="visually-hidden">前一張</span> </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndex" data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span> <span class="visually-hidden">下一張</span> </button>
+            </div>
+            <!-- /carousel -->
+          </div>
+          <!-- /card -->
+        </section>
+
+    <!-- 首頁增加廣告小輪播區塊 -->
+<section class="mb-xl-5 mb-4">
+          <div class="card card-body shadow p-1">
+            <div id="carouselSmallBanners" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselSmallBanners"
+                  data-bs-slide-to="0" class=active aria-current=true
+                  aria-label="Slide 1"></button>
+                              </div>
+              <div class="carousel-inner">
+                                                  <div class="carousel-item active" data-bs-interval="4000">
+                    <div class="row g-2">
+                                                                        <div class="col-md-4 position-relative">
+                            <a title="超連結" alt="超連結" href="https://www.wdasec.gov.tw/News.aspx?n=338EAE7851985E1C&amp;sms=8D2612FA39DF1586" class="d-block">
+                              <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260515132024.png" class="img-fluid w-100" alt="image">
+                                                          </a>
+                          </div>
+                                                                                                                          <div class="col-md-4 position-relative">
+                            <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/profession" class="d-block">
+                              <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260515132040.png" class="img-fluid w-100" alt="image">
+                                                          </a>
+                          </div>
+                                                                                                                          <div class="col-md-4 position-relative">
+                            <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/album/72" class="d-block">
+                              <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/banners/20260515132117.png" class="img-fluid w-100" alt="image">
+                                                          </a>
+                          </div>
+                                                                                            </div>
+                  </div>
+                              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselSmallBanners" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">前一組</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselSmallBanners" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">下一組</span>
+              </button>
+            </div>
+          </div>
+        </section>
+        
+
+<!-- 近期亮點區塊 -->  
+   
+	  
+<section class="mb-xl-5 interview-list mb-4">
+          <h2 class="fs-3 mb-3"><i class="bi bi-lightbulb me-3"></i>近期亮點 Featured Now</h2>
+		  
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 align-items-stretch gy-4 gy-md-5">
+
+
+
+
+
+        
+           <div class="col">
+                    <div class="card bg-light shadow-sm h-100">
+                      <div class="card-body">
+                        <div class="tag-date">
+                          <div class="month">05月</div>
+                          <div class="date">15</div>
+                        </div>
+                        <h4 class="fs-5 mb-2 pe-5">
+						📢第56屆全國技能競賽─團體導覽手刀搶約最後一波🔥🔥🔥  &nbsp;
+						</h4>
+                        <h5 class="fs-6 mb-3">&nbsp;</h5>
+                        <div class="mb-0">
+                         <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/477" target="{{ $feature->link=='' ? '' : '_blank">
+                                                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/featurenow/177884132255551.png" class="img-fluid" alt="📢第56屆全國技能競賽─團體導覽手刀搶約最後一波🔥🔥🔥 photo 2">
+                        </a>
+                    </div>
+
+                        
+
+                        <ul class="nav d-flex">
+                          <li class="nav-item me-auto"><small class="me-1">分享至：</small>
+                          <a alt="超連結" href="https://lineit.line.me/share/ui?url=https://worldskillstw.wdasec.gov.tw/about/news-post/477"
+                          class="fs-5 text-dark me-2" title="分享至 Line" target="_blank">
+                            <i class="bi bi-line"></i>
+                            <span class="visually-hidden-focusable">分享至 Line</span>
+                        </a>
+                         <a alt="超連結" href="https://www.facebook.com/sharer.php?u=https://worldskillstw.wdasec.gov.tw/about/news-post/477"
+                         class="fs-5 text-dark me-2" title="分享至 Facebook" target="_blank">
+                            <i class="bi bi-facebook"></i><span class="visually-hidden-focusable">分享至 Facebook</span>
+                        </a>
+                        <a alt="超連結" href="https://www.instagram.com/?url=https://worldskillstw.wdasec.gov.tw/about/news-post/477"
+                        class="fs-5 text-dark" title="分享至 Instagram" target="_blank">
+                            <i class="bi bi-instagram"></i>
+                            <span class="visually-hidden-focusable">分享至 Instagram</span></a>
+                        </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /card -->
+                  </div>
+
+        
+           <div class="col">
+                    <div class="card bg-light shadow-sm h-100">
+                      <div class="card-body">
+                        <div class="tag-date">
+                          <div class="month">03月</div>
+                          <div class="date">23</div>
+                        </div>
+                        <h4 class="fs-5 mb-2 pe-5">
+						🛌職人競技守護者 ─ 第56屆全國技能競賽「裁判群特約飯店」住宿及訂房指引🏨  &nbsp;
+						</h4>
+                        <h5 class="fs-6 mb-3">&nbsp;</h5>
+                        <div class="mb-0">
+                         <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/484" target="{{ $feature->link=='' ? '' : '_blank">
+                                                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/featurenow/177486464630161.png" class="img-fluid" alt="🛌職人競技守護者 ─ 第56屆全國技能競賽「裁判群特約飯店」住宿及訂房指引🏨 photo 2">
+                        </a>
+                    </div>
+
+                        
+
+                        <ul class="nav d-flex">
+                          <li class="nav-item me-auto"><small class="me-1">分享至：</small>
+                          <a alt="超連結" href="https://lineit.line.me/share/ui?url=https://worldskillstw.wdasec.gov.tw/about/news-post/484"
+                          class="fs-5 text-dark me-2" title="分享至 Line" target="_blank">
+                            <i class="bi bi-line"></i>
+                            <span class="visually-hidden-focusable">分享至 Line</span>
+                        </a>
+                         <a alt="超連結" href="https://www.facebook.com/sharer.php?u=https://worldskillstw.wdasec.gov.tw/about/news-post/484"
+                         class="fs-5 text-dark me-2" title="分享至 Facebook" target="_blank">
+                            <i class="bi bi-facebook"></i><span class="visually-hidden-focusable">分享至 Facebook</span>
+                        </a>
+                        <a alt="超連結" href="https://www.instagram.com/?url=https://worldskillstw.wdasec.gov.tw/about/news-post/484"
+                        class="fs-5 text-dark" title="分享至 Instagram" target="_blank">
+                            <i class="bi bi-instagram"></i>
+                            <span class="visually-hidden-focusable">分享至 Instagram</span></a>
+                        </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /card -->
+                  </div>
+
+        
+           <div class="col">
+                    <div class="card bg-light shadow-sm h-100">
+                      <div class="card-body">
+                        <div class="tag-date">
+                          <div class="month">04月</div>
+                          <div class="date">02</div>
+                        </div>
+                        <h4 class="fs-5 mb-2 pe-5">
+						📄 報帳不迷路！第56屆全國技能競賽【選手】專屬住宿費報支指引 🛡️  &nbsp;
+						</h4>
+                        <h5 class="fs-6 mb-3">&nbsp;</h5>
+                        <div class="mb-0">
+                         <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/498" target="{{ $feature->link=='' ? '' : '_blank">
+                                                        <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/featurenow/177633307092921.png" class="img-fluid" alt="📄 報帳不迷路！第56屆全國技能競賽【選手】專屬住宿費報支指引 🛡️ photo 2">
+                        </a>
+                    </div>
+
+                        
+
+                        <ul class="nav d-flex">
+                          <li class="nav-item me-auto"><small class="me-1">分享至：</small>
+                          <a alt="超連結" href="https://lineit.line.me/share/ui?url=https://worldskillstw.wdasec.gov.tw/about/news-post/498"
+                          class="fs-5 text-dark me-2" title="分享至 Line" target="_blank">
+                            <i class="bi bi-line"></i>
+                            <span class="visually-hidden-focusable">分享至 Line</span>
+                        </a>
+                         <a alt="超連結" href="https://www.facebook.com/sharer.php?u=https://worldskillstw.wdasec.gov.tw/about/news-post/498"
+                         class="fs-5 text-dark me-2" title="分享至 Facebook" target="_blank">
+                            <i class="bi bi-facebook"></i><span class="visually-hidden-focusable">分享至 Facebook</span>
+                        </a>
+                        <a alt="超連結" href="https://www.instagram.com/?url=https://worldskillstw.wdasec.gov.tw/about/news-post/498"
+                        class="fs-5 text-dark" title="分享至 Instagram" target="_blank">
+                            <i class="bi bi-instagram"></i>
+                            <span class="visually-hidden-focusable">分享至 Instagram</span></a>
+                        </li>
+                          
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /card -->
+                  </div>
+
+                  </div>
+                <!-- /row -->
+             
+</section> 
+
+
+
+        <section class="mb-xl-5 mb-4" id="IndexNewsTab">
+          <h2 class="fs-3 mb-3"><i class="bi bi-megaphone me-3"></i>最新消息 Latest News</h2>
+          <div class="inner-tabs-tier-1">
+            <ul class="nav nav-pills" role="tablist">
+			<li class="nav-item" role="presentation">
+                <button class="nav-link active" id="c0-tab" data-bs-toggle="tab"
+                data-bs-target="#C0" type="button" role="tab"
+                 aria-controls="C0" aria-selected="true">
+
+		全部
+             </button>
+              </li>
+
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c1-tab" data-bs-toggle="tab"
+                data-bs-target="#C1" type="button" role="tab"
+                 aria-controls="C1" >
+                 亞洲賽</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c2-tab" data-bs-toggle="tab"
+                data-bs-target="#C2" type="button" role="tab"
+                 aria-controls="C2" >
+                 全國賽</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c3-tab" data-bs-toggle="tab"
+                data-bs-target="#C3" type="button" role="tab"
+                 aria-controls="C3" >
+                 身障賽</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c4-tab" data-bs-toggle="tab"
+                data-bs-target="#C4" type="button" role="tab"
+                 aria-controls="C4" >
+                 國際賽</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c5-tab" data-bs-toggle="tab"
+                data-bs-target="#C5" type="button" role="tab"
+                 aria-controls="C5" >
+                 展能節</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c6-tab" data-bs-toggle="tab"
+                data-bs-target="#C6" type="button" role="tab"
+                 aria-controls="C6" >
+                 達人盃</button>
+              </li>
+                          <li class="nav-item" role="presentation">
+                <button class="nav-link" id="c7-tab" data-bs-toggle="tab"
+                data-bs-target="#C7" type="button" role="tab"
+                 aria-controls="C7" >
+                 其它</button>
+              </li>
+            
+            </ul>
+          </div>
+          <!-- /inner-tabs-tier-1 -->
+		    <div class="card-body">
+
+
+			<!--begin::Form-->
+											<form method="post" action="https://worldskillstw.wdasec.gov.tw/index_search" id="kt_form">
+											 <input type="hidden" name="_token" value="ybUJqaRtDu9U34GeL1wMpz3ulf2UhuoN1h0ngztn">
+												<!--begin::Wrapper-->
+												<div class="mb-0">
+													<!--begin::Row-->
+													<div class="row gx-10 mb-0">
+															<!--begin::Col-->
+														<div class="col-lg-4">
+															<label class="form-label fs-6 fw-bold text-gray-700 mb-1">消息標籤</label>
+															<!--begin::Input group-->
+															<div class="mb-1">
+
+																<!--begin::Select-->
+
+<select name="tag_id" id="srh_tag_id"
+title="消息標籤"
+aria-label="消息標籤"
+data-control="select2" data-hide-search="true"
+class="form-select border-body bg-body w-150px me-5">
+								    <option value="all"  >
+									全部</option>
+											 
+											   											<option value="1">  英雄榜</option>
+										 										 
+											   											<option value="5">  競賽資訊</option>
+										 										 
+											   											<option value="6">  競賽報名</option>
+										 										 
+											   											<option value="8">  宣傳影片</option>
+										 										 
+											   											<option value="9">  直播</option>
+										 										 
+											   											<option value="10">  新聞稿</option>
+										 										 
+											   											<option value="12">  直播預告</option>
+										 										 
+											   											<option value="13">  典禮</option>
+										 										 
+											   											<option value="14">  宣傳活動</option>
+										 										 										</select>
+										<!--end::Select-->
+															</div>
+															<!--end::Input group-->
+
+
+														</div>
+														<!--end::Col-->
+														<!--begin::Col-->
+														<div class="col-lg-4">
+															<label class="form-label fs-6 fw-bold text-gray-700 mb-1" title="搜尋標題">搜尋標題</label>
+															<!--begin::Input group-->
+															<div class="mb-1">
+<input type="text" class="form-control form-control-solid" title="輸入標題關鍵字"
+aria-label="輸入標題關鍵字" placeholder="輸入標題關鍵字" value="" id="keywd" name="keywd"/>
+															</div>
+															<!--end::Input group-->
+
+														</div>
+														<!--end::Col-->
+
+													<!--begin::Col-->
+														<div class="col-lg-4 text-start pt-4 pe-3">
+														<button type="button" href="#" class="btn btn-primary w-100px me-2" id="search_btn">送出查詢</button>
+<button type="reset" class="btn btn-secondary w-100px " id="reset_btn">清除重設</button>
+
+
+														</div>
+														<!--end::Col-->
+
+
+													</div>
+													<!--end::Row-->
+
+
+
+													<!--begin::Row-->
+
+															<div class="row">
+
+															<div class="col-lg-8 text-start pt-4 pe-3">
+
+															</div>
+
+
+															</div>
+															<!--end::Row-->
+
+
+
+
+
+												</div>
+												<!--end::Wrapper-->
+											</form>
+											<!--end::Form-->
+
+
+			</div>
+          <div class="tab-content" id="InnerTabsContentTier1">
+		   <div class="tab-pane fade show active" id="C0"
+			role="tabpanel" aria-labelledby="c0-tab">
+				
+              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-08</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/503" >
+				  📌置頂：第56屆全國技能競賽🔥全攻略🔥(不斷更新)</a></h3>
+                </div>
+              </div>
+
+			   
+              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-02-26</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/477" >
+				  📌置頂：🙌 來揪！第56屆全國技能競賽「團體導覽」開放預約啦～ 🚌✨</a></h3>
+                </div>
+              </div>
+
+			   
+              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-09</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/504" >
+				  📌置頂：延長報名⭐4/20─5/19⭐第19屆全國身心障礙者技能競賽暨第11屆國際展能節職業技能競賽國手選拔賽</a></h3>
+                </div>
+              </div>
+
+			   
+              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-05-05</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/507" >
+				  行政院院長卓榮泰訪視第48屆國際技能競賽國手及培訓團隊　期許技能競賽接軌產業人才需求，打造臺灣技術人才新品牌</a></h3>
+                </div>
+              </div>
+
+			   
+              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-16</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/505" >
+				  ⭐4/20─4/27開放報名⭐從縣市邁向全國！114 學年度國中技藝賽優勝選手「晉級挑戰」第56屆全國技能競賽🔥注意事項🔥</a></h3>
+                </div>
+              </div>
+
+			   
+            </div>
+
+
+
+			            <div class="tab-pane fade" id="C1"
+			role="tabpanel" aria-labelledby="c1-tab">
+								              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-12-15</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/466" >
+				  2025 亞洲技能競賽臺灣隊奪牌創新高 部長親頒獎勉勵技優青年再創高峰</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-12-10</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/470" >
+				  2025亞洲技能競賽【技能出任務】得獎名單</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-12-04</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/464" >
+				  【競賽捷報】22金震撼全場！我國勇奪2025亞洲技能競賽總冠軍，二連霸榮耀到手</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-12-03</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/461" >
+				  第三屆亞洲技能競賽中彰投分署培訓國手勇奪11獎項，家具木工職類國手陳祈聖以±0.5mm精準度拿下金牌</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-12-01</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/462" >
+				  2025亞洲技能競賽圓滿落幕　北分署培訓選手摘3金1銀 奪牌率百分百</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C2"
+			role="tabpanel" aria-labelledby="c2-tab">
+											   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-08</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/503" >
+				  📌置頂：第56屆全國技能競賽🔥全攻略🔥(不斷更新)</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-02-26</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/477" >
+				  📌置頂：🙌 來揪！第56屆全國技能競賽「團體導覽」開放預約啦～ 🚌✨</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-05-05</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/507" >
+				  行政院院長卓榮泰訪視第48屆國際技能競賽國手及培訓團隊　期許技能競賽接軌產業人才需求，打造臺灣技術人才新品牌</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-16</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/505" >
+				  ⭐4/20─4/27開放報名⭐從縣市邁向全國！114 學年度國中技藝賽優勝選手「晉級挑戰」第56屆全國技能競賽🔥注意事項🔥</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-02</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/498" >
+				  📄 報帳不迷路！第56屆全國技能競賽【選手】專屬住宿費報支指引 🛡️</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C3"
+			role="tabpanel" aria-labelledby="c3-tab">
+											   							   							   							   							   							   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-04-09</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/504" >
+				  📌置頂：延長報名⭐4/20─5/19⭐第19屆全國身心障礙者技能競賽暨第11屆國際展能節職業技能競賽國手選拔賽</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2026-02-11</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/476" >
+				  ✨身手不凡，技壓全場🎈第19屆全國身障賽&第11屆國際展能節國手選拔賽，正式啟航！✈️</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-10-22</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/13/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 典禮</a>
+									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/353" >
+				  【新聞稿】榮耀時刻！恭喜所有獲獎者─｢第18屆全國身心障礙者技能競賽」成績揭曉！</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-10-19</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/352" >
+				  【英雄榜】第18屆全國身心障礙者技能競賽英雄榜</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2022-11-05</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/143" >
+				  第17屆全國身心障礙者技能競賽「英雄榜」</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C4"
+			role="tabpanel" aria-labelledby="c4-tab">
+											   							   							   							   							   							   							   							   							   							   							   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-03-03</div>
+                  <div class="mb-2">
+				  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/6/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽報名</a>
+									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/381" >
+				  【國手選拔賽報名】第55屆全國技能競賽暨第3屆亞洲技能競賽及第48屆國際技能競賽報名連結</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-10-24</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/14/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 宣傳活動</a>
+									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/358" >
+				  【新聞稿】勞動部舉辦「2024國際技能競賽成果座談會」 跨界分享「匠心卓著．暢談技能路」</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-09-02</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/344" >
+				  公告「2025亞洲技能競賽」有關工作案(案號：113001A)受託廠商名單</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-09-04</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/268" >
+				  【英雄榜】公告第47屆國際技能競賽國手選拔賽英雄榜</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2022-11-28</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/165" >
+				  狂賀！skill 19「工業控制」職類國手簡廷安，勇奪2022國際技能競賽「銅牌」！！！</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   							   							   							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C5"
+			role="tabpanel" aria-labelledby="c5-tab">
+											   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-04-17</div>
+                  <div class="mb-2">
+				  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/8/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 宣傳影片</a>
+									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/209" >
+				  2023國際展能節職業技能競賽 臺灣實力 閃耀國際</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-04-17</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/13/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 典禮</a>
+									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/208" >
+				  第10屆國際展能節榮獲8金9銀3銅，世界排名第三　副總統賴清德親臨頒獎</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-04-17</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/12/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 直播預告</a>
+									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/207" >
+				  第10屆國際展能節職業技能競賽代表團頒獎典禮</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-03-27</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/216" >
+				  狂賀！臺灣實力閃耀國際　「第10屆國際展能節」勇奪8金9銀3銅</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2023-03-27</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/195" >
+				  【第10屆展能節成績斐然！台灣實力勇奪8金9銀3銅】</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C6"
+			role="tabpanel" aria-labelledby="c6-tab">
+											   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-10-28</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/10/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 新聞稿</a>
+									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/356" >
+				  【新聞稿】職場達人臺南府城展現專業技能，恭喜得獎者─ ｢113年全國職場達人盃技能競賽」成績揭曉！</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-04-01</div>
+                  <div class="mb-2">
+				  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/5/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽資訊</a>
+									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/302" >
+				  【競賽計畫】公告「113年全國職場達人盃技能競賽」計畫</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2024-04-08</div>
+                  <div class="mb-2">
+				  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/6/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 競賽報名</a>
+									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/307" >
+				  【簡章公告】113年全國職場達人盃技能競賽</a></h3>
+                </div>
+              </div>
+							   							   							   							   							   							   
+            </div>
+                        <div class="tab-pane fade" id="C7"
+			role="tabpanel" aria-labelledby="c7-tab">
+											   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-09-11</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/14/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 宣傳活動</a>
+									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/435" >
+				  【活動轉知】第七屆全國青年景觀競賽「設計施作競賽」及「競圖競賽」徵件辦法</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-05-22</div>
+                  <div class="mb-2">
+				  									  									  									  									  									  									  									  									  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/14/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 宣傳活動</a>
+									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/410" >
+				  【公告】勞動部勞動力發展署桃竹苗分署聘用綜合機械職類助理訓練師徵才資訊</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-04-18</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/405" >
+				  【公告】更正－－第55屆全國技能競賽中區分區技能競賽(青年組)中餐烹飪職類英雄榜</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-03-29</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/404" >
+				  【英雄榜】第55屆分區技能競賽青年組英雄榜暨推薦晉級全國技能競賽選手名單</a></h3>
+                </div>
+              </div>
+							   				              <div class="card shadow-sm mb-3">
+                <div class="card-body py-2">
+                  <div class="tfs-15 fw-bolder mb-1">2025-03-29</div>
+                  <div class="mb-2">
+				  										 <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-tag/1/1" class="badge bg-secondary tfs-13 text-white pe-2 me-1"> 英雄榜</a>
+									  									  									  									  									  									  									  									  									  				  </div>
+                  <h3 class="fs-6"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news-post/403" >
+				  【英雄榜】第55屆全國技能競賽北區分區技能競賽青年組英雄榜</a></h3>
+                </div>
+              </div>
+							   
+            </div>
+            		</div>
+          <!-- /tab-content: InnerTabsContentTier1 -->
+
+          <div class="text-end">
+            <a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/news" class="btn btn-secondary btn-sm rounded-pill" role="button">更多資訊<i class="bi bi-arrow-right-circle ms-1"></i></a></div>
+        </section>
+        <section class="mb-xl-5 mb-4">
+          <h2 class="fs-3 mb-3"><i class="bi bi-trophy me-3"></i>各類技能競賽 Competitions</h2>
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-1 g-sm-2 g-md-3 g-lg-3">
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-blue">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  全國賽
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/1" class="stretched-link" title="全國賽資訊頁">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/167895866988520.jpg" class="img-fluid" alt="我國自民國57年開始舉辦第1屆全國技能競賽，每年辦理1次，各機關、學校及具法人資格之附屬單位、團體、公司行號及職業訓練機關（構）均踴躍提名選手參加競技，實為職業訓練與技職教育之年度盛事。 photo 1">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">我國自民國57年開始舉辦第1屆全國技能競賽，每年辦理1次，各機關、學校及具法人資格之附屬單位、團體、公司行號及職業訓練機關（構）均踴躍提名選手參加競技，實為職業訓練與技職教育之年度盛事。</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-purple">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  身障賽
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/2" class="stretched-link" title="身障賽資訊頁">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/1742373720181887.jpg" class="img-fluid" alt="民國73年起舉辦全國身心障礙者技能競賽，目的在激發身心障礙人士的信心、毅力與勇氣，使其走出陰霾，積極參與社會一切經濟性，促使社會大眾對身心障礙人士的工作能力予以重視與肯定。　 photo 2">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">民國73年起舉辦全國身心障礙者技能競賽，目的在激發身心障礙人士的信心、毅力與勇氣，使其走出陰霾，積極參與社會一切經濟性，促使社會大眾對身心障礙人士的工作能力予以重視與肯定。　</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-green">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  國際賽
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/3" class="stretched-link" title="國際賽資訊頁">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/172836856674740.jpg" class="img-fluid" alt="國際技能競賽係1950年由西班牙發起舉辦，每2年舉辦一次，由各會員國分別申請主辦，迄今已舉辦47屆，目前正式之競賽職類超過50種。目前國際技能組織會員國計有超過80個國家。 photo 3">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">國際技能競賽係1950年由西班牙發起舉辦，每2年舉辦一次，由各會員國分別申請主辦，迄今已舉辦47屆，目前正式之競賽職類超過50種。目前國際技能組織會員國計有超過80個國家。</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-red">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  展能節
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/4" class="stretched-link" title="展能節資訊頁">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/171706164196230.jpg" class="img-fluid" alt="國際奧林匹克身心障礙聯合會係1981年由日本發起，每4年舉辦一次國際展能節。該國際組織之宗旨在改善技能、肯定身心障礙人士之潛能；鼓勵身心障礙人士參與社會上的經濟活動。 photo 4">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">國際奧林匹克身心障礙聯合會係1981年由日本發起，每4年舉辦一次國際展能節。該國際組織之宗旨在改善技能、肯定身心障礙人士之潛能；鼓勵身心障礙人士參與社會上的經濟活動。</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-blue">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  達人盃
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/5" class="stretched-link" title="達人盃資訊頁">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/176165122982180.jpg" class="img-fluid" alt="社會組技能競賽自101年開始辦理，名稱為「勞動達人盃全國技能競賽」，每年辦理一次，參賽者年齡限制為22歲以上，102年起名稱為「全國職場達人盃技能競賽」，自104年起每2年辦理一次。 photo 5">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">社會組技能競賽自101年開始辦理，名稱為「勞動達人盃全國技能競賽」，每年辦理一次，參賽者年齡限制為22歲以上，102年起名稱為「全國職場達人盃技能競賽」，自104年起每2年辦理一次。</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col ">
+              <div class="card text-white h-100 shadow bg-sw-purple">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  亞洲賽
+                  </h3>
+                </div>
+
+				                <a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/about/about/6" class="stretched-link" title="超連結">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages/176605208475610.jpg" class="img-fluid" alt="2025年11月「第三屆亞洲技能競賽」(2025 WorldSkills Asia Taipei)在臺北圓滿落幕，這是臺灣繼1993年主辦國際技能競賽後，睽違30年再度迎來的國際技能盛事。臺灣代表團一舉奪下22金、9銀、5銅、2優勝的輝煌成績，更以絕對優勢蟬聯團體總冠軍。 photo 6">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder">2025年11月「第三屆亞洲技能競賽」(2025 WorldSkills Asia Taipei)在臺北圓滿落幕，這是臺灣繼1993年主辦國際技能競賽後，睽違30年再度迎來的國際技能盛事。臺灣代表團一舉奪下22金、9銀、5銅、2優勝的輝煌成績，更以絕對優勢蟬聯團體總冠軍。</p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+<div class="col hide">
+              <div class="card text-white h-100 shadow bg-sw-green">
+                
+                <div class="card-header">
+                  <h3 class="fs-4 text-center m-0">
+                  2025亞洲技能競賽在台北
+                  </h3>
+                </div>
+
+								<a alt="超連結" href="https://worldskillstw.wdasec.gov.tw/wsa2025/" target="_blank" class="stretched-link" title="超連結">
+				
+                    <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/pages" class="img-fluid" alt=" photo 7">
+                </a>
+                <div class="card-body">
+                  <p class="card-text fw-bolder"></p>
+                </div>
+              </div>
+              <!-- /card -->
+            </div>
+
+
+          </div>
+          <!-- /row -->
+        </section>
+        <section class="mb-xl-5 mb-4 hide">
+          <h2 class="fs-3 mb-3"><i class="bi bi-camera me-3"></i>精彩花絮 Photo Albums</h2>
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-4 g-1 g-sm-2 g-md-3 g-lg-4 mb-2">
+
+
+
+
+          </div>
+          <!-- /row cols -->
+          <div class="text-end"><a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/album/first" class="btn btn-secondary btn-sm rounded-pill" role="button">更多資訊<i class="bi bi-arrow-right-circle ms-1"></i></a></div>
+        </section>
+      </article>
+      <!-- /article -->
+
+      <div class="row mb-2">
+        <div class="col-6"> <a alt="超連結" class="acess-key" href="#Z" accesskey="Z" name="Z" title="網頁頁腳資訊區，使用快捷鍵Alt+Z" tabindex="-1">:::</a> </div>
+        <div class="col-6">
+          <div class="d-flex justify-content-end"> <a alt="超連結" href="#" class="go-top" title="回頁面頂端"><i class="bi bi-arrow-bar-up"></i><span class="visually-hidden-focusable">回頁面頂端</span></a> </div>
+        </div>
+      </div>
+      <!-- /row -->
+    </main>
+<!-- modal -->
+<div class="modal bg-blur-sm" id="PositiveEnergy" tabindex="-1" aria-labelledby="PositiveEnergyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered  wp-100">
+    <div class="modal-content">
+    <div class="modal-header py-2">
+        <button type="button" class="btn-close fs-5" data-bs-dismiss="modal" title="關閉" aria-label="關閉"></button>
+      </div>
+
+<div class="d-flex justify-content-center mt-2">
+<h1>
+    WorldSkills Asia Taipei 2025
+
+</h1>
+</div>
+
+
+      
+
+<div class="modal-body">
+
+          <p><img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/editor/1761879664909169.png" alt="國際賽" width="1920" height="910"></p>
+
+      <hr>
+
+      <div class="text-end">
+            <a title="超連結" alt="超連結" id="popbtn" href=" https://www.worldskillsasiataipei2025.com/" target="_blank"  class="btn btn-outline-dark btn-lg" role="button">看更多<i class="bi bi-chevron-right ms-1"></i></a>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+     </main>
+    <footer class="footer">
+      <!-- <p class="mb-2"><img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/style/172247110061341.png" alt="第52屆全國技能競賽"/></p> -->
+ <p>各職類競賽日程表已公告於技檢中心網站/最新消息<i class="bi bi-box-arrow-right ms-3 me-2"></i><a alt="超連結" href="https://www.wdasec.gov.tw/" title="連結至技能檢定中心網站 (開新視窗)" target="_blank">https://www.wdasec.gov.tw</a></p>
+      <hr>
+      <ul class="list-inline">
+      	  	          <li class="list-inline-item mb-3 pe-3">
+
+          <p class="mb-3"><span class="badge bg-dark">指導單位</span></p>
+          <a alt="超連結" href="https://www.mol.gov.tw/" title="指導單位" target="_blank">
+            <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/style/footer_unit/168692095988201.png" alt="指導單位"/>
+        </a></li>
+
+	 	          <li class="list-inline-item mb-3 pl-2">
+
+          <p class="mb-3"><span class="badge bg-dark"></span></p>
+          <a alt="超連結" href="https://www.wda.gov.tw/" title="超連結" target="_blank">
+            <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/style/footer_unit/175867815823361.png" alt="image"/>
+        </a></li>
+
+	 	          <li class="list-inline-item mb-3 pl-2">
+
+          <p class="mb-3"><span class="badge bg-dark">主辦單位</span></p>
+          <a alt="超連結" href="https://www.wdasec.gov.tw/" title="主辦單位" target="_blank">
+            <img title="image" src="https://worldskillstw.wdasec.gov.tw/uploads/style/footer_unit/175867752755311.png" alt="主辦單位"/>
+        </a></li>
+
+	 					</ul>
+		<!--
+
+  <li class="list-inline-item pe-3 mb-3">
+          <p class="mb-3"><span class="badge bg-dark">指導單位</span></p>
+          <a alt="超連結" href="https://www.mol.gov.tw/" title="連結至勞動部網站(開新視窗)" target="_blank">
+            <img title="image" src="https://worldskillstw.wdasec.gov.tw/assets/frontend/images/org-1.png" alt="勞動部Logo"/>
+        </a></li>
+        <li class="list-inline-item mb-3 pl-2" >
+	<p class="mb-3"><span class="badge bg-dark"></span></p>
+     <a alt="超連結" href="https://www.wda.gov.tw/" title="連結至勞動部勞動力發展署網站(開新視窗)" target="_blank">
+                <img title="image" src="https://worldskillstw.wdasec.gov.tw/assets/frontend/images/org-2.png" alt="勞動部勞動力發展署Logo"/></a></li>
+        <li class="list-inline-item pe-3 mb-3">
+          <p class="mb-3"><span class="badge bg-dark">主辦單位</span></p>
+          <a alt="超連結" href="https://www.wdasec.gov.tw/" title="連結至勞動部勞動力發展署技能檢定中心網站(開新視窗)" target="_blank">
+            <img title="image" src="https://worldskillstw.wdasec.gov.tw/assets/frontend/images/org-3.png" alt="勞動部勞動力發展署技能檢定中心Logo"/></a></li>
+      </ul>
+---->
+      <div class="desc mb-2">建議使用Google Chrome、Edge、Firefox 等新版瀏覽器，並搭配1920x1080之螢幕解析度，以獲得最佳瀏覽體驗。
+        <!--<a title="超連結" alt="超連結" href="https://worldskillstw.wdasec.gov.tw/service/privacy" class="fw-bold">另外請參考我們的「隱私權及網站安全政策」</a>--->
+    </div>
+      <div class="copyright d-none">© 2023 國家技能週 版權所有 </div>
+    </footer>
+    <!-- /footer -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /main-cntent -->
+
+
+<!-- js -->
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/axios.min.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/jquery-3.6.0.min.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/popper.min.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/bootstrap.min.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/tooltip.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/cookie_secret.js?v=1778986319"></script>
+<script nonce="nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA">
+if (top != self) {top.location = encodeURI(self.location); }
+var visits_api = "https://worldskillstw.wdasec.gov.tw/update_visits";
+let lang = "tw";
+var app_url = "https://worldskillstw.wdasec.gov.tw/";
+$(document).on("click", function(event){
+
+    var counter_api = app_url+"update_counter";
+    console.log('counter_api:'+counter_api);
+    $.get(counter_api,function(ret){
+    console.log('get update counter:',ret);
+  });
+});
+
+/*
+var PositiveEnergyModal = new bootstrap.Modal(document.getElementById('PositiveEnergy000'), {})
+PositiveEnergyModal.show()
+*/
+
+
+</script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/flipdown/flipdown.min.js"></script>
+<script src="https://worldskillstw.wdasec.gov.tw/assets/frontend/js/lightbox.js"></script>
+<script type="text/javascript" nonce="nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA">
+
+
+
+
+
+ $(document).ready(function() {
+
+
+
+				$('#search_btn').click(function(){
+
+					$('#kt_form').submit();
+				});
+
+				$('#reset_btn').click(function(){
+					$('#keywd').val('');
+					$('#srh_tag_id').val('all');
+					$('#kt_form').submit();
+				});
+
+
+                               if($('#srh_tag_id').val()!="all")
+				{
+										$('html, body').animate({
+					  scrollTop: $('#srh_tag_id').offset().top
+					}, 500, function() {
+					  $('#srh_tag_id').focus();
+					});
+				}
+
+
+				if($('#keywd').val()!="")
+				{
+										$('html, body').animate({
+					  scrollTop: $('#keywd').offset().top
+					}, 500, function() {
+					  $('#keywd').focus();
+					});
+				}
+               });
+</script>
+
+
+<script nonce="nf3evWZg6ob5DyFzMA6OqdEfgxKC1voA">
+var googleAnalyticsTrackingId = 'UA-127588841-2';
+if (googleAnalyticsTrackingId !== 'null' && googleAnalyticsTrackingId) {
+    let script = document.createElement('script');
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + googleAnalyticsTrackingId;
+    document.body.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', googleAnalyticsTrackingId);
+}
+
+
+
+
+
+
+
+$("#sidebar").css("background-color","#7bbe1f");
+
+var bottomPosition = 0;
+if ($('#extra_links_li:last').offset()) {
+  bottomPosition = $('#extra_links_li:last').offset().top + $('#extra_links_li:last').outerHeight();
+}
+var site_bar_h = $('#sidebar').height();
+console.log('site bar height:'+site_bar_h.toString());
+console.log('bottomPosition:'+bottomPosition.toString());
+//元素高過sitebar高才顯示scroll
+if(bottomPosition>site_bar_h)
+{
+  $("#sidebar").scrollTop(0).css({"overflow-y": "hidden"});
+$("#sidebar").on("mouseenter mouseleave", function (event) {
+  if (event.type == "mouseenter") {
+   // $(this).css({"overflow-y": "scroll"}); // 滑鼠進入
+  } else {
+   // $(this).scrollTop(0).css({"overflow-y": "hidden"}); // 滑鼠離開
+  }
+});
+}
+else
+{
+ // $("#sidebar").scrollTop(0).css({"overflow-y": "hidden"});
+}
+
+
+$('#MainMenu').css("background-color","#7bbe1f");
+
+
+</script>
+
+
+
+</body>
+</html>
+

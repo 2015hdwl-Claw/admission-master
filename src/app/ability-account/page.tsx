@@ -712,11 +712,21 @@ function GroupedUpgradePaths({
     return sorted
   }
 
-  // Group competitions by category
+  // Group competitions by category - 優先顯示官方四大分類，依獎勵價值排序
   function groupCompsByCategory(items: UpgradePath[]): Map<string, UpgradePath[]> {
     const map = new Map<string, UpgradePath[]>()
     for (const item of items) {
-      const cat = classifyCompetition(item.category)
+      // Use category directly if it's already an official category name,
+      // otherwise classify from title
+      const cat = item.category && [
+        '國際技能競賽', '亞洲技能競賽', '國手',
+        '全國技能競賽', '技藝競賽', '分區技能競賽',
+        '專題實作及創意競賽', '科展',
+        '技術創造力競賽', '智慧鐵人競賽', '電腦鼠競賽',
+        '美術比賽', '舞蹈比賽', '音樂比賽', '其他'
+      ].includes(item.category)
+        ? item.category
+        : classifyCompetition(item.title || item.category)
       if (!map.has(cat)) map.set(cat, [])
       map.get(cat)!.push(item)
     }
@@ -728,7 +738,40 @@ function GroupedUpgradePaths({
         return da - db
       })
     }
-    return map
+
+    // 官方分類優先級：依獎勵價值由高到低排序
+    const OFFICIAL_CATEGORY_ORDER = [
+      '國際技能競賽',
+      '亞洲技能競賽',
+      '國手',
+      '全國技能競賽',
+      '技藝競賽',
+      '分區技能競賽',
+      '專題實作及創意競賽',
+      '科展',
+      '技術創造力競賽',
+      '智慧鐵人競賽',
+      '電腦鼠競賽',
+      '美術比賽',
+      '舞蹈比賽',
+      '音樂比賽',
+    ]
+
+    // 重新排序分類顯示順序
+    const sorted = new Map<string, UpgradePath[]>()
+    // 先加入官方分類
+    for (const cat of OFFICIAL_CATEGORY_ORDER) {
+      const group = map.get(cat)
+      if (group) sorted.set(cat, group)
+    }
+    // 再加入其餘分類
+    for (const [cat, items] of map) {
+      if (!OFFICIAL_CATEGORY_ORDER.includes(cat)) {
+        sorted.set(cat, items)
+      }
+    }
+
+    return sorted
   }
 
   function renderCertSection() {
@@ -862,6 +905,62 @@ function GroupedUpgradePaths({
     if (comps.length === 0) return null
     const grouped = groupCompsByCategory(comps)
 
+    // 官方分類額外資訊
+    const OFFICIAL_CATEGORY_INFO: Record<string, { icon: string; url?: string; date?: string }> = {
+      '國際技能競賽': {
+        icon: '🌍',
+      },
+      '亞洲技能競賽': {
+        icon: '🌏',
+        url: 'https://worldskillsasiataipei2025.com/',
+        date: '2025-08'
+      },
+      '國手': {
+        icon: '🏆',
+      },
+      '全國技能競賽': {
+        icon: '🏅',
+        url: 'https://ws.wda.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvMzMxL3JlbGZpbGUvMTAyNDgvMTg2MTA3LzAyYWY0YjAzLWZjMmQtNGYxMC1iYzQyLTg1N2QzOWRmNTZiNC5wZGY%3d&n=56ysNTblsYblhajlnIvmioDog73nq7bos73nsKHnq6Ao5YWs5ZGKKS5wZGY%3d',
+        date: '2025-07'
+      },
+      '技藝競賽': {
+        icon: '🎯',
+        url: 'https://sci-me.k12ea.gov.tw/PortalFile/ContestData/11615/e8f953de-65f9-4025-8fbe-e4830fe7723b.pdf',
+        date: '2025-03'
+      },
+      '分區技能競賽': {
+        icon: '📍',
+        url: 'https://ws.wda.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvMzMxL3JlbGZpbGUvMTAyNDgvMTg1MjI2L2M1NzNkYmYyLWRlMTEtNDFlZC05ZTRjLWFiY2RlODJhYjNkZS5wZGY%3d&n=56ysNTblsYblhajlnIvmioDog73nq7bos73ljJfljYDliIbljYDmioDog73nq7bos73nsKHnq6AucGRm',
+        date: '2025-05'
+      },
+      '專題實作及創意競賽': {
+        icon: '💡',
+        url: 'https://vtedu.k12ea.gov.tw/uploads/17745900443165MS9asHP.pdf',
+        date: '2025-06'
+      },
+      '科展': {
+        icon: '🔬',
+      },
+      '技術創造力競賽': {
+        icon: '🔧',
+      },
+      '智慧鐵人競賽': {
+        icon: '🤖',
+      },
+      '電腦鼠競賽': {
+        icon: '🖱️',
+      },
+      '美術比賽': {
+        icon: '🎨',
+      },
+      '舞蹈比賽': {
+        icon: '💃',
+      },
+      '音樂比賽': {
+        icon: '🎵',
+      },
+    }
+
     return (
       <div className="mb-8">
         <h3 className="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
@@ -874,6 +973,7 @@ function GroupedUpgradePaths({
             const groupKey = `comp-${category}`
             const isExpanded = expandedGroups.has(groupKey)
             const maxBonus = getCompMaxBonus(category as any)
+            const officialInfo = OFFICIAL_CATEGORY_INFO[category]
 
             return (
               <div key={category} className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -882,13 +982,31 @@ function GroupedUpgradePaths({
                   className="w-full px-5 py-4 flex items-center justify-between hover:bg-gray-50 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold bg-purple-100 text-purple-700">
-                      {category === '技藝競賽' ? '技' : category === '全國技能競賽' ? '全' : category === '科展' ? '科' : '賽'}
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${
+                      officialInfo ? 'bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-700' : 'bg-purple-100 text-purple-700'
+                    }`}>
+                      {officialInfo?.icon ||
+                       category === '技藝競賽' ? '技' :
+                       category === '科展' ? '科' : '賽'}
                     </div>
                     <div className="text-left">
-                      <div className="font-bold text-gray-900">{category}</div>
-                      <div className="text-xs text-gray-400">
-                        {items.length} 個比賽 · 最高 +{maxBonus}%
+                      <div className="font-bold text-gray-900 flex items-center gap-2">
+                        {category}
+                        {officialInfo?.url && (
+                          <a
+                            href={officialInfo.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-xs text-indigo-600 hover:text-indigo-800 underline"
+                          >
+                            官方簡章 →
+                          </a>
+                        )}
+                      </div>
+                      <div className="text-xs text-gray-400 flex items-center gap-3">
+                        <span>{items.length} 個比賽 · 最高 +{maxBonus}%</span>
+                        {officialInfo?.date && <span>📅 {officialInfo.date}</span>}
                       </div>
                     </div>
                   </div>

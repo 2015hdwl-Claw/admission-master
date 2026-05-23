@@ -1,0 +1,525 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hant-TW" xml:lang="zh-Hant-TW">
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="X-Content-Type-Options" content="nosniff" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="title" content="&lt;%= DocumentTitleFull %>" /><meta name="keywords" content="技藝競賽,競賽資訊平臺,全國高中競賽,全國高中技藝平臺,技藝競賽資訊平臺,高中技藝競賽" /><meta name="description" content="提供每年度全國高級中等學校學生一資訊平臺，供參與技藝競賽的人員所有相關資訊，包含競賽成果、相關辦法、歷屆考題等。" /><meta name="robots" content="index" /><meta http-equiv="Expires" content="0" /><meta http-equiv="Cache-Control" content="no-cache" /><meta http-equiv="Pragma" content="no-cache" /><title>
+	首頁－全國高級中等學校技藝競賽資訊平臺
+</title>
+    <link type="text/css" rel="Stylesheet" href="/Styles/index.css" />
+    <link href="Styles/page_1_1.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_2.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_3.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_4.css" rel="stylesheet" type="text/css" /><link href="Styles/page_1_5.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" rel="Stylesheet" href="/Styles/reset.css" />
+    
+    
+    
+    
+    <link type="text/css" rel="Stylesheet" href="/JQuery/CSS/jquery-ui.custom.css" />
+    
+    
+    <script type="text/javascript" src="/JQuery/jquery.js"></script>
+    <script type="text/javascript" src="/JQuery/sweetalert2/dist/sweetalert2.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/JQuery/sweetalert2/dist/sweetalert2.css">
+    <script type="text/javascript" src="/JQuery/jquery-ui/jquery-ui.js"></script>
+    <link type="text/css" rel="stylesheet" href="/JQuery/jquery-ui/jquery-ui.css">
+    <script type="text/javascript" src="/JQuery/JS/ui.datepicker-zh-TW.js"></script>
+    <script type="text/javascript" src="/JQuery/JS/JQueryCombobox.js"></script>
+    
+    <script type="text/javascript" src="/Scripts/mootools1_4_2.js"></script>  
+   
+    <script type="text/javascript" src="/Scripts/Master.js"></script>
+    
+    
+    <script type="text/javascript">
+     if (top != self) { top.location = encodeURI(self.location); }
+    $(function () {
+        var msg='';
+        var udr_typeM='';
+
+        
+        //msg = `<b>系統公告</b>
+		//	<ol>
+		//		<li>全國高級中等學校技藝競賽資訊平臺於112年5月8日至112年5月21日進行移機作業，平臺於此維護期間將會中斷服務，造成不便之處，敬請見諒！</li>
+		//		<li>「111學年度全國高級中等學校學生技藝競賽產學人才媒合」填報作業，請於5月22日至5月31日進行填報操作。</li>
+		//		<li>移機後，技藝競賽資訊平臺網址並無變更，與目前網址相同。</li>
+		//	</ol>
+		//`;
+       
+        if(msg.trim()!="" &&  msg!=null){
+			swal("訊息通知",msg)
+			//swal({ html:msg, title:"訊息通知"});
+		}
+
+        if(udr_typeM!=""){
+           $("#udr_typeM").val(udr_typeM);
+           }
+
+       $("#udr_typeM").change(function () {
+              var udr_type=$(this).val();
+
+              
+        
+              window.location.href = '/Default/Index?c_class=' + udr_type;
+            });
+            
+            // DatePicker 初始化由 Scripts/Master.js 統一處理（包含鍵盤可聚焦的觸發按鈕）
+            $('#udr_typeM').val('');
+
+
+            $(".gsc-control-cse").css("background", "none");
+
+            // $( ".JQueryDatePicker" ).datepicker(); // 由 Scripts/Master.js 初始化
+     });
+
+
+        function InsertSysLog(mnu_id, mnu_url) {
+            //使用者動作寫入記錄檔
+            //PageMethod('/SysLog/InsertSysLog', { 'mnu_id': mnu_id }, function () {
+
+            location.href = mnu_url;
+            //});
+        }
+   
+        function SearchWeb() {
+            var keyword = $("keyword").get("value");
+            var webSite = 'http://sci-me.k12ea.gov.tw/';
+            window.open("https://www.google.com/search?sitesearch=" + webSite + "&as_q=" + keyword, "_new");
+        }
+
+        //google站內搜尋
+        (function () {
+            var cx = '007698444463980975231:rke1zpkj-jk';
+            var gcse = document.createElement('script');
+            gcse.type = 'text/javascript';
+            gcse.async = true;
+            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//www.google.com/cse/cse.js?cx=' + cx;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(gcse, s);
+        });
+      
+      
+    </script>
+    
+    <style type="text/css">
+        .style1
+        {
+            width: 7px;
+        }
+        .drop-down-menu ul
+        {
+            /*隱藏次選單*/
+            display: none;
+        }
+        
+        .drop-down-menu:hover > ul
+        {
+            /* 滑鼠滑入展開次選單*/
+            display: block;
+        }
+        .drop-down-category ul
+        {
+            display: none;
+        }
+        .drop-down-category:hover > ul
+        {
+            /* 滑鼠滑入展開次選單*/
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- GN1240100E／GN1240500E：跳過區塊、網站導覽（前幾個 Tab 順序可及） -->
+    <div class="skip-nav" role="navigation" aria-label="頁面捷徑">
+        <a href="#main-content" class="skip-link" accesskey="C" title="跳到中央主要內容區。快速鍵 C：Internet Explorer 為 Alt + C；Firefox／Chrome 多為 Alt + Shift + C（依瀏覽器而定）。">跳到主要內容</a>
+        <span class="skip-link-sep" aria-hidden="true">|</span>
+        <a href="/Default/SiteMap" class="skip-link" accesskey="S" title="網站導覽（Site Map）。快速鍵 S：Internet Explorer 為 Alt + S；Firefox／Chrome 多為 Alt + Shift + S（依瀏覽器而定）。">網站導覽（Site Map）</a>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~~~Header~~~~~~~~~~~~~~~~~ -->
+    <div class="header" role="banner">
+        <div class="content header_BG">
+            <div class="logo">
+                <a href="/" title="回首頁">
+                    <img src="/images/LOGO.png" alt="回首頁" /></a>
+            </div>
+            <div class="bar">
+                <!--<input class="search-box" id="search-ICON" type="text" name="search-box" />
+                   <a href="/RegContest/Seminar" target="_self"
+                    title="109說明會報名" style="float: left; margin-top: -7%">
+                    <img title="109說明會報名" src="../../Images/icon_03.jpg" style="margin-right:10px;  border: 3px solid #666;"/></a> -->
+                <a href="/Download/115起_全國高級中等學校學生技藝競賽_成績複查申請表.pdf" target="_blank"
+                    rel="noopener noreferrer" title="下載：115起_全國高級中等學校學生技藝競賽_成績複查申請表（PDF，另開新視窗）" style="float: left; margin-top: -6.5%;padding-right: 5px;">
+                    <img alt="下載：115起_全國高級中等學校學生技藝競賽_成績複查申請表（PDF，另開新視窗）" src="../../images/Default/成績複查申請表按鈕.jpg" /></a>
+                <a href="/Download/115起_成績異議處理流程與申請表.pdf" target="_blank"
+                    rel="noopener noreferrer" title="下載：115起_成績異議處理流程與申請表（PDF，另開新視窗）" style="float: left; margin-top: -6.5%">
+                    <img alt="下載：115起_成績異議處理流程與申請表（PDF，另開新視窗）" src="../../images/Default/index_downpdf.jpg" /></a>
+                <a href="https://signupsci-me.k12ea.gov.tw/Login/Index" class="btn" target="_blank"
+                    rel="noopener noreferrer" title="報名及成績系統（另開新視窗）">報名及成績系統</a> 
+                    <a href="/"
+                        class="btn" title="回首頁">回首頁</a> 
+                      
+            </div>
+        </div>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~Navigation~~~~~~~~~~~~~~~ -->
+    <div class="navigation" role="navigation" aria-label="主選單">
+        <div class="content">
+            <div class="content menu">
+                
+
+<ul>
+    
+    <li><a href="/Contest/ContestAnnounList" >
+        競賽資訊</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="/Contest/ContestIntroduce" >
+        競賽職種介紹</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="/Announcement/RelMeasures" >
+        相關辦法</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="/CollaMatch/ViewListAll" >
+        產學媒合</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="https://www.youtube.com/playlist?list=PLy9Ar7RX6A-0sYqg5eynZF4kPsrPipumt" >
+        技職教育宣導</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="/RegContest/ListView" >
+        服務調查</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li><a href="https://sci-me.k12ea.gov.tw/Study" >
+        海外研習成果</a>
+        <ul>
+            
+        </ul>
+    </li>
+    <div class="dividers">l</div>
+    
+    <li>
+		<a href="https://forms.gle/6YdtdLtCGiEXAVhR9" target="_blank" rel="noopener noreferrer" title="114說明會報名（另開新視窗）">114說明會報名（另開新視窗）</a>
+    </li>
+    <div class="dividers">l</div>
+</ul>
+
+            </div>
+        </div>
+    </div>
+    <!-- ~~~~~~~~~~~~~~~Container~~~~~~~~~~~~~~~ -->
+    <div class="container">
+        <div class="content">
+            
+            <div id="main-content" role="main" tabindex="-1">
+            
+    <h1 class="main_title" style="margin:0 0 0.5em 0; font-size:1.25rem;">首頁</h1>
+
+            
+            
+            <div class="hr" style="width: 95%">
+            </div>
+            
+    <script type="text/javascript">       
+     $(document).ready(function () {
+          var msg='';
+           if(msg.trim()!="" && msg!=null){           
+           }else{
+            //swal("報名系統－停機公告","本系統預計於109/03/19～109/04/14進行安全維護作業，屆時本系統將無法提供服務，造成不便敬請見諒。");
+           }
+           
+           //DailogMsg_Show();
+        });
+        //Dailog面板
+    function DailogMsg_Show() {
+        $("#DialogMsg").css("dispaly", "");
+        $("#DialogMsg").dialog({
+            show: 'blind',
+            hide: 'blind',
+            title: '公告',
+            modal: true,
+            top: 20,
+            width: 800,
+            height: 450,
+            close: function () {
+            },
+            buttons: ({
+                關閉: function () {
+                    $("#DialogMsg").dialog("close");
+                },
+            })
+        });
+    }
+
+    function vFileCount(PID, c_class) {
+        //window.location.href = "/Contest/FileCount?f_id=" + PID + "&c_Fileclass=" + c_class + "&ActionName=ContestOutcomeList";
+
+        $.ajax({
+            url: '/Contest/FileCount',
+            data: {
+                f_id: PID,
+                c_Fileclass: c_class,
+                ActionName: ""
+            },
+            type: "Get",
+            dataType: 'text',
+            success: function (msg) {
+                location.reload();
+                return true;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                location.reload();
+                return true;
+            }
+        });
+        
+    }
+    </script>
+    <div class="con_navigation">
+        <form action="/Contest/ContestAnnounList" id="ListForm" method="post"><input name="__RequestVerificationToken" type="hidden" value="Pcb6N4PH49OcHfd8DpvKj/sV8CjcMYL/ehoE1yY38NHe8UEXZIresYpJju36pTt63eu9WXzbERau7RxYSiwIYuDxTX8TzrlEqHD6ZIk9qt8X2sfxjIjTVYGPAEqphZx6Rh8f9TJGei9cmg6+Z06j2g==" />
+        <a href="/Contest/ContestAnnounList?c_class=1" class="classification_1" title="工業類">
+            <img src="/images/classification_ICON1.png" alt="工業類" />
+        </a><a href="/Contest/ContestAnnounList?c_class=2" class="classification_2" title="商業類">
+            <img src="/images/classification_ICON2.png" alt="商業類" />
+        </a><a href="/Contest/ContestAnnounList?c_class=3" class="classification_3" title="農業類">
+            <img src="/images/classification_ICON3.png" alt="農業類" />
+        </a><a href="/Contest/ContestAnnounList?c_class=4" class="classification_4" title="家事類">
+            <img src="/images/classification_ICON4.png" alt="家事類" />
+        </a><a href="/Contest/ContestAnnounList?c_class=5" class="classification_5" title="海事水產類">
+            <img src="/images/classification_ICON5.png" alt="海事水產類" />
+        </a>
+        <div style="display: none; height: 500px">
+            <div id="DialogMsg" style="display: none; text-align: center;">
+                <b>
+                    <p class="dialog-stop-title" style="margin:0 0 0.5em 0; font-size:1.25rem;">【停機公告】</p>
+                    <p class="ErrorMsg" style="margin:0;">報名系統目前屬非服務時間，依照作業期程，請師長們4/19再使用，謝謝。</p>
+                </b>
+            </div>
+        </div>
+        </form>
+    </div>
+      <!--    <div style="clear:both; margin:10px 0px 0px 0px; border:1px soild #000; text-align:center; background-color:#000;">
+          <iframe width="889" height="500" src="https://www.youtube.com/embed/8bckQ9wN-zQ" title="全國高級中等學校技藝競賽相關宣導影片（YouTube 嵌入）" frameborder="0"  style="margin:10px auto; text-align:center" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+           </div>
+           --> 
+    <div style="clear:both; padding:20px 0px 0px 0px; text-align:center">
+    <figure style="margin:0 auto; max-width:1240px;">
+        <img src="/images/115schedule.jpg"
+             alt="115年度時程規劃表（文字版說明見下方）"
+             title="115年度時程規劃表"
+             style="max-width:1240px"
+             aria-describedby="schedule115-desc" />
+        <figcaption id="schedule115-desc" style="text-align:left; margin:12px auto 0;">
+            <details>
+                <summary>115年度時程規劃表（文字版完整說明）</summary>
+                <div style="margin-top:10px;">
+                    <p>表名：全國高級中等學校115學年度學生五大類技藝競賽網路報名作業流程及期程規劃一覽表（修訂日期：115年2月9日）。</p>
+                    <p><strong>共同作業期程</strong></p>
+                    <ul>
+                        <li>開放網站後台管理介面，各類五大類執行學校使用：3/20。</li>
+                        <li>各校完成「本類科報名作業」：4/13～5/1。</li>
+                        <li>上網填報相關調查資料（教科書版本調查、學術科命題範圍調查或意見等；依類科可能為「無」）：4/13～5/1。</li>
+                        <li>第一階段填報（參賽調查）：5/25～6/12。內容包含：學校上傳各職種人數統計、學校上傳技藝競賽實施計畫書。</li>
+                        <li>各校辦理校內初賽及報名決賽之選手：7/31前（學校辦理各職種初選及決賽、初選作業）。</li>
+                        <li>第二階段報名系統說明會：規劃於8月辦理，另函通知。</li>
+                        <li>第二階段報名（決賽報名）：8/17～9/11。內容包含：各校填報（由五大類執行學校調查）本類科報名事項、自括報名項目（如指導師、選手名單等）。</li>
+                        <li>執行學校代辦服務項目調查：由大類執行學校填報本類科（含各職種）選手報名項目（如住宿、車輛、報到人數等）。</li>
+                        <li>最後更換選手／指導老師：9/23～10/6（學校欲更換選手／指導老師，向執行學校辦理）。</li>
+                        <li>家事類特殊兒童節日期：由家事類執行學校辦理（見下方各類科）。</li>
+                        <li>正式決賽日期：由五大類執行學校辦理（見下方各類科）。</li>
+                    </ul>
+
+                    <p><strong>各類科正式決賽日期</strong></p>
+                    <ul>
+                        <li>海事水產類：11/3～11/5（家事類特殊兒童節日期：無）。</li>
+                        <li>家事類：家事類特殊兒童節日期 10/16～10/23；正式決賽日期 11/10～11/12。</li>
+                        <li>農業類：11/17～11/19。</li>
+                        <li>工業類：11/24～11/27（家事類特殊兒童節日期：無）。</li>
+                        <li>商業類：12/1～12/4（家事類特殊兒童節日期：無）。</li>
+                    </ul>
+
+                    <p><strong>補充說明（原圖下方文字）</strong></p>
+                    <ul>
+                        <li>最後更換選手／指導老師：正式參賽選手須經校內初賽選拔；欲更換選手應去函執行學校，由執行學校確認更換。</li>
+                        <li>代辦服務項目：包含代辦服務、一工作展覽台、文教行程、搭車人數、停車處申請、領隊及到校人數、住宿地點填寫、頒獎典禮參加人數、設備工具等。</li>
+                        <li>各類科資料彙整：各校於網路作業項目，務請以期程日23:59:59前完成資料繳送。</li>
+                    </ul>
+                </div>
+            </details>
+        </figcaption>
+    </figure>
+    </div>
+     <!-- <br><div class="txt_center"  style="color:Red; margin:20px;">為避免影響各執行學校之行政公務及當天資料彙整進度，請各報名學校於辦理時程之1~8項作業階段期間，能於下午17:00前，完成資料繳交及相關業務諮詢工作。</div>
+     -->
+          <div style="clear:both; margin:10px 0px 0px 0px; border:1px soild #000; text-align:center; background-color:#000;">
+             
+             <iframe width="854" height="480" src="https://www.youtube.com/embed/3A9bYtwc9po" title="全國高級中等學校技藝競賽介紹與宣導影片（YouTube 嵌入）" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+  
+
+            </div>
+            <div style="clear: both">
+                <div class="con_left">
+                    <div class="con_menu_BG">
+                        <div class="title_block">
+                            <div class="triangle">
+                                <img src="../images/triangle.png" alt="" />
+                            </div>
+                            <p>
+                                Menu</p>
+                        </div>
+                        <div class="con_menu">
+                            
+
+<ul>
+    
+                <li>
+    
+        <a href="javascript:;" title="關於平臺" onclick="InsertSysLog(1, '#');">關於平臺</a>
+
+    
+                <ul><li>
+    
+        <a href="javascript:;" title="計畫介紹" onclick="InsertSysLog(5, '/Announcement/AnnouncementList');">計畫介紹</a>
+
+    
+                </li><li>
+    
+        <a href="javascript:;" title="組織架構" onclick="InsertSysLog(6, '/Announcement/StructureList');">組織架構</a>
+
+    
+                </ul></li><li>
+    
+        <a href="javascript:;" title="常見Q&A" onclick="InsertSysLog(2, '/Question/ListView');">常見Q&A</a>
+
+    
+                </li><li>
+    
+        <a href="javascript:;" title="執行學校" onclick="InsertSysLog(3, '/Undertake/GetUndertake');">執行學校</a>
+
+    
+                </li><li>
+    
+        <a href="javascript:;" title="下載專區" onclick="InsertSysLog(4, '/WebFileData/FileList');">下載專區</a>
+
+    </li>
+</ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="con_content">
+                    <div class="con_content_title">
+                        <p>
+                            115學年度執行學校連結</p>
+                    </div>
+                    <a href="https://www.tyai.tyc.edu.tw/" target="_blank" rel="noopener noreferrer" class="content_link" title="工業類 北科附工（另開新視窗）">
+                        <img src="/images/link_1.png" alt="">
+                        <div class="content_link_div">
+                            <p>
+                                115 學年度 工業類<br>
+                                <span class="school-name">北科附工</span>
+                            </p>
+                        </div>
+                    </a><a href="https://www.slhs.tp.edu.tw/" target="_blank" rel="noopener noreferrer"
+                        class="content_link" title="商業類 士林高商（另開新視窗）">
+                        <img src="/images/link_2.png" alt="">
+                        <div class="content_link_div">
+                            <p>
+                                115 學年度 商業類<br>
+                                <span class="school-name">士林高商</span>
+                            </p>
+                        </div>
+                    </a><a href="https://www.ctvs.ptc.edu.tw/" target="_blank"
+                        rel="noopener noreferrer" class="content_link" title="農業類 佳冬高農（另開新視窗）">
+                        <img src="/images/link_3.png" alt="">
+                        <div class="content_link_div">
+                            <p>
+                                115 學年度 農業類<br>
+                                <span class="school-name">佳冬高農</span>
+                            </p>
+                        </div>
+                    </a><a href="https://www.tcvs.ilc.edu.tw/" target="_blank" rel="noopener noreferrer"
+                        class="content_link" title="家事類 頭城家商（另開新視窗）">
+                        <img src="/images/link_4.png" alt="">
+                        <div class="content_link_div">
+                            <p>
+                                115 學年度 家事類<br>
+                                <span class="school-name">頭城家商</span>
+                            </p>
+                        </div>
+                    </a><a href="https://www.phmhs.phc.edu.tw/" target="_blank" rel="noopener noreferrer"
+                        class="content_link" title="海事水產類 澎湖海事（另開新視窗）">
+                        <img src="/images/link_5.png" alt="">
+                        <div class="content_link_div">
+                            <p>
+                                115 學年度 海事水產類<br>
+                                <span class="school-name">澎湖海事</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="content">
+            <div class="footer_images">
+                <a href="">
+                    <img src="/images/footer_information_1.jpg" alt="" /></a> <a href="">
+                        <img src="/images/footer_information_2.jpg" alt="" /></a> <a href="">
+                            <img src="/images/footer_information_3.jpg" alt="" /></a> <a href="">
+                                <img src="/images/footer_information_4.jpg" alt="" /></a>
+            </div>
+            <div class="footer_divider">
+            </div>
+            <div class="information">
+                 <p style="margin-bottom: 5%">
+                    <span class="notice-text">本網站最佳瀏覽解析度為 1024＊768 建議使用 Google Chrome、Firefox 瀏覽器</span><br />
+                    115年度五類技藝競賽相關問題，請洽詢各執行學校，聯絡電話如下：<br />
+                    海事類 - 澎湖海事：實習處06-9262709、06-9279698<br/>
+                    家事類 - 頭城家商：實習處03-9772380<br/>
+                    農業類 - 佳冬高農：實習處08-8662726#401、402<br/>
+                    工業類 - 北科附工：實習處03-3333921#600、606、611<br/>
+                    商業類 - 士林高商：實習處02-28313114#501、502、510
+                    <br />
+                    版權所有：©2026 教育部國民及學前教育署 All Rights Reserved.
+                    <br />
+                    維護單位：國立臺灣師範大學機電工程學系
+                    <br />
+                    地址：106 台北市大安區和平東路一段129號
+                    <br />
+                    聯絡電話：(02)7749-5724、(02)7749-5298、(02)7749-5689
+                    <br />
+                    地址：106臺北市大安區和平東路一段129號
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,1948 @@
+
+
+<style>
+.indent-icon {
+    position: relative;
+    padding-left: 1.5em;
+    /* icon寬度 + 間距 */
+}
+
+.indent-icon i {
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    /* 垂直微調 */
+}
+
+@media (max-width: 992px) {
+    .indent-icon {
+        font-size: 1.0rem;
+    }
+}
+
+.notice-area {
+    padding: 1.5em;
+    font-size: 95%;
+    line-height: 2em;
+    letter-spacing: 0.8px;
+    background-color: #FFDAF7;
+    box-shadow: 0 0.5em 1em rgba(11, 3, 6, 0.2), 0 0.5em 1em rgba(11, 3, 6, 0.2);
+    margin-bottom: 5em;
+}
+</style>
+
+
+
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+
+<head>
+    <meta charset="utf-8">
+    <!--  -->
+            <title>四技二專日間部聯合登記分發 - 四技二專 - 招生資訊查詢 - 技專校院招生策略委員會｜四技、二技、二專、五專招生宣導網站</title>
+    <!--  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="四技二專招生;四技招生;二專招生;二技招生;五專招生;四年制技術系;科技校院四年制;科技校院二年制;專科學校二年制;專科學校五年制;四年制學士班;二年制學士班;四技日間部;四技進修部;二技日間部;二技進修部;二專日間部;二專進修部;四技二專日間部;四技二專進修部;五專;技職招生;科大招生;技職教育;技訊網;技職體系;技職網;技專入學;技專多元入學;技職升學;技高升學;高職升學;五專升學;二專升學;升學資訊;升學寶典;升科大;聯合招生;單獨招生;聯招;獨招;單招;科技大學;科技校院;技術校院;專科學校;技專校院;技專院校;招生資訊;多元入學;適性入學;考招連動;考招制度;技專考招;四技二專考招;學習歷程檔案" name="keywords">
+    <meta property="og:title" content="技專校院招生策略委員會｜四技、二技、二專、五專招生宣導網站">
+    <meta content="技專校院招生策略委員會依照組織規程，進行協調各聯合招生委員會相關招生作業、規劃審議技專校院招生策略、改進技專校院年度招生工作及其他招生相關事項。辦理事項與提供之服務包括：彙整與編撰四技二專、二技及五專各項招生資訊，提供各界參酌；配合推動教育政策，結合各技專校院研擬實施方案或配套措施；進行考試及招生共通事務，如考試日程、法規及相關作業規範等之協調，實施報名及分發等招生作業檢測及簡章內容檢核等，並針對各項改進與政策建議，進行專案規劃加以研議落實。" name="description">
+    <meta property="og:image" content="https://www.techadmi.edu.tw/images/about/logo/logo2.jpg">
+    <meta property="og:url" content="https://www.techadmi.edu.tw/">
+    <meta property="og:type" content="education">
+    <noscript>您的瀏覽器不支援JavaScript功能，若網頁功能無法正常使用時，請開啟瀏覽器JavaScript狀態。</noscript>
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- swiper -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+
+
+
+    <!--banner-->
+ 
+
+<style>
+    /* 1. 圖片容器修正：符合 AA 級縮放與間距 */
+    .image-container {
+        border: 0.125rem solid #ccc; /* 2px */
+        border-radius: 0.5rem;       /* 8px */
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+        padding: 0.625rem;           /* 10px */
+        background-color: #fff;
+        display: inline-block;        /* 建議開啟，確保容器包覆圖片 */
+    }
+
+    /* 確保圖片在容器內具備響應式縮放 */
+    .image-container img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* 2. 全域文字與背景：確保對比度符合 AA 級 (4.5:1) */
+    body { 
+        color: #202020;              /* 比 #222 更深的深灰色 */
+        background-color: #ffffff; 
+        font-size: 1.2rem;           /* 強制基準文字為 19.2px */
+        line-height: 1.6;            /* AA 規範建議行高 */
+    }
+
+    /* 3. 鍵盤焦點：提供高對比的可見焦點 (AA 級必要條件) */
+    a:focus, button:focus, input:focus {
+        outline: 0.1875rem solid #0078d7 !important; /* 3px */
+        outline-offset: 0.1875rem;
+        box-shadow: 0 0 0 0.3rem rgba(0, 120, 215, 0.2);
+    }
+
+    /* 4. Skip link：提供快速跳過導覽的功能 */
+    .skip-link {
+        position: absolute;
+        top: -3rem;                  /* 改用 rem */
+        left: 0;
+        background: #004b97;
+        color: #ffffff;
+        padding: 0.5rem 0.75rem;
+        z-index: 1000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .skip-link:focus {
+        top: 0.625rem;               /* 10px */
+    }
+</style>
+
+
+
+
+
+    <!-- script -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const city1 = document.getElementById("city1");
+  const city2 = document.getElementById("city2");
+  const schoolsList = document.getElementById("schools_list");
+
+  // ※ 如果任一不存在，就不要往下做，避免 addEventListener 對 null
+  if (!(city1 && city2 && schoolsList)) return;
+
+  const regions = {
+    1: ["臺北市","新北市","基隆市","桃園市","新竹市","新竹縣"],
+    2: ["臺中市","彰化縣","南投縣","雲林縣","苗栗縣"],
+    3: ["高雄市","臺南市","屏東縣","嘉義市","嘉義縣"],
+    4: ["臺東縣","澎湖縣","宜蘭縣"]
+  };
+
+  city1.addEventListener("change", () => {
+    const region = city1.value;
+    city2.innerHTML = '<option value="">請選擇</option>';
+    if (regions[region]) {
+      regions[region].forEach(city => {
+        const opt = document.createElement("option");
+        opt.value = city;
+        opt.textContent = city;
+        city2.appendChild(opt);
+      });
+    }
+  });
+
+  city2.addEventListener("change", () => {
+    const region = city1.value;
+    const city = city2.value;
+    if (!(region && city)) return;
+
+    fetch("fetch_schools.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ region, city })
+    })
+    .then(r => r.json())
+    .then(data => {
+      schoolsList.innerHTML = data.map(school => `
+        <div class="col-lg-4 col-md-6 col-xs-12 my-2">
+          <div class="card text-center">
+            <div class="card-body pt-3">
+              <a href="schools_detail.php?psrid=${school.psrid}">
+                <div class="img-container">
+                  <img class="img-fluid" src="images/schools/cover/${school.school_img}" alt="圖片來源：${school.school_name}" />
+                </div>
+              </a>
+            </div>
+            <div class="card-footer">
+              <p class="mt-3 card-title">
+                <a href="schools_detail.php?psrid=${school.psrid}">
+                  <i class="bi bi-play me-2"></i> ${school.school_name}
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    })
+    .catch(err => console.error("Error:", err));
+  });
+});
+</script>
+    <!-- script -->
+
+    <!-- 針對編輯器內容，規範table樣式輸出 
+	/*font-size: 14px;*/
+	  /* 14px 等於 0.875rem */
+	  
+      <style>
+        .editor-output table {
+            width: 100% !important;
+            max-width: 100% !important;
+            border-collapse: collapse;
+            table-layout: fixed;
+            word-break: break-word;
+        }
+      
+        .editor-output th,
+        .editor-output td {
+            border: 1px solid #333;
+            padding: 6px;
+            text-align: center;
+            white-space: normal;
+            word-wrap: break-word;
+            
+			font-size: 0.875rem;  
+        }
+      </style>
+	  
+     針對編輯器內容，規範table樣式輸出 -->
+	
+	  <!---新樣式k-->
+<style>	
+	.editor-output table {
+            width: 100% !important;
+            max-width: 100% !important;
+            border-collapse: collapse;
+            table-layout: fixed;
+            word-break: break-word;
+        }
+	.editor-output th,
+	.editor-output td {
+		border: 1px solid #333;
+		padding: 6px;
+		text-align: center;
+		white-space: normal;
+		word-wrap: break-word;    
+		font-size: 0.875rem; 
+	
+			line-height: 1.5;
+}
+	  </style>
+	
+		<!-- /* 建議補上行高，符合 AA 閱讀性規範 */-->
+
+
+    <!-- 強制所有<a>標籤都另開視窗 -->
+      <!-- <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('a[href]').forEach(function (a) {
+                a.setAttribute('target', '_blank');
+                a.setAttribute('rel', 'noopener noreferrer');
+            });
+        });
+      </script> -->
+    <!-- 強制所有<a>標籤都另開視窗 -->
+	
+</head>
+<body>
+
+
+
+
+
+    <!-- Navbar & Carousel Start -->
+    <div class="container-fluid position-relative p-0">
+        <!-- Topbar Start -->
+        <style>
+    .logo-img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+<!--<a href="#mainContent" class="skip-link">跳到主要內容</a> 
+<a href="#accesskey-C" class="skip-link">跳到主要內容</a>-->
+
+
+<a href="#mainContent"   id="accesskey-C"   accesskey="C"   class="skip-link"   title="跳到主要內容區">    跳到主要內容 </a>
+
+
+    <!-- 一般登入 Start -->
+    <nav class="navbar navbar-expand-xxl navbar-dark px-3 py-3 py-lg-0 d-flex flex-wrap align-items-center">
+        <div class="col-auto flex-shrink-0">
+            <a href="index.php" class="navbar-brand p-0" title="返回首頁">
+                <img src="img/logo2.jpg" class="logo-img me-2" alt="技專校院招生策略委員會-Logo" />
+            </a>
+        </div>
+
+        <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"  aria-label="主選單切換">
+            <span class="fa fa-bars"></span>
+        </button>
+
+
+		
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0">
+                <!-- 所有選單 -->
+                <a href="index.php"     class="nav-item nav-link ">首頁</a>
+                <a href="bbs-list.php"  class="nav-item nav-link ">公告欄</a>
+                <a href="guide.php"     class="nav-item nav-link ">多元入學進路指南</a>
+                <a href="schools.php"   class="nav-item nav-link ">全國技專校院</a>
+                <a href="search.php"    class="nav-item nav-link ">招生資訊查詢</a>
+                <a href="portfolio.php" class="nav-item nav-link ">學習歷程檔案專區</a>
+                <a href="manual.php"    class="nav-item nav-link ">宣導資源</a>
+                <a href="about.php"     class="nav-item nav-link ">關於招策會</a>
+				<a href="../sitemap.php"     class="nav-item nav-link "><i class="fab bi-info-circle-fill fw-normal"></i>  網站導覽</a>
+            </div>
+            <button type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal1">
+                <i class="fa fa-search"></i>
+				 <span class="visually-hidden">搜尋</span>
+            </button>
+        </div>
+    </nav>
+    <!-- 一般登入 End -->
+
+<!-- Full Screen Search Start -->
+<div class="modal fade" id="searchModal1" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+            <div class="modal-header border-0">
+                <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body d-flex align-items-center justify-content-center">
+			
+				
+<form name="form1" id="form1" method="post" action="web_search.php" role="search" aria-label="網站搜尋">
+  <div class="input-group" style="max-width: 600px;">
+    
+    <!-- 供螢幕報讀器識別的標籤 -->
+    <label for="searchtext" class="visually-hidden">查詢關鍵字</label>
+
+    <!-- 主要輸入欄位 -->
+    <input type="text" id="searchtext"
+           class="form-control bg-transparent border-primary p-3"
+           name="searchtext"
+           placeholder="請輸入查詢關鍵字"
+           title="查詢關鍵字"
+           aria-required="true"
+           aria-describedby="searchHelp">
+
+    <!-- 補充說明（提供 aria 對應） -->
+    <span id="searchHelp" class="visually-hidden">請輸入想要搜尋的關鍵字，例如「招生」、「活動」或「技專院校」</span>
+
+    <!-- 搜尋按鈕 -->
+    <button type="button" class="btn btn-primary px-4"
+            style="justify-content: center; align-content: center; flex-wrap: wrap;"
+            aria-label="送出搜尋"
+            onclick="cc();">
+      <i class="bi bi-search" aria-hidden="true"></i>
+      <span class="visually-hidden">送出搜尋</span>
+    </button>
+  </div>
+</form>
+
+				
+				
+				
+				
+				
+				
+				
+				
+                <script>
+                    function cc() {
+                        message1 = "";
+                        with(document.form1) {
+                            if (searchtext.value.match(/[^\n^\s]/) == null) message1 += "請輸入查詢關鍵字\n";
+
+                        }
+                        if (message1 != "") {
+                            alert(message1);
+                        } else {
+                            document.form1.submit();
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Screen Search End -->        <!-- Topbar End -->
+
+        <div class="container-fluid" style="background:#b0dfe5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 py-5">
+                        <h1 class="display-5 animated zoomIn">招生資訊查詢</h1>
+                        <a href="index.php" class="h5 "> 首頁</a>
+                        <i class="fa fa-arrow-right  px-2"  aria-hidden="true"></i>
+                        <a href="search.php" class="h5 ">招生資訊查詢</a>
+                        <i class="fa fa-arrow-right  px-2"  aria-hidden="true"></i>
+                        <a href="edutype.php?type=1" class="h5 ">四技二專</a>
+                        <i class="fa fa-arrow-right  px-2"  aria-hidden="true"></i>
+                        <a href="edutype_list.php?type=1&type2=comc03"
+                            class="h5 ">四技二專日間部聯合登記分發</a>
+                    </div>
+                    <div class="col-lg-6 col-md-12 text-center">
+                        <img src="img/inner_006.png" alt="" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+  <!-- Full Screen Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center justify-content-center">
+                    <div class="input-group" style="max-width: 600px;">
+                        
+                        <label for="searchKeyword" class="visually-hidden">搜尋關鍵字</label>
+						<input type="text"
+							   id="searchKeyword"
+							   name="searchtext"
+							   class="form-control bg-transparent border-primary p-3"
+							   placeholder="Type search keyword"
+							   title="搜尋關鍵字"
+							   aria-label="搜尋關鍵字"
+							   aria-required="true">
+				   
+                        
+						<button class="btn btn-primary px-4" type="submit"	aria-label="送出搜尋">
+							<i class="bi bi-search" aria-hidden="true"></i>
+							<span class="visually-hidden">送出搜尋</span>
+						</button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Full Screen Search End -->
+
+
+    <!-- Blog Start --><div id="accesskey-C" accesskey="C" title="中央內容區"  tabindex="-1">::: </div>
+    <div class="container-fluid pb-5 sr-reveal" data-delay="0.1">
+        <div class="container py-5">
+            <div class="row g-5">
+
+                <div class="col-lg-4 order-lg-1 order-2">
+                    <div class="mb-5 sr-reveal" data-delay="0.1">
+                        <div class="section-title section-title-sm position-relative pb-3 mb-4">
+                            <h3 class="mb-0">四技二專</h3>                        </div>
+                        <div class="link-animated d-flex flex-column justify-content-start">
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc01"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專甄選入學(一般組)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc02"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專甄選入學(青年儲蓄帳戶組)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc03"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專日間部聯合登記分發</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc04"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技日間部申請入學聯合招生(招收高中生)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc05"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專技優保送入學</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc06"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專技優甄審入學</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc07"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                科技校院繁星計畫聯合推薦甄選</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc08"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專特殊選才聯合招生</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comc11"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                身心障礙學生升學大專校院甄試(四技二專組)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi01"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                藝術群單獨招生(四技二專)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi03"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專日間部一般單獨招生</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi04"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專進修部一般單獨招生</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi07"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                二專在職專班招生</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi11"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                運動績優學生單獨招生(四技二專)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi12"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                身心障礙學生單獨招生(四技二專)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi14"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                產學攜手合作計畫專班招生(四技二專)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi16"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                技術型高中與科技大學合作3+2新五專模式專班招生</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi22"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                新住民入學招生(四技二專)</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comi91"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                四技二專其他入學管道</a>
+                                                        <a class="h5 fw-semi-bold bg-light rounded py-2 px-3 mb-2 indent-icon"
+                                href="edutype_list.php?type=1&type2=comz02"
+                                style="font-size: 1.0rem; text-align: left;"><i class="bi bi-play me-2" aria-hidden="true"></i>
+                                空中進修學院二專招生</a>
+                                                    </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-lg-8 order-lg-2 order-1">
+                    <div class="row g-5">
+                                                <div class="mb-5">
+                            <h3 class="mb-4 text-center">四技二專日間部聯合登記分發</h3>                            <hr>
+                            <div class="mb-5">
+                                <div>
+                                    <p>四技二專日間部聯合登記分發完全採計當學年度四技二專統一入學測驗成績，技高應屆或非應屆畢業生、綜合高中學術學程及專門學程之應屆或非應屆畢業生、高中普通科非應屆畢業生及其他符合報考四技二專同等學力資格之考生皆可報名參加。採網路選填志願，依照考生總成績之高低順序依序分發。 </p>
+                                </div>
+                                                            </div>
+                            <HR>
+                            <!-- comi16 -->
+                                                        <!-- comi16 -->
+
+<div class="mb-4 p-3" style="background-color:#f7f7f7">
+    <div class="">
+        <h4><i class="bi bi-play me-2" aria-hidden="true"></i> 適用對象</h4>
+    </div>
+    <div>
+        1.高級中等學校專業群科應屆或非應屆畢業生<br>2.高級中等學校綜合高中(專門學程或學術學程)應屆或非應屆畢業生<br>3.高級中等學校普通科非應屆畢業生<br>4.其他符合報考四技二專同等學力資格之考生<br>*需先參加當學年度四技二專統一入學測驗且不得有2科目為0分<br>*普通科應屆畢業生不可報名參加本入學管道    </div>
+</div>
+
+
+                            
+
+                                                        <div class="mb-5 p-3" style="background-color:#f7f7f7">
+                                <div class="">
+                                    <h4><i class="bi bi-play me-2" aria-hidden="true"></i> 聯合招生委員會辦理單位</h4>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="card w-100">
+                                            <div class="card-body text-dark">
+                                                <dl class="row">
+                                                    <dt class="col-sm-3 text-danger">招生主辦單位</dt>
+                                                    <dd class="col-sm-9">科技校院四年制及專科學校二年制日間部聯合登記分發委員會</dd>
+                                                    <hr>
+
+                                                    <dt class="col-sm-3 text-danger">承辦單位 </dt>
+                                                    <dd class="col-sm-9">技專校院招生委員會聯合會</dd>
+                                                    <hr>
+
+                                                    <dt class="col-sm-3 text-danger">電話</dt>
+                                                    <dd class="col-sm-9">(02)27725333</dd>
+                                                    <hr>
+
+                                                    <dt class="col-sm-3 text-danger">傳真</dt>
+                                                    <dd class="col-sm-9">(02)27738881</dd>
+                                                    <hr>
+                                                </dl>
+												
+												
+												<div>＊以下連結為[另開新視窗]</div>
+												
+                                                
+												<a href="https://www.jctv.ntut.edu.tw/union42/"  class="btn btn-lg btn-outline-danger"   target="_blank"   title="招生委員會網站（另開新視窗）"   aria-label="招生委員會網站（另開新視窗）">													
+													
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-house-door"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z">
+                                                        </path>
+                                                    </svg>
+                                                    招生委員會網站 
+													
+                                                </a>
+
+                                                <a href="https://www.jctv.ntut.edu.tw/downloads/115/union42/115union42_tech.pdf" 
+																class="btn btn-lg btn-outline-primary" 
+																target="_blank" 
+																title="招生簡章 PDF 檔案（另開新視窗）"
+																aria-label="招生簡章 PDF 檔案（另開新視窗）"><i class="bi bi-download me-2" aria-hidden="true"></i>招生簡章下載（PDF）</a>                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                            
+
+
+
+
+                            <div class="mb-5 p-3" style="background-color:#f7f7f7">
+                                <div class="">
+                                    <h4><i class="bi bi-play me-2" aria-hidden="true"></i> 辦理日程</h4>
+                                </div>
+
+                                <!-- 辦理日程 -->
+                                <div class="row mt-3">
+                                    <div class="accordion accordion-flush" id="accordionFlushExample">
+                                        <div class="card w-100" style="border: 1px solid rgba(0, 0, 0, 0);">
+                                            <div class="card-body text-dark">
+                                                <div class="row">
+                                                                                                        <div class="col-sm-4 text-danger">集體資格審查登錄                                                    </div>
+                                                    <div class="col-sm-8">115.5.4(一)~5.8(五)【由高級中等學校辦理】</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">個別資格審查登錄及繳件                                                    </div>
+                                                    <div class="col-sm-8">115.5.14(四)~6.3(三)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">資格審查結果查詢                                                    </div>
+                                                    <div class="col-sm-8">115.6.23(二)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">集體報名繳費                                                    </div>
+                                                    <div class="col-sm-8">115.7.14(二)~7.16(四)【由高級中等學校辦理】</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">個別報名繳費                                                    </div>
+                                                    <div class="col-sm-8">115.7.17(五)~7.22(三)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">公告實際招生名額                                                    </div>
+                                                    <div class="col-sm-8">115.7.27(一)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">個人總成績查詢、公告考科成績權重組合人數累計表                                                    </div>
+                                                    <div class="col-sm-8">115.7.28(二)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">網路選填志願                                                    </div>
+                                                    <div class="col-sm-8">115.7.28(二)~7.31(五)</div>
+                                                    <hr>
+                                                                                                        <div class="col-sm-4 text-danger">放榜                                                    </div>
+                                                    <div class="col-sm-8">115.8.6(四)</div>
+                                                    <hr>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 日程表 -->
+								<div>＊以下連結為[另開新視窗]</div>
+                                                                    <br>
+
+										
+										<a href="https://www.jctv.ntut.edu.tw/downloads/115/union42/115_union42_date1.pdf" class="btn btn-lg btn-outline-danger" target="_blank" title="招生重要日程表 PDF 檔案（另開新視窗）" aria-label="招生重要日程表 PDF 檔案（另開新視窗）">
+											<i class="bi bi-calendar-range me-2" aria-hidden="true"></i> 招生重要日程表（PDF）
+										</a>
+										
+										
+                                    <br>
+                                
+                                <br>
+                                <p>※詳細日程請詳閱招生簡章，若有異動，概以招生委員會公告為準。</p>
+                                <br>
+                            </div>
+                            
+                                                        <div class="row">
+                                <div class="my-5">
+                                                                        <h4><i class="bi bi-play me-2" aria-hidden="true"></i>招生群(類)別</h4>                                </div>
+								
+								
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=01機械群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">01機械群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=02動力機械群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">02動力機械群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=03電機與電子群電機類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">03電機與電子群電機類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=04電機與電子群資電類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">04電機與電子群資電類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=05化工群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">05化工群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=06土木與建築群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">06土木與建築群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=07設計群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">07設計群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=08工程與管理類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">08工程與管理類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=09商業與管理群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">09商業與管理群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=10衛生與護理類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">10衛生與護理類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=11食品群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">11食品群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=12家政群幼保類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">12家政群幼保類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=13家政群生活應用類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">13家政群生活應用類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=14農業群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">14農業群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=15外語群英語類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">15外語群英語類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=16外語群日語類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">16外語群日語類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=17餐旅群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">17餐旅群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=18海事群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">18海事群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=19水產群"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">19水產群</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                                <div class="list-group col-md-4 mb-1">
+                                    <a href="edutype_list_detail.php?type=1&type2=comc03&insc_notes=20藝術群影視類"
+                                        class="list-group-item list-group-item-action "
+                                        style="border: 2px dotted #0795c7;"
+										
+                                        >
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">20藝術群影視類</h5>
+                                        </div>
+                                    </a>
+                                </div>
+                                                            </div>
+                                                        
+                            
+
+                                                                                                <div class="row">
+                                        <div class="my-5">
+                                            <h4><i class="bi bi-play me-2" aria-hidden="true"></i> 招生學校</h4>
+                                        </div>
+                                        
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=101&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺灣科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=102&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立雲林科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=103&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立屏東科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=104&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺北科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=105&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立高雄科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=107&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立虎尾科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=109&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立澎湖科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=110&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立勤益科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=111&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺北護理健康大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=112&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立高雄餐旅大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=113&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺中科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=114&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺北商業大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=201&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">朝陽科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=202&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">南臺科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=203&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">崑山科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=204&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">嘉南藥理大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=205&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">樹德科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=206&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">龍華科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=207&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">輔英科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=208&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">明新科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=209&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">弘光科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=210&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">健行科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=211&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">正修科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=212&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">萬能科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=213&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">建國科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=214&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">明志科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=215&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">台鋼科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=216&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">大仁科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=217&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">聖約翰科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=218&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">嶺東科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=219&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">中國科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=220&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">中臺科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=221&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">台南應用科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=222&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">中信科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=223&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">元培醫事科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=224&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">景文科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=225&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">中華醫事科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=226&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">東南科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=227&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">德明財經科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=228&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">南開科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=229&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">中華科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=230&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">僑光科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=231&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">育達科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=232&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">美和科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=233&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">吳鳳科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=237&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">長庚科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=238&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">敏實科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=239&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">臺北城市科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=240&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">醒吾科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=241&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">文藻外語大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=245&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">致理科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=246&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">宏國德霖科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=248&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">崇右影藝科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=249&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">台北海洋科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=250&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">亞東科技大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=411&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">南亞技術學院</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=415&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">黎明技術學院</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=417&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">德育護理健康學院</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=502&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺南護理專科學校</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=503&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺東專科學校</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=704&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立臺灣師範大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=713&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立彰化師範大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=723&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立宜蘭大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=724&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立聯合大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=732&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立金門大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=738&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">國立屏東大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                    
+                                                                                            <div class="list-group col-md-4 mb-1">
+                                                    <a href="edutype_list_detail.php?type=1&type2=comc03&school=822&item=dd"
+                                                        class="list-group-item list-group-item-action "
+                                                        style="border: 2px dotted #0795c7;"
+														
+                                                        >
+                                                        <div class="d-flex w-100 justify-content-between">
+                                                            <h5 class="mb-1">慈濟大學</h5>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                                                                                        </div>
+                                                                                    </div>
+                        
+                                            </div>
+                                    <div class="row mt-3">
+                                        <div class="col-sm-12 text-end sr-reveal"
+                                            >
+                                            <a href="javaScript:history.go(-1);" class="btn btn-outline-dark"><i
+                                                    class="fa fa-arrow-left  px-2"></i> 返回</a>
+                                        </div>
+                                    </div>
+                </div>
+                <!-- Blog list End -->
+
+                <!-- Sidebar Start -->
+
+                <!-- Sidebar End -->
+                <!-- <div class="row mt-3">
+                    <div class="col-sm-12 text-end sr-reveal"
+                        >
+                        <a href="javaScript:history.go(-1);" class="btn btn-outline-dark"><i
+                                class="fa fa-arrow-left  px-2"></i> 返回</a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- Blog End -->
+
+
+
+
+
+
+
+    <!-- Footer Start -->
+        <!-- Footer Start -->
+<footer id="accesskey-Z" accesskey="Z" title="下方資訊區" tabindex="-1">
+  <div class="container-fluid footer mt-5 sr-reveal" data-delay="0.9" style="background: #fcf9f4;">
+        <div class="container">
+            <div class="row gx-5">
+				<div class="col-lg-4 col-md-4 footer-about">
+                    <div class="flex-column align-items-center justify-content-center text-center h-100">
+			
+			
+							<a href="index.php" class="navbar-brand" title="返回首頁">
+							  <img src="img/logo2.png" class="img-fluid w-85" alt="技專校院招生策略委員會，返回首頁">
+							</a>
+
+							  
+								
+
+			
+                    </div>
+                </div>
+                				<div class="col-lg-5  col-md-5  py-4 ">
+                    <div class="row gx-5">
+						<div class="d-flex mb-2">
+							<i class="bi bi-geo-alt  me-2"></i>
+							<p class="mb-0">100025臺北市中正區徐州路48-1號6樓</p>
+						</div>
+						<div class="d-flex mb-2">
+							<i class="bi bi-telephone  me-2"></i>
+							<p class="mb-0">(02)27773827</p>
+						</div>
+						<div class="d-flex mb-2">
+							<i class="bi bi-printer  me-2"></i>
+							<p class="mb-0">(02)87733007</p>
+						</div>
+						<div class="d-flex mb-2">
+							<i class="bi bi-envelope-open me-2"></i>
+							<p class="mb-0"> techadmi@nkust.edu.tw</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3  col-md-3 pt-2">                                
+					<a class="btn btn-danger 			w-100 m-1" href="https://www.youtube.com/channel/UCFdB11IIYkpbaC68sXqGUjA" target="_blank"  title="(另開新視窗)">	<i class="fab fa-youtube fw-normal"></i> YouTube頻道 </a>
+					<a class="btn btn-outline-dark w-100 m-1" href="infosec.php" title="資訊安全政策">		<i class="fab bi-shield-fill-check fw-normal"></i> 資訊安全政策 </a>
+					<a class="btn btn-outline-dark w-100 m-1" href="infosec2.php" title="網站資料開放宣告">		<i class="fab bi-info-circle-fill fw-normal"></i> 網站資料開放宣告 </a>
+					
+					<a class="btn btn-outline-dark w-100 m-1" href="sitemap.php" title="網站導覽">		<i class="fab bi-info-circle-fill fw-normal"></i> 網站導覽 </a>
+                </div>
+			</div>
+				
+            <div class="col-lg-12 col-md-6">
+                <div class="d-flex align-items-center justify-content-center" style="height: 75px;"></div>
+            </div>
+        </div>
+    </div>
+	</footer>
+    <!-- Footer End -->
+
+
+    <!-- Back to Top
+	<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded back-to-top" title="回到頁首" aria-label="回到頁首">
+		<i class="bi bi-arrow-up" aria-hidden="true"></i>
+		<span class="visually-hidden">回到頁首</span>
+	</a> -->
+	
+
+	
+<!-------->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/main.js"></script>
+
+<script>
+(function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const navId = 'navbarCollapse';
+        const navEl = document.getElementById(navId);
+        if (!navEl) return;
+
+        // 取得漢堡按鈕 (用來在關閉後返回焦點)
+        const toggler = document.querySelector(`[data-bs-target="#${navId}"]`);
+
+        // 追蹤是否由滑鼠點擊開啟（滑鼠開啟不自動跳 focus 進選單）
+        let openedByMouse = false;
+        document.querySelectorAll(`[data-bs-target="#${navId}"]`).forEach(function(btn) {
+            btn.addEventListener('mousedown', function() { openedByMouse = true; });
+        });
+
+        // Esc 關閉 + Tab 焦點鎖定在選單內
+        const handleKeyEvents = function(e) {
+            if (e.key === 'Escape') {
+                const bsCollapse = bootstrap.Collapse.getInstance(navEl) || new bootstrap.Collapse(navEl);
+                if (navEl.classList.contains('show')) {
+                    bsCollapse.hide();
+                    e.preventDefault();
+                }
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const focusable = navEl.querySelectorAll('a, button, input');
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        };
+
+        // 當選單「完全展開」後：開始監聽鍵盤
+        navEl.addEventListener('shown.bs.collapse', function () {
+            if (toggler && toggler.offsetParent !== null) {
+                document.body.style.overflow = 'hidden';
+                // 動態計算：從選單頂端到視口底部，確保剛好滿版不裁切
+                var menuTop = navEl.getBoundingClientRect().top;
+                navEl.style.maxHeight = (window.innerHeight - menuTop) + 'px';
+            }
+            if (!openedByMouse) {
+                // 鍵盤開啟：focus 跳到第一個選單項目
+                const focusable = navEl.querySelectorAll('a, button, input');
+                if (focusable.length > 0) focusable[0].focus();
+            }
+            openedByMouse = false;
+            document.addEventListener('keydown', handleKeyEvents);
+        });
+
+        // 當選單「關閉完成」：移除監聽 + 焦點返回漢堡按鈕
+        navEl.addEventListener('hidden.bs.collapse', function () {
+            document.body.style.overflow = '';
+            navEl.style.maxHeight = '';
+            document.removeEventListener('keydown', handleKeyEvents);
+            if (toggler) {
+                setTimeout(() => {
+                    toggler.focus();
+                    toggler.style.outline = "3px solid #0078d7";
+                }, 100);
+            }
+        });
+
+        // 視窗縮放時同步 overflow 狀態（Bootstrap 不觸發 collapse 事件）
+        window.addEventListener('resize', function () {
+            if (toggler && toggler.offsetParent === null) {
+                // 漢堡隱藏（桌機）→ 還原
+                document.body.style.overflow = '';
+                navEl.style.maxHeight = '';
+            } else if (toggler && toggler.offsetParent !== null && navEl.classList.contains('show')) {
+                // 漢堡可見且選單仍展開（縮回手機尺寸）→ 重新鎖定並重算高度
+                document.body.style.overflow = 'hidden';
+                var menuTop = navEl.getBoundingClientRect().top;
+                navEl.style.maxHeight = (window.innerHeight - menuTop) + 'px';
+            }
+        });
+
+        // 針對搜尋 Modal 的額外修正
+        const searchModal = document.getElementById('searchModal1');
+        if (searchModal) {
+            searchModal.addEventListener('hidden.bs.modal', function () {
+                const searchBtn = navEl.querySelector('[data-bs-target="#searchModal1"]');
+                if (searchBtn) searchBtn.focus();
+            });
+        }
+    });
+})();
+</script>
+    <!-- Footer End -->
+</body>
+
+</html>

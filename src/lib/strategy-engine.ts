@@ -15,12 +15,15 @@ import type { StudentProfile, DepartmentInfo } from '@/types/department'
 import examSchedules from '@/data/exam-schedules.json'
 import competitionEvents from '@/data/competition-events.json'
 import pathwayDeadlines from '@/data/pathway-deadlines.json'
+import { COMPETITIONS } from '@/data/competitions'
 import {
   getCertBonus,
   estimateCompBonus,
   getAdmissionCategoriesForGroup,
   getAllCertsForCategory,
   getCertRelevanceFromMap,
+  classifyCompetition,
+  getCompMaxBonus,
   type RelevanceLevel,
 } from '@/data/bonus-table'
 
@@ -287,6 +290,42 @@ function generateCompPaths(profile: StudentProfile, targetGroupCodes: string[], 
   const paths: UpgradePath[] = []
   const events = competitionEvents as CompetitionEvent[]
 
+  // 1. 先加入靜態定義的官方四大分類競賽
+  for (const comp of COMPETITIONS) {
+    // 只有官方分類的競賽才顯示
+    if (!comp.officialCategory) continue
+
+    // 檢查是否適用於目標職群
+    const isRelevant = comp.groupCodes.length === 0 ||
+      comp.groupCodes.some(g => targetGroupCodes.includes(g))
+
+    if (!isRelevant) continue
+
+    const category = classifyCompetition(comp.name)
+    const maxBonus = getCompMaxBonus(category)
+
+    paths.push({
+      id: `comp-static-${comp.id}`,
+      type: 'competition',
+      title: comp.name,
+      description: `官方認證競賽，最高加 ${maxBonus}%`,
+      targetItem: comp.name,
+      nextOpportunity: comp.competitionDate || null,
+      registrationDeadline: comp.applicationDeadline || null,
+      estimatedPrepDays: 60,
+      canStillMakeIt: true,
+      effortLevel: 'medium',
+      probabilityBoost: maxBonus,
+      pathwaysOpened: comp.pathwayUseful,
+      departmentsAffected: [],
+      roi: maxBonus >= 30 ? 'high' : maxBonus >= 15 ? 'medium' : 'low',
+      groupCodes: comp.groupCodes,
+      category: category,
+      level: comp.level,
+    })
+  }
+
+  // 2. 再加入動態爬蟲的即將截止比賽
   const futureEvents = events.filter(e => {
     if (!e.registrationEnd && !e.eventDate) return false
     const deadline = e.registrationEnd || e.eventDate
@@ -310,6 +349,8 @@ function generateCompPaths(profile: StudentProfile, targetGroupCodes: string[], 
       event.placingThreshold || [],
     )
 
+    const compCategory = classifyCompetition(event.competitionName)
+
     paths.push({
       id: `comp-${event.id}`,
       type: 'competition',
@@ -327,12 +368,21 @@ function generateCompPaths(profile: StudentProfile, targetGroupCodes: string[], 
       departmentsAffected: [],
       roi: isNational ? 'high' : isRegional ? 'medium' : 'low',
       groupCodes: event.groupCodes || [],
-      category: event.category,
+      category: compCategory,
       level: event.level,
     })
   }
 
-  return paths
+  // 移除重複項目（依名稱去重）
+  const seen = new Set<string>()
+  const uniquePaths = paths.filter(p => {
+    const key = p.title
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+
+  return uniquePaths
 }
 
 // ── 管道時程 ──

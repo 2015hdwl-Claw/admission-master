@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml" lang="zh_TW">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1363E9X8EZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1363E9X8EZ', { cookie_flags: 'domain=.tcte.edu.tw;SameSite=None;Secure;Partitioned;' });
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta http-equiv="Content-Type" content="text/html; charset=big5">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="keywords" content="技術士,技能檢定,全國檢定,skill">
+<meta name="description" content="技術士,技能檢定,全國檢定,skill">
+<meta http-equiv="expires" content="-1">
+<link type='image/x-icon' href='/favicon.ico?v=2' rel='icon'>
+<title>115年度全國技術士技能檢定</title>
+
+<script type="text/javascript" src="/css/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="/css/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/css/jquery-impromptu.js"></script>
+<script type="text/javascript" src="/css/jquery.smartmenus.js"></script>
+<script type="text/javascript" src="/css/bootstrap.min.js"></script>
+<script type="text/javascript" src="/css/mobilemenu.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/css/impromptu.css?version=20210825">
+<link rel="stylesheet" type="text/css" href="css/skill.css?version=20250702">
+<!--pc-->
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 769px)" href="css/skill_pc.css?version=20221204">
+<!--mobile-->
+<link rel="stylesheet" type="text/css" media="screen and (max-width: 768px)" href="css/skill_mobile.css?version=20221204">
+<script language='javascript'>
+$(function(){
+	$('#main-menu').smartmenus({
+		subMenusSubOffsetX: 1,
+		subMenusSubOffsetY: -8
+	});
+});
+$(document).ready(function(){
+   $(window).bind('scroll', function() {
+   var navHeight = $( window ).height() - 300;
+		 if ($(window).scrollTop() > navHeight) {
+			 $("#menu").addClass('sticky');
+		 }
+		 else {
+			 $("#menu").removeClass('sticky');
+		 }
+   });
+   $('#privacy_policy').click(function(){
+   var txt = '<div style="height:400px;overflow-x:hidden;overflow-y:auto;"><p><p><p><p>' +
+             '<b>以下為全國技術士技能檢定網站（以下簡稱本網站）之隱私權政策說明，請您詳細閱讀，以保障權益：</b><ol>'+
+             '<li>本網站未經使用者同意，不會以電腦主動蒐集網站使用者個人資料。對於網站使用者個人資料收集，遵守中華民國「個人資料保護法」之規範。'+
+             '<li>本網站提供服務信箱時所填寫之聯絡資訊僅供使用者與本網站溝通或公務之聯繫，使用者所填寫之個人資料，本網站將予以保護，防止被誤用、未經授權的存取或公開。'+
+             '<li>與本網站連結之其他網站有其個別的隱私權保護政策，將不適用本網站隱私權保護政策，本網站亦不負任何連帶責任。'+
+             '<li>本網站保有更改本隱私保護政策之權利，其它未盡之事宜，均依照現行之法令規定及網路規範辦理。'+
+             '</ol></div>';
+             $.prompt(txt);
+   });
+});
+</script>
+</head>
+
+<body>
+<center>
+<a href='notice.php'><img src="/images/Skill_logo_2022.jpg" width=1000 title="回技檢網站首頁"></a>
+
+<div id="menu_bg"> <a class="toggleMenu" id="toggleMenu" title="行動版選單"><img src="images/menu2.png" width="40" height="40" alt="行動版選單"></a>
+  <div id="menu">
+    <div id="menu2">
+      <nav id="main-nav" role="navigation"> 
+        <ul id="main-menu" class="sm sm-blue">          
+          <li><a href="notice.php" title="最新公告"><span class="phone_font">最新公告</span></a>
+	  <li><a title="報名專區"><span class="phone_font">報名專區</span></a>
+            <ul>
+              <li><a href="reg_step.php" title="報名程序說明">⊙報名程序說明</a>
+              <li><a href="skill_query2.php" title="查詢職類報名梯次、費用及資格">⊙查詢職類報名梯次、費用及資格</a>
+              <li><a href="https://eservice.wdasec.gov.tw/WWW/C526M" title="查詢3年內報名相同職類級別免附報檢資格文件">⊙查詢3年內報名相同職類級別免附報檢資格文件</a>
+	      <li><a href="sales.php" title="簡章購買">⊙簡章購買</a>
+	      <li><a href="download.php" title="簡章及相關表件下載">⊙簡章及相關表件下載</a>
+              <li><a href="https://eservice.wdasec.gov.tw/WWW/C105Q" title="特定對象補助查詢作業系統" target="_blank">⊙特定對象補助查詢作業系統</a>
+              <li><a href="https://www.wdasec.gov.tw/News.aspx?n=51954D6AB42BECBF&sms=4C9F24535BA50B1F" title="技能檢定規範" target="_blank">⊙技能檢定規範</a>
+
+              <li><a href="https://skill.tcte.edu.tw/reprint/index_money.php" title="紙本通信報名專用繳費單 （採網路報名者請勿使用本繳費單）">⊙紙本通信報名專用繳費單<br><font color=red style="font-size:12pt;">　(採網路報名者請勿使用本繳費單)</font></font></a>
+
+
+              <li><a href="https://skill.tcte.edu.tw/group/" title="團體報名前登錄系統(於簡章發售期間開放)">⊙團體報名前登錄系統<br>　(於簡章發售期間開放)</a>
+
+              <li><a href="https://skill.tcte.edu.tw" title="查詢報名表掛號郵件(於4月30日開放至5月15日關閉)">⊙查詢報名表掛號郵件<br>　(於4月30日開放至5月15日關閉)</a>
+
+	      <li><a href="https://www.wdasec.gov.tw/News.aspx?n=611E645F4BAB689F&sms=47C68486FEC19CA4" title="常見問答集(另開新視窗)" target="_blank">⊙常見問答集(另開新視窗)</a>
+
+
+
+
+	    </ul>
+	  <li><a title="應檢人專區"><span class="phone_font">應檢人專區</span></a>
+	    <ul>
+
+<li><a href="https://skill.tcte.edu.tw/reprint/index_prove.php" title="列印准予考試證明" target="_blank">⊙列印准予考試證明</a>
+<li><a href="https://www.wdasec.gov.tw/News_Content.aspx?n=25D08F3407C71E8F&sms=1BE761BDBCE7C913&s=079F7A8CC04ED2CA" target="_blank">⊙技術士技能檢定作業及試場規則</a>
+<li><a href="../doc/YR114/114card_notice.pdf" title="學科測試(答案卡)劃記作答注意事項" target="_blank">⊙學科測試(答案卡)劃記作答注意事項</a>
+<li><a <a href='redir.php?url=NTgwQTc5ZUNaQmg0dzRmNFk2UzhtRUszbEVzRDU3R0ZlPTRuRj91eHJwc3NGYWYuUnBCY0cvYXdUdHIubHZKb3JnNy5NY1hlVHNUYUNkMHdFLmh3WHcxd04vby9HOm9zUXBtdFR0RGg=&linkto=Qzk0MjclZzlzOHIlckR6QVglNjdDRVglWDZmQVkleTBmOE4lYTJJRTUlYjBRQmUlYjJsOUElTDdkRXolakJQOGclUjlUOGglYTZFRU4lOTN4QkYlTjFJQkElNTdQRVUlUEZ3OFYlRTBBQlIlMTVSRXAlUkFTOGIlTUZCODElSTV2RVYlakVGQXAlTURtQlYlYzcwRVclVUQzOVIlQzNIQWQlQjhDRUslekZCOHIlekNKQnElcDUwRTAlOTQ3QmMlVzhPOG4lSzZoRWkleEZjQlolcjlrQTglRTdiRWglMzJBOHElbTZaQWQlTTUyRU4ldTBqOWwlckRjOXAlRzZWRUclUjhsQW0lajlaOTclNjVrRU0lTUR4Qk8lSDN5OEUlMzhBRWkldUY0OXQlTEFMOGclRDVnRVglMjR2OHIldENXOHIlazlnRXAlMUQ4OUMlNzRMOXIlRzZ0RWQlOUFHOHIlZjgyQVclajhNRTklTUF2OUolTTBIOFElYzlZRWclWjdKQk4ldTVZODQlNDUwRVQlZDY2Qm8lQjh0QmwlVjVVRW8lYkNnOWElRjRPOWMlUDZGRVYlTDJxQVYlaURXQU0lUzZMRXclbDFnOHklODZFQUglODdwRUkldThxMkQlODZ0OWIlcUN2OXklVjVnRUoldTk1OFclWDhUOGIlTjhYRWglRkJCOHglb0VHQnclYzR4RW4la0U5QTIlWURyQjElejdLRXElTUR0OU8lMTNPQXYlZTh6RUklc0ZIODclYUNaQlElWTVSRUolQzRuQmslWTh1ODAlbzZ4RTklNEYzQkwlZjltQVclUDdvRW4leEVxM1ElOXBUQ04zUCV6OU85WCV1QmJBbSVSN0pFMSV0MjZCbCVJNnVCdSV6NzJFcSVKMzA4aCVWRk9CNiVWNUtFRiVERGpBUyU2OENCSCVJNGdFQSVSQUg5eCV6RVFBRiU3NVFFdSVCMmZBNSV1QWFBViVYNm5FMiVoRDVCaCV3M1U4eiVZOGhFRyVKMDE4UyVkQWE4SCVtNlBFVSVIMk9CSyVZRFNCeSVJN3BFUCVONTM5diVRMWtCcCVVNUpFNCU2Q0FCMiVlOTg5ZCVBN2FFZiV2Qlg5eiV4QW04diVWNTBFZyVlNXE5OCVZQkk4dSVZNXdFcSVTRW05TyVrQmM4NyUxNTFFeSVIODJBSyV5M284TiVQOVdFMSVtNVA5TyVSQm44QSVJNUdFaiVvRXY5NiV3Qnc4WSU4NUFFZCU='>⊙穿戴式裝置例舉圖<br>　(禁止攜帶具通訊攝錄功能器材<br>　如穿戴式裝置及小米手環…等)</a>
+
+<li><a href='redir.php?url=Wi9ud090TS5KdnBvY2drLlJjNGV3czRhd2Rnd1Quam1ZckFvRWZlbnZpcHdlbzQvMC9YOjdzd3B4dFh0NGg=&linkto=UjlyOXcleDZmOU4lMzZhRW4lSjdPOEMlTjNiQmElVThsRW4laDNVOHAlRDA2OHclbDhoRUUlRjNKOEglWEZ1OFglUDVURTclQTZ4QWslQTltQWklMjhlRW8lSkNYQXIlRDhUQlQlTjZNRU8lNTFtOW8lTzdYQTklRTduRWklbDM5OVoleDFtQTclRThLRUwlTEZQMjglYThtQkIleURDQWMlQjV2RWglc0UyMzclUXBlQ2MzOSUyOVo5TCV5QmRBdSVKN3pFcyV6MjhCTyVjNm9CWCV3N3ZFRCVzM1g4RSV4RmZCYiVUNURFYyVNRHlBaCV5OFZCYiVtNGFFVCVjQWE5UyVORVZBSSV5NTVFMCVBMkVBWSVmQXVBNCVrNklFMiVXRDVCayV2MzU4YiVxOEdFRSVlMFQ4USUzQXc4SiVKNlBFbSVSMndCOCV6RDdCWiV0NzdFTSU2NWM5ZCVUMVpCMyUzNTdFZyVlQ25CTyV3OWM5QSVhN0xFVCV1Qk05WCUwQTk4dSU3NXBFSSUwNUY5WiVKQkg4eSVSNVZFcCVlRW85SiVMQlU4TSVyNW1FVCVVOHlBcCU3M0U4TSV4OWxFbCVoNXo5QiV5Qlo4WCVENTlFbyVzRVE5dyVWQkE4VCVVNUNFUyU='>⊙學/術科測試參考資料</a>
+<li><a href='redir.php?url=YngycDhzM2FPLmhzS25Eb0ZpT3Ruc3BlZnVWUUZ0THNRYUlQdy9RbUZyMG8yZmRuMElQd21vcy92dGNlc042bU5hM3hGRU8vQ3dJdEouV3Ztb0FnYi40Y2tlQXNoYWNkSXdoLkVtdXJNb0tmMW5CaW93QW8zL1UvYjp3c2JwTXRxdFpo&linkto=akNZOE4lZTFxQUolazlxRW8lbjZhQTclcTliQUolbzgzRUolZjZ4OEQlRDExQlIldDV0RXklMjdwQmEleURqQTclcDZKRWclR0UyM0ElVXA5Q1UzZCVFOWI5MCVrQmtBRiVkN1BFdiU5MjBCRiVINmdCWiVQN2tFMSVnM1U4SyVPRlpCQyVyNXJFZSVNREdBTiVBOG5CMSUwNERFbiUyQWs5OCVuRWRBTCVrNUVFUCVtMkNBdSVOQWhBMCVZNjZFWSVWRHJCNSVqMzI4dyVsOFFFZSVaMEU4biV3QU04RyVINk5FUyVVMjRCMCV0RElCYyU3N2lFdCVMNXI5NSU1MTRCVyVjNWNFWCV2QzBCdCVLOXU5UyVyNzVFUyVOQnU5UCVWQWM4eSU0NTFFYiVuNVk5SiVCQkw4WiVJNTZFTiVHRUc5ZSU0QjM4dSUxNXVFSyVIOEdBTSU0M1Q4QyVROWpFaSVQNW45TiVnQlU4SSVmNWdFMSUyRXE5SyVZQmc4UiVzNUFFYiU='>⊙歷屆試題</a>
+
+              <li><a href="https://skill.tcte.edu.tw/reprint/index_hand.php" title="查詢身心障礙協助">⊙查詢身心障礙協助</a>
+
+
+<li><a href='redir.php?url=bFFVM0gwNDFSQ3MvMnczd213YS9Md1N0OS5WdnBvZGdQLmdjamVFc09hMGROd3YudGVoY1ZpYXZyckxlZHNWZTgvSS9YOjdzYXA4dDB0bGg=&linkto=azJwQUclMjkxQVglVDhwRVQleDVhQUQlS0ZzOXklUjZNRU4lTDN3OWQlQjZhOXklWDkxRXMlVDI1ODclNDl6OTAlVTZnRUolZjBsQm4lekM3OWwlUDVwRWYlbTRrQnYlUjBwQXclWTUxRTAlQTd4OXElRDlSQWQlejlFRVklNUNlQWclTjhXQkclRzZZRWUlNDFzOXYlNzdSQUolMDdKRWMlMTNMOVklOTFPQUElYThVRVglTEVCM2QlQXBKQzUzZyVCOTY5aCVpQkJBTyVTN0lFYyV6MnFCVCV3NlBCNCVxN2hFOCVvM0U4ZiVsRndCbyVFNWlFOSVjRDZBYyVrOGpCbyVrNDdFeiVpQTY5dyVrRXpBSiVpNVJFMiVIMjFBTyV0QWJBSiVlNjNFNyVDRGFCNSVDM1A4NiVFOGtFcSU4MG84YSV3QTU4QiVhNnhFNiVwMnFCUyV0RGpCMiViN1JFUSU4NW05RSVoMXBCTyVYNVNFaSVGQzBCMSV5OUE5dCVYN1BFUyU0Qmw5UCVSQXA4eiVtNTRFYyVvNTk5ZCVwQmY4dCV0NTZFRiVFRUI5aSVRQjc4NyUyNVRFeCVOOFBBWCVmM2Q4biVlOThFdCVvNXU5SyVHQm44bSVnNTZFWiV0RWk5TiVEQk44VCViNXpFVSU='>⊙術科測驗場地時間查詢</a>
+<li><a href='redir.php?url=dlFiMW0wVDFKQzAvMFd3V1pXci91d2t0WS5VdlJvVWc4LjBjZGUxc3Zhc2Rmd3YuZWV5YzVpdHZqcmplYnNCZU4veC9wOmlzRnBmdGN0Y2g=&linkto=VzBOQlAlNkQ0OGUlczVxRTUlZDczOVQlYzhmODQlYTVpRVklUkVjQVUlYTZVOVYlMDVoRWIlSUJWQkIlQTJ2Qk0ldjh0RTglaTNZQkslUzlHQnolSjdrRU0lZEJyQjklMzJyQmglMzh0RUoleDc2QTEldTVoOGMlZTdZRXElSjlMOHAlNkQwQTYlMzgwRTklSEFOOHElRUZpOHElTjVNRVMleUVBQTAldzY1OUglODUwRUUlb0VOQlklRDhNQkYlZzc3RXMldzBhOWslSThhOEUlVTZyRWslMkNiQm0lVjlsOXclbzdmRW0ldENxOUolQzNjQVYlUDhjRWcldzFWOHklNzBFOGMlczNnRTUlWjJ6QVclWjk1QTklQjhNRVUlejVqQVklNkZLOVYlRTZVRVElR0VJQlklNThiQlIlVjdmRU8lSTByOUclRDhZOE8lRTZzRVElOEFKOEYlYUYyOHAlMDVzRTQlTkRPOGglaEQ1QjMlQzRERXMlTEVWQTglRjZROVcldDVSRTAlcTZDOFAlbDA5OXElUjdORWUlTzZWQWElVkV4QkElYTg3RWElTTFSOUElQjdFQXklaDdFRWUlTzN6OWQlWDFQQTclcjg0RUklVEVFM0QlTHBkQ2gzTyVhOVg5NyVDQllBeiVBNzZFMiV5MjhCZyVTNjJCYiVoN05FOSVOM1A4OCVURmNCZSUyNW5FOSVqRGtBaiVyOHRCbyVFNGJFdCVwQUM5RyVzRXVBNiVtNWNFZCVFMmZBdCV4QXhBNSVxNkNFUSVqRHRCZiVpM3k4RyVUOHhFUyVNMFM4TSVzQVc4WCU3Nk9FeiVIMmVCdCVsRGRCRyV6N0tFWSU3NXQ5RiVPMWpCOCVtNXpFNCVGQ0xCVSVkOUk5YyVyNzFFViVUQlE5WCVsQWg4RSVUNUlFeSVNNUc5TiVzQms4UyVHNW9FYyV1RWs5NSVmQkk4ZiVZNXZFYyVJOHlBRyViM2k4VCV4OXZFMyVXNWc5SiVNQjI4ciV1NVNFOCV3RUI5WCVjQnE4UiVPNU5FZyU='>⊙術科辦理單位及成績查詢、<br>　補發成績單及證照費繳費單列印</a>
+<li><a href='https://skill.tcte.edu.tw/doc/form/ForeignNote_20251210.pdf' title='移工參加學科測試注意事項'>⊙移工參加學科測試注意事項</a>
+            </ul>
+          <li><a title="關於我們"><span class="phone_font">關於我們</span></a>
+            <ul>
+              <li><a href="contact.php" title="聯絡方式">⊙聯絡方式</a>
+              <li><a href="linkto.php" title="相關網站">⊙相關網站</a>
+            </ul>
+        </ul>
+</nav>
+</div>
+</div>
+</div>
+
+
+<!-- 內容頁面 -->
+<div class="openicon_padding relative">
+<p>
+
+<!-- 內容 Begin -->
+
+<p class="DivRightTop">115年度全國技術士技能檢定&nbsp;&nbsp;>&nbsp;&nbsp;簡章及相關表件下載</p>
+<hr size=1> 
+<div class="DivRightMain">
+<ul>
+
+<br><br>
+   <li><a href="/doc/YR115/115Skill_reg_20260401.pdf">115年度全國技術士技能檢定簡章</a>(PDF檔案，115.04版update)<img src='/images/hot.gif'>
+   <li><a href="/doc/YR115/115F2_edit.pdf">115年度第2梯次全國技術士技能檢定簡章、報名書表修改對照表</a>(PDF檔案，115.04版)<img src='/images/new.gif'>
+   <li><a href="/doc/YR115/115Deposit_Order.pdf">報名書表團體訂購單</a>(PDF檔案，115.01版)
+   <li><a href='/doc/YR115/115Packet.pdf'>報名專用信封封面</a>(PDF檔案，115.01版)
+
+<br><br>
+<li><a href="video.php" target=_blank>115年度第2梯次全國技術士技能檢定宣導說明會簡報</a>(115.04版)<img src="/images/new.gif">   <li><a href="/doc/YR115/115Promote.jpg" target=_blank>115年度全國技術士技能檢定報名及學科測試海報</a>(JPG檔案，2.5 MB) 115.01版<img src='/images/new.gif'>
+   <li><a href="../group/doc/group_manual.pdf">團體報名單位報名前登錄系統操作手冊</a>(PDF檔案，2.7 MB) 115.04版 <img src='/images/new.gif'>
+
+<br><br>
+<li><a href='/doc/YR108/labor_form1.doc'>報名表件-職安衛科系認定表1</a><small>(WORD檔案，108版，適用:職業安全管理甲級、職業安全衛生管理乙級)</small>
+<li><a href='/doc/YR108/labor_form2.doc'>報名表件-職安衛科系認定表2</a><small>(WORD檔案，108版，適用:職業衛生管理甲級、職業安全衛生管理乙級)</small>
+<li><a href='/doc/YR108/labor_form3.doc'>報名表件-職安衛科系認定表3</a><small>(WORD檔案，108版，適用:物理性因子作業環境)</small>
+<li><a href='/doc/YR108/labor_form4.doc'>報名表件-職安衛科系認定表4</a><small>(WORD檔案，適用:化學性因子作業環境測定甲級)</small>
+
+<br><br>
+
+<li><a href='/doc/YR115/Prove_degree.doc'>團體報名學歷證明清冊</a><small>(WORD檔案，115.04版)</small>
+<li><a href='/doc/YR115/Prove_payment.doc'>團體報名證照費繳費證明清冊</a><small>(WORD檔案，115.04版)</small>
+<br><br>
+<table border=1 cellspacing=0 cellpadding=5>
+  <tr>
+    <td>附件1~4</td>
+    <td>職安衛等5職類學分對照表</td>
+    <td><a href='/doc/YR115/115Attach_P1-4.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件5</td>
+    <td>全國技能競賽得申請免試術科測試項目對照表</td>
+    <td><a href='/doc/YR115/115Attach_P5.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件6</td>
+    <td>全國高級中等學校學生技藝競賽得申請免試術科對照表</td>
+    <td><a href='/doc/YR115/115Attach_P6.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件7</td>
+    <td>全國身心障礙者技能競賽得申請免試術科測試項目對照表</td>
+    <td><a href='/doc/YR115/115Attach_P7.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件8</td>
+    <td>報檢資格疑義申請表</td>
+    <td><a href='/doc/YR115/115Attach_P8.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件9</td>
+    <td>報檢資格預審申請表</td>
+    <td><a href='/doc/YR115/115Attach_P9.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件10</td>
+    <td>學科及術科採筆試非測驗題方式試題疑義申請表</td>
+    <td><a href='/doc/YR115/115Attach_P10.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件11-1</td>
+    <td>身心障礙者應考協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P11-1.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件11-2</td>
+    <td>職業安全衛生管理身心障礙者應考協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P11-2.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件12</td>
+    <td>外籍配偶及大陸地區配偶丙（單一）級播放國語口唸學科試題協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P12.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件13-1</td>
+    <td>加列外語輔助學科試題協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P13-1.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件13-2</td>
+    <td>職業安全衛生管理加列外語輔助學科試題協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P13-2.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件14</td>
+    <td>下水道用戶排水設備配管移工丙級播放國語口唸學科試題協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P14.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件15</td>
+    <td>資深人員丙(單一)級播放國、台語口唸學科試題協助申請表</td>
+    <td><a href='/doc/YR115/115Attach_P15.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件16</td>
+    <td>一般手工電銲術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P16.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件17</td>
+    <td>烘焙食品丙級術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P17.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件18</td>
+    <td>氬氣鎢極電銲術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P18.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件19</td>
+    <td>中式麵食加工-水調（和）麵類術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P19.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件20</td>
+    <td>中式麵食加工-發麵類術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P20.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件21</td>
+    <td>半自動電銲術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P21.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件22</td>
+    <td>會計事務-資訊術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P22.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件23</td>
+    <td>電腦輔助立體製圖術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P23.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件24</td>
+    <td>門市服務櫃檯作業POS系統術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P24.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件25</td>
+    <td>印前製程術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P25.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件26</td>
+    <td>網版製版印刷乙級術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P26.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件27</td>
+    <td>電腦輔助機械設計製圖術科勾選表</td>
+    <td><a href='/doc/YR115/115Attach_P27.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件28</td>
+    <td>職業潛水健康檢查表</td>
+    <td><a href='/doc/YR115/115Attach_P28.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件29</td>
+    <td>技術士證換、補發審核申請書</td>
+    <td><a href='/doc/YR115/115Attach_P29.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件30</td>
+    <td>技術士證書（懸掛式）審核申請書</td>
+    <td><a href='/doc/YR115/115Attach_P30.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件31</td>
+    <td>合併發證申請表</td>
+    <td><a href='/doc/YR115/115Attach_P31.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件32</td>
+    <td>合併發證申請流程</td>
+    <td><a href='/doc/YR115/115Attach_P32.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件33</td>
+    <td>電銲職類認證申請書</td>
+    <td><a href='/doc/YR115/115Attach_P33.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件34</td>
+    <td>特定對象參加技術士技能檢定補助申請書及附件</td>
+    <td><a href='/doc/YR115/115Attach_P34.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件35</td>
+    <td>勞動部勞動力發展署因應貿易自由化受影響產業之勞工參加技術士技能檢定補助申請書</td>
+    <td><a href='/doc/YR115/115Attach_P35.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件36</td>
+    <td>團體報名清冊</td>
+    <td><a href='/doc/YR115/115Attach_P36.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件37</td>
+    <td>全國技術士技能檢定溢繳報名費之退費申請表</td>
+    <td><a href='/doc/YR115/115Attach_P37.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件38</td>
+    <td>重大偶發事件學術科測試退費申請表</td>
+    <td><a href='/doc/YR115/115Attach_P38.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件39</td>
+    <td>報檢人學歷證明書/在學證明書/工作證明書/個人工作切結書
+        <br><a href='/doc/YR115/115Memo_P39.pdf'>學歷證明、工作經歷證明及職業訓練開立注意事項</a></td>
+    <td><a href='/doc/YR115/115Attach_P39.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件40</td>
+    <td>各項申請作業郵寄用地址條</td>
+    <td><a href='/doc/YR115/115Attach_P40.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件41</td>
+    <td>資料變更申請單</td>
+    <td><a href='/doc/YR115/115Attach_P41.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件42</td>
+    <td>學、術科測試成績複查申請單</td>
+    <td><a href='/doc/YR115/115Attach_P42.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件42-1</td>
+    <td>快速發證學、術科測試成績複查申請單</td>
+    <td><a href='/doc/YR115/115Attach_P42-1.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件43</td>
+    <td>准考證補發、報名費收據補發、成績單補發申請單</td>
+    <td><a href='/doc/YR115/115Attach_P43.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件44</td>
+    <td>全國技術士技能檢定「紙本通信報名專用」郵局繳費單</td>
+    <td><a href='/doc/YR115/115Attach_P44.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件45</td>
+    <td>個人資料蒐集、處理、利用告知聲明</td>
+    <td><a href='/doc/YR115/115Attach_P45.pdf'>PDF</a></td>
+  </tr>
+  <tr>
+    <td>附件46</td>
+    <td>個人資料特定目的外蒐集、處理、利用同意書</td>
+    <td><a href='/doc/YR115/115Attach_P46.pdf'>PDF</a></td>
+  </tr>
+
+</table>
+
+    <br><br>
+    <li>欲閱讀PDF版本請<a target="_blank" href="http://www.adobe.com/tw/products/acrobat/readstep2.html">下載安裝Adobe Reader</a>
+</ul>
+
+<br><br>
+<p>註：為加速瀏覽速度，建議按右鍵另存目標，儲存於個人電腦內再行開啟。</p>
+
+</div>
+<!-- 內容 End -->
+
+<!-- 右方廣告欄-->
+
+
+</table>
+
+<hr>
+<div class="footer">
+	<p><table><tr><td valign=middle><small>訪客人數：</small><td valign=middle><img src="/WAP/counter/counter.php" alt="page counter" title="訪客計數器，自2009年1月20日起開始計算(Since 2009.1.20)">
+	</table>
+        <table border=0>
+                <tr><td>執行單位：<td align=left><a href="https://www.tcte.edu.tw" target="_blank">財團法人技專校院入學測驗中心基金會</a>
+                <tr><td>電子信箱：<td align=left><a href="mailto:skill@mail.tcte.edu.tw">skill@mail.tcte.edu.tw</a>
+                <tr><td>諮詢專線：<td align=left>05-5360800
+                <tr><td>服務時間：<td align=left>每週一至週五 AM8:30-PM5:00
+                <tr><td>通訊地址：<td align=left>640-303雲林縣斗六市大學路三段123-5號
+                <tr><td colspan=2 align=left><a id="privacy_policy"><font color=blue>隱私權政策宣告</font></a>
+        </table>
+</div>
+</div>
+
+</div>
+</body>
+</html>
+

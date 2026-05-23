@@ -77,8 +77,10 @@ PROMPT_TEMPLATE = """請列出「{school_name}」所有四技日間部科系（�
 - departmentName: 科系全名
 - groupCode: 對應職群代碼（{group_list}），如果科系對應多個職群選最主要的
 - groupName: 職群名稱
-- description: 一句話介紹（15字以內）
+- description: 一句話簡介（15字以內）
+- fullDescription: 完整科系介紹（30-50字）
 - website: 科系官網完整網址（格式如 https://www.xxx.edu.tw/yyy/）
+- youtubeUrl: YouTube 介紹影片網址（如有）
 - features: 教學特色，2-3個字串
 - researchAreas: 研究方向，2-3個字串
 - careerPaths: 畢業出路，3-5個字串

@@ -105,6 +105,109 @@ export default function HomePage() {
             </button>
           </div>
 
+          {/* 116 學年度制度調整公告 */}
+          <div className="mt-12 max-w-4xl mx-auto bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 rounded-2xl p-6 md:p-8 shadow-sm border-2 border-amber-200">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="text-3xl">📢</span>
+              <div>
+                <h2 className="text-xl md:text-2xl font-bold text-gray-900">116 學年度四技二專入學考招制度調整</h2>
+                <p className="text-sm text-amber-700">自 116 學年度起適用，影響甄選入學與聯合登記分發</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {/* 甄選入學 */}
+              <div className="bg-white/80 rounded-xl p-4 border border-amber-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🎯</span>
+                  <h3 className="font-bold text-gray-900">甄選入學</h3>
+                </div>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>選考科目由 <strong>5 科調整為 2-4 科</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span><strong>APCS 成績</strong>納入甄選入學採計</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>117 學年起篩選倍率由 3 倍調整為 <strong>4 倍</strong></span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 聯合登記分發 */}
+              <div className="bg-white/80 rounded-xl p-4 border border-amber-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">📝</span>
+                  <h3 className="font-bold text-gray-900">聯合登記分發</h3>
+                </div>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>採計科目數調整為 <strong>2-5 科</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>各校系可<strong>彈性選擇</strong>採計科目組合</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>考生可依目標校系<strong>選考科目</strong></span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 統測選考 */}
+              <div className="bg-white/80 rounded-xl p-4 border border-amber-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">✏️</span>
+                  <h3 className="font-bold text-gray-900">統測選考調整</h3>
+                </div>
+                <ul className="space-y-1 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span>考生可依目標校系<strong>彈性選考科目</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-amber-500 mt-0.5">•</span>
+                    <span><strong>不再要求全科目應考</strong>，降低考試負擔</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* 未變動管道 */}
+              <div className="bg-white/80 rounded-xl p-4 border border-green-100">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">✅</span>
+                  <h3 className="font-bold text-gray-900">未變動管道</h3>
+                </div>
+                <p className="text-sm text-gray-700">
+                  以下管道<strong>維持現行制度</strong>，不受影響：
+                </p>
+                <ul className="mt-1 space-y-1 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span>繁星推薦、技優保送/甄審、特殊選才</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <a
+                href="https://www.techadmi.edu.tw/downloadfile.php?gid=1453"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-5 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition text-sm font-medium"
+              >
+                📄 查看完整官方公告
+              </a>
+            </div>
+          </div>
+
           {/* 6 Pathways Preview */}
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 max-w-4xl mx-auto shadow-sm border border-indigo-100">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">💡 你不知道的 6 種升學管道</h2>

@@ -220,7 +220,9 @@ def convert_dept(row: list, college: dict, group_code: str, year: int) -> dict:
         "region": region,
         "deptType": dept_type,
         "description": "",
+        "fullDescription": "",  # 完整科系介紹（待 GLM 補充
         "website": website,
+        "youtubeUrl": "",  # YouTube 介紹影片（待補充）
         "features": [],
         "researchAreas": [],
         "careerPaths": [],

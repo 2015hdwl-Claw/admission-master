@@ -16,6 +16,8 @@ import {
 import { getCertificatesByGroup } from '@/data/certificates';
 import { getCompetitionsByGroup, PLACING_OPTIONS } from '@/data/competitions';
 import type { DepartmentInfo, StudentProfile, CompetitionRecord } from '@/types/department';
+import { getAllCertsForCategory } from '@/data/bonus-table';
+import competitionAdmissionMap from '@/data/competition-admission-map.json';
 
 // ── 4 步驟背景漸變 ──
 const STEP_GRADIENTS = [
@@ -25,24 +27,33 @@ const STEP_GRADIENTS = [
   'from-amber-50 via-yellow-50 to-orange-50',
 ];
 
-// ── 職群列表 ──
-const GROUPS = [
-  { code: '01', name: '餐旅群', emoji: '🍽️' },
-  { code: '02', name: '機械群', emoji: '⚙️' },
-  { code: '03', name: '電機群', emoji: '⚡' },
-  { code: '04', name: '電子群', emoji: '🔌' },
-  { code: '05', name: '資訊群', emoji: '💻' },
-  { code: '06', name: '商業與管理群', emoji: '📊' },
-  { code: '07', name: '設計群', emoji: '🎨' },
-  { code: '08', name: '農業群', emoji: '🌾' },
-  { code: '09', name: '化工群', emoji: '🧪' },
-  { code: '10', name: '土木群', emoji: '🏗️' },
-  { code: '11', name: '海事群', emoji: '⚓' },
-  { code: '12', name: '護理群', emoji: '🏥' },
-  { code: '13', name: '家政群', emoji: '🏠' },
-  { code: '14', name: '語文群', emoji: '🌍' },
-  { code: '15', name: '商業與管理群', emoji: '💼' },
-];
+// ── 招生類別（37 類） ──
+const ADMISSION_CATEGORIES = Object.entries(
+  (competitionAdmissionMap.categories as Record<string, { name: string }>)
+)
+  .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+  .map(([code, cat]) => ({ code, name: cat.name }));
+
+// ── 招生類別 → 職群代碼 對照（用於 dept/comp 查詢） ──
+const CATEGORY_TO_GROUP: Record<string, string> = {
+  '10': '02', '15': '02',     // 機械/汽車 → 機械群
+  '20': '03', '21': '03',     // 電機/冷凍 → 電機群
+  '25': '04', '26': '04',     // 電子/電訊 → 電子群
+  '30': '09', '33': '09', '34': '09',  // 化工/紡織/紡化 → 化工群
+  '40': '10', '41': '10',     // 土木/農土 → 土木群
+  '44': '11', '45': '11', '46': '11', '47': '11',  // 輪機/航運/漁業/水產養殖 → 海事群
+  '50': '12',                 // 護理 → 護理群
+  '55': '02', '56': '06',     // 工程 → 機械, 管理 → 商管
+  '60': '06', '62': '06', '65': '05',  // 商業/航管 → 商管, 資管 → 資訊
+  '70': '08', '71': '08', '72': '08', '73': '08', '74': '08',  // 園藝/畜牧/農場/林產 → 農業
+  '76': '13', '77': '13', '78': '13',  // 家政/服裝/美容 → 家政群
+  '79': '01',                 // 餐旅 → 餐旅群
+  '80': '07', '85': '07',     // 工設/商設 → 設計群
+  '90': '01',                 // 食品 → 餐旅群
+  '91': '11',                 // 水產製造 → 海事群
+  '95': '13',                 // 幼保 → 家政群
+  '96': '05',                 // 資安 → 資訊群
+};
 
 const SCHOOLS = getSchools();
 const REGIONS = ['北區', '中區', '南區', '東區', '離島'];
@@ -91,9 +102,9 @@ export default function FirstDiscoveryPage() {
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const router = useRouter();
 
-  // Step 0: 選職群 + 年級
-  const [selectedGroup, setSelectedGroup] = useState('');
-  const [selectedGroupName, setSelectedGroupName] = useState('');
+  // Step 0: 選招生類別 + 年級
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategoryName, setSelectedCategoryName] = useState('');
   const [groupConfirmed, setGroupConfirmed] = useState(false);
 
   // Step 1: 探索科系
@@ -123,12 +134,15 @@ export default function FirstDiscoveryPage() {
   // 觸控
   const [touchStart, setTouchStart] = useState(0);
   const [touchStartX, setTouchStartX] = useState(0);
+  const [touchStartTime, setTouchStartTime] = useState(0);
 
   // Computed
   const subSteps = getSubSteps(profile.grade);
   const currentSub = subSteps[currentSubStep] || 'percentile';
-  const groupCerts = selectedGroup ? getCertificatesByGroup(selectedGroup) : [];
-  const groupComps = selectedGroup ? getCompetitionsByGroup(selectedGroup) : [];
+  const groupCode = selectedCategory ? (CATEGORY_TO_GROUP[selectedCategory] || '') : '';
+  const categoryCerts = selectedCategory ? getAllCertsForCategory(selectedCategory) : [];
+  const groupCerts = groupCode ? getCertificatesByGroup(groupCode) : [];
+  const groupComps = groupCode ? getCompetitionsByGroup(groupCode) : [];
 
   // ── Restore state ──
   useEffect(() => {
@@ -137,8 +151,10 @@ export default function FirstDiscoveryPage() {
       try {
         const s = JSON.parse(saved);
         if (s.step !== undefined) setCurrentStep(s.step);
-        if (s.group) setSelectedGroup(s.group);
-        if (s.groupName) setSelectedGroupName(s.groupName);
+        if (s.category) setSelectedCategory(s.category);
+        else if (s.group) setSelectedCategory(s.group); // backward compat
+        if (s.categoryName) setSelectedCategoryName(s.categoryName);
+        else if (s.groupName) setSelectedCategoryName(s.groupName); // backward compat
         if (s.targets) setTargetDepartments(s.targets);
         if (s.profile) setProfile(s.profile);
         if (s.groupConfirmed) setGroupConfirmed(true);
@@ -152,13 +168,13 @@ export default function FirstDiscoveryPage() {
   const saveState = useCallback(() => {
     localStorage.setItem('discovery_state_v4', JSON.stringify({
       step: currentStep,
-      group: selectedGroup,
-      groupName: selectedGroupName,
+      category: selectedCategory,
+      categoryName: selectedCategoryName,
       targets: targetDepartments,
       profile,
       groupConfirmed,
     }));
-  }, [currentStep, selectedGroup, selectedGroupName, targetDepartments, profile, groupConfirmed]);
+  }, [currentStep, selectedCategory, selectedCategoryName, targetDepartments, profile, groupConfirmed]);
 
   useEffect(() => { if (!loading) saveState(); }, [currentStep, loading, saveState]);
 
@@ -185,15 +201,17 @@ export default function FirstDiscoveryPage() {
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientY);
     setTouchStartX(e.targetTouches[0].clientX);
+    setTouchStartTime(Date.now());
   };
   const handleTouchEnd = (e: React.TouchEvent) => {
     const diffY = touchStart - e.changedTouches[0].clientY;
     const diffX = touchStartX - e.changedTouches[0].clientX;
+    const touchDuration = Date.now() - touchStartTime;
 
-    // 防呆：只有垂直滑動為主、且位移超過 120px 才觸發（避免滾動誤觸）
+    // 🛡️ 第一層防呆：水平滑動優先，完全忽略
     if (Math.abs(diffX) > Math.abs(diffY) * 0.5) return;
 
-    // 檢查是否點擊在互動元素上（按鈕、輸入框、可滾動區域）
+    // 🛡️ 第二層防呆：點擊在互動元素上，完全忽略
     const target = e.target as HTMLElement;
     if (
       target.tagName === 'BUTTON' ||
@@ -210,9 +228,21 @@ export default function FirstDiscoveryPage() {
       return;
     }
 
-    // 提高閾值從 60px → 120px，大幅減少誤觸
-    if (diffY > 120 && currentStep < 3) goToStep(currentStep + 1);
-    if (diffY < -120 && currentStep > 0) goToStep(currentStep - 1);
+    // 🛡️ 第三層防呆：三條件同時滿足才觸發
+    // 1. 位移超過 180px（提高 50% 閾值）
+    // 2. 滑動時間在 80ms - 300ms 之間（太快是點擊，太慢是滾動）
+    // 3. 滑動速度超過 0.6px/ms（確定是有意的手勢，不是不小心碰到）
+    const speed = Math.abs(diffY) / touchDuration;
+    const isValidSwipe =
+      Math.abs(diffY) > 180 &&
+      touchDuration > 80 &&
+      touchDuration < 300 &&
+      speed > 0.6;
+
+    if (!isValidSwipe) return;
+
+    if (diffY > 180 && currentStep < 3) goToStep(currentStep + 1);
+    if (diffY < -180 && currentStep > 0) goToStep(currentStep - 1);
   };
 
   // ── Toggle target department ──
@@ -263,7 +293,7 @@ export default function FirstDiscoveryPage() {
   };
 
   // ── Available departments for Step 1 ──
-  const groupDepts = selectedGroup ? getDepartmentsByGroup(selectedGroup) : [];
+  const groupDepts = groupCode ? getDepartmentsByGroup(groupCode) : [];
   const searchResults = searchQuery.length >= 1 ? searchDepartments(searchQuery) : [];
 
   // 地區 + 學校 雙重過濾
@@ -294,7 +324,7 @@ export default function FirstDiscoveryPage() {
   const filteredSchools = filteredSchoolsByRegion;
 
   // ════════════════════════════════════════════════════
-  // Step 0: 選職群 + 年級（兩階段）
+  // Step 0: 選招生類別 + 年級（兩階段）
   // ════════════════════════════════════════════════════
   const renderStep0 = () => (
     <div className="text-center w-full max-w-3xl mx-auto">
@@ -302,43 +332,43 @@ export default function FirstDiscoveryPage() {
         你現在念什麼？
       </motion.h1>
       <motion.p {...fadeUp} transition={{ delay: 0.15 }} className="text-xl text-gray-500 mb-10">
-        {!groupConfirmed ? '選擇你的職群，開始你的發現旅程' : '你是幾年級？'}
+        {!groupConfirmed ? '選擇你的招生類別，開始你的發現旅程' : '你是幾年級？'}
       </motion.p>
 
       <AnimatePresence mode="wait">
         {!groupConfirmed ? (
-          <motion.div key="groups" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -100 }}>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {GROUPS.map((g, i) => (
+          <motion.div key="categories" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: -100 }}>
+            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+              {ADMISSION_CATEGORIES.map((cat, i) => (
                 <motion.button
-                  key={`${g.code}-${g.name}`}
+                  key={cat.code}
                   {...stagger(i)}
                   onClick={() => {
-                    setSelectedGroup(g.code);
-                    setSelectedGroupName(g.name);
+                    setSelectedCategory(cat.code);
+                    setSelectedCategoryName(`${cat.code} ${cat.name}`);
                     setGroupConfirmed(true);
-                    trackFeatureUsage('discovery_group_selected', { group: g.code });
+                    trackFeatureUsage('discovery_category_selected', { category: cat.code });
                   }}
-                  className={`p-5 rounded-2xl text-center transition-all duration-300 ${
-                    selectedGroup === g.code
+                  className={`p-3 rounded-2xl text-center transition-all duration-300 ${
+                    selectedCategory === cat.code
                       ? 'bg-blue-600 text-white shadow-lg scale-[1.02]'
                       : 'bg-white/70 hover:bg-white shadow-sm hover:shadow'
                   }`}
                 >
-                  <span className="text-2xl block mb-1">{g.emoji}</span>
-                  <span className="text-lg font-medium">{g.name}</span>
+                  <span className="text-xs block text-gray-400 mb-0.5">{cat.code}</span>
+                  <span className="text-sm font-medium">{cat.name}</span>
                 </motion.button>
               ))}
             </div>
           </motion.div>
         ) : (
           <motion.div key="grades" initial={{ opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}>
-            <p className="text-lg text-gray-500 mb-2">你選了：<span className="font-bold text-indigo-600">{selectedGroupName}</span></p>
+            <p className="text-lg text-gray-500 mb-2">你選了：<span className="font-bold text-indigo-600">{selectedCategoryName}</span></p>
             <div className="space-y-4 max-w-lg mx-auto">
               {GRADE_OPTIONS.map((opt, i) => (
                 <motion.button key={opt.value} {...stagger(i)}
                   onClick={() => {
-                    setProfile(prev => ({ ...prev, grade: opt.value, groupCode: selectedGroup }));
+                    setProfile(prev => ({ ...prev, grade: opt.value, groupCode: selectedCategory }));
                     trackFeatureUsage('discovery_grade_selected', { grade: opt.value });
                     autoAdvance(1);
                   }}
@@ -351,7 +381,7 @@ export default function FirstDiscoveryPage() {
             <button onClick={() => setGroupConfirmed(false)}
               className="mt-6 text-sm text-gray-400 hover:text-gray-600 transition"
             >
-              ← 重新選擇職群
+              ← 重新選擇招生類別
             </button>
           </motion.div>
         )}
@@ -768,13 +798,13 @@ export default function FirstDiscoveryPage() {
             </motion.div>
           )}
 
-          {/* ── 證照（從證照資料庫載入該職群的證照） ── */}
+          {/* ── 證照（從招生類別對照表載入） ── */}
           {currentSub === 'certificate' && (
             <motion.div key="certificate" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}>
               <h1 className="text-4xl font-bold text-gray-900 mb-4">你有哪些證照？</h1>
               <p className="text-gray-500 mb-8">勾選你已經取得的證照</p>
 
-              {groupCerts.length === 0 ? (
+              {categoryCerts.length === 0 && groupCerts.length === 0 ? (
                 <div>
                   <p className="text-gray-400 mb-6">目前沒有對應的證照資料</p>
                   <button onClick={() => confirmMultiChoice('certificates', [])}
@@ -786,37 +816,79 @@ export default function FirstDiscoveryPage() {
               ) : (
                 <div>
                   <div className="space-y-6 mb-8">
-                    {(['丙', '乙'] as const).map(level => {
-                      const certs = groupCerts.filter(c => c.level === level);
-                      if (certs.length === 0) return null;
-                      return (
-                        <div key={level}>
-                          <div className="text-sm font-bold text-gray-400 mb-2 uppercase">{level}級證照</div>
-                          <div className="space-y-2">
-                            {certs.map(cert => (
-                              <label key={cert.id}
-                                className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition ${
-                                  selectedCerts.includes(cert.name)
-                                    ? 'bg-emerald-100 border-2 border-emerald-400'
-                                    : 'bg-white/80 hover:bg-white border-2 border-transparent'
-                                }`}
-                              >
-                                <input
-                                  type="checkbox"
-                                  className="w-5 h-5 accent-emerald-600"
-                                  checked={selectedCerts.includes(cert.name)}
-                                  onChange={e => {
-                                    if (e.target.checked) setSelectedCerts(prev => [...prev, cert.name]);
-                                    else setSelectedCerts(prev => prev.filter(c => c !== cert.name));
-                                  }}
-                                />
-                                <span className="font-medium">{cert.name}</span>
-                              </label>
-                            ))}
+                    {categoryCerts.length > 0 ? (
+                      // Use official PDF data grouped by relevance
+                      (['高度相關', '中度相關', '低度相關'] as const).map(relevance => {
+                        const certs = categoryCerts.filter(c => c.relevance === relevance);
+                        if (certs.length === 0) return null;
+                        return (
+                          <div key={relevance}>
+                            <div className="text-sm font-bold mb-2">
+                              <span className={relevance === '高度相關' ? 'text-green-600' : relevance === '中度相關' ? 'text-amber-600' : 'text-gray-400'}>
+                                {relevance}
+                              </span>
+                              <span className="text-gray-400 ml-2">（乙級 +{certs[0].bonus乙}%）</span>
+                            </div>
+                            <div className="space-y-2">
+                              {certs.map(cert => (
+                                <label key={cert.code}
+                                  className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition ${
+                                    selectedCerts.includes(cert.name)
+                                      ? 'bg-emerald-100 border-2 border-emerald-400'
+                                      : 'bg-white/80 hover:bg-white border-2 border-transparent'
+                                  }`}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="w-5 h-5 accent-emerald-600"
+                                    checked={selectedCerts.includes(cert.name)}
+                                    onChange={e => {
+                                      if (e.target.checked) setSelectedCerts(prev => [...prev, cert.name]);
+                                      else setSelectedCerts(prev => prev.filter(c => c !== cert.name));
+                                    }}
+                                  />
+                                  <span className="font-medium">{cert.name}</span>
+                                  <span className="text-xs text-gray-400 ml-auto">{cert.code}</span>
+                                </label>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      );
-                    })}
+                        );
+                      })
+                    ) : (
+                      // Fallback to group-based certs
+                      (['丙', '乙'] as const).map(level => {
+                        const certs = groupCerts.filter(c => c.level === level);
+                        if (certs.length === 0) return null;
+                        return (
+                          <div key={level}>
+                            <div className="text-sm font-bold text-gray-400 mb-2 uppercase">{level}級證照</div>
+                            <div className="space-y-2">
+                              {certs.map(cert => (
+                                <label key={cert.id}
+                                  className={`flex items-center gap-3 p-4 rounded-xl cursor-pointer transition ${
+                                    selectedCerts.includes(cert.name)
+                                      ? 'bg-emerald-100 border-2 border-emerald-400'
+                                      : 'bg-white/80 hover:bg-white border-2 border-transparent'
+                                  }`}
+                                >
+                                  <input
+                                    type="checkbox"
+                                    className="w-5 h-5 accent-emerald-600"
+                                    checked={selectedCerts.includes(cert.name)}
+                                    onChange={e => {
+                                      if (e.target.checked) setSelectedCerts(prev => [...prev, cert.name]);
+                                      else setSelectedCerts(prev => prev.filter(c => c !== cert.name));
+                                    }}
+                                  />
+                                  <span className="font-medium">{cert.name}</span>
+                                </label>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })
+                    )}
                   </div>
                   <button onClick={() => confirmMultiChoice('certificates', selectedCerts)}
                     className="px-8 py-3 bg-emerald-600 text-white rounded-2xl font-medium hover:bg-emerald-700 transition text-lg shadow-lg"
