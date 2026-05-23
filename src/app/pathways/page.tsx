@@ -336,176 +336,153 @@ const JSON_KEY_LABELS: Record<string, string> = {
 
 // ── Competition Bonus Result Component ──
 function CompetitionBonusResult({
-  groupCode,
+  catCode,
   selectedCategory,
 }: {
-  groupCode: string
+  catCode: string
   selectedCategory: string
 }) {
-  const categories = GROUP_TO_CATEGORIES[groupCode] || []
-  if (categories.length === 0) {
+  const mapCats = COMPETITION_ADMISSION_MAP.categories as Record<string, any>
+  const catData = mapCats[catCode]
+  if (!catData) {
     return (
       <div className="text-center py-6 text-gray-500">
-        <p>此群別暫無對應的招生類別資料</p>
+        <p>此招生類別暫無資料</p>
       </div>
     )
   }
 
-  const mapCats = COMPETITION_ADMISSION_MAP.categories as Record<string, any>
+  const catName = getCategoryName(catCode) || catData.name || catCode
 
   return (
-    <div>
-      {categories.map(catCode => {
-        const catData = mapCats[catCode]
-        if (!catData) return null
-        const catName = getCategoryName(catCode) || catData.name || catCode
+    <div className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
+      <div className="bg-indigo-600 text-white px-4 py-2 font-bold">
+        {catCode} {catName}
+      </div>
+      <div className="p-4">
+        {ALL_COMP_KEYS.map(jsonKey => {
+          if (selectedCategory && jsonKey !== selectedCategory) return null
 
-        return (
-          <div key={catCode} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
-            <div className="bg-indigo-600 text-white px-4 py-2 font-bold">
-              {catCode} {catName}
-            </div>
-            <div className="p-4">
-              {ALL_COMP_KEYS.map(jsonKey => {
-                if (selectedCategory && jsonKey !== selectedCategory) return null
+          if (BOOLEAN_KEY_SET.has(jsonKey)) {
+            if (catData[jsonKey] !== true) return null
+            const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
+            const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
+            return (
+              <div key={jsonKey} className="mb-4">
+                <h4 className="font-semibold text-gray-800 text-sm mb-2">{JSON_KEY_LABELS[jsonKey]}</h4>
+                {tiers.length > 0 ? (
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-50">
+                        <th className="p-2 text-left text-xs font-medium text-gray-600">名次/等第</th>
+                        <th className="p-2 text-center text-xs font-medium text-gray-600">加分</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tiers.map((tier, i) => (
+                        <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
+                          <td className="p-2 text-xs text-gray-700">{tier.placings.join('、')}</td>
+                          <td className="p-2 text-center">
+                            <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                              tier.bonusPercent >= 30 ? 'bg-green-100 text-green-800' :
+                              tier.bonusPercent >= 20 ? 'bg-blue-100 text-blue-800' :
+                              'bg-yellow-100 text-yellow-800'
+                            }`}>+{tier.bonusPercent}%</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <span className="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">✓ 適用</span>
+                )}
+              </div>
+            )
+          }
 
-                if (BOOLEAN_KEY_SET.has(jsonKey)) {
-                  if (catData[jsonKey] !== true) return null
-                  const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
-                  const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
-                  return (
-                    <div key={jsonKey} className="mb-4">
-                      <h4 className="font-semibold text-gray-800 text-sm mb-2">{JSON_KEY_LABELS[jsonKey]}</h4>
-                      {tiers.length > 0 ? (
-                        <table className="w-full text-sm">
-                          <thead>
-                            <tr className="bg-gray-50">
-                              <th className="p-2 text-left text-xs font-medium text-gray-600">名次/等第</th>
-                              <th className="p-2 text-center text-xs font-medium text-gray-600">加分</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {tiers.map((tier, i) => (
-                              <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
-                                <td className="p-2 text-xs text-gray-700">{tier.placings.join('、')}</td>
-                                <td className="p-2 text-center">
-                                  <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
-                                    tier.bonusPercent >= 30 ? 'bg-green-100 text-green-800' :
-                                    tier.bonusPercent >= 20 ? 'bg-blue-100 text-blue-800' :
-                                    'bg-yellow-100 text-yellow-800'
-                                  }`}>+{tier.bonusPercent}%</span>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      ) : (
-                        <span className="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded-full text-xs font-medium">✓ 適用</span>
-                      )}
-                    </div>
-                  )
-                }
+          // Trade-list key
+          const trades: string[] = catData[jsonKey] || []
+          if (trades.length === 0) return null
 
-                // Trade-list key
-                const trades: string[] = catData[jsonKey] || []
-                if (trades.length === 0) return null
+          const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
+          const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
 
-                const compCategories = JSON_KEY_TO_CATEGORIES[jsonKey]
-                const tiers = COMPETITION_BONUS_TABLE.filter(t => compCategories.includes(t.category))
-
-                return (
-                  <div key={jsonKey} className="mb-4">
-                    <h4 className="font-semibold text-gray-800 text-sm mb-2">
-                      {JSON_KEY_LABELS[jsonKey]}
-                      <span className="ml-2 text-xs font-normal text-gray-500">({trades.length} 職類)</span>
-                    </h4>
-                    {tiers.length > 0 && (
-                      <table className="w-full text-sm mb-2">
-                        <thead>
-                          <tr className="bg-gray-50">
-                            <th className="p-2 text-left text-xs font-medium text-gray-600">名次/等第</th>
-                            <th className="p-2 text-center text-xs font-medium text-gray-600">加分</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {tiers.map((tier, i) => (
-                            <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
-                              <td className="p-2 text-xs text-gray-700">{tier.placings.join('、')}</td>
-                              <td className="p-2 text-center">
-                                <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
-                                  tier.bonusPercent >= 30 ? 'bg-green-100 text-green-800' :
-                                  tier.bonusPercent >= 20 ? 'bg-blue-100 text-blue-800' :
-                                  'bg-yellow-100 text-yellow-800'
-                                }`}>+{tier.bonusPercent}%</span>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    )}
-                    <details className="border border-gray-200 rounded-lg">
-                      <summary className="px-3 py-1.5 cursor-pointer text-xs font-medium text-indigo-700 hover:bg-indigo-50 rounded-lg">
-                        適用職類（{trades.length} 項）點擊展開
-                      </summary>
-                      <div className="px-3 pb-2 pt-1">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-0.5">
-                          {trades.map((trade, i) => (
-                            <div key={i} className="px-2 py-0.5 text-xs text-gray-700 border-l-2 border-indigo-200">
-                              {trade}
-                            </div>
-                          ))}
-                        </div>
+          return (
+            <div key={jsonKey} className="mb-4">
+              <h4 className="font-semibold text-gray-800 text-sm mb-2">
+                {JSON_KEY_LABELS[jsonKey]}
+                <span className="ml-2 text-xs font-normal text-gray-500">({trades.length} 職類)</span>
+              </h4>
+              {tiers.length > 0 && (
+                <table className="w-full text-sm mb-2">
+                  <thead>
+                    <tr className="bg-gray-50">
+                      <th className="p-2 text-left text-xs font-medium text-gray-600">名次/等第</th>
+                      <th className="p-2 text-center text-xs font-medium text-gray-600">加分</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tiers.map((tier, i) => (
+                      <tr key={i} className={i % 2 === 0 ? '' : 'bg-gray-50'}>
+                        <td className="p-2 text-xs text-gray-700">{tier.placings.join('、')}</td>
+                        <td className="p-2 text-center">
+                          <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                            tier.bonusPercent >= 30 ? 'bg-green-100 text-green-800' :
+                            tier.bonusPercent >= 20 ? 'bg-blue-100 text-blue-800' :
+                            'bg-yellow-100 text-yellow-800'
+                          }`}>+{tier.bonusPercent}%</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+              <details className="border border-gray-200 rounded-lg">
+                <summary className="px-3 py-1.5 cursor-pointer text-xs font-medium text-indigo-700 hover:bg-indigo-50 rounded-lg">
+                  適用職類（{trades.length} 項）點擊展開
+                </summary>
+                <div className="px-3 pb-2 pt-1">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-0.5">
+                    {trades.map((trade, i) => (
+                      <div key={i} className="px-2 py-0.5 text-xs text-gray-700 border-l-2 border-indigo-200">
+                        {trade}
                       </div>
-                    </details>
+                    ))}
                   </div>
-                )
-              })}
+                </div>
+              </details>
             </div>
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
     </div>
   )
 }
 
 // ── Certificate Bonus Result Component ──
 function CertificateBonusResult({
-  groupCode,
+  catCode,
   level,
   relevance,
 }: {
-  groupCode: string
+  catCode: string
   level: '乙' | '甲'
   relevance: 'all' | RelevanceLevel
 }) {
-  const categories = GROUP_TO_CATEGORIES[groupCode] || []
-
-  const allCerts = categories.flatMap(catCode => {
-    const certs = getAllCertsForCategory(catCode)
-    const catName = getCategoryName(catCode)
-    return certs.map(c => ({ ...c, categoryCode: catCode, categoryName: catName }))
-  })
-
-  // Deduplicate by code
-  const seen = new Set<string>()
-  const uniqueCerts = allCerts.filter(c => {
-    if (seen.has(c.code)) return false
-    seen.add(c.code)
-    return true
-  })
+  const certs = getAllCertsForCategory(catCode)
 
   // Filter by relevance
   const filtered = relevance === 'all'
-    ? uniqueCerts
-    : uniqueCerts.filter(c => c.relevance === relevance)
+    ? certs
+    : certs.filter(c => c.relevance === relevance)
 
-  // Sort by relevance then name
+  // Sort by relevance priority, then by code numerically
   const relevanceOrder: Record<string, number> = { '高度相關': 0, '中度相關': 1, '低度相關': 2 }
   filtered.sort((a, b) => {
     const ra = relevanceOrder[a.relevance] ?? 9
     const rb = relevanceOrder[b.relevance] ?? 9
     if (ra !== rb) return ra - rb
-    return a.name.localeCompare(b.name, 'zh-TW')
+    return parseInt(a.code) - parseInt(b.code)
   })
 
   const bonus = level === '甲' ? 25 : null
@@ -578,6 +555,7 @@ export default function PathwaysPage() {
 
   // Bonus lookup state
   const [bonusGroup, setBonusGroup] = useState<string>('')
+  const [bonusCategory, setBonusCategory] = useState<string>('')
   const [bonusCompCategory, setBonusCompCategory] = useState<string>('')
   const [bonusCertLevel, setBonusCertLevel] = useState<'乙' | '甲'>('乙')
   const [bonusRelevance, setBonusRelevance] = useState<'all' | RelevanceLevel>('all')
@@ -939,6 +917,8 @@ export default function PathwaysPage() {
                 onChange={e => {
                   setBonusGroup(e.target.value)
                   setBonusCompCategory('')
+                  const cats = GROUP_TO_CATEGORIES[e.target.value] || []
+                  setBonusCategory(cats[0] || '')
                 }}
                 className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[160px]"
               >
@@ -948,6 +928,22 @@ export default function PathwaysPage() {
                 ))}
               </select>
             </div>
+
+            {bonusGroup && (GROUP_TO_CATEGORIES[bonusGroup] || []).length > 1 && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">招生類別</label>
+                <select
+                  value={bonusCategory}
+                  onChange={e => setBonusCategory(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 min-w-[160px]"
+                >
+                  {(GROUP_TO_CATEGORIES[bonusGroup] || []).map(catCode => {
+                    const name = getCategoryName(catCode) || catCode
+                    return <option key={catCode} value={catCode}>{catCode} {name}</option>
+                  })}
+                </select>
+              </div>
+            )}
 
             {bonusTab === 'competition' && bonusGroup && (
               <div>
@@ -995,16 +991,16 @@ export default function PathwaysPage() {
           </div>
 
           {/* Results Table */}
-          {bonusGroup && bonusTab === 'competition' && (
+          {bonusGroup && bonusCategory && bonusTab === 'competition' && (
             <CompetitionBonusResult
-              groupCode={bonusGroup}
+              catCode={bonusCategory}
               selectedCategory={bonusCompCategory}
             />
           )}
 
-          {bonusGroup && bonusTab === 'certificate' && (
+          {bonusGroup && bonusCategory && bonusTab === 'certificate' && (
             <CertificateBonusResult
-              groupCode={bonusGroup}
+              catCode={bonusCategory}
               level={bonusCertLevel}
               relevance={bonusRelevance}
             />
