@@ -33,7 +33,7 @@ import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/stra
 import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
 import { GROUP_INFO, getGroupName } from '@/types/v4'
 import type { GroupCode } from '@/types/v4'
-import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName } from '@/data/bonus-table'
+import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName, getAdmissionCategoriesForGroup } from '@/data/bonus-table'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -84,12 +84,7 @@ export default function AbilityAccountPage() {
   const [activeTab, setActiveTab] = useState<'opportunities' | 'myplan' | 'readiness'>('opportunities')
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
 
-  useEffect(() => {
-    trackPageView('ability_account_v4')
-    loadData()
-  }, [])
-
-  function loadData() {
+  const loadData = useCallback(() => {
     const raw = localStorage.getItem('saved_discovery_plan_v4')
     if (raw) {
       try {
@@ -113,7 +108,23 @@ export default function AbilityAccountPage() {
     }
 
     setLoading(false)
-  }
+  }, [])
+
+  useEffect(() => {
+    trackPageView('ability_account_v4')
+    loadData()
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === 'saved_discovery_plan_v4' || e.key === 'discovery_state_v4') loadData()
+    }
+    const onVisible = () => { if (document.visibilityState === 'visible') loadData() }
+    window.addEventListener('storage', onStorage)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      window.removeEventListener('storage', onStorage)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
+  }, [loadData])
 
   function resolveAndSet(saved: SavedPlan) {
     const resolved = saved.targets.map(t => {
@@ -124,10 +135,12 @@ export default function AbilityAccountPage() {
     if (resolved.length === 0) { setLoading(false); return }
 
     const p = { ...saved, targets: resolved }
+    const newAnalyses = resolved.map(d => analyzeDepartment(d, saved.profile))
     setPlan(p)
-    setAnalyses(resolved.map(d => analyzeDepartment(d, saved.profile)))
-    setConsolidated(consolidateActionPlan(analyses))
+    setAnalyses(newAnalyses)
+    setConsolidated(consolidateActionPlan(newAnalyses))
     setMyPlan(getChosenActivities())
+    setSelectedDepartmentIndex(prev => prev >= resolved.length ? 0 : prev)
     setLoading(false)
   }
 
@@ -197,6 +210,22 @@ export default function AbilityAccountPage() {
   const totalBoost = myPlan.activities.reduce((sum, a) => sum + a.probabilityBoost, 0)
   const maxBoost = myPlan.activities.length > 0 ? Math.max(...myPlan.activities.map(a => a.probabilityBoost)) : 0
 
+  // Per-department filtering: derive 招生類別 from selected department's groupCode
+  const currentDept = plan?.targets[selectedDepartmentIndex]
+  const currentDeptCategories = currentDept
+    ? getAdmissionCategoriesForGroup(currentDept.groupCode)
+    : []
+  const allPaths = currentStrategy?.upgradePaths.filter(p => p.canStillMakeIt) || []
+  const filteredPaths = currentDept ? allPaths.filter(p => {
+    if (p.type === 'certificate') {
+      return !p.admissionCategory || currentDeptCategories.includes(p.admissionCategory)
+    }
+    if (p.type === 'competition') {
+      return p.groupCodes.length === 0 || p.groupCodes.includes(currentDept.groupCode)
+    }
+    return true
+  }) : allPaths
+
   // Get target pathways from portfolio selection
   let targetPathways: string[] = []
   try {
@@ -264,10 +293,10 @@ export default function AbilityAccountPage() {
             </div>
 
             {/* Upgrade Guide Summary — per selected department */}
-            {currentStrategy && (() => {
+            {(() => {
               const dept = currentAnalysis.department
-              const certPaths = currentStrategy.upgradePaths.filter(p => p.type === 'certificate' && p.canStillMakeIt)
-              const compPaths = currentStrategy.upgradePaths.filter(p => p.type === 'competition' && p.canStillMakeIt)
+              const certPaths = filteredPaths.filter(p => p.type === 'certificate')
+              const compPaths = filteredPaths.filter(p => p.type === 'competition')
               const bestCert = certPaths.length > 0 ? certPaths.reduce((a, b) => a.probabilityBoost > b.probabilityBoost ? a : b) : null
               const bestComp = compPaths.length > 0 ? compPaths.reduce((a, b) => a.probabilityBoost > b.probabilityBoost ? a : b) : null
 
@@ -336,7 +365,7 @@ export default function AbilityAccountPage() {
             </div>
 
             {/* ── Tab A: Opportunities ── */}
-            {activeTab === 'opportunities' && currentStrategy && (
+            {activeTab === 'opportunities' && (
               <div>
                 {/* 技優甄審擇一加分提示 */}
                 <div className="bg-indigo-50 border border-indigo-200/50 rounded-2xl p-4 mb-4 flex items-start gap-3">
@@ -350,9 +379,9 @@ export default function AbilityAccountPage() {
                   </div>
                 </div>
 
-                {currentStrategy.upgradePaths.filter(p => p.canStillMakeIt).length > 0 ? (
+                {filteredPaths.length > 0 ? (
                   <GroupedUpgradePaths
-                    paths={currentStrategy.upgradePaths.filter(p => p.canStillMakeIt)}
+                    paths={filteredPaths}
                     expandedGroups={expandedGroups}
                     setExpandedGroups={setExpandedGroups}
                     isAlreadyAdded={isAlreadyAdded}
