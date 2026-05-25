@@ -85,29 +85,39 @@ export default function AbilityAccountPage() {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
 
   const loadData = useCallback(() => {
+    // Read both sources and pick the one with targets
+    let planData: { targets: DepartmentInfo[], profile: StudentProfile, createdAt: string } | null = null
+
+    // Source 1: saved_discovery_plan_v4 (auto-saved on step 3)
     const raw = localStorage.getItem('saved_discovery_plan_v4')
     if (raw) {
       try {
         const parsed = JSON.parse(raw) as SavedPlan
         if (parsed.targets?.length > 0 && parsed.profile) {
-          resolveAndSet(parsed)
-          return
+          planData = parsed
         }
       } catch { /* corrupt */ }
     }
 
+    // Source 2: discovery_state_v4 (saved on every step — may be more recent)
     const stateRaw = localStorage.getItem('discovery_state_v4')
     if (stateRaw) {
       try {
         const s = JSON.parse(stateRaw) as SavedState
-        if (s.targets?.length > 0 && s.profile && s.step >= 2) {
-          resolveAndSet({ targets: s.targets, profile: s.profile, createdAt: new Date().toISOString() })
-          return
+        if (s.targets?.length > 0 && s.profile) {
+          // Use state if it has targets and either: no plan yet, or state is newer
+          if (!planData || (s.targets.length > 0)) {
+            planData = { targets: s.targets, profile: s.profile, createdAt: new Date().toISOString() }
+          }
         }
       } catch { /* corrupt */ }
     }
 
-    setLoading(false)
+    if (planData) {
+      resolveAndSet(planData)
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   useEffect(() => {

@@ -197,6 +197,17 @@ export default function FirstDiscoveryPage() {
     setTimeout(() => goToStep(step), 650);
   };
 
+  // Auto-save plan when reaching step 3 (results)
+  useEffect(() => {
+    if (currentStep === 3 && targetDepartments.length > 0) {
+      localStorage.setItem('saved_discovery_plan_v4', JSON.stringify({
+        targets: targetDepartments,
+        profile,
+        createdAt: new Date().toISOString(),
+      }));
+    }
+  }, [currentStep]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // ── Touch ──
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.targetTouches[0].clientY);
