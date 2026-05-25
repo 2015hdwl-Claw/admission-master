@@ -971,7 +971,7 @@ function GroupedUpgradePaths({
           allTrades.push(...trades)
         }
       }
-      return allTrades
+      return [...new Set(allTrades)]
     }
 
     // 官方分類額外資訊
@@ -1083,13 +1083,13 @@ function GroupedUpgradePaths({
                 </button>
 
                 {isExpanded && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-2">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-3">
                     {/* Trade list for this competition category */}
                     {(() => {
                       const trades = getTradeList(category)
                       if (trades.length === 0) return null
                       return (
-                        <div className="mb-3 p-3 bg-indigo-50/50 rounded-xl">
+                        <div className="p-3 bg-indigo-50/50 rounded-xl">
                           <div className="text-xs font-bold text-indigo-700 mb-2">
                             適用職類（{trades.length} 項）
                           </div>
@@ -1103,71 +1103,60 @@ function GroupedUpgradePaths({
                         </div>
                       )
                     })()}
+                    {/* Competition items — info only, no per-item button */}
                     {items.map(path => {
-                      const added = isAlreadyAdded(path)
                       const levelLabel = LEVEL_LABELS[path.level] || path.level
-
                       return (
                         <div key={path.id}
-                          className={`rounded-xl p-4 border-l-4 ${
-                            added ? 'border-l-green-400 bg-green-50/50' :
+                          className={`rounded-xl p-3 border-l-4 ${
                             path.roi === 'high' ? 'border-l-amber-400 bg-amber-50/30' :
                             'border-l-blue-400 bg-blue-50/30'
                           }`}
                         >
-                          <div className="flex items-start gap-3">
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1 flex-wrap">
-                                <span className="font-bold">{path.category}</span>
-                                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
-                                  {levelLabel}
-                                </span>
-                              </div>
-                              <div className="text-sm text-gray-500">{path.description}</div>
-
-                              <div className="flex flex-wrap gap-1 mt-2">
-                                {path.probabilityBoost > 0 && (
-                                  <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${
-                                    path.probabilityBoost >= 30 ? 'bg-green-100 text-green-700' :
-                                    path.probabilityBoost >= 15 ? 'bg-indigo-50 text-indigo-600' : 'bg-gray-100 text-gray-600'
-                                  }`}>
-                                    技優甄審 +{path.probabilityBoost}%
-                                  </span>
-                                )}
-                                <span className="px-2 py-0.5 text-xs bg-purple-50 text-purple-600 rounded-full">
-                                  {category}
-                                </span>
-                              </div>
-                            </div>
-
-                            <div className="text-right shrink-0 flex flex-col items-end gap-2">
-                              {path.registrationDeadline && (
-                                <div>
-                                  <div className="text-xs text-gray-400">報名截止</div>
-                                  <div className={`text-sm font-bold ${
-                                    daysFromNowLocal(path.registrationDeadline) < 14 ? 'text-red-500' :
-                                    daysFromNowLocal(path.registrationDeadline) < 30 ? 'text-amber-500' : 'text-gray-700'
-                                  }`}>
-                                    {formatDaysLeft(path.registrationDeadline)}
-                                  </div>
-                                </div>
-                              )}
-                              <button
-                                onClick={() => handleAddToPlan(path)}
-                                disabled={added}
-                                className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
-                                  added
-                                    ? 'bg-green-100 text-green-700 cursor-default'
-                                    : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
-                                }`}
-                              >
-                                {added ? '✓ 已加入' : '加入計畫'}
-                              </button>
-                            </div>
+                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                            <span className="font-medium text-sm">{path.category}</span>
+                            <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                              {levelLabel}
+                            </span>
+                            {path.probabilityBoost > 0 && (
+                              <span className={`px-2 py-0.5 text-xs rounded-full font-bold ${
+                                path.probabilityBoost >= 30 ? 'bg-green-100 text-green-700' :
+                                path.probabilityBoost >= 15 ? 'bg-indigo-50 text-indigo-600' : 'bg-gray-100 text-gray-600'
+                              }`}>
+                                技優甄審 +{path.probabilityBoost}%
+                              </span>
+                            )}
                           </div>
+                          <div className="text-xs text-gray-500">{path.description}</div>
+                          {path.registrationDeadline && (
+                            <div className="text-xs mt-1 text-gray-400">
+                              報名截止 {path.registrationDeadline}
+                            </div>
+                          )}
                         </div>
                       )
                     })}
+                    {/* Single action button per category */}
+                    {(() => {
+                      const allAdded = items.every(p => isAlreadyAdded(p))
+                      return (
+                        <button
+                          onClick={() => {
+                            for (const p of items) {
+                              if (!isAlreadyAdded(p)) handleAddToPlan(p)
+                            }
+                          }}
+                          disabled={allAdded}
+                          className={`w-full py-2.5 rounded-xl text-sm font-medium transition ${
+                            allAdded
+                              ? 'bg-green-100 text-green-700 cursor-default'
+                              : 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95'
+                          }`}
+                        >
+                          {allAdded ? '✓ 已全部加入' : '加入計畫'}
+                        </button>
+                      )
+                    })()}
                   </motion.div>
                 )}
               </div>
