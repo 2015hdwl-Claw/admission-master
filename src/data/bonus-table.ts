@@ -29,7 +29,7 @@ export type CompetitionCategory =
   | '亞洲技能競賽'
   | '國手'
   | '全國技能競賽'
-  | '技藝競賽'
+  | '全國高級中等學校學生技藝競賽'
   | '分區技能競賽'
   | '專題實作及創意競賽'
   | '科展'
@@ -40,6 +40,25 @@ export type CompetitionCategory =
   | '舞蹈比賽'
   | '音樂比賽'
   | '其他'
+
+// Short names for internal use (dropdown labels, keys)
+export const COMP_CATEGORY_LABELS: Record<CompetitionCategory, string> = {
+  '國際技能競賽': '國際技能競賽',
+  '亞洲技能競賽': '亞洲技能競賽',
+  '國手': '正(備)取國手',
+  '全國技能競賽': '全國技能競賽',
+  '全國高級中等學校學生技藝競賽': '全國高級中等學校學生技藝競賽',
+  '分區技能競賽': '分區技能競賽',
+  '專題實作及創意競賽': '專題實作及創意競賽',
+  '科展': '科學展覽會',
+  '技術創造力競賽': '技術創造力競賽',
+  '智慧鐵人競賽': '智慧鐵人創意競賽',
+  '電腦鼠競賽': '電腦鼠競賽',
+  '美術比賽': '學生美術比賽',
+  '舞蹈比賽': '學生舞蹈比賽',
+  '音樂比賽': '學生音樂比賽',
+  '其他': '其他',
+}
 
 export interface CompetitionBonusTier {
   category: CompetitionCategory
@@ -70,12 +89,12 @@ export const COMPETITION_BONUS_TABLE: CompetitionBonusTier[] = [
   { category: '專題實作及創意競賽', placings: ['第2名', '銀牌'], bonusPercent: 25 },
   { category: '專題實作及創意競賽', placings: ['第3名', '銅牌'], bonusPercent: 20 },
   { category: '專題實作及創意競賽', placings: ['佳作'], bonusPercent: 15 },
-  // 全國高級中等學校技藝競賽
-  { category: '技藝競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 30 },
-  { category: '技藝競賽', placings: ['第4名', '第5名', '第6名', '第7名', '第8名', '第9名', '第10名', '第11名', '第12名', '第13名', '第14名', '第15名'], bonusPercent: 25 },
-  { category: '技藝競賽', placings: ['第16名', '第17名', '第18名', '第19名', '第20名', '第21名', '第22名', '第23名', '第24名', '第25名', '第26名', '第27名', '第28名', '第29名', '第30名'], bonusPercent: 20 },
-  { category: '技藝競賽', placings: ['第31名', '第32名', '第33名', '第34名', '第35名', '第36名', '第37名', '第38名', '第39名', '第40名', '第41名', '第42名', '第43名', '第44名', '第45名', '第46名', '第47名', '第48名', '第49名', '第50名'], bonusPercent: 15 },
-  { category: '技藝競賽', placings: ['第51名', '第52名', '第53名', '第54名', '第55名', '第56名', '第57名', '第58名', '第59名', '第60名', '第61名', '第62名', '第63名', '第64名', '第65名', '第66名', '第67名', '第68名', '第69名', '第70名', '第71名', '第72名', '第73名', '第74名', '第75名', '第76名'], bonusPercent: 10 },
+  // 全國高級中等學校學生技藝競賽
+  { category: '全國高級中等學校學生技藝競賽', placings: ['第1名', '第2名', '第3名'], bonusPercent: 30 },
+  { category: '全國高級中等學校學生技藝競賽', placings: ['第4名', '第5名', '第6名', '第7名', '第8名', '第9名', '第10名', '第11名', '第12名', '第13名', '第14名', '第15名'], bonusPercent: 25 },
+  { category: '全國高級中等學校學生技藝競賽', placings: ['第16名', '第17名', '第18名', '第19名', '第20名', '第21名', '第22名', '第23名', '第24名', '第25名', '第26名', '第27名', '第28名', '第29名', '第30名'], bonusPercent: 20 },
+  { category: '全國高級中等學校學生技藝競賽', placings: ['第31名', '第32名', '第33名', '第34名', '第35名', '第36名', '第37名', '第38名', '第39名', '第40名', '第41名', '第42名', '第43名', '第44名', '第45名', '第46名', '第47名', '第48名', '第49名', '第50名'], bonusPercent: 15 },
+  { category: '全國高級中等學校學生技藝競賽', placings: ['第51名', '第52名', '第53名', '第54名', '第55名', '第56名', '第57名', '第58名', '第59名', '第60名', '第61名', '第62名', '第63名', '第64名', '第65名', '第66名', '第67名', '第68名', '第69名', '第70名', '第71名', '第72名', '第73名', '第74名', '第75名', '第76名'], bonusPercent: 10 },
   // 全國中小學科學展覽會 / 臺灣國際科學展覽會
   { category: '科展', placings: ['第1名'], bonusPercent: 25 },
   { category: '科展', placings: ['第2名', '第3名'], bonusPercent: 20 },
@@ -105,7 +124,7 @@ export function classifyCompetition(name: string): CompetitionCategory {
   if (name.includes('分區技能競賽') || name.includes('技能競賽分區') || name.includes('北區技能競賽') || name.includes('中區技能競賽') || name.includes('南區技能競賽')) return '分區技能競賽'
   if (name.includes('全國技能競賽') || name.includes('全國身心障礙')) return '全國技能競賽'
   if (name.includes('專題實作') || name.includes('創意競賽') || name.includes('專題暨創意')) return '專題實作及創意競賽'
-  if (name.includes('技藝競賽')) return '技藝競賽'
+  if (name.includes('技藝競賽')) return '全國高級中等學校學生技藝競賽'
   if (name.includes('科展') || name.includes('科學展覽')) return '科展'
   if (name.includes('技術創造力')) return '技術創造力競賽'
   if (name.includes('智慧鐵人')) return '智慧鐵人競賽'

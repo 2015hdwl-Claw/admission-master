@@ -759,7 +759,7 @@ function GroupedUpgradePaths({
       // otherwise classify from title
       const cat = item.category && [
         '國際技能競賽', '亞洲技能競賽', '國手',
-        '全國技能競賽', '技藝競賽', '分區技能競賽',
+        '全國技能競賽', '全國高級中等學校學生技藝競賽', '分區技能競賽',
         '專題實作及創意競賽', '科展',
         '技術創造力競賽', '智慧鐵人競賽', '電腦鼠競賽',
         '美術比賽', '舞蹈比賽', '音樂比賽', '其他'
@@ -784,7 +784,7 @@ function GroupedUpgradePaths({
       '亞洲技能競賽',
       '國手',
       '全國技能競賽',
-      '技藝競賽',
+      '全國高級中等學校學生技藝競賽',
       '分區技能競賽',
       '專題實作及創意競賽',
       '科展',
@@ -962,7 +962,7 @@ function GroupedUpgradePaths({
         url: 'https://ws.wda.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvMzMxL3JlbGZpbGUvMTAyNDgvMTg2MTA3LzAyYWY0YjAzLWZjMmQtNGYxMC1iYzQyLTg1N2QzOWRmNTZiNC5wZGY%3d&n=56ysNTblsYblhajlnIvmioDog73nq7bos73nsKHnq6Ao5YWs5ZGKKS5wZGY%3d',
         date: '2025-07'
       },
-      '技藝競賽': {
+      '全國高級中等學校學生技藝競賽': {
         icon: '🎯',
         url: 'https://sci-me.k12ea.gov.tw/PortalFile/ContestData/11615/e8f953de-65f9-4025-8fbe-e4830fe7723b.pdf',
         date: '2025-03'
@@ -1025,7 +1025,7 @@ function GroupedUpgradePaths({
                       officialInfo ? 'bg-gradient-to-br from-indigo-100 to-purple-100 text-indigo-700' : 'bg-purple-100 text-purple-700'
                     }`}>
                       {officialInfo?.icon ||
-                       category === '技藝競賽' ? '技' :
+                       category === '全國高級中等學校學生技藝競賽' ? '技' :
                        category === '科展' ? '科' : '賽'}
                     </div>
                     <div className="text-left">
