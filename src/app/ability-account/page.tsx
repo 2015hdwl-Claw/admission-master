@@ -34,6 +34,7 @@ import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan
 import { GROUP_INFO, getGroupName } from '@/types/v4'
 import type { GroupCode } from '@/types/v4'
 import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName, getCategoriesForDept } from '@/data/bonus-table'
+import competitionAdmissionMap from '@/data/competition-admission-map.json'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -398,6 +399,7 @@ export default function AbilityAccountPage() {
                     handleAddToPlan={handleAddToPlan}
                     targetPathways={targetPathways}
                     targetGroupCode={currentAnalysis.department.groupCode}
+                    deptCategories={currentDeptCategories}
                   />
                 ) : (
                   <div className="bg-white rounded-2xl p-8 shadow-sm text-center">
@@ -704,6 +706,7 @@ function GroupedUpgradePaths({
   handleAddToPlan,
   targetPathways,
   targetGroupCode,
+  deptCategories,
 }: {
   paths: UpgradePath[]
   expandedGroups: Set<string>
@@ -712,6 +715,7 @@ function GroupedUpgradePaths({
   handleAddToPlan: (p: UpgradePath) => void
   targetPathways: string[]
   targetGroupCode?: string
+  deptCategories?: string[]
 }) {
   const certs = paths.filter(p => p.type === 'certificate')
   const comps = paths.filter(p => p.type === 'competition')
@@ -944,6 +948,32 @@ function GroupedUpgradePaths({
     if (comps.length === 0) return null
     const grouped = groupCompsByCategory(comps)
 
+    // Map competition category → JSON key in competition-admission-map
+    const COMP_CAT_TO_JSON_KEY: Record<string, string> = {
+      '國際技能競賽': 'internationalSkills',
+      '亞洲技能競賽': 'asianSkillsYouth',
+      '全國技能競賽': 'national',
+      '全國高級中等學校學生技藝競賽': 'hsVocational',
+      '分區技能競賽': 'regional',
+      '專題實作及創意競賽': 'projectCreativity',
+    }
+
+    // Get trade list for a given competition category + department's admission categories
+    function getTradeList(category: string): string[] {
+      const jsonKey = COMP_CAT_TO_JSON_KEY[category]
+      if (!jsonKey || !deptCategories?.length) return []
+      const allTrades: string[] = []
+      for (const catCode of deptCategories) {
+        const catData = (competitionAdmissionMap.categories as Record<string, any>)[catCode]
+        if (!catData) continue
+        const trades = catData[jsonKey]
+        if (Array.isArray(trades)) {
+          allTrades.push(...trades)
+        }
+      }
+      return allTrades
+    }
+
     // 官方分類額外資訊
     const OFFICIAL_CATEGORY_INFO: Record<string, { icon: string; url?: string; date?: string }> = {
       '國際技能競賽': {
@@ -1054,6 +1084,25 @@ function GroupedUpgradePaths({
 
                 {isExpanded && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="px-5 pb-4 space-y-2">
+                    {/* Trade list for this competition category */}
+                    {(() => {
+                      const trades = getTradeList(category)
+                      if (trades.length === 0) return null
+                      return (
+                        <div className="mb-3 p-3 bg-indigo-50/50 rounded-xl">
+                          <div className="text-xs font-bold text-indigo-700 mb-2">
+                            適用職類（{trades.length} 項）
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {trades.map((t, i) => (
+                              <span key={i} className="px-2 py-1 text-xs bg-white rounded-lg border border-indigo-100 text-gray-700">
+                                {t}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )
+                    })()}
                     {items.map(path => {
                       const added = isAlreadyAdded(path)
                       const levelLabel = LEVEL_LABELS[path.level] || path.level
