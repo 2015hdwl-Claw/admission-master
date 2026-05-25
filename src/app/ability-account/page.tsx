@@ -33,7 +33,7 @@ import type { StrategyAdvice, UpgradePath, CriticalDeadline } from '@/types/stra
 import type { ChosenActivity, ChosenActivitiesData } from '@/types/activity-plan'
 import { GROUP_INFO, getGroupName } from '@/types/v4'
 import type { GroupCode } from '@/types/v4'
-import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName, getAdmissionCategoriesForGroup } from '@/data/bonus-table'
+import { getCertBonus, estimateRelevance, classifyCompetition, getCompMaxBonus, getCategoryName, getCategoriesForDept } from '@/data/bonus-table'
 
 interface SavedPlan {
   targets: DepartmentInfo[]
@@ -220,10 +220,10 @@ export default function AbilityAccountPage() {
   const totalBoost = myPlan.activities.reduce((sum, a) => sum + a.probabilityBoost, 0)
   const maxBoost = myPlan.activities.length > 0 ? Math.max(...myPlan.activities.map(a => a.probabilityBoost)) : 0
 
-  // Per-department filtering: derive 招生類別 from selected department's groupCode
+  // Per-department filtering: derive 招生類別 from department name (groupCode in DB is unreliable)
   const currentDept = plan?.targets[selectedDepartmentIndex]
   const currentDeptCategories = currentDept
-    ? getAdmissionCategoriesForGroup(currentDept.groupCode)
+    ? getCategoriesForDept(currentDept.departmentName)
     : []
   const allPaths = currentStrategy?.upgradePaths.filter(p => p.canStillMakeIt) || []
   const filteredPaths = currentDept ? allPaths.filter(p => {

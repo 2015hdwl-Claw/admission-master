@@ -172,6 +172,74 @@ export function getAdmissionCategoriesForGroup(groupCode: string): string[] {
   return GROUP_TO_CATEGORIES[groupCode] || []
 }
 
+// ── 科系名稱 → 招生類別推斷 ──
+// departments.json 的 groupCode 全是 "03"，所以用名稱關鍵字推斷
+
+const DEPT_KEYWORD_CATEGORIES: [RegExp, string][] = [
+  // 輪機、飛行（最先比對，避免被機械/飛機覆蓋）
+  [/輪機/, '44'],
+  [/飛行與民航|民航人員/, '45'],
+  // 車輛/汽車
+  [/車輛|汽車/, '15'],
+  // 冷凍空調
+  [/冷凍空調|能源與冷凍/, '21'],
+  // 通訊/電訊/電信
+  [/通訊|電訊|電信工程/, '26'],
+  // 電子工程（在電機之前比對）
+  [/電子工程|半導體|光電/, '25'],
+  // 電機（排除「電機與資訊」）
+  [/電機(?!與資訊)/, '20'],
+  // 資工/資科
+  [/資訊工程|資訊科技|資訊與通訊/, '55'],
+  // 資管/資網
+  [/資訊管理|資訊網路/, '56'],
+  // 資安
+  [/資安/, '96'],
+  // 機電（在機械之前比對）
+  [/機電/, '20'],
+  // 航空機械/飛機工程
+  [/航空機械|飛機工程/, '10'],
+  // 機械
+  [/機械|自動化工程|製造/, '10'],
+  // 化工/材料/環境
+  [/化工|材料|環境/, '30'],
+  // 安全衛生
+  [/職業安全|安全衛生/, '35'],
+  // 消防
+  [/消防|公共安全/, '20'],
+  // 醫學/生醫
+  [/醫學影像|醫療器材/, '50'],
+  [/生物醫學|醫務管理|醫學資訊/, '50'],
+  // 生物機電
+  [/生物機電/, '20'],
+  // 智慧機器人
+  [/機器人/, '25'],
+  // AI/無人機
+  [/人工智慧|無人機|智慧科技/, '55'],
+  // 運動/行銷
+  [/運動|行銷/, '60'],
+  // 風力
+  [/風力發電/, '20'],
+  // 工業管理
+  [/工業管理/, '56'],
+]
+
+export function inferCategoryFromDeptName(deptName: string): string {
+  for (const [regex, catCode] of DEPT_KEYWORD_CATEGORIES) {
+    if (regex.test(deptName)) return catCode
+  }
+  return '20' // fallback to 電機
+}
+
+export function getCategoriesForDept(deptName: string): string[] {
+  const catCode = inferCategoryFromDeptName(deptName)
+  // Return the primary category plus related ones from the same group
+  for (const cats of Object.values(GROUP_TO_CATEGORIES)) {
+    if (cats.includes(catCode)) return cats
+  }
+  return [catCode]
+}
+
 // ── 真實 PDF 對照表查詢 ──
 
 // ── 真實 PDF 對照表查詢 ──
