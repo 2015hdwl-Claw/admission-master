@@ -24,6 +24,7 @@ import {
   getCertRelevanceFromMap,
   classifyCompetition,
   getCompMaxBonus,
+  inferCategoryFromDeptName,
   type RelevanceLevel,
 } from '@/data/bonus-table'
 
@@ -77,7 +78,7 @@ function generateUpgradePaths(
   const certPaths = generateCertPaths(profile, targets, now)
   paths.push(...certPaths)
 
-  // 2. Competition opportunities
+  // 2. Competition opportunities — use groupCodes (for competition matching)
   const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
   const compPaths = generateCompPaths(profile, targetGroupCodes, now)
   paths.push(...compPaths)
@@ -103,16 +104,19 @@ function generateCertPaths(
   const paths: UpgradePath[] = []
   const existingCerts = new Set(profile.certificates)
   const schedules = examSchedules as ExamSchedule[]
-
-  // Collect all target groupCodes
   const targetGroupCodes = [...new Set(targets.map(d => d.groupCode))]
 
-  // Get all admission categories for target groups
-  const targetCategories = new Map<string, string>() // categoryCode → groupCode
-  for (const gc of targetGroupCodes) {
-    for (const catCode of getAdmissionCategoriesForGroup(gc)) {
+  // Collect admission categories from department names (groupCode in DB is unreliable)
+  const targetCategories = new Map<string, string>() // categoryCode → deptName
+  for (const dept of targets) {
+    const primaryCat = inferCategoryFromDeptName(dept.departmentName)
+    if (!targetCategories.has(primaryCat)) {
+      targetCategories.set(primaryCat, dept.departmentName)
+    }
+    // Also add related categories from the same group
+    for (const catCode of getAdmissionCategoriesForGroup(dept.groupCode)) {
       if (!targetCategories.has(catCode)) {
-        targetCategories.set(catCode, gc)
+        targetCategories.set(catCode, dept.departmentName)
       }
     }
   }
