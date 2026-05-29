@@ -1,3 +1,14 @@
+/**
+ * @file vocational-direction-rules.ts
+ * @source_description 高職事實標籤對應方向推薦規則引擎，基於開發者領域知識手寫
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["信心分數基於主觀判斷，無實證數據支持"]
+ * @last_verified 2026-05-29
+ */
+
 import type { VocationalDirectionRule, VocationalFactCategory } from '../types';
 
 export interface VocationalFactTemplate {

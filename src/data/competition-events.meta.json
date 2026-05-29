@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "source_description": "競賽活動資料，從教育部國教署技藝競賽平台、勞動部技能競賽平台、專題競賽平台爬取",
+    "source_urls": [
+      "https://sci-me.k12ea.gov.tw/",
+      "https://www.wdasec.gov.tw/",
+      "https://topic.tcivs.tc.edu.tw/"
+    ],
+    "fetched_at": "2026-05-17",
+    "generation_method": "scraped",
+    "ai_model": null,
+    "ai_fields": [],
+    "quality_tier": 2,
+    "update_frequency": "per_school_year",
+    "known_issues": [
+      "部分競賽的 groupCodes 可能不完全準確，需人工驗證",
+      "競賽日期可能因主辦單位調整而變動"
+    ],
+    "last_verified": "2026-05-17",
+    "maintainer_notes": "每學年 10 月新學年行事曆公布後更新。爬蟲腳本：tools/scrape_competition_events.py"
+  }
+}

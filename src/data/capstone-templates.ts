@@ -1,4 +1,16 @@
 /**
+ * @file capstone-templates.ts
+ * @source_description 專題實作範本庫，結構化格式學自104Campus，內容為手寫
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["範本內容為手寫，未經過實際教學驗證"]
+ * @last_verified 2026-05-29
+ * @maintainer_notes 未來可開放 UGC 讓學生分享
+ */
+
+/**
  * 專題實作範本庫 — 學自 104Campus 的範本結構化格式
  * 每個範本含 STAR 結構提示 + 職群分類
  * 未來可開放 UGC 讓學生分享（學自 Lucker）

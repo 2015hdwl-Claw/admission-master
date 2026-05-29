@@ -1,5 +1,15 @@
+/**
+ * @file competitions.ts
+ * @source_description 高職生可參加的技術競賽清單，手動整理自 wdasec.gov.tw 等官方網站
+ * @source_urls ["https://www.wdasec.gov.tw/", "https://sci-me.k12ea.gov.tw/"]
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["手動整理，部分競賽 officialUrl 可能過期。建議與 Tier 1 的 competition-admission-map.json 交叉驗證"]
+ * @last_verified 2026-05-29
+ */
+
 // 競賽資料庫：高職生可參加的技術競賽清單
-// 用於武器庫盤點 + 技優保送/甄審資格匹配
 
 export interface CompetitionItem {
   name: string

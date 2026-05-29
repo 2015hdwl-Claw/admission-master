@@ -1,4 +1,17 @@
 {
+  "_meta": {
+    "source_description": "證照對應招生類別對照表，從115學年度技優甄審招生簡章手動提取",
+    "source_urls": ["115學年度技優甄審招生簡章 Category2.pdf + 主簡章第3-25頁"],
+    "fetched_at": "2026-05-17",
+    "generation_method": "official_pdf_extraction",
+    "ai_model": null,
+    "ai_fields": [],
+    "quality_tier": 1,
+    "update_frequency": "annually",
+    "known_issues": [],
+    "last_verified": "2026-05-17",
+    "maintainer_notes": "甲級證照不分相關度一律+25%，乙級依相關度區分。從簡章 PDF 手動提取，非自動化流程。"
+  },
   "_source": "115學年度 科技校院四年制及專科學校二年制招收技藝技能優良學生甄審入學招生簡章",
   "_source_table": "招生類別代碼及名稱、適合甄審之技術士職種/類及專技普考類科對照表",
   "_fetched_at": "2026-05-17",

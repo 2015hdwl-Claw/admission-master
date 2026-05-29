@@ -1,3 +1,15 @@
+/**
+ * @file bonus-table.ts
+ * @source_description 技優甄審官方加分標準表，從115學年度技優甄審招生簡章手動提取
+ * @source_urls ["115學年度技優甄審招生簡章 表1 競賽優勝名次或證照等級及其優待加分標準表"]
+ * @generation_method official_pdf_extraction
+ * @quality_tier 1
+ * @update_frequency annually
+ * @known_issues []
+ * @last_verified 2026-05-17
+ * @maintainer_notes 計算公式：甄審總成績 = 指定項目甄審成績 × (1 + 優待加分比率)
+ */
+
 // 技優甄審官方加分標準表
 // 資料來源：115學年度 科技校院四年制及專科學校二年制招收技藝技能優良學生甄審入學招生簡章
 // 「表1 競賽優勝名次或證照等級及其優待加分標準表」

@@ -1,5 +1,15 @@
+/**
+ * @file certificates.ts
+ * @source_description 15個職群對應的技術士證照清單，手動整理自勞動部勞動力發展署技能檢定中心資料
+ * @source_urls ["https://skill.tcte.edu.tw/"]
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["手動整理，無系統性驗證記錄。建議與 Tier 1 的 cert-admission-map.json 交叉驗證"]
+ * @last_verified 2026-05-29
+ */
+
 // 證照對照表：15 個職群對應的技術士證照清單
-// 資料來源：勞動部勞動力發展署技能檢定中心
 
 export interface CertificateInfo {
   id: string          // 唯一識別碼

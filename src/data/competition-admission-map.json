@@ -1,4 +1,17 @@
 {
+  "_meta": {
+    "source_description": "競賽對應招生類別對照表，從115學年度四技二專技優甄審入學招生簡章手動提取",
+    "source_urls": ["115學年度四技二專技優甄審入學招生簡章 第3-25頁"],
+    "fetched_at": "2026-05-23",
+    "generation_method": "official_pdf_extraction",
+    "ai_model": null,
+    "ai_fields": [],
+    "quality_tier": 1,
+    "update_frequency": "annually",
+    "known_issues": [],
+    "last_verified": "2026-05-23",
+    "maintainer_notes": "13種競賽類型 × 38個招生類別。從簡章 PDF 手動提取。"
+  },
   "source": "115學年度四技二專技優甄審入學招生簡章 第3-25頁",
   "updatedAt": "2026-05-23",
   "description": "招生類別代碼及名稱、適合甄審之技藝技能競賽優勝、技術士職（種）類及專技普考類科對照表",

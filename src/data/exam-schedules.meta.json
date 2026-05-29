@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "source_description": "證照考試時程，從勞動部勞動力發展署技能檢定中心網站爬取",
+    "source_urls": ["https://skill.tcte.edu.tw/schedule.php"],
+    "fetched_at": "2026-05-17",
+    "generation_method": "scraped",
+    "ai_model": null,
+    "ai_fields": [],
+    "quality_tier": 2,
+    "update_frequency": "3x_per_year",
+    "known_issues": [],
+    "last_verified": "2026-05-17",
+    "maintainer_notes": "每年 1/4/8 月公告三個梯次考試時程，需於公告後一週內爬取更新。爬蟲腳本：tools/scrape_exam_schedules.py"
+  }
+}

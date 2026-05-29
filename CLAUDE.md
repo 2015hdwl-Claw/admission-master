@@ -49,7 +49,9 @@
 - Supabase client in `src/lib/supabase.ts`
 - API types in `src/types/`
 - Content data in `data/` (JSON seed files)
-- Content articles in `content/` (Markdown)
+- Content articles in `content/` (Markdown) — currently not created, planned for SEO content
+- Data provenance in `DATA_SOURCES.md` — all data source documentation, update cadences, quality tiers
+- Data change log in `DATA_CHANGELOG.md` — every data update must be recorded here
 
 ## AI Usage
 - **Production**: Google Gemini 2.5 Flash (free tier), Flash-Lite (cheap bulk), Pro (complex reasoning)
@@ -139,6 +141,7 @@ Use this section when the task touches Admission Master product shape (student/p
 ### Content & SEO
 - `content/` Markdown, `data/` JSON seeds, long-tail pages -> `/incremental-implementation`; large IA changes -> `/spec-driven-development` first
 - Copy tone: user-facing must stay **Traditional Chinese**; code identifiers **English**
+- **Data governance**: All data files must have source metadata (see `DATA_SOURCES.md`). Any data change must be recorded in `DATA_CHANGELOG.md`.
 
 ### Email (Resend)
 - Templates, triggers, unsubscribe, parent reports -> `/incremental-implementation` + `/security-and-hardening` (secrets, PII in logs)

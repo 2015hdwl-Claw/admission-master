@@ -1,3 +1,21 @@
+/**
+ * @file admission.ts
+ * @deprecated ⚠️ 此檔案為普通高中升學體系（學測/申請入學/分發），不是高職體系（統測/甄選入學/技優甄審）。
+ *             高職使用者看到此資料會被誤導。任何引用此檔案的頁面都應改用高職專用的 pathway-deadlines.json。
+ * @source_description 台灣一般大學申請入學管道描述，手寫整理
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency never (pending rewrite)
+ * @known_issues [
+ *   "此為普通高中升學資料（學測/申請入學/分發），不適用於高職學生",
+ *   "高職的 6 個管道為：甄選入學、登記分發、技優甄審、技優保送、繁星（高職版）、特殊選才",
+ *   "與高職產品核心定位衝突，需全面重寫"
+ * ]
+ * @last_verified 2026-05-29
+ * @maintainer_notes 待產品決策：標記 deprecated 並停止使用，或重寫為高職 6 管道版本
+ */
+
 import type { PathwayDetail, VocationalGroup } from '@/types';
 
 export const ADMISSION_PATHWAYS: PathwayDetail[] = [

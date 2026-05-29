@@ -1,3 +1,15 @@
+/**
+ * @file national-calendar.ts
+ * @source_description 統一行事曆，自動聚合 pathway-deadlines + exam-schedules + competition-events
+ * @source_urls []
+ * @generation_method auto_derived
+ * @quality_tier 2
+ * @update_frequency on_demand
+ * @known_issues []
+ * @last_verified 2026-05-17
+ * @maintainer_notes 由 tools/generate_calendar.py 自動生成。任何上游檔案更新後需重新執行。Generated: 2026-05-17 11:48
+ */
+
 import type { CalendarEvent } from '@/types';
 
 // Auto-generated from scraped data (pathway-deadlines + exam-schedules + competition-events)

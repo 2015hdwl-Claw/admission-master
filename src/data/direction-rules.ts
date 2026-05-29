@@ -1,3 +1,14 @@
+/**
+ * @file direction-rules.ts
+ * @source_description 事實標籤對應學術方向推薦規則引擎，基於開發者領域知識手寫
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["信心分數（0.75-0.95）基於主觀判斷，無實證數據支持。規則為普通高中學群方向，非高職體系"]
+ * @last_verified 2026-05-29
+ */
+
 import type { DirectionRule } from '@/types';
 
 /**

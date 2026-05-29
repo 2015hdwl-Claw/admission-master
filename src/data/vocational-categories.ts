@@ -1,3 +1,14 @@
+/**
+ * @file vocational-categories.ts
+ * @source_description 高職15群科分類、標籤顏色、技能類別，手動整理
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues ["僅收錄15群，台灣高職完整為20群。商業與管理群可能重複出現。缺少部分群科"]
+ * @last_verified 2026-05-29
+ */
+
 import type { VocationalGroup, VocationalCategory, SkillCategory } from '../types';
 
 export const VOCATIONAL_GROUP_LABELS: Record<VocationalGroup, string> = {

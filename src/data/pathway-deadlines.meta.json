@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "source_description": "升學管道里程碑日期，從技專校院招生委員會聯合會網站爬取",
+    "source_urls": [
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc01",
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc03",
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc05",
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc06",
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc07",
+      "https://www.techadmi.edu.tw/edutype_list.php?type=1&type2=comc08"
+    ],
+    "fetched_at": "2026-05-17",
+    "generation_method": "scraped",
+    "ai_model": null,
+    "ai_fields": [],
+    "quality_tier": 2,
+    "update_frequency": "annually",
+    "known_issues": [],
+    "last_verified": "2026-05-17",
+    "maintainer_notes": "每年 12 月新學年度簡章發布後更新。涵蓋 6 個管道：甄選入學、登記分發、技優甄審、技優保送、繁星、特殊選才。爬蟲腳本：tools/scrape_pathway_deadlines.py"
+  }
+}

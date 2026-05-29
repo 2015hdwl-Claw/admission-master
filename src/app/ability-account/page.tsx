@@ -1088,16 +1088,17 @@ function GroupedUpgradePaths({
                     {(() => {
                       const trades = getTradeList(category)
                       if (trades.length === 0) return null
+                      const sorted = [...trades].sort((a, b) => a.localeCompare(b, 'zh-TW'))
                       return (
                         <div className="p-3 bg-indigo-50/50 rounded-xl">
                           <div className="text-xs font-bold text-indigo-700 mb-2">
-                            適用職類（{trades.length} 項）
+                            適用職類（{sorted.length} 項）
                           </div>
-                          <div className="flex flex-wrap gap-1">
-                            {trades.map((t, i) => (
-                              <span key={i} className="px-2 py-1 text-xs bg-white rounded-lg border border-indigo-100 text-gray-700">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5">
+                            {sorted.map((t, i) => (
+                              <div key={i} className="px-2 py-1 text-xs bg-white rounded-lg border border-indigo-100 text-gray-700 truncate" title={t}>
                                 {t}
-                              </span>
+                              </div>
                             ))}
                           </div>
                         </div>

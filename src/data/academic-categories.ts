@@ -1,4 +1,16 @@
-﻿import type { AcademicCategory } from '@/types';
+﻿/**
+ * @file academic-categories.ts
+ * @source_description 台灣一般大學學群分類與描述，依教育部學群分類手動整理
+ * @source_urls []
+ * @generation_method hand-authored
+ * @quality_tier 4
+ * @update_frequency on_demand
+ * @known_issues 此資料為一般高中學群（58學群），不是高職20群體系。高職使用者應使用 vocational-categories.ts
+ * @last_verified 2026-05-29
+ * @maintainer_notes 需重寫為高職20群版本，或明確標記為 deprecated
+ */
+
+import type { AcademicCategory } from '@/types';
 
 export const ACADEMIC_CATEGORIES: AcademicCategory[] = [
   {

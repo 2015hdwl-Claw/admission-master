@@ -1,0 +1,22 @@
+{
+  "_meta": {
+    "source_description": "科技大學系所資料，基礎結構來自 jctv.ntut.edu.tw warehouse.js，描述欄位部分由 GLM API 生成，就業資料來自 104 人力銀行",
+    "source_urls": [
+      "https://jctv.ntut.edu.tw/（技專校院招生委員會聯合會資料倉儲）",
+      "https://be.guide.104.com.tw/（104 人力銀行 Career Guide）"
+    ],
+    "fetched_at": "2026-05-14",
+    "generation_method": "hybrid",
+    "ai_model": "glm-4.7-flash",
+    "ai_fields": ["fullDescription", "features", "researchAreas", "careerPaths"],
+    "quality_tier": 3,
+    "update_frequency": "annually",
+    "known_issues": [
+      "所有 181 個系所均為 groupCode \"03\"（電機與電子群），尚未擴展到其他 19 個職群",
+      "fullDescription、features、researchAreas、careerPaths 欄位由 GLM API (glm-4.7-flash) 生成，非官方資料，正確性未經驗證",
+      "缺少 AI 生成欄位的逐筆標記（無法區分哪些系所的描述是 AI 生成 vs 官方提供）"
+    ],
+    "last_verified": "2026-05-14",
+    "maintainer_notes": "需擴展到全部 20 個職群。AI 生成欄位應加上 ai_generated: true 標記。爬蟲腳本：tools/scrape_electrical_departments.py + tools/enrich_*.py"
+  }
+}
