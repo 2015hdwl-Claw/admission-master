@@ -32,9 +32,8 @@ interface Program {
   eligibility_type: string
   company_industry: string
   exam_criteria?: string
+  required_departments?: string[]
 }
-
-const programs = programsData as unknown as Program[]
 
 const ALL_REGIONS = ['全部', '台北', '新北', '桃園', '新竹', '苗栗', '台中', '彰化', '南投', '雲林', '嘉義', '台南', '高雄', '屏東', '宜蘭']
 const ALL_INDUSTRIES = ['全部', '餐旅觀光業', '精密機械業', '汽車業', '半導體業', '電子製造業', '資訊科技業', '電機空調業', '設計業', '商業管理業', '智慧製造業', '鋼鐵金屬業', '農業食品業', '建築營造業', '美容業', '醫療照護業', '其他產業']
@@ -48,9 +47,15 @@ const PROGRAM_MODES = [
   { mode: '2+2N', label: '二專日間 + 二技進修', desc: '兼顧就業與升學' },
 ]
 
+// 過濾只顯示有招生簡章的科系
+const programs = programsData as unknown as Program[]
+
+// 過濾只顯示有招生簡章的科系
+const programsWithBrochure = programs.filter(p => p.brochure_url && p.brochure_url.length > 0)
+
 // Stats
-const totalQuota = programs.reduce((s, p) => s + p.quota_num, 0)
-const uniqueSchools = new Set(programs.map(p => p.school_name)).size
+const totalQuota = programsWithBrochure.reduce((s, p) => s + p.quota_num, 0)
+const uniqueSchools = new Set(programsWithBrochure.map(p => p.school_name)).size
 
 export default function IndustryAcademiaPage() {
   const [filterIndustry, setFilterIndustry] = useState('全部')
@@ -60,7 +65,7 @@ export default function IndustryAcademiaPage() {
   const [showComparePanel, setShowComparePanel] = useState(false)
 
   const filtered = useMemo(() => {
-    return programs.filter(p => {
+    return programsWithBrochure.filter(p => {
       if (filterIndustry !== '全部' && p.company_industry !== filterIndustry) return false
       if (filterRegion !== '全部' && p.region !== filterRegion) return false
       if (searchText) {
@@ -86,7 +91,40 @@ export default function IndustryAcademiaPage() {
     }
   }
 
-  const selectedPrograms = programs.filter(p => selectedForCompare.includes(p.pid))
+  const selectedPrograms = programsWithBrochure.filter(p => selectedForCompare.includes(p.pid))
+
+  // 從 remarks 提取科系限制
+  const extractRequiredDepartments = (remarks: string): string[] | null => {
+    if (!remarks) return null
+
+    const deptPatterns = [
+      /機械群|機械科|機械加工科|機電科|控制科|資訊科|電機科|電子科|資電類|冷凍空調科|電機空調科|車輛工程系|能源與冷凍空調工程系|電子工程系|工業設計系|電機與機械科技學系|智慧機電整合應用|家具木工|木工|設計群|建築科|動力機械群|電機與電子群|汽車修護|車體板金|電子.*丙級|室內配線|工業配線/g,
+    ]
+
+    const found = new Set<string>()
+    for (const pattern of deptPatterns) {
+      const matches = remarks.match(pattern)
+      if (matches) {
+        matches.forEach(m => found.add(m))
+      }
+    }
+
+    return found.size > 0 ? Array.from(found) : null
+  }
+
+  const getEligibilityDisplay = (p: Program): string => {
+    const display = p.eligibility_type
+    const requiredDepts = p.required_departments || extractRequiredDepartments(p.remarks || '')
+
+    if (!requiredDepts || requiredDepts.length === 0) {
+      return display
+    }
+
+    const deptsStr = requiredDepts.slice(0, 3).join('、')
+    const hasMore = requiredDepts.length > 3
+
+    return `${display}${hasMore ? `（${deptsStr}...）` : `（${deptsStr}）`}`
+  }
 
   // Group by school for summary view
   const schoolGroups = useMemo(() => {
@@ -107,7 +145,7 @@ export default function IndustryAcademiaPage() {
             ← 返回升學管道總覽
           </Link>
           <div className="flex items-center gap-3">
-            <p className="text-amber-600 font-semibold text-sm">產學攜手合作計畫 2.0</p>
+            <p className="text-amber-600 font-semibold text-sm">產學攜手合作計畫 2.0 <span className="text-xs text-gray-500 ml-1">(僅顯示有簡章專班)</span></p>
             {selectedForCompare.length > 0 && (
               <button
                 onClick={() => setShowComparePanel(!showComparePanel)}
@@ -137,13 +175,16 @@ export default function IndustryAcademiaPage() {
               <div className="text-xs text-gray-500">招生學校</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-amber-600">{programs.length}</div>
+              <div className="text-3xl font-bold text-amber-600">{programsWithBrochure.length}</div>
               <div className="text-xs text-gray-500">專班數</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-amber-600">{totalQuota.toLocaleString()}</div>
               <div className="text-xs text-gray-500">招生名額</div>
             </div>
+          </div>
+          <div className="mt-4 text-xs text-gray-400">
+            資料來源：技專校院招生策略委員會 • 僅顯示已公布招生簡章之專班
           </div>
         </div>
 
@@ -333,12 +374,23 @@ export default function IndustryAcademiaPage() {
                                 <span className="inline-block px-2 py-0.5 text-xs bg-blue-50 text-blue-700 rounded-full whitespace-nowrap">{p.schedule_type}</span>
                               </td>
                               <td className="p-3 text-center">
-                                <span className={`inline-block px-2 py-0.5 text-xs rounded-full whitespace-nowrap ${
-                                  p.eligibility_type === '限合作技高專班學生' ? 'bg-red-50 text-red-600' :
-                                  p.eligibility_type === '開放所有高中職生報名' ? 'bg-green-50 text-green-600' :
-                                  p.eligibility_type === '合作技高優先，缺額開放他校' ? 'bg-amber-50 text-amber-600' :
-                                  'bg-gray-50 text-gray-600'
-                                }`}>{p.eligibility_type}</span>
+                                <div className="space-y-1">
+                                  <span className={`inline-block px-2 py-0.5 text-xs rounded-full whitespace-nowrap ${
+                                    p.eligibility_type === '限合作技高專班學生' ? 'bg-red-50 text-red-600' :
+                                    p.eligibility_type === '開放所有高中職生報名' ? 'bg-green-50 text-green-600' :
+                                    p.eligibility_type === '合作技高優先，缺額開放他校' ? 'bg-amber-50 text-amber-600' :
+                                    'bg-gray-50 text-gray-600'
+                                  }`}>{p.eligibility_type}</span>
+                                  {(() => {
+                                    const depts = extractRequiredDepartments(p.remarks || '')
+                                    if (!depts || depts.length === 0) return null
+                                    return (
+                                      <div className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded truncate max-w-[120px]" title={depts.join('、')}>
+                                        科系: {depts.join('、')}
+                                      </div>
+                                    )
+                                  })()}
+                                </div>
                               </td>
                               <td className="p-3 text-center">
                                 {p.exam_criteria ? (
@@ -434,7 +486,25 @@ export default function IndustryAcademiaPage() {
                       <tr className="border-b">
                         <td className="p-3 font-medium text-gray-900 sticky left-0 bg-white z-10">報名資格</td>
                         {selectedPrograms.map(p => (
-                          <td key={p.pid} className="p-3 text-xs text-gray-700">{p.eligibility_type}</td>
+                          <td key={p.pid} className="p-3 text-xs text-gray-700">
+                            <div className="space-y-1">
+                              <span className={`inline-block px-2 py-0.5 text-xs rounded-full whitespace-nowrap ${
+                                p.eligibility_type === '限合作技高專班學生' ? 'bg-red-50 text-red-600' :
+                                p.eligibility_type === '開放所有高中職生報名' ? 'bg-green-50 text-green-600' :
+                                p.eligibility_type === '合作技高優先，缺額開放他校' ? 'bg-amber-50 text-amber-600' :
+                                'bg-gray-50 text-gray-600'
+                              }`}>{p.eligibility_type}</span>
+                              {(() => {
+                                const depts = extractRequiredDepartments(p.remarks || '')
+                                if (!depts || depts.length === 0) return null
+                                return (
+                                  <div className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded">
+                                    科系: {depts.join('、')}
+                                  </div>
+                                )
+                              })()}
+                            </div>
+                          </td>
                         ))}
                       </tr>
                       <tr className="border-b bg-gray-50">
