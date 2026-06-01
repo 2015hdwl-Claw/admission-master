@@ -95,9 +95,11 @@ export default function IndustryAcademiaPage() {
 
   const getBrochureViewerUrl = (url: string) => {
     if (!url) return ''
-    // NCUT uses their web portal, open directly
-    if (url.includes('industry.ncut.edu.tw')) return url
-    // For PDFs that force download, use Google Docs Viewer
+    // NCUT API attachments force download - use Google Docs Viewer
+    if (url.includes('industry.ncut.edu.tw/WebApi/Tools/GetAttach')) {
+      return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`
+    }
+    // Other PDFs
     if (url.endsWith('.pdf') || url.includes('.pdf')) {
       return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`
     }
