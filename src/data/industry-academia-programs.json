@@ -504,16 +504,20 @@
     "remarks": "1.合作技高：臺中高工。2.上課方式：週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "臺中高工。2.上課方式：週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
     "class_schedule": "週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "臺中高工。",
     "region": "台中",
     "industry": "電子資訊業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "見簡章",
-    "company_industry": "半導體業"
+    "schedule_type": "第一年職訓，之後上課+實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "半導體業",
+    "exam_criteria": "面試×50%＋書面審查×45%＋弱勢證明×5%",
+    "required_departments": [
+      "機械領域"
+    ]
   },
   {
     "school_id": "110",
@@ -528,16 +532,20 @@
     "remarks": "1.合作技高：大甲高工、神岡高工、霧峰農工、東勢高工。2.上課方式：週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "大甲高工、神岡高工、霧峰農工、東勢高工。2.上課方式：週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
     "class_schedule": "週五、週六全天在國立勤益科技大學上課。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "大甲高工、神岡高工、霧峰農工、東勢高工。",
     "region": "台中",
     "industry": "精密機械製造業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "見簡章",
-    "company_industry": "精密機械業"
+    "schedule_type": "第一年職訓，之後上課+實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "精密機械業",
+    "exam_criteria": "面試×50%＋書面審查×45%＋弱勢證明×5%",
+    "required_departments": [
+      "機械領域"
+    ]
   },
   {
     "school_id": "110",
@@ -551,16 +559,22 @@
     "schedule": "【網路報名】115年3月31日(星期二)9:00至115年6月10日(星期三)16:00；115年6月10日(星期三)16:00前上傳報名資料及書面審查資料【面試】115年6月23日(星期二)【成績查詢】115年6月30日(星期二)9:00起至16:00止【公告錄取名單】115年7月3日(星期五)10:00起",
     "remarks": "1.合作技高：臺中高工。2.修業方式：週五及週六整天於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "臺中高工。2.修業方式：週五及週六整天於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "臺中高工。",
     "region": "台中",
     "industry": "其他產業",
     "quota_num": 35,
     "companies_clean": [],
-    "schedule_type": "週五六上課，其餘天實習",
-    "eligibility_type": "見簡章",
-    "company_industry": "電機空調業"
+    "schedule_type": "週五晚及週六上課，其餘天實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "電機空調業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "冷凍空調",
+      "電機",
+      "自控"
+    ]
   },
   {
     "school_id": "110",
@@ -574,16 +588,20 @@
     "schedule": "【網路報名】115年3月31日(星期二)9:00至115年6月10日(星期三)16:00；115年6月10日(星期三)16:00前上傳報名資料及書面審查資料【面試】115年6月23日(星期二)【成績查詢】115年6月30日(星期二)9:00起至16:00止【公告錄取名單】115年7月3日(星期五)10:00起",
     "remarks": "1.合作技高：泰山高中、淡水商工、後壁高中、花蓮高工、神岡高工。2.修業方式：週五及週六整天在國立勤益科技大學上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "泰山高中、淡水商工、後壁高中、花蓮高工、神岡高工。2.修業方式：週五及週六整天在國立勤益科技大學上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "泰山高中、淡水商工、後壁高中、花蓮高工、神岡高工。",
     "region": "台中",
     "industry": "智慧製造業",
     "quota_num": 45,
     "companies_clean": [],
-    "schedule_type": "週五六上課，其餘天實習",
-    "eligibility_type": "見簡章",
-    "company_industry": "智慧製造業"
+    "schedule_type": "第一年職訓，之後上課+實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "智慧製造業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "機電整合"
+    ]
   },
   {
     "school_id": "110",
@@ -597,16 +615,21 @@
     "schedule": "【網路報名】115年3月31日(星期二)9:00至115年6月10日(星期三)16:00；115年6月10日(星期三)16:00前上傳報名資料及書面審查資料【面試】115年6月23日(星期二)【成績查詢】115年6月30日(星期二)9:00起至16:00止【公告錄取名單】115年7月3日(星期五)10:00起",
     "remarks": "1.合作技高：彰師附工、東勢高工、苗栗農工、大湖高工、霧峰農工、民雄農工、大甲高工。2.修業方式：週一至週五晚上於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "彰師附工、東勢高工、苗栗農工、大湖高工、霧峰農工、民雄農工、大甲高工。2.修業方式：週一至週五晚上於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "彰師附工、東勢高工、苗栗農工、大湖高工、霧峰農工、民雄農工、大甲高工。",
     "region": "台中",
     "industry": "精密機械製造業",
     "quota_num": 80,
     "companies_clean": [],
-    "schedule_type": "夜間/進修部上課",
-    "eligibility_type": "見簡章",
-    "company_industry": "電機空調業"
+    "schedule_type": "夜間上課，日間實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "電機空調業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "電機",
+      "電子領域"
+    ]
   },
   {
     "school_id": "110",
@@ -624,7 +647,7 @@
     "partner_companies_list": [
       "友達光電股份有限公司、鴻佰科技股份有限公司。"
     ],
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "新民高中、慈明高中、中山工商、治平高中。",
     "region": "台中",
@@ -634,9 +657,14 @@
       "友達光電股份有限公司",
       "鴻佰科技股份有限公司"
     ],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "見簡章",
-    "company_industry": "半導體業"
+    "schedule_type": "日間實習，夜間上課",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "半導體業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "電子",
+      "半導體"
+    ]
   },
   {
     "school_id": "110",
@@ -654,7 +682,7 @@
     "partner_companies_list": [
       "友達光電股份有限公司、鴻佰科技股份有限公司。"
     ],
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "二林工商、水里商工、中山工商。",
     "region": "台中",
@@ -664,9 +692,13 @@
       "友達光電股份有限公司",
       "鴻佰科技股份有限公司"
     ],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "見簡章",
-    "company_industry": "資訊科技業"
+    "schedule_type": "日間實習，夜間上課",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "資訊科技業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "資訊科技"
+    ]
   },
   {
     "school_id": "110",
@@ -684,7 +716,7 @@
     "partner_companies_list": [
       "矽品精密工業股份有限公司、超豐電子股份有限公司。"
     ],
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "岡山農工、屏東高工、埔里高工、新營高工、達德商工。",
     "region": "台中",
@@ -694,9 +726,13 @@
       "矽品精密工業股份有限公司",
       "超豐電子股份有限公司"
     ],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "見簡章",
-    "company_industry": "半導體業"
+    "schedule_type": "日間實習，夜間上課",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "半導體業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "半導體封測"
+    ]
   },
   {
     "school_id": "110",
@@ -710,16 +746,21 @@
     "schedule": "【網路報名】115年3月31日(星期二)9:00至115年6月10日(星期三)16:00；115年6月10日(星期三)16:00前上傳報名資料及書面審查資料【面試】115年6月23日(星期二)【成績查詢】115年6月30日(星期二)9:00起至16:00止【公告錄取名單】115年7月3日(星期五)10:00起",
     "remarks": "1.合作技高：北門農工、二林工商、新營高工。2.修業方式：週二、週四晚上及週六於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "北門農工、二林工商、新營高工。2.修業方式：週二、週四晚上及週六於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "北門農工、二林工商、新營高工。",
     "region": "台中",
     "industry": "商業管理業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "夜間/進修部上課",
-    "eligibility_type": "見簡章",
-    "company_industry": "商業管理業"
+    "schedule_type": "夜間上課，日間實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "商業管理業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "工業工程",
+      "管理"
+    ]
   },
   {
     "school_id": "110",
@@ -733,16 +774,20 @@
     "schedule": "【網路報名】115年3月31日(星期二)9:00至115年6月10日(星期三)16:00；115年6月10日(星期三)16:00前上傳報名資料及書面審查資料【面試】115年6月23日(星期二)【成績查詢】115年6月30日(星期二)9:00起至16:00止【公告錄取名單】115年7月3日(星期五)10:00起",
     "remarks": "1.合作技高：秀水高工、虎尾農工、光華高工、致用高中、新民高中。2.修業方式：週一至週五安排 2～3 天晚上及週六於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
     "partner_high_schools": "秀水高工、虎尾農工、光華高工、致用高中、新民高中。2.修業方式：週一至週五安排 2～3 天晚上及週六於學校上課，修業期滿成績及格者授予學士學位。3.合作廠商請詳閱招生簡章。",
-    "brochure_url": "https://industry.ncut.edu.tw/WebApi/Tools/GetAttach/a81500f0-e53e-4357-8d7b-c2b04c41efb4",
+    "brochure_url": "https://industry.ncut.edu.tw/web/index.html",
     "school_recruit_url": "https://industry.ncut.edu.tw/web/index.html",
     "partner_high_schools_raw": "秀水高工、虎尾農工、光華高工、致用高中、新民高中。",
     "region": "台中",
     "industry": "電子資訊業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "夜間/進修部上課",
-    "eligibility_type": "見簡章",
-    "company_industry": "資訊科技業"
+    "schedule_type": "夜間上課，日間實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "資訊科技業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "資訊管理"
+    ]
   },
   {
     "school_id": "110",
@@ -761,9 +806,13 @@
     "industry": "精密機械製造業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "日間+夜間混合",
-    "eligibility_type": "見簡章",
-    "company_industry": "精密機械業"
+    "schedule_type": "第一年中彰投分署職訓，第2-4年夜間上課+日間企業實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "精密機械業",
+    "exam_criteria": "面試×50%＋書面審查×45%＋弱勢證明×5%",
+    "required_departments": [
+      "機械領域"
+    ]
   },
   {
     "school_id": "110",
@@ -782,9 +831,14 @@
     "industry": "精密機械製造業",
     "quota_num": 50,
     "companies_clean": [],
-    "schedule_type": "日間+夜間混合",
-    "eligibility_type": "見簡章",
-    "company_industry": "電機空調業"
+    "schedule_type": "第一年中彰投分署職訓，第2-4年夜間上課+日間企業實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "電機空調業",
+    "exam_criteria": "面試×70%＋書面審查×30%",
+    "required_departments": [
+      "電機",
+      "電子領域"
+    ]
   },
   {
     "school_id": "110",
@@ -803,9 +857,15 @@
     "industry": "其他產業",
     "quota_num": 30,
     "companies_clean": [],
-    "schedule_type": "日間+夜間混合",
-    "eligibility_type": "見簡章",
-    "company_industry": "電機空調業"
+    "schedule_type": "第一年中彰投分署職訓，第2-4年週五晚及週六上課+日間企業實習",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "電機空調業",
+    "exam_criteria": "面試×50%＋書面審查×50%",
+    "required_departments": [
+      "冷凍空調",
+      "電機",
+      "自控"
+    ]
   },
   {
     "school_id": "110",
@@ -823,10 +883,33 @@
     "region": "台中",
     "industry": "精密機械製造業",
     "quota_num": 50,
-    "companies_clean": [],
-    "schedule_type": "見簡章",
-    "eligibility_type": "見簡章",
-    "company_industry": "智慧製造業"
+    "companies_clean": [
+      "上銀科技股份有限公司",
+      "大光長榮機械股份有限公司",
+      "天源義記機械股份有限公司",
+      "永湖複合材料股份有限公司",
+      "立督科技股份有限公司",
+      "立穩機電技術股份有限公司",
+      "宇隆科技股份有限公司",
+      "明昌國際工業股份有限公司",
+      "信邦電子股份有限公司",
+      "哈伯精密股份有限公司",
+      "健椿工業股份有限公司",
+      "國帥工業股份有限公司",
+      "晨州塑膠工業股份有限公司",
+      "富田電機股份有限公司",
+      "墨達思精密工業股份有限公司",
+      "鋐光實業股份有限公司",
+      "靄崴科技股份有限公司"
+    ],
+    "schedule_type": "日間企業實習，週五公假返校",
+    "eligibility_type": "開放所有高中職生報名",
+    "company_industry": "智慧製造業",
+    "exam_criteria": "面試×60%＋書面審查×40%",
+    "required_departments": [
+      "AI科技",
+      "製造"
+    ]
   },
   {
     "school_id": "114",

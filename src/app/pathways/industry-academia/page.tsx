@@ -93,6 +93,17 @@ export default function IndustryAcademiaPage() {
 
   const selectedPrograms = programsWithBrochure.filter(p => selectedForCompare.includes(p.pid))
 
+  const getBrochureViewerUrl = (url: string) => {
+    if (!url) return ''
+    // NCUT uses their web portal, open directly
+    if (url.includes('industry.ncut.edu.tw')) return url
+    // For PDFs that force download, use Google Docs Viewer
+    if (url.endsWith('.pdf') || url.includes('.pdf')) {
+      return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`
+    }
+    return url
+  }
+
   // 從 remarks 提取科系限制
   const extractRequiredDepartments = (remarks: string): string[] | null => {
     if (!remarks) return null
@@ -309,9 +320,9 @@ export default function IndustryAcademiaPage() {
                           </a>
                         )}
                         {brochureUrl && (
-                          <a href={`${brochureUrl}#toolbar=0`} target="_blank" rel="noopener noreferrer"
+                          <a href={getBrochureViewerUrl(brochureUrl)} target="_blank" rel="noopener noreferrer"
                             className="px-3 py-1.5 text-xs font-medium bg-red-50 text-red-600 rounded-lg border border-red-200 hover:bg-red-100 transition">
-                            PDF 簡章
+                            查看簡章
                           </a>
                         )}
                       </div>
@@ -401,7 +412,7 @@ export default function IndustryAcademiaPage() {
                               </td>
                               <td className="p-3 text-center">
                                 {p.brochure_url ? (
-                                  <a href={`${p.brochure_url}#toolbar=0`} target="_blank" rel="noopener noreferrer" className="inline-block px-2 py-1 text-xs bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition font-medium">
+                                  <a href={getBrochureViewerUrl(p.brochure_url)} target="_blank" rel="noopener noreferrer" className="inline-block px-2 py-1 text-xs bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition font-medium">
                                     查看簡章
                                   </a>
                                 ) : (
@@ -524,11 +535,27 @@ export default function IndustryAcademiaPage() {
                         ))}
                       </tr>
                       <tr className="border-b">
-                        <td className="p-3 font-medium text-gray-900 sticky left-0 bg-white z-10">招生簡章</td>
+                        <td className="p-3 font-medium text-gray-900 sticky left-0 bg-white z-10">考試科目</td>
+                        {selectedPrograms.map(p => (
+                          <td key={p.pid} className="p-3 text-xs text-gray-700">
+                            {p.exam_criteria ? (
+                              <div className="space-y-0.5">
+                                {p.exam_criteria.split('＋').map((item, i) => (
+                                  <div key={i} className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-[11px]">{item.trim()}</div>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="text-gray-400">見簡章</span>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                      <tr className="border-b bg-gray-50">
+                        <td className="p-3 font-medium text-gray-900 sticky left-0 bg-gray-50 z-10">招生簡章</td>
                         {selectedPrograms.map(p => (
                           <td key={p.pid} className="p-3 text-xs">
                             {p.brochure_url ? (
-                              <a href={`${p.brochure_url}#toolbar=0`} target="_blank" rel="noopener noreferrer" className="inline-block px-2 py-1 text-xs bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition font-medium">
+                              <a href={getBrochureViewerUrl(p.brochure_url)} target="_blank" rel="noopener noreferrer" className="inline-block px-2 py-1 text-xs bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition font-medium">
                                 查看簡章
                               </a>
                             ) : (
