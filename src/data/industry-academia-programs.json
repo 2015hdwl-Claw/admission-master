@@ -38,7 +38,7 @@
       "慧國工業股份有限公司"
     ],
     "schedule_type": "週五六上課，其餘天實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "精密機械業",
     "exam_criteria": "資料審查100%"
   },
@@ -70,7 +70,7 @@
       "明昌輪業股份有限公司"
     ],
     "schedule_type": "週五六上課，其餘天實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "精密機械業",
     "exam_criteria": "面試  計分比例 60%",
     "partner_high_schools": "評估核可，始能繼續本計畫之參與，若未能有受僱"
@@ -103,7 +103,7 @@
       "星博電子股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "汽車業",
     "exam_criteria": "面試  計分比例 60%",
     "partner_high_schools": "評估核可，始能繼續本計畫之參與，若未能有受僱"
@@ -130,7 +130,7 @@
       "冷凍空調原理 上下冊，沈志秋編著，全華圖書股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "汽車業",
     "exam_criteria": "筆試 40%、書面審查 30%"
   },
@@ -160,7 +160,7 @@
       "冷凍空調原理 上下冊，沈志秋編著，全華圖書股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "電機空調業",
     "exam_criteria": "筆試 40%、書面審查 30%"
   },
@@ -189,7 +189,7 @@
       "冷凍空調原理 上下冊，沈志秋編著，全華圖書股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "電子製造業",
     "exam_criteria": "筆試 40%、書面審查 30%"
   },
@@ -219,7 +219,7 @@
       "冷凍空調原理 上下冊，沈志秋編著，全華圖書股份有限公司"
     ],
     "schedule_type": "第一年職訓，之後上課+實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "設計業",
     "exam_criteria": "筆試 40%、書面審查 30%"
   },
@@ -661,7 +661,7 @@
       "週二在國立虎尾科技大學"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "以 參與「產業精密機電工程專班」之國立花 蓮高",
+    "eligibility_type": "限合作技高專班學生",
     "company_industry": "汽車業",
     "exam_criteria": "書面審查50%+、面試50%",
     "required_departments": [
@@ -1276,7 +1276,7 @@
       "3. 本系與和泰興業 股份有限公司"
     ],
     "schedule_type": "第1年中彰投分署職訓，第2-4年夜間上課+日間企業實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "精密機械業",
     "exam_criteria": "面試50%+書面審查45%+弱勢證明5%",
     "required_departments": [
@@ -1303,7 +1303,7 @@
       "3. 本系與和泰興業 股份有限公司"
     ],
     "schedule_type": "第1年中彰投分署職訓，第2-4年夜間上課+日間企業實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "電機空調業",
     "exam_criteria": "面試70%+書面審查30%",
     "required_departments": [
@@ -1331,7 +1331,7 @@
       "3. 本系與和泰興業 股份有限公司"
     ],
     "schedule_type": "第1年中彰投分署職訓，第2-4年週五晚+週六上課+日間企業實習",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "電機空調業",
     "exam_criteria": "面試50%+書面審查50%",
     "required_departments": [
@@ -1376,7 +1376,7 @@
       "靄崴科技"
     ],
     "schedule_type": "日間企業實習，週五公假返校上課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "智慧製造業",
     "exam_criteria": "面試60%+書面審查40%",
     "required_departments": [
@@ -1479,7 +1479,7 @@
       "合作廠商：漢來美食股份有限公司"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "商業管理業",
     "partner_high_schools": "端學校為 高雄市中山高級工商職業學校 -餐飲管理科 。",
     "exam_criteria": "書面資料50%+面試50%（低收入戶加分10%）"
@@ -1512,7 +1512,7 @@
       "合作廠商： 全聯實業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "商業管理業",
     "partner_high_schools": "端學校為 國立臺南海事水產職業學校 -商業經營科與電子商務 科、",
     "exam_criteria": "書面資料50%+面試50%（低收入戶加分10%）"
@@ -1542,7 +1542,7 @@
       "合作廠商：長源汽 車股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "汽車業",
     "partner_high_schools": "端學校為 國立白河高級商工職業學校 -汽車科、臺南市私立慈幼高",
     "exam_criteria": "書面資料50%+面試50%（低收入戶加分10%）"
@@ -1581,7 +1581,7 @@
       "□大舜鈑金股份有限公司  □川益科技股份有限公司"
     ],
     "schedule_type": "夜間/進修部上課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "資訊科技業",
     "exam_criteria": "審查 50%；(c) 面試 50%",
     "partner_high_schools": "專班之學生為原則，每班最高以  50 名為限"
@@ -1614,7 +1614,7 @@
       "晶華國際酒店股份有限公司台南分公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試成績佔 60%",
     "partner_high_schools": "端學校為臺南市私立亞洲高級餐旅職業學校餐飲管理科 ；餐旅管理系合作技高端"
@@ -1650,7 +1650,7 @@
       "人杰老四川餐飲管理顧問股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試成績佔 60%",
     "partner_high_schools": "端學校為臺南市私立亞洲高級餐旅職業學校餐飲管理科 ；餐旅管理系合作技高端"
@@ -1689,7 +1689,7 @@
       "禧榕軒大飯店有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試成績佔 60%",
     "partner_high_schools": "端學校為臺南市私立亞洲高級餐旅職業學校餐飲管理科 ；餐旅管理系合作技高端"
@@ -1718,7 +1718,7 @@
       "日月光半導體製造股份有限公司"
     ],
     "schedule_type": "、招生名額       3",
-    "eligibility_type": "凡我國 29歲以下國民，具有下列所述報名資格之一者，得報名本招生。",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "資訊科技業",
     "exam_criteria": "面試成績佔 60%"
   },
@@ -1752,7 +1752,7 @@
       "曼都國際股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "設計業",
     "partner_high_schools": "專班之畢 （結）業生為原則 （惟有特別情形 ，依教育部核定",
     "exam_criteria": "書面資料審查100%"
@@ -1793,7 +1793,7 @@
       "永圓國際美容事業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "設計業",
     "partner_high_schools": "專班之畢 （結）業生為原則 （惟有特別情形 ，依教育部核定",
     "exam_criteria": "書面資料審查100%"
@@ -1862,7 +1862,7 @@
       "悠旅生活事業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
     "partner_high_schools": "專班之畢 （結）業生為原則 （惟有特別情形 ，依教育部核定",
     "exam_criteria": "書面資料審查100%"
@@ -1931,7 +1931,7 @@
       "悠旅生活事業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
     "partner_high_schools": "專班之畢 （結）業生為原則 （惟有特別情形 ，依教育部核定",
     "exam_criteria": "書面資料審查100%"
@@ -1968,7 +1968,7 @@
       "漢來國際飯店股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
     "partner_high_schools": "專班之畢 （結）業生為原則 （惟有特別情形，依教育部核定",
     "exam_criteria": "書面資料審查100%"
@@ -1993,7 +1993,7 @@
     "quota_num": 90,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "精密機械業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2017,7 +2017,7 @@
     "quota_num": 35,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "精密機械業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2041,7 +2041,7 @@
     "quota_num": 50,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "精密機械業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2065,7 +2065,7 @@
     "quota_num": 40,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "電機空調業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2089,7 +2089,7 @@
     "quota_num": 50,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "電子製造業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2113,7 +2113,7 @@
     "quota_num": 33,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2137,7 +2137,7 @@
     "quota_num": 50,
     "companies_clean": [],
     "schedule_type": "修業四年，日間至合作企業實習，夜間於進修部上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試60%+書面審查40%"
   },
@@ -2215,7 +2215,7 @@
     "quota_num": 40,
     "companies_clean": [],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "汽車業",
     "exam_criteria": "資料審查評量項目  \n  a、在校成績60%+資料審查評量項目：  \n  a、在校成績60%"
   },
@@ -2245,7 +2245,7 @@
       "江申工業"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "汽車業",
     "exam_criteria": "資料審查評量項目  \n  a、在校成績60%+資料審查評量項目：  \n  a、在校成績60%"
   },
@@ -2273,7 +2273,7 @@
     "quota_num": 45,
     "companies_clean": [],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "資料審查評量項目  \n  a、在校成績60%+資料審查評量項目：  \n  a、在校成績60%"
   },
@@ -2300,7 +2300,7 @@
     "quota_num": 20,
     "companies_clean": [],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "電子製造業",
     "partner_high_schools": "高中、高職及綜合",
     "exam_criteria": "資料審查60%+面試40%"
@@ -2339,7 +2339,7 @@
       "饗賓餐旅事業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "凡本國之國民，且年滿 15歲以上 29歲以下，並取得以下任一學歷（力）資格者：",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面審查佔 100%"
   },
@@ -2368,7 +2368,7 @@
       "麗的國際股份有限公司"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "凡本國之國民，且年滿 15歲以上 29歲以下，並取得以下任一學歷（力）資格者：",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "設計業",
     "exam_criteria": "書面審查佔 100%"
   },
@@ -2403,7 +2403,7 @@
       "佳峻營造股份有限公司"
     ],
     "schedule_type": "修業六年（含實習），日間至合作企業實習，夜間上課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "建築營造業",
     "exam_criteria": "書面審查成績佔 50%"
   },
@@ -2487,7 +2487,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "66輪調模式：每學年6個月在校上課、6個月在公司實習，2月及8月交換",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "電機空調業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2571,7 +2571,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "半導體業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2655,7 +2655,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "半導體業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2739,7 +2739,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2823,7 +2823,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2874,7 +2874,7 @@
       "半導體產業伴隨最近最夯的 AI議題在台灣快速發酵，日月系統股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -2958,7 +2958,7 @@
       "公司簡介 全家便利商店股份有限公司"
     ],
     "schedule_type": "421模式：每週工作4天、上課2天、休息1天（寒暑假不需到校但需上班）",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "商業管理業",
     "exam_criteria": "書面資料審查50%+廠商面試50%"
   },
@@ -3007,7 +3007,7 @@
       "公司名稱  揚昇育樂事業股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "required_departments": [
       "萬能科"
@@ -3030,7 +3030,7 @@
     "quota_num": 40,
     "companies_clean": [],
     "schedule_type": "每週上課兩天，星期一及星期二上課為原則",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "精密機械業",
     "exam_criteria": "高中歷年成績100分+書面資料審查100分+面試100分（總分300分）"
   },
@@ -3049,7 +3049,7 @@
     "quota_num": 25,
     "companies_clean": [],
     "schedule_type": "每週上課兩天，星期一及星期二上課為原則",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "電機空調業",
     "exam_criteria": "高中歷年成績100分+書面資料審查100分+面試100分（總分300分）"
   },
@@ -3214,7 +3214,7 @@
       "北澤國際餐飲事業有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "推薦函（30% ）、面試（70%",
     "partner_high_schools": "學校 優先錄取。。"
@@ -3247,7 +3247,7 @@
       "橋椿金屬股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "精密機械業",
     "exam_criteria": "推薦函（30% ）、面試（70%",
     "partner_high_schools": "學校 優先錄取。。"
@@ -3299,7 +3299,7 @@
       "公司簡介  橋椿金屬股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "設計業",
     "exam_criteria": "推薦函（30% ）、面試（70%",
     "partner_high_schools": "學校 優先錄取。。"
@@ -3430,7 +3430,7 @@
       "華菱開發股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "以合作高職專 班之學生為原則，每班最高以 50名為限（但有特別",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "商業管理業",
     "exam_criteria": "面試70%+書面審查30%"
   },
@@ -3463,7 +3463,7 @@
       "芙洛麗精品飯店股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面審查70%+面試30%"
   },
@@ -3724,7 +3724,7 @@
       "上立汽車股份有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "凡本國之國民，且年滿 15歲以上 29歲以下，並取得以下任一學歷 （力）資格者：",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "汽車業",
     "exam_criteria": "甄試50%+面試50%"
   },
@@ -3743,7 +3743,7 @@
     "quota_num": 30,
     "companies_clean": [],
     "schedule_type": "採421制：每週工作4天、上課2天、休息1天",
-    "eligibility_type": "凡本國之國民，年滿15歲以上29歲以下，具高級中學以上學歷",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "面試50%+書面審查50%"
   },
@@ -3942,7 +3942,7 @@
       "瓦城泰統股份有限公司"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "書面資料審查成績*40% + 面試*60%",
     "partner_high_schools": "( 致用高中餐飲技術科、中興商工餐飲技術科) 產攜班之學生。"
@@ -3990,7 +3990,7 @@
       "合作企業名稱 振宇五金股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "資訊科技業",
     "exam_criteria": "書面審查成績 10%"
   },
@@ -4016,7 +4016,7 @@
       "訓練地點：南亞科技股份有限公司"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "資訊科技業",
     "exam_criteria": "面試，佔總成績 60%",
     "partner_high_schools": "「產學攜手專班」之應屆畢業"
@@ -4075,7 +4075,7 @@
       "順益汽車股份有限公司   龍騰國際汽車股份有限公司"
     ],
     "schedule_type": "每週特定天數上課",
-    "eligibility_type": "開放所有高中職生報名",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "汽車業",
     "exam_criteria": "面試，佔總成績 60%",
     "partner_high_schools": "「產學攜手專班」之應屆畢業"
@@ -4103,7 +4103,7 @@
       "回醒吾科技大學"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "凡具有下列各項學歷 (力)之一者，不論是否 有參加「 四技二專統一入學測驗 」均可",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "設計業",
     "exam_criteria": "計分比例： (1)面試  (70%) (2) 資料審核  (30%)，資料審核項目包含"
   },
@@ -4130,7 +4130,7 @@
       "回醒吾科技大學"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "凡具有下列各項學歷 (力)之一者，不論是否 有參加「 四技二專統一入學測驗 」均可",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "商業管理業",
     "exam_criteria": "計分比例： (1)面試  (70%) (2) 資料審核  (30%)，資料審核項目包含"
   },
@@ -4157,7 +4157,7 @@
       "回醒吾科技大學"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "凡具有下列各項學歷 (力)之一者，不論是否 有參加「 四技二專統一入學測驗 」均可",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "商業管理業",
     "exam_criteria": "計分比例： (1)面試  (70%) (2) 資料審核  (30%)，資料審核項目包含"
   },
@@ -4178,11 +4178,36 @@
     "region": "新北",
     "industry": "餐旅服務業",
     "quota_num": 19,
-    "companies_clean": [],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "具下列學歷（力）資格條件之一者，始具報名資格：",
+    "companies_clean": [
+      "台北萬豪酒店",
+      "瓦城_桃園三越站前店",
+      "瓦城_桃園環球A8店",
+      "瓦城_樹林秀泰店",
+      "非常泰_板橋大遠百店",
+      "時時香_樹林店",
+      "爭鮮迴轉壽司_三重愛買店",
+      "爭鮮迴轉壽司_長庚店",
+      "爭鮮迴轉壽司_林口店",
+      "爭鮮PLUS_善導寺店",
+      "藍屋_板橋大遠百新站店",
+      "古拉爵_板橋大遠百新站店",
+      "古拉爵_家樂福重新店",
+      "涮乃葉_遠百中山店",
+      "涮乃葉_新莊思源店",
+      "涮乃葉_桃園家樂福經國店",
+      "涮乃葉_中壢中山東路店",
+      "武藏野珈琲_新莊思源店",
+      "橫濱牛排_中壢中山東路店",
+      "西堤_板橋中山店",
+      "青花驕_板橋縣民大道店",
+      "陶板屋_樹林中山店",
+      "安心食品(摩斯漢堡)_土城永寧店",
+      "安心食品(摩斯漢堡)_板橋新埔店"
+    ],
+    "schedule_type": "大學四年期間，每週四天上班，二天上課",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
-    "exam_criteria": "面試50%+書面審查50%"
+    "exam_criteria": "在校學業平均成績40%+學習知能與綜合表現60%"
   },
   {
     "school_id": "246",
@@ -4201,11 +4226,15 @@
     "region": "新北",
     "industry": "餐旅服務業",
     "quota_num": 37,
-    "companies_clean": [],
-    "schedule_type": "依學校排課",
-    "eligibility_type": "具下列學歷（力）資格條件之一者，始具報名資格：",
+    "companies_clean": [
+      "台北新板希爾頓酒店",
+      "六福村主題遊樂園",
+      "桃園大溪笠復威斯汀度假酒店"
+    ],
+    "schedule_type": "大學四年期間，每週四天上班，二天上課",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "餐旅觀光業",
-    "exam_criteria": "面試50%+書面審查50%"
+    "exam_criteria": "在校學業平均成績40%+學習知能與綜合表現60%"
   },
   {
     "school_id": "250",
@@ -4240,7 +4269,7 @@
       "太平洋電線電纜股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "半導體業",
     "exam_criteria": "第二階段：面試80%+事業單位及學校合辦之面試(學校佔面試30%"
   },
@@ -4280,7 +4309,7 @@
       "印象模型有限公司"
     ],
     "schedule_type": "日間+夜間混合",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "汽車業",
     "exam_criteria": "第二階段：面試80%+事業單位及學校合辦之面試(學校佔面試30%"
   },
@@ -4317,7 +4346,7 @@
       "邁世國際瑞星股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "汽車業",
     "exam_criteria": "第二階段：面試80%+事業單位及學校合辦之面試(學校佔面試30%"
   },
@@ -4352,7 +4381,7 @@
       "撼訊科技股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "商業管理業",
     "exam_criteria": "第二階段：面試80%+事業單位及學校合辦之面試(學校佔面試30%"
   },
@@ -4385,7 +4414,7 @@
       "流亞科技股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "教育部立案之高級職業學校以上相關科、組、學程畢業",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "電子製造業",
     "exam_criteria": "第二階段：面試80%+事業單位及學校合辦之面試(學校佔面試30%"
   },
@@ -4425,7 +4454,7 @@
       "老爺大酒店股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "餐旅觀光業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4487,7 +4516,7 @@
       "E002 常榮機械股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "設計業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4549,7 +4578,7 @@
       "E002 常榮機械股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "設計業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4579,7 +4608,7 @@
       "義美食品股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "電子製造業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4610,7 +4639,7 @@
       "和運租車股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "汽車業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4650,7 +4679,7 @@
       "奧迪北區股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "汽車業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4679,7 +4708,7 @@
       "常榮機械股份有限公司"
     ],
     "schedule_type": "每週工作4天、上課2天、休息1天",
-    "eligibility_type": "以招收合作高職之學生為原則，如有缺額得經教育部核定開放",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "精密機械業",
     "exam_criteria": "加分20%+書面審查30%+面試50%"
   },
@@ -4774,7 +4803,7 @@
     "quota_num": 40,
     "companies_clean": [],
     "schedule_type": "修業四年，日間企業實習，夜間上課",
-    "eligibility_type": "具高級職業學校以上相關科系畢業資格",
+    "eligibility_type": "高中職相關科系畢業",
     "company_industry": "電機空調業",
     "exam_criteria": "面試50%+書面審查50%"
   },
@@ -4830,7 +4859,7 @@
       "力勁機械股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "凡我國之國民，具下列資個之一，且年滿 15歲以上29歲以下(民國86年1月1日以後出",
+    "eligibility_type": "高中職畢業可報名",
     "company_industry": "鋼鐵金屬業",
     "exam_criteria": "書面審查，佔總成績  35%"
   },
@@ -4864,7 +4893,7 @@
       "南仁湖育樂股份有限公司"
     ],
     "schedule_type": "依學校排課",
-    "eligibility_type": "合作技高專班學生優先，缺額開放他校",
+    "eligibility_type": "合作技高優先，缺額開放他校",
     "company_industry": "電子製造業",
     "exam_criteria": "在校表現50%+打工/實習經驗30%+口語表達20%"
   }
